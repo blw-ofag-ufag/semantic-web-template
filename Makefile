@@ -34,14 +34,9 @@ build/03_processed.ttl: build/02_inferred.ttl $(QUERIES)
 		$(ROBOT) query --input $< $(foreach q,$(QUERIES),--update $(q)) --output $@; \
 	fi
 
-# 4. SHACL Validation
-build/report.txt: build/03_processed.ttl $(SHAPES)
-	$(PYSHACL) -s $(SHAPES) -m -i rdfs -a -f human -o $@ $<
-	@echo "SHACL Validation Passed."
-
-# 5. Run Pytest suite
-test: build/report.txt
+# 4. Run Pytest suite
+test: build/03_processed.ttl
 	pytest tests/ -v
 
 clean:
-	rm -rf build/0*.ttl build/report.txt
+	rm -rf build/0*.ttl

@@ -10,3 +10,5 @@
 :Peter a :Person ;
     :name "Peter" ;
     :child :Hendrik, :Sara .
+
+:Sara :name "Sara" .

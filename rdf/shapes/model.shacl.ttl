@@ -8,6 +8,12 @@
 
 :PersonShape a sh:NodeShape ;
     sh:targetClass :Person ;
+    sh:property [
+        sh:name "Name" ;
+        sh:path :name ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+    ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:message "A person must not be their own ancestor." ;

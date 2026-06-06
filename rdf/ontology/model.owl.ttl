@@ -14,3 +14,11 @@
 :child a owl:ObjectProperty .
 
 :ancestor a owl:ObjectProperty, owl:TransitiveProperty .
+
+:descendent owl:inverseOf :ancestor .
+
+:name a owl:DatatypeProperty ;
+    rdfs:domain :Person .
+
+:birthDate a owl:DatatypeProperty ;
+    rdfs:domain :Person .

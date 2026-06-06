@@ -3,12 +3,14 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
-:Anna a :Person ;
-    :name "Anna" ;
-    :child :Peter .
+:Anna :name "Anna" ;
+    :child :Peter ;
+    :birthDate "1956-09-27"^^xsd:date .
 
-:Peter a :Person ;
-    :name "Peter" ;
-    :child :Hendrik, :Sara .
+:Peter :name "Peter" ;
+    :child :Hendrik, :Sara, :Bob .
 
 :Sara :name "Sara" .
+
+:Hendrik :name "Hendrik" ;
+    :birthDate "1999-03-19"^^xsd:date .

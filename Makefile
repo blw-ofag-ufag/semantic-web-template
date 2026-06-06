@@ -44,4 +44,4 @@ test: build/report.txt
 	pytest tests/ -v
 
 clean:
-	rm -rf build/0*.ttl build/report_shacl.txt
+	rm -rf build/0*.ttl build/report.txt

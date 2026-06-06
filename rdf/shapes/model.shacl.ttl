@@ -1,0 +1,19 @@
+@prefix : <http://example.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+: a owl:Ontology ;
+    sh:declare [ sh:prefix "" ; sh:namespace "http://example.org/"^^xsd:anyURI ] .
+
+:PersonShape a sh:NodeShape ;
+    sh:targetClass :Person ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A person must not be their own ancestor." ;
+        sh:prefixes : ;
+        sh:select """
+            SELECT $this
+            WHERE { $this :ancestor $this . }
+        """
+    ] .

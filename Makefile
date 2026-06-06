@@ -1,9 +1,9 @@
 # Variables
 ROBOT := java -jar build/robot.jar
 PYSHACL := pyshacl
-ONTO := ontology/model.owl.ttl
-DATA := data/people.ttl
-SHAPES := shapes/model.shacl.ttl
+ONTO := rdf/ontology/model.owl.ttl
+DATA := rdf/data/people.ttl
+SHAPES := rdf/shapes/model.shacl.ttl
 QUERIES := $(wildcard queries/*.rq)
 
 # Default target

@@ -1,71 +1,73 @@
 import pytest
 import warnings
-from pyshacl import validate
+from collections import defaultdict
 from rdflib import Graph, Namespace
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
 
-def test_shacl_validation(final_graph):
-    """
-    Validates the data graph against SHACL shapes and translates 
-    sh:severity into native pytest warnings and failures.
-    """
-    # Load the SHACL shapes
-    shapes_graph = Graph().parse("rdf/shapes/model.shacl.ttl", format="turtle")
+@pytest.fixture(scope="session")
+def shacl_report():
+    """Pytest fixture to load the pre-generated SHACL report exactly once."""
+    g = Graph()
+    try:
+        g.parse("build/04-shacl-report.ttl", format="turtle")
+    except Exception as e:
+        pytest.fail(f"Could not load SHACL report. Did PySHACL run? Error: {e}")
+    return g
 
-    # Run PySHACL programmatically
-    # advanced=True is required for SHACL-SPARQL constraints
-    conforms, results_graph, results_text = validate(
-        data_graph=final_graph,
-        shacl_graph=shapes_graph,
-        meta_shacl=True,
-        inference="rdfs",
-        advanced=True, 
-        debug=False
-    )
-
-    # If it fully conforms, the test passes immediately
-    if conforms:
-        assert True
-        return
-
-    # If it does not conform, parse the results graph by severity
-    violations = []
-    shacl_warnings = []
-
-    # Query the generated report graph
+def test_shacl_conformance(shacl_report):
+    """Evaluates SHACL report natively using pytest warnings and assertions."""
     query = """
         PREFIX sh: <http://www.w3.org/ns/shacl#>
-        SELECT ?focusNode ?severity ?message
+        SELECT ?focusNode ?severity ?message ?sourceShape
         WHERE {
             ?report a sh:ValidationReport ;
                     sh:result ?result .
             ?result sh:focusNode ?focusNode ;
                     sh:resultSeverity ?severity .
             OPTIONAL { ?result sh:resultMessage ?message . }
+            OPTIONAL { ?result sh:sourceShape ?sourceShape . }
         }
     """
     
-    for row in results_graph.query(query):
-        # Clean up the node URI for readability
+    infos = defaultdict(list)
+    warnings_dict = defaultdict(list)
+    errors = defaultdict(list)
+
+    for row in shacl_report.query(query):
         node = row.focusNode.split("#")[-1] if row.focusNode else "Unknown Node"
-        severity = row.severity
-        message = row.message or "No sh:message provided in shape."
+        shape = row.sourceShape.split("#")[-1] if row.sourceShape else "Unknown Shape"
+        message = row.message or "No message provided."
         
-        error_string = f"Node: ex:{node} | Message: {message}"
+        category = f"[{shape}] {message}"
         
-        if severity == SH.Violation:
-            violations.append(error_string)
-        elif severity == SH.Warning or severity == SH.Info:
-            shacl_warnings.append(error_string)
+        if row.severity == SH.Violation:
+            errors[category].append(node)
+        elif row.severity == SH.Warning:
+            warnings_dict[category].append(node)
+        elif row.severity == SH.Info:
+            infos[category].append(node)
 
-    # 1. Translate sh:Warning to Pytest Warnings
-    for w in shacl_warnings:
-        warnings.warn(f"SHACL Warning: {w}", UserWarning)
+    def format_summary(category, nodes, limit=3):
+        """Helper to truncate the list of nodes for Pytest output."""
+        displayed = ", ".join(f"ex:{n}" for n in nodes[:limit])
+        if len(nodes) > limit:
+            displayed += f", and {len(nodes) - limit} more"
+        return f"{category} -> Nodes: {displayed}"
 
-    # 2. Translate sh:Violation to Pytest Failures
-    if violations:
-        formatted_violations = "\n".join(f"  - {v}" for v in violations)
+    # 1. Feed sh:Info and sh:Warning into Pytest's native warnings summary
+    for cat, nodes in infos.items():
+        warnings.warn(f"SHACL INFO: {format_summary(cat, nodes)}", UserWarning)
+        
+    for cat, nodes in warnings_dict.items():
+        warnings.warn(f"SHACL WARNING: {format_summary(cat, nodes)}", UserWarning)
+
+    # 2. Trigger a native Pytest failure for sh:Violations
+    if errors:
+        error_details = [format_summary(cat, nodes) for cat, nodes in errors.items()]
+        total_errors = sum(len(v) for v in errors.values())
         pytest.fail(
-            f"SHACL Validation failed with {len(violations)} Violation(s):\n{formatted_violations}"
+            f"SHACL Validation failed with {total_errors} violation(s):\n" + 
+            "\n".join(f"  - {err}" for err in error_details),
+            pytrace=False
         )

@@ -16,14 +16,16 @@
         sh:path :name ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:severity sh:Warning ;
-        sh:message "Every person should have a name. Consider adding it." ;
+        sh:message "Every person must have a name. Consider adding it." ;
     ] ,
     [
         sh:name "Birth date" ;
         sh:path :birthDate ;
         sh:datatype xsd:date ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Every should have a birthday. Consider adding it." ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
@@ -32,5 +34,36 @@
         sh:select """
             SELECT $this
             WHERE { $this :ancestor $this . }
+        """
+    ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Parents must be at least 12 years older than their children." ;
+        sh:prefixes : ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this :child ?child ;
+                    :birthDate ?parentBirthDate .
+                ?child :birthDate ?childBirthDate .
+                FILTER (
+                    YEAR(?childBirthDate) - YEAR(?parentBirthDate) < 12
+                    && ?childBirthDate > ?parentBirthDate
+                )
+            }
+        """
+    ]  ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Parents can't be born before their children." ;
+        sh:prefixes : ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this :child ?child ;
+                    :birthDate ?parentBirthDate .
+                ?child :birthDate ?childBirthDate .
+                FILTER ( ?childBirthDate > ?parentBirthDate )
+            }
         """
     ] .

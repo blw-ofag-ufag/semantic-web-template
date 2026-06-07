@@ -164,7 +164,7 @@
         :P056 ;
     :name "Albert" .
 
-:P014 :birthDate "1946-11-30"^^xsd:date ;
+:P014 :birthDate "1936-11-30"^^xsd:date ;
     :child :P041,
         :P042 ;
     :name "Otto" .

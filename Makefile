@@ -4,7 +4,7 @@ PYSHACL := pyshacl
 ONTO := rdf/ontology/model.owl.ttl
 DATA := rdf/data/people.ttl
 SHAPES := rdf/shapes/model.shacl.ttl
-QUERIES := $(wildcard queries/*.rq)
+QUERIES := $(wildcard src/sparql/*.rq)
 
 # Default target
 all: test
@@ -38,6 +38,7 @@ build/03-processed.ttl: build/02-inferred.ttl $(QUERIES)
 		echo "Applying queries: $(QUERIES)"; \
 		$(ROBOT) query --input $< $(foreach q,$(QUERIES),--update $(q)) --output $@; \
 	fi
+	python src/python/turtle-serializer.py input build/03-processed.ttl output build/03-processed.ttl
 
 # 5. SHACL validation
 build/04-shacl-report.ttl: build/03-processed.ttl $(SHAPES)

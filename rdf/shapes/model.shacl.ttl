@@ -89,7 +89,7 @@
     ],
     [
         a sh:SPARQLConstraint ;
-        sh:message "Parents can't be born before their children." ;
+        sh:message "Parents can't be born after their children." ;
         sh:prefixes : ;
         sh:select """
             SELECT $this
@@ -97,7 +97,7 @@
                 $this :child ?child ;
                     :birthDate ?parentBirthDate .
                 ?child :birthDate ?childBirthDate .
-                FILTER ( ?childBirthDate < ?parentBirthDate )
+                FILTER ( ?childBirthDate <= ?parentBirthDate )
             }
         """
     ] .

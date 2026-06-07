@@ -97,7 +97,7 @@
                 $this :child ?child ;
                     :birthDate ?parentBirthDate .
                 ?child :birthDate ?childBirthDate .
-                FILTER ( ?childBirthDate > ?parentBirthDate )
+                FILTER ( ?childBirthDate < ?parentBirthDate )
             }
         """
     ] .

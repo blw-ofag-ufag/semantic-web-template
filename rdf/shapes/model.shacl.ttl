@@ -50,7 +50,7 @@
         sh:order 3 ;
         sh:name "Parent"@en ;
         sh:path :parent ;
-        sh:node :PersonShape ;
+        sh:class :Person ;
         sh:minCount 0 ;
         sh:maxCount 2 ;
         sh:message "Every person has exactly and at most two parents." ;
@@ -59,7 +59,7 @@
         sh:order 4 ;
         sh:name "Child"@en ;
         sh:path :child ;
-        sh:node :PersonShape ;
+        sh:class :Person ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;

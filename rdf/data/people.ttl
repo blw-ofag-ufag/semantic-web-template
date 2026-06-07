@@ -8,8 +8,7 @@
     :name "Arthur" .
 
 :P002 :birthDate "1922-04-20"^^xsd:date ;
-    :child :Anna,
-        :P011,
+    :child :P011,
         :P012,
         :P013 ;
     :name "Beatrice" .

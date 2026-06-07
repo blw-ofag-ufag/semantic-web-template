@@ -1,7 +1,7 @@
 @prefix : <http://example.org/> .
-@prefix adms: <https://www.w3.org/ns/adms#> .
+@prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix dcat: <https://www.w3.org/TR/vocab-dcat/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix doap: <http://usefulinc.com/ns/doap#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -44,7 +44,7 @@
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:severity sh:Warning ;
-        sh:message "Every should have a birthday. Consider adding it." ;
+        sh:message "Every person should have a birthday. Consider adding it." ;
     ],
     [
         sh:order 3 ;

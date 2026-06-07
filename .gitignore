@@ -3,3 +3,5 @@ test.*
 /venv/
 /build/
 **/__pycache__/**
+/.quarto/
+**/*.quarto_ipynb

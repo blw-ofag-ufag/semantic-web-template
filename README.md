@@ -25,7 +25,7 @@
     make setup
     ```
 
-3. Run the build process
+4. Run the build process
 
     ``` sh
     make

@@ -1,0 +1,23 @@
+project:
+  output-dir: build/docs/
+  type: website
+  render:
+    - docs/index.qmd
+
+website:
+  repo-url: https://github.com/blw-ofag-ufag/semantic-web-project-template
+  repo-actions: [source]
+
+bibliography: docs/references.bib
+
+format:
+  html:
+    toc: true
+    number-sections: true
+  gfm: 
+    toc: true
+    number-sections: true
+  docx:
+    toc: true
+    reference-doc: https://s.zazuko.com/MHXTkQ
+  typst: default

@@ -16,21 +16,21 @@ setup:
 	pip install -r requirements.txt
 
 # 1. Check syntax of all turtle files first
-build/00-syntax-ok: $(DATA) $(ONTO) $(SHAPES)
+build/rdf/00-syntax-ok: $(DATA) $(ONTO) $(SHAPES)
 	mkdir -p build
 	pytest tests/test_syntax.py -v
 	touch $@
 
 # 2. Merge ontology and data
-build/01-merged.ttl: build/00-syntax-ok $(DATA) $(ONTO)
+build/rdf/01-merged.ttl: build/rdf/00-syntax-ok $(DATA) $(ONTO)
 	$(ROBOT) merge --input $(ONTO) --input $(DATA) --output $@
 
 # 3. Inference using HermiT
-build/02-inferred.ttl: build/01-merged.ttl
+build/rdf/02-inferred.ttl: build/rdf/01-merged.ttl
 	$(ROBOT) reason --input $< --reasoner HermiT --axiom-generators "SubClass ClassAssertion PropertyAssertion" --output $@
 
 # 4. Model-driven processing via SPARQL
-build/03-processed.ttl: build/02-inferred.ttl $(QUERIES)
+build/rdf/03-processed.ttl: build/rdf/02-inferred.ttl $(QUERIES)
 	@if [ -z "$(QUERIES)" ]; then \
 		echo "No queries found. Passing inferred graph directly."; \
 		cp $< $@; \
@@ -38,15 +38,19 @@ build/03-processed.ttl: build/02-inferred.ttl $(QUERIES)
 		echo "Applying queries: $(QUERIES)"; \
 		$(ROBOT) query --input $< $(foreach q,$(QUERIES),--update $(q)) --output $@; \
 	fi
-	python src/python/turtle-serializer.py input build/03-processed.ttl output build/03-processed.ttl
+	python src/python/turtle-serializer.py input build/rdf/03-processed.ttl output build/rdf/03-processed.ttl
 
 # 5. SHACL validation
-build/04-shacl-report.ttl: build/03-processed.ttl $(SHAPES)
+build/rdf/04-shacl-report.ttl: build/rdf/03-processed.ttl $(SHAPES)
 	$(PYSHACL) -s $(SHAPES) -m -i rdfs -a -f turtle -o $@ $< || true
 
 # 6. Run full pytest suite
-test: build/04-shacl-report.ttl
+test: build/rdf/04-shacl-report.ttl
 	pytest tests/ -v
 
+# 7. Build quarto documentation
+build/rdf/05-quarto-doc-ok: build/rdf/04-shacl-report.ttl
+	quarto render
+
 clean:
-	rm -rf build/0*.ttl
+	rm -rf build/rdf/0*.ttl

@@ -1,0 +1,8 @@
+---
+title: Test the docs
+abstract: This is just some dummy file. It's used to test the pipeline.
+date: today
+date-format: long
+---
+
+This repo is supposed to harmonize pipelines for semantic web projects. @berners2023semantic envisioned the semantic web as a internet of data compared to an internet of documents.

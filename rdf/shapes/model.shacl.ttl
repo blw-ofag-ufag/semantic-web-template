@@ -17,7 +17,7 @@
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "Every person must have a name. Consider adding it." ;
-    ] ,
+    ],
     [
         sh:name "Birth date" ;
         sh:path :birthDate ;
@@ -35,8 +35,8 @@
             SELECT $this
             WHERE { $this :ancestor $this . }
         """
-    ] ;
-    sh:sparql [
+    ],
+    [
         a sh:SPARQLConstraint ;
         sh:message "Parents must be at least 12 years older than their children." ;
         sh:prefixes : ;
@@ -52,8 +52,8 @@
                 )
             }
         """
-    ]  ;
-    sh:sparql [
+    ],
+    [
         a sh:SPARQLConstraint ;
         sh:message "Parents can't be born before their children." ;
         sh:prefixes : ;

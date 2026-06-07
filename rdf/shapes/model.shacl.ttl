@@ -1,31 +1,65 @@
 @prefix : <http://example.org/> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix adms: <https://www.w3.org/ns/adms#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dcat: <https://www.w3.org/TR/vocab-dcat/> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 : a owl:Ontology ;
-    sh:declare [ sh:prefix "" ; sh:namespace "http://example.org/"^^xsd:anyURI ] .
+    rdfs:label "A dummy data model for people and their kids"@en ;
+    rdfs:comment "This SHACL data model describes how a *person* in the dummy dataset is constructed and provides rules with it."@en ;
+    sh:declare [ sh:prefix "" ; sh:namespace "http://example.org/"^^xsd:anyURI ] ;
+    dcat:distribution [
+        dcterms:format "PDF" ;
+        dcat:downloadURL :documentation ;
+    ] .
 
 :PersonShape a sh:NodeShape ;
+    rdfs:label "Person"@en ;
+    rdfs:comment "Any person present in the given dataset."@en ;
     sh:targetClass :Person ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type :child :parent :ancestor :descendent ) ;
     sh:property [
-        sh:name "Name" ;
+        sh:order 1 ;
+        sh:name "Name"@en ;
         sh:path :name ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "Every person must have a name. Consider adding it." ;
     ],
     [
-        sh:name "Birth date" ;
+        sh:order 2 ;
+        sh:name "Birth date"@en ;
         sh:path :birthDate ;
         sh:datatype xsd:date ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:severity sh:Warning ;
         sh:message "Every should have a birthday. Consider adding it." ;
+    ],
+    [
+        sh:order 3 ;
+        sh:name "Parent"@en ;
+        sh:path :parent ;
+        sh:node :PersonShape ;
+        sh:minCount 0 ;
+        sh:maxCount 2 ;
+        sh:message "Every person has exactly and at most two parents." ;
+    ],
+    [
+        sh:order 4 ;
+        sh:name "Child"@en ;
+        sh:path :child ;
+        sh:node :PersonShape ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;

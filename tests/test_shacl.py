@@ -10,7 +10,7 @@ def shacl_report():
     """Pytest fixture to load the pre-generated SHACL report exactly once."""
     g = Graph()
     try:
-        g.parse("build/04-shacl-report.ttl", format="turtle")
+        g.parse("build/rdf/04-shacl-report.ttl", format="turtle")
     except Exception as e:
         pytest.fail(f"Could not load SHACL report. Did PySHACL run? Error: {e}")
     return g

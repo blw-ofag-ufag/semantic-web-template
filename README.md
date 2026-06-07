@@ -32,3 +32,9 @@
     ```
 
     Make sure you pass all tests with `pytest`.
+
+5. Build the documentation
+
+    ``` sh
+    quarto render
+    ```

@@ -17,7 +17,7 @@ setup:
 
 # 1. Check syntax of all turtle files first
 build/rdf/00-syntax-ok: $(DATA) $(ONTO) $(SHAPES)
-	mkdir -p build
+	mkdir -p build/rdf
 	pytest tests/test_syntax.py -v
 	touch $@
 
@@ -47,10 +47,6 @@ build/rdf/04-shacl-report.ttl: build/rdf/03-processed.ttl $(SHAPES)
 # 6. Run full pytest suite
 test: build/rdf/04-shacl-report.ttl
 	pytest tests/ -v
-
-# 7. Build quarto documentation
-build/rdf/05-quarto-doc-ok: build/rdf/04-shacl-report.ttl
-	quarto render
 
 clean:
 	rm -rf build/rdf/0*.ttl

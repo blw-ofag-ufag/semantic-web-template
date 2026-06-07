@@ -20,7 +20,7 @@ Once your work is ready:
 1. Open a draft PR against the `main` branch.
 2. Summarize your changes clearly in the description.
 3. Link the PR to the issue it resolves (e.g. `Closes #42`).
-4. Ensure there are no merge conflicts and all tests are passed before you change to status to standard pull request.
+4. Ensure there are no merge conflicts and all tests are passed before you change the status to a standard pull request.
 
 ## Resource naming convention
 
@@ -31,11 +31,11 @@ Aligning with standard Semantic Web conventions, we enforce the following casing
 
 Ensure identifiers are semantically meaningful and descriptive to facilitate readability and improve [DX](https://en.wikipedia.org/wiki/Developer_experience).
 
-For individuals, use a sub-namespace. For example, if the project namespace is <https://example.org/>, use <https://example.org/person/> for all people:
+For individuals, use a sub-namespace. For example, if the project namespace is <http://example.org/>, use <http://example.org/person/> for all people:
 
 ``` ttl
-@prefix : <https://example.org/> .
-@prefix person: <https://example.org/person/> .
+@prefix : <http://example.org/> .
+@prefix person: <http://example.org/person/> .
 
 person:1 a :Person .
 person:2 a :Person .

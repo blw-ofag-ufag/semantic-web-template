@@ -1,16 +1,452 @@
 @prefix : <http://example.org/> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
-:Anna :name "Anna" ;
-    :child :Peter ;
-    :birthDate "1956-09-27"^^xsd:date .
+:P001 :birthDate "1920-01-15"^^xsd:date ;
+    :child :P011,
+        :P012,
+        :P013 ;
+    :name "Arthur" .
 
-:Peter :name "Peter" ;
-    :child :Hendrik, :Sara, :Bob .
+:P002 :birthDate "1922-04-20"^^xsd:date ;
+    :child :Anna,
+        :P011,
+        :P012,
+        :P013 ;
+    :name "Beatrice" .
 
-:Sara :name "Sara" .
+:P003 :birthDate "1919-08-11"^^xsd:date ;
+    :child :P014,
+        :P015 ;
+    :name "Charles" .
 
-:Hendrik :name "Hendrik" ;
-    :birthDate "1999-03-19"^^xsd:date .
+:P004 :birthDate "1921-12-05"^^xsd:date ;
+    :child :P014,
+        :P015 ;
+    :name "Dorothea" .
+
+:P005 :birthDate "1925-03-30"^^xsd:date ;
+    :child :P016,
+        :P017,
+        :P018,
+        :P019 ;
+    :name "Eduard" .
+
+:P006 :birthDate "1928-07-22"^^xsd:date ;
+    :child :P016,
+        :P017,
+        :P018,
+        :P019 ;
+    :name "Frieda" .
+
+:P007 :birthDate "1918-11-14"^^xsd:date ;
+    :child :P020,
+        :P021 ;
+    :name "Gustav" .
+
+:P008 :birthDate "1923-02-28"^^xsd:date ;
+    :child :P020,
+        :P021 ;
+    :name "Helene" .
+
+:P009 :birthDate "1924-09-09"^^xsd:date ;
+    :child :P022,
+        :P023,
+        :P024,
+        :P025 ;
+    :name "Ignaz" .
+
+:P010 :birthDate "1926-10-18"^^xsd:date ;
+    :child :P022,
+        :P023,
+        :P024,
+        :P025 ;
+    :name "Johanna" .
+
+:P026 :birthDate "1947-06-15"^^xsd:date ;
+    :child :P036,
+        :P037 ;
+    :name "Laura" .
+
+:P027 :birthDate "1950-01-22"^^xsd:date ;
+    :child :P038,
+        :P039,
+        :P040 ;
+    :name "Nina" .
+
+:P028 :birthDate "1948-12-10"^^xsd:date ;
+    :child :P041,
+        :P042 ;
+    :name "Paula" .
+
+:P029 :birthDate "1955-08-05"^^xsd:date ;
+    :child :P043,
+        :P044,
+        :P045,
+        :P046 ;
+    :name "Rosa" .
+
+:P030 :birthDate "1960-04-12"^^xsd:date ;
+    :child :P047 ;
+    :name "Tina" .
+
+:P031 :birthDate "1951-11-19"^^xsd:date ;
+    :child :P048,
+        :P049 ;
+    :name "Vera" .
+
+:P032 :birthDate "1953-05-25"^^xsd:date ;
+    :child :P050,
+        :P051,
+        :P052 ;
+    :name "Xenia" .
+
+:P033 :birthDate "1956-02-29"^^xsd:date ;
+    :child :P053,
+        :P054 ;
+    :name "Zoe" .
+
+:P034 :birthDate "1957-03-03"^^xsd:date ;
+    :child :P057,
+        :P058,
+        :P059 ;
+    :name "Doris" .
+
+:P035 :birthDate "1955-10-15"^^xsd:date ;
+    :child :P060,
+        :P061,
+        :P062 ;
+    :name "Flora" .
+
+:P065 :birthDate "1973-05-15"^^xsd:date ;
+    :child :P071,
+        :P072 ;
+    :name "Kevin" .
+
+:P066 :birthDate "1974-11-30"^^xsd:date ;
+    :child :P073,
+        :P074,
+        :P075 ;
+    :name "Martin" .
+
+:P067 :birthDate "1977-07-07"^^xsd:date ;
+    :child :P076 ;
+    :name "Oliver" .
+
+:P068 :birthDate "1979-12-12"^^xsd:date ;
+    :child :P077,
+        :P078 ;
+    :name "Reto" .
+
+:P069 :birthDate "1983-06-18"^^xsd:date ;
+    :child :P079,
+        :P080,
+        :P081,
+        :P082 ;
+    :name "Thomas" .
+
+:P070 :birthDate "1980-04-04"^^xsd:date ;
+    :child :P083,
+        :P084 ;
+    :name "Viktor" .
+
+:P011 :birthDate "1945-05-12"^^xsd:date ;
+    :child :P036,
+        :P037 ;
+    :name "Karl" .
+
+:P012 :birthDate "1948-02-08"^^xsd:date ;
+    :child :P038,
+        :P039,
+        :P040 ;
+    :name "Markus" .
+
+:P013 :birthDate "1951-06-06"^^xsd:date ;
+    :child :P055,
+        :P056 ;
+    :name "Albert" .
+
+:P014 :birthDate "1946-11-30"^^xsd:date ;
+    :child :P041,
+        :P042 ;
+    :name "Otto" .
+
+:P015 :birthDate "1953-08-14"^^xsd:date ;
+    :child :P055,
+        :P056 ;
+    :name "Berta" .
+
+:P016 :birthDate "1952-03-14"^^xsd:date ;
+    :child :P043,
+        :P044,
+        :P045,
+        :P046 ;
+    :name "Quentin" .
+
+:P017 :birthDate "1954-12-12"^^xsd:date ;
+    :child :P057,
+        :P058,
+        :P059 ;
+    :name "Christian" .
+
+:P018 :birthDate "1958-09-21"^^xsd:date ;
+    :child :P047 ;
+    :name "Stefan" .
+
+:P019 :birthDate "1960-12-01"^^xsd:date ;
+    :child :P063,
+        :P064 ;
+    :name "Hanna" .
+
+:P020 :birthDate "1949-07-07"^^xsd:date ;
+    :child :P048,
+        :P049 ;
+    :name "Ulrich" .
+
+:P021 :birthDate "1952-09-08"^^xsd:date ;
+    :child :P060,
+        :P061,
+        :P062 ;
+    :name "Emil" .
+
+:P022 :birthDate "1950-10-02"^^xsd:date ;
+    :child :P050,
+        :P051,
+        :P052 ;
+    :name "Werner" .
+
+:P023 :birthDate "1952-11-20"^^xsd:date ;
+    :child :P063,
+        :P064 ;
+    :name "Georg" .
+
+:P024 :birthDate "1954-01-18"^^xsd:date ;
+    :child :P053,
+        :P054 ;
+    :name "Yves" .
+
+:P025 :birthDate "1958-04-04"^^xsd:date ;
+    :name "Ivan" .
+
+:P036 :birthDate "1975-01-10"^^xsd:date ;
+    :child :P071,
+        :P072 ;
+    :name "Julia" .
+
+:P037 :birthDate "1978-05-05"^^xsd:date ;
+    :child :P085,
+        :P086 ;
+    :name "Xaver" .
+
+:P038 :birthDate "1976-08-22"^^xsd:date ;
+    :child :P073,
+        :P074,
+        :P075 ;
+    :name "Lara" .
+
+:P039 :birthDate "1979-08-08"^^xsd:date ;
+    :child :P087,
+        :P088 ;
+    :name "Zeno" .
+
+:P040 :birthDate "1981-05-20"^^xsd:date ;
+    :name "Monika" .
+
+:P041 :birthDate "1978-02-14"^^xsd:date ;
+    :child :P076 ;
+    :name "Nora" .
+
+:P042 :birthDate "1982-02-22"^^xsd:date ;
+    :child :P089,
+        :P090,
+        :P091 ;
+    :name "Beat" .
+
+:P043 :birthDate "1980-09-09"^^xsd:date ;
+    :child :P077,
+        :P078 ;
+    :name "Pia" .
+
+:P044 :birthDate "1983-01-11"^^xsd:date ;
+    :child :P092,
+        :P093 ;
+    :name "David" .
+
+:P045 :birthDate "1983-07-25"^^xsd:date ;
+    :name "Nicolas" .
+
+:P046 :birthDate "1986-09-12"^^xsd:date ;
+    :name "Olivia" .
+
+:P047 :birthDate "1985-03-25"^^xsd:date ;
+    :child :P079,
+        :P080,
+        :P081,
+        :P082 ;
+    :name "Silvia" .
+
+:P048 :birthDate "1980-06-16"^^xsd:date ;
+    :child :P094,
+        :P095 ;
+    :name "Fabian" .
+
+:P049 :birthDate "1982-12-01"^^xsd:date ;
+    :name "Pascal" .
+
+:P050 :birthDate "1981-10-31"^^xsd:date ;
+    :child :P083,
+        :P084 ;
+    :name "Ursula" .
+
+:P051 :birthDate "1985-11-23"^^xsd:date ;
+    :child :P096 ;
+    :name "Hugo" .
+
+:P052 :birthDate "1988-01-30"^^xsd:date ;
+    :name "Ramona" .
+
+:P053 :birthDate "1982-11-11"^^xsd:date ;
+    :child :P085,
+        :P086 ;
+    :name "Wendy" .
+
+:P054 :birthDate "1985-04-22"^^xsd:date ;
+    :name "Simon" .
+
+:P055 :birthDate "1984-01-20"^^xsd:date ;
+    :child :P087,
+        :P088 ;
+    :name "Yvonne" .
+
+:P056 :birthDate "1986-03-03"^^xsd:date ;
+    :child :P097,
+        :P098 ;
+    :name "Jonas" .
+
+:P057 :birthDate "1986-07-14"^^xsd:date ;
+    :child :P089,
+        :P090,
+        :P091 ;
+    :name "Alice" .
+
+:P058 :birthDate "1988-08-08"^^xsd:date ;
+    :child :P097,
+        :P098 ;
+    :name "Iris" .
+
+:P059 :birthDate "1992-06-15"^^xsd:date ;
+    :name "Tanja" .
+
+:P060 :birthDate "1985-09-30"^^xsd:date ;
+    :child :P092,
+        :P093 ;
+    :name "Carmen" .
+
+:P061 :birthDate "1990-02-14"^^xsd:date ;
+    :child :P099,
+        :P100 ;
+    :name "Karin" .
+
+:P062 :birthDate "1989-10-10"^^xsd:date ;
+    :child :P099,
+        :P100 ;
+    :name "Lukas" .
+
+:P063 :birthDate "1987-12-05"^^xsd:date ;
+    :child :P094,
+        :P095 ;
+    :name "Elena" .
+
+:P064 :birthDate "1989-04-18"^^xsd:date ;
+    :child :P096 ;
+    :name "Gabriela" .
+
+:P071 :birthDate "2005-01-11"^^xsd:date ;
+    :name "Ueli" .
+
+:P072 :birthDate "2007-03-22"^^xsd:date ;
+    :name "Vanessa" .
+
+:P073 :birthDate "2004-05-18"^^xsd:date ;
+    :name "William" .
+
+:P074 :birthDate "2006-08-09"^^xsd:date ;
+    :name "Ximena" .
+
+:P075 :birthDate "2009-11-30"^^xsd:date ;
+    :name "Yannick" .
+
+:P076 :birthDate "2008-02-14"^^xsd:date ;
+    :name "Zara" .
+
+:P077 :birthDate "2007-07-07"^^xsd:date ;
+    :name "Aaron" .
+
+:P078 :birthDate "2010-09-25"^^xsd:date ;
+    :name "Bianca" .
+
+:P079 :birthDate "2011-04-12"^^xsd:date ;
+    :name "Cedric" .
+
+:P080 :birthDate "2013-06-18"^^xsd:date ;
+    :name "Diana" .
+
+:P081 :birthDate "2015-10-31"^^xsd:date ;
+    :name "Elias" .
+
+:P082 :birthDate "2018-01-05"^^xsd:date ;
+    :name "Fiona" .
+
+:P083 :birthDate "2009-12-12"^^xsd:date ;
+    :name "Gabriel" .
+
+:P084 :birthDate "2012-03-03"^^xsd:date ;
+    :name "Heidi" .
+
+:P085 :birthDate "2010-08-08"^^xsd:date ;
+    :name "Ian" .
+
+:P086 :birthDate "2013-11-11"^^xsd:date ;
+    :name "Jasmin" .
+
+:P087 :birthDate "2014-02-20"^^xsd:date ;
+    :name "Kilian" .
+
+:P088 :birthDate "2016-05-25"^^xsd:date ;
+    :name "Leonie" .
+
+:P089 :birthDate "2012-07-14"^^xsd:date ;
+    :name "Matteo" .
+
+:P090 :birthDate "2014-09-30"^^xsd:date ;
+    :name "Noemi" .
+
+:P091 :birthDate "2017-01-11"^^xsd:date ;
+    :name "Oscar" .
+
+:P092 :birthDate "2015-06-16"^^xsd:date ;
+    :name "Penelope" .
+
+:P093 :birthDate "2018-04-18"^^xsd:date ;
+    :name "Quinn" .
+
+:P094 :birthDate "2013-08-08"^^xsd:date ;
+    :name "Raphael" .
+
+:P095 :birthDate "2016-03-03"^^xsd:date ;
+    :name "Sophia" .
+
+:P096 :birthDate "2019-02-14"^^xsd:date ;
+    :name "Tobias" .
+
+:P097 :birthDate "2017-10-10"^^xsd:date ;
+    :name "Uma" .
+
+:P098 :birthDate "2020-12-05"^^xsd:date ;
+    :name "Valentin" .
+
+:P099 :birthDate "2018-05-20"^^xsd:date ;
+    :name "Wanda" .
+
+:P100 :birthDate "2021-07-25"^^xsd:date ;
+    :name "Xavier" .
+

@@ -8,12 +8,11 @@ on:
     branches:
       - main
 
-# Needed to allow the Action to post test result annotations/comments to the PR
+# Needed to allow the Action to post check runs and annotations
 permissions:
   contents: read
-  issues: read
   checks: write
-  pull-requests: write
+  pull-requests: read
 
 jobs:
   test:
@@ -43,8 +42,9 @@ jobs:
         env:
           FORCE_COLOR: 1
 
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always() # Ensures the test results are published even if pytest fails
+      - name: Publish Clean Test Report
+        uses: mikepenz/action-junit-report@v4
+        if: success() || failure() # Ensures the test results are published even if pytest fails
         with:
-          files: "build/test-results.xml"
+          report_paths: 'build/test-results.xml'
+          check_name: 'Pytest Results'

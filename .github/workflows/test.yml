@@ -8,6 +8,13 @@ on:
     branches:
       - main
 
+# Needed to allow the Action to post test result annotations/comments to the PR
+permissions:
+  contents: read
+  issues: read
+  checks: write
+  pull-requests: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -32,9 +39,12 @@ jobs:
         run: make setup
 
       - name: Run Full Pipeline and Pytest
-        # make test inherently triggers the full pipeline prior to evaluating tests.
-        # It also calls pytest with `-v`, printing individual tests just as requested.
         run: make test
         env:
-          # Forces pytest to retain the colored output in the GitHub Actions console
           FORCE_COLOR: 1
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always() # Ensures the test results are published even if pytest fails
+        with:
+          files: "build/test-results.xml"

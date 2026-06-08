@@ -100,7 +100,7 @@ shacl: build $(SHAPES)
 #    shape-related tests)
 test: build shacl
 	@echo "Running final test suite..."
-	@$(PYTEST) tests/ -v
+	@$(PYTEST) tests/ -v --junitxml=build/test-results.xml
 
 # =======================================================
 # CLEANUP

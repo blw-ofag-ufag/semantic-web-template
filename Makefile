@@ -1,31 +1,63 @@
-# Variables
+# =======================================================
+# CONFIG
+# =======================================================
+
 ROBOT_VERSION := v1.9.5
 ROBOT := java -jar build/robot.jar
-PYSHACL := pyshacl
 ONTO := rdf/ontology/model.owl.ttl
 DATA := rdf/data/people.ttl
 SHAPES := rdf/shapes/model.shacl.ttl
 QUERIES := $(wildcard src/sparql/*.rq)
+PYTHON ?= $(shell command -v python3 || command -v python)
+VENV ?= venv
 
-.PHONY: all setup test docs clean
+# explicitly define paths to venv binaries
+VENV_BIN := $(VENV)/bin
+VENV_PYTHON := $(VENV_BIN)/python
+VENV_PIP := $(VENV_BIN)/pip
+PYSHACL := $(VENV_BIN)/pyshacl
+PYTEST := $(VENV_BIN)/pytest
+
+.PHONY: all robot test docs clean
 
 # Default target
-all: test
+all: robot test
 
-# 0. Setup: Download ROBOT
-setup:
+# =======================================================
+# SETUP
+# =======================================================
+
+# 1. Check python interpreter
+check-python:
+	@command -v $(PYTHON) >/dev/null 2>&1 || \
+		(echo "ERROR: Python interpreter not found."; exit 1)
+
+# 2. Set up virtual environment
+venv: check-python
+	@test -d $(VENV) || $(PYTHON) -m venv $(VENV)
+	@$(VENV_PYTHON) -m pip install --upgrade pip
+
+# 3. Install project dependencies
+install: venv
+	@$(VENV_PIP) install -r requirements.txt
+
+# 4. Install robot
+robot: venv
 	@mkdir -p build
-	@echo "Downloading ROBOT..."
 	@curl -sL https://github.com/ontodev/robot/releases/download/$(ROBOT_VERSION)/robot.jar -o build/robot.jar
 	@echo "Installing Python dependencies..."
-	@pip install -q -r requirements.txt
+	@$(VENV_PIP) install -q -r requirements.txt
 	@echo "Setup complete."
 
-# 1. Check syntax of all turtle files first
+# =======================================================
+# RDF DATA INTEGRATION, REASONING AND POST-PROCESSING
+# =======================================================
+
+# 1. Check that all turtle files are syntactically valid
 build/rdf/00-syntax-ok: $(DATA) $(ONTO) $(SHAPES)
 	@mkdir -p build/rdf
 	@echo "Checking Turtle syntax..."
-	@pytest tests/test_syntax.py -q > /dev/null 2>&1 || (echo "\n[ERROR] Syntax check failed:" && pytest tests/test_syntax.py -v && exit 1)
+	@$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || (echo "\n[ERROR] Syntax check failed:" && $(PYTEST) tests/test_syntax.py -v && exit 1)
 	@touch $@
 
 # 2. Merge ontology and data
@@ -46,22 +78,34 @@ build/rdf/03-processed.ttl: build/rdf/02-inferred.ttl $(QUERIES)
 	else \
 		$(ROBOT) query --input $< $(foreach q,$(QUERIES),--update $(q)) convert --output $@ > build/03-query.log 2>&1 || (cat build/03-query.log && exit 1); \
 	fi
-	@python src/python/turtle-serializer.py build/rdf/03-processed.ttl output build/rdf/03-processed.ttl
+	@$(VENV_PYTHON) src/python/turtle-serializer.py build/rdf/03-processed.ttl output build/rdf/03-processed.ttl
 
-# 5. SHACL validation
-build/rdf/04-shacl-report.ttl: build/rdf/03-processed.ttl $(SHAPES)
-	@echo "Validating SHACL shapes..."
-	@$(PYSHACL) -s $(SHAPES) -m -i rdfs -a -f turtle -o $@ $< > build/04-shacl.log 2>&1 || true
+# =======================================================
+# BUILD DOCUMENTATION
+# =======================================================
 
-# 6. Render documentation
-docs: build/rdf/04-shacl-report.ttl
+docs: shacl
 	@echo "Rendering documentation with Quarto..."
 	@quarto render > build/05-quarto.log 2>&1 || true
 
-# 7. Run full pytest suite
-test: docs
+# =======================================================
+# TESTS
+# =======================================================
+
+# 1. SHACL validation
+shacl: build/rdf/03-processed.ttl $(SHAPES)
+	@echo "Running SHACL engine..."
+	@$(PYSHACL) -s $(SHAPES) -m -i rdfs -a -f turtle -o build/rdf/04-shacl-report.ttl $< > build/04-shacl.log 2>&1 || true
+
+# 2. Run pytest (relies on written SHACL reports for all
+#    shape-related tests)
+test: shacl
 	@echo "Running final test suite..."
-	@pytest tests/ -v
+	@$(PYTEST) tests/ -v
+
+# =======================================================
+# CLEANUP
+# =======================================================
 
 clean:
-	rm -rf build/rdf/0*.ttl build/rdf/*.log build/docs/
+	rm -rf build venv .quarto tests/__pycache__

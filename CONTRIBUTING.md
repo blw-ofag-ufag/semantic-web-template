@@ -1,4 +1,4 @@
-# Contributing to PSMV-RDF
+# Contributing
 
 To ensure a smooth collaboration and maintain code quality, please adhere to the following workflow.
 

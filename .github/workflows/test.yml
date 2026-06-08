@@ -1,0 +1,40 @@
+name: Build and Test Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Setup Java (Required for ROBOT)
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Build Dependencies
+        run: make setup
+
+      - name: Run Full Pipeline and Pytest
+        # make test inherently triggers the full pipeline prior to evaluating tests.
+        # It also calls pytest with `-v`, printing individual tests just as requested.
+        run: make test
+        env:
+          # Forces pytest to retain the colored output in the GitHub Actions console
+          FORCE_COLOR: 1

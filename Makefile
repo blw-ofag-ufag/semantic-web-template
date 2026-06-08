@@ -107,4 +107,4 @@ test: build shacl
 # =======================================================
 
 clean:
-	rm -rf build venv .quarto tests/__pycache__
+	rm -rf build venv .quarto tests/__pycache__ .pytest_cache

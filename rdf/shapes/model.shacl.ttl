@@ -53,13 +53,14 @@
         sh:class :Person ;
         sh:minCount 0 ;
         sh:maxCount 2 ;
-        sh:message "Every person has exactly and at most two parents." ;
+        sh:message "Any person can have at most two parents." ;
     ],
     [
         sh:order 4 ;
         sh:name "Child"@en ;
         sh:path :child ;
         sh:class :Person ;
+        sh:message "Children must adhere to :PersonShape." ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;

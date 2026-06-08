@@ -7,6 +7,8 @@ DATA := rdf/data/people.ttl
 SHAPES := rdf/shapes/model.shacl.ttl
 QUERIES := $(wildcard src/sparql/*.rq)
 
+.PHONY: all setup test docs clean
+
 # Default target
 all: test
 
@@ -29,12 +31,12 @@ build/rdf/00-syntax-ok: $(DATA) $(ONTO) $(SHAPES)
 # 2. Merge ontology and data
 build/rdf/01-merged.ttl: build/rdf/00-syntax-ok $(DATA) $(ONTO)
 	@echo "Merging ontology and data..."
-	@$(ROBOT) merge --input $(ONTO) --input $(DATA) --output $@ > build/rdf/01-merge.log 2>&1 || (cat build/rdf/01-merge.log && exit 1)
+	@$(ROBOT) merge --input $(ONTO) --input $(DATA) --output $@ > build/01-merge.log 2>&1 || (cat build/01-merge.log && exit 1)
 
 # 3. Inference using HermiT
 build/rdf/02-inferred.ttl: build/rdf/01-merged.ttl
 	@echo "Running logical inference (HermiT)..."
-	@$(ROBOT) reason --input $< --reasoner HermiT --axiom-generators "SubClass ClassAssertion PropertyAssertion" --output $@ > build/rdf/02-infer.log 2>&1 || (cat build/rdf/02-infer.log && exit 1)
+	@$(ROBOT) reason --input $< --reasoner HermiT --axiom-generators "SubClass ClassAssertion PropertyAssertion" --output $@ > build/02-infer.log 2>&1 || (cat build/02-infer.log && exit 1)
 
 # 4. Model-driven processing via SPARQL
 build/rdf/03-processed.ttl: build/rdf/02-inferred.ttl $(QUERIES)
@@ -42,19 +44,24 @@ build/rdf/03-processed.ttl: build/rdf/02-inferred.ttl $(QUERIES)
 	@if [ -z "$(QUERIES)" ]; then \
 		cp $< $@; \
 	else \
-		$(ROBOT) query --input $< $(foreach q,$(QUERIES),--update $(q)) convert --output $@ > build/rdf/03-query.log 2>&1 || (cat build/rdf/03-query.log && exit 1); \
+		$(ROBOT) query --input $< $(foreach q,$(QUERIES),--update $(q)) convert --output $@ > build/03-query.log 2>&1 || (cat build/03-query.log && exit 1); \
 	fi
 	@python src/python/turtle-serializer.py build/rdf/03-processed.ttl output build/rdf/03-processed.ttl
 
 # 5. SHACL validation
 build/rdf/04-shacl-report.ttl: build/rdf/03-processed.ttl $(SHAPES)
 	@echo "Validating SHACL shapes..."
-	@$(PYSHACL) -s $(SHAPES) -m -i rdfs -a -f turtle -o $@ $< > build/rdf/04-shacl.log 2>&1 || true
+	@$(PYSHACL) -s $(SHAPES) -m -i rdfs -a -f turtle -o $@ $< > build/04-shacl.log 2>&1 || true
 
-# 6. Run full pytest suite
-test: build/rdf/04-shacl-report.ttl
+# 6. Render documentation
+docs: build/rdf/04-shacl-report.ttl
+	@echo "Rendering documentation with Quarto..."
+	@quarto render > build/05-quarto.log 2>&1 || true
+
+# 7. Run full pytest suite
+test: docs
 	@echo "Running final test suite..."
 	@pytest tests/ -v
 
 clean:
-	rm -rf build/rdf/0*.ttl build/rdf/*.log
+	rm -rf build/rdf/0*.ttl build/rdf/*.log build/docs/

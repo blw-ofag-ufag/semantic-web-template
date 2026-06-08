@@ -33,12 +33,6 @@
 
     Make sure you pass all tests with `pytest`.
 
-5. Build the documentation
-
-    ``` sh
-    quarto render
-    ```
-
 ## Build process overview
 
 The `Makefile` orchestrates a multi-step data pipeline. Here is a sequence diagram explaining what happens under the hood when you run `make`:

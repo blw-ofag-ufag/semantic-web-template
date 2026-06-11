@@ -1,5 +1,12 @@
 # Semantic web project template
 
+## Tech stack
+
+- HermiT
+- Pytest
+- Pyshacl
+- Quarto
+
 ## Build the data model
 
 1. Add variables to `.env`

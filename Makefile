@@ -16,7 +16,9 @@ PYSHACL := $(VENV_BIN)/pyshacl
 PYTEST := $(VENV_BIN)/pytest
 ROBOT := java -jar $(VENV_BIN)/robot.jar
 
-.PHONY: all robot test docs clean
+FETCHED_DATA := build/rdf/00-integrated.ttl
+
+.PHONY: all robot test docs clean fetch-data
 
 # Default target
 all: test docs
@@ -51,23 +53,31 @@ setup: install-dependencies robot
 # RDF DATA INTEGRATION, REASONING AND POST-PROCESSING
 # ==============================================================================
 
-# 1. Check that all turtle files are syntactically valid
-check-syntax: $(DATA) $(ONTO) $(SHAPES)
+FETCHED_DATA := build/rdf/00-integrated.ttl
+
+# 1. Fetch, Query, and Transform SQLite data
+fetch-data: venv
+	@mkdir -p build/rdf
+	@echo "Extracting SQLite data to RDF..."
+	@$(VENV_PYTHON) src/python/integrate-data.py --output $(FETCHED_DATA)
+
+# 2. Check that all turtle files are syntactically valid
+check-syntax: fetch-data $(DATA) $(ONTO) $(SHAPES)
 	@mkdir -p build/rdf
 	@echo "Checking Turtle syntax..."
 	@$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || (echo "\n[ERROR] Syntax check failed:" && $(PYTEST) tests/test_syntax.py -v && exit 1)
 
-# 2. Merge ontology and data
-merge: check-syntax $(DATA) $(ONTO)
+# 3. Merge ontology, static data, and fetched data
+merge: check-syntax $(DATA) $(ONTO) $(FETCHED_DATA)
 	@echo "Merging ontology and data..."
-	@$(ROBOT) merge --input $(ONTO) --input $(DATA) --output build/rdf/01-merged.ttl > build/01-merge.log 2>&1 || (cat build/01-merge.log && exit 1)
+	@$(ROBOT) merge --input $(ONTO) --input $(DATA) --input $(FETCHED_DATA) --output build/rdf/01-merged.ttl > build/01-merge.log 2>&1 || (cat build/01-merge.log && exit 1)
 
-# 3. Inference using HermiT
+# 4. Inference using HermiT
 infer: merge
 	@echo "Running logical inference (HermiT)..."
 	@$(ROBOT) reason --input build/rdf/01-merged.ttl --reasoner HermiT --axiom-generators "SubClass ClassAssertion PropertyAssertion" --output build/rdf/02-inferred.ttl > build/02-infer.log 2>&1 || (cat build/02-infer.log && exit 1)
 
-# 4. Model-driven processing via SPARQL
+# 5. Model-driven processing via SPARQL
 post-process: infer $(QUERIES)
 	@echo "Applying SPARQL updates..."
 	@if [ -z "$(QUERIES)" ]; then \

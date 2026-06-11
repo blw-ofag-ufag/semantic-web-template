@@ -1,6 +1,6 @@
-# =======================================================
+# ==============================================================================
 # CONFIG
-# =======================================================
+# ==============================================================================
 
 ROBOT_VERSION := v1.9.5
 ONTO := rdf/ontology/model.owl.ttl
@@ -21,9 +21,9 @@ ROBOT := java -jar $(VENV_BIN)/robot.jar
 # Default target
 all: test docs
 
-# =======================================================
+# ==============================================================================
 # SETUP
-# =======================================================
+# ==============================================================================
 
 # 1. Check python interpreter
 check-python:
@@ -47,9 +47,9 @@ robot: venv
 setup: install-dependencies robot
 	@echo "Setup complete."
 
-# =======================================================
+# ==============================================================================
 # RDF DATA INTEGRATION, REASONING AND POST-PROCESSING
-# =======================================================
+# ==============================================================================
 
 # 1. Check that all turtle files are syntactically valid
 check-syntax: $(DATA) $(ONTO) $(SHAPES)
@@ -79,17 +79,17 @@ post-process: infer $(QUERIES)
 
 build: post-process
 
-# =======================================================
+# ==============================================================================
 # BUILD DOCUMENTATION
-# =======================================================
+# ==============================================================================
 
 docs: shacl
 	@echo "Rendering documentation with Quarto..."
 	@quarto render > build/05-quarto.log 2>&1 || true
 
-# =======================================================
+# ==============================================================================
 # TESTS
-# =======================================================
+# ==============================================================================
 
 # 1. SHACL validation
 shacl: build $(SHAPES)
@@ -102,9 +102,35 @@ test: build shacl
 	@echo "Running final test suite..."
 	@$(PYTEST) tests/ -v
 
-# =======================================================
+# ==============================================================================
+# PUBLICATION
+# ==============================================================================
+
+# 1. Import environment variables natively into Make
+-include .env
+export
+
+# 2. Delete the existing data from LINDAS
+delete:
+	@echo "Delete existing data from LINDAS"
+	@curl \
+		--user $(USER):$(PASSWORD) \
+		-X DELETE \
+		"$(ENDPOINT)?graph=$(GRAPH)"
+
+# 3. Publish final graph to LINDAS
+publish: test delete
+	@echo "Upload final graph to LINDAS"
+	@curl \
+		--user $(USER):$(PASSWORD) \
+		-X POST \
+		-H "Content-Type: text/turtle" \
+		--data-binary @build/rdf/03-processed.ttl \
+		"$(ENDPOINT)?graph=$(GRAPH)"
+
+# ==============================================================================
 # CLEANUP
-# =======================================================
+# ==============================================================================
 
 clean:
 	rm -rf build venv .quarto tests/__pycache__ .pytest_cache

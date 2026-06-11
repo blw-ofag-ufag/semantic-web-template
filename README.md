@@ -18,27 +18,32 @@
     ENDPOINT=********
     ```
 
-2. Start a virtual environment
-
-    ``` sh
-    python -m venv venv
-    source venv/bin/activate
-    pip install --upgrade pip
-    ```
-
-3. Set up dependencies
+2. Set up dependencies
 
     ``` sh
     make setup
     ```
 
-4. Run the build process
+3. Run the build process
 
     ``` sh
     make
     ```
 
     Make sure you pass all tests with `pytest`.
+
+4. Upload the final data to [LINDAS](https://lindas.admin.ch/), the linked data service by the federal archives:
+
+    ``` sh
+    make publish
+    ```
+
+    By default, the publication process starts with by deleting any pre-existing data in the provided named graph on LINDAS.
+    You can also *just* delete any published data by running:
+
+    ```
+    make delete
+    ```
 
 5. *If* you want to clean all written files:
 

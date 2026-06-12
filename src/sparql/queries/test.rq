@@ -1,0 +1,4 @@
+SELECT (COUNT(*) AS ?N)
+WHERE { 
+    ?s ?p ?o .
+}

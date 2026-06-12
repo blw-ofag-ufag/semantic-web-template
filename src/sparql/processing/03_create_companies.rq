@@ -1,0 +1,20 @@
+PREFIX schema: <http://schema.org/>
+
+DELETE {
+    ?employee schema:worksFor ?companyName .
+}
+INSERT {
+    ?employee schema:worksFor ?orgUri .
+    ?orgUri a schema:Organization ; schema:name ?companyName .
+}
+WHERE { 
+    # 1. Match the existing literal assignment (all literals are companies)
+    ?employee schema:worksFor ?companyName .
+    FILTER(isLiteral(?companyName))
+    
+    # 2. Create a deterministic hash from the company name string
+    BIND(MD5(STR(?companyName)) AS ?hash)
+    
+    # 3. Concatenate the namespace with the hash and cast it to an IRI
+    BIND(IRI(CONCAT("http://example.org/organization/", ?hash)) AS ?orgUri)
+}

@@ -1,104 +1,211 @@
 @prefix : <http://example.org/> .
-@prefix adms: <http://www.w3.org/ns/adms#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
-@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix unit: <http://qudt.org/vocab/unit/> .
-@prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 : a owl:Ontology ;
-    rdfs:label "A dummy data model for people and their kids"@en ;
-    rdfs:comment "This SHACL data model describes how a *person* in the dummy dataset is constructed and provides rules with it."@en ;
-    sh:declare [ sh:prefix "" ; sh:namespace "http://example.org/"^^xsd:anyURI ] ;
-    dcat:distribution [
-        dcterms:format "PDF" ;
-        dcat:downloadURL :documentation ;
+    rdfs:label "Chinook Data Model"@en ;
+    rdfs:comment "This SHACL data model describes and validates the integrated Chinook dataset and custom person data."@en ;
+    sh:declare [
+        sh:prefix "schema" ;
+        sh:namespace "http://schema.org/"^^xsd:anyURI ;
+    ],
+    [
+        sh:prefix "" ;
+        sh:namespace "http://example.org/"^^xsd:anyURI ;
     ] .
 
 :PersonShape a sh:NodeShape ;
     rdfs:label "Person"@en ;
-    rdfs:comment "Any person present in the given dataset."@en ;
-    sh:targetClass :Person ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type :child :parent :ancestor :descendent ) ;
+    rdfs:comment "Any person (employee, customer, or custom person) present in the dataset."@en ;
+    sh:targetClass schema:Person ;
     sh:property [
         sh:order 1 ;
-        sh:name "Name"@en ;
-        sh:path :name ;
+        sh:name "Given Name"@en ;
+        sh:path schema:givenName ;
+        sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "Every person must have a name. Consider adding it." ;
+        sh:message "Every person must have a given name." ;
     ],
     [
         sh:order 2 ;
-        sh:name "Birth date"@en ;
-        sh:path :birthDate ;
-        sh:datatype xsd:date ;
+        sh:name "Family Name"@en ;
+        sh:path schema:familyName ;
+        sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:severity sh:Warning ;
-        sh:message "Every person should have a birthday. Consider adding it." ;
+        sh:message "Every person must have a family name." ;
     ],
     [
         sh:order 3 ;
-        sh:name "Parent"@en ;
-        sh:path :parent ;
-        sh:class :Person ;
-        sh:minCount 0 ;
-        sh:maxCount 2 ;
-        sh:message "Any person can have at most two parents." ;
+        sh:name "Email Address"@en ;
+        sh:path schema:email ;
+        sh:datatype xsd:string ;
+        sh:pattern "^.+@.+\\..+$" ;
+        sh:severity sh:Warning ;
+        sh:message "If an email is provided, it must follow a standard email format." ;
     ],
     [
         sh:order 4 ;
-        sh:name "Child"@en ;
-        sh:path :child ;
-        sh:class :Person ;
-        sh:message "Children must adhere to :PersonShape." ;
+        sh:name "Birth date"@en ;
+        sh:path schema:birthDate ;
+        sh:datatype xsd:date ;
+        sh:severity sh:Warning ;
+        sh:message "A person should have a valid birth date." ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
-        sh:message "A person must not be their own ancestor." ;
-        sh:prefixes : ;
-        sh:select """
-            SELECT $this
-            WHERE { $this :ancestor $this . }
-        """
-    ],
-    [
-        a sh:SPARQLConstraint ;
-        sh:message "Parents must be at least 12 years older than their children." ;
+        sh:message "A person's email address must be unique across all persons." ;
         sh:prefixes : ;
         sh:select """
             SELECT $this
             WHERE {
-                $this :child ?child ;
-                    :birthDate ?parentBirthDate .
-                ?child :birthDate ?childBirthDate .
-                FILTER (
-                    YEAR(?childBirthDate) - YEAR(?parentBirthDate) < 12
-                    && ?childBirthDate > ?parentBirthDate
-                )
+                $this schema:email ?email .
+                ?other schema:email ?email .
+                FILTER($this != ?other)
             }
         """
     ],
     [
         a sh:SPARQLConstraint ;
-        sh:message "Parents can't be born after their children." ;
+        sh:message "An employee cannot report to themselves." ;
         sh:prefixes : ;
         sh:select """
             SELECT $this
             WHERE {
-                $this :child ?child ;
-                    :birthDate ?parentBirthDate .
-                ?child :birthDate ?childBirthDate .
-                FILTER ( ?childBirthDate <= ?parentBirthDate )
+                $this schema:worksFor $this .
             }
         """
+    ] .
+
+:TrackShape a sh:NodeShape ;
+    rdfs:label "Music Recording"@en ;
+    sh:targetClass schema:MusicRecording ;
+    sh:property [
+        sh:order 1 ;
+        sh:name "Name"@en ;
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "Every track must have a name." ;
+    ],
+    [
+        sh:order 2 ;
+        sh:name "In Album"@en ;
+        sh:path schema:inAlbum ;
+        sh:class schema:MusicAlbum ;
+        sh:message "A track can only belong to a valid schema:MusicAlbum." ;
+    ],
+    [
+        sh:order 3 ;
+        sh:name "Duration"@en ;
+        sh:path schema:duration ;
+        sh:class schema:QuantitativeValue ;
+        sh:message "Track duration must be expressed as a schema:QuantitativeValue." ;
+    ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Track duration must be strictly positive." ;
+        sh:prefixes : ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this schema:duration/schema:value ?duration .
+                FILTER(?duration <= 0)
+            }
+        """
+    ] .
+
+:InvoiceShape a sh:NodeShape ;
+    rdfs:label "Invoice"@en ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:order 1 ;
+        sh:name "Customer"@en ;
+        sh:path schema:customer ;
+        sh:class schema:Person ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "An invoice must be linked to exactly one customer." ;
+    ],
+    [
+        sh:order 2 ;
+        sh:name "Total Payment Due"@en ;
+        sh:path schema:totalPaymentDue ;
+        sh:class schema:QuantitativeValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "An invoice must define a total payment due as a schema:QuantitativeValue." ;
+    ],
+    [
+        sh:order 3 ;
+        sh:name "Has Part"@en ;
+        sh:path schema:hasPart ;
+        sh:class schema:OrderItem ;
+        sh:minCount 1 ;
+        sh:message "An invoice must have at least one line item (OrderItem)." ;
+    ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Invoice total payment due must exactly match the sum of its lines (within 0.05 tolerance)." ;
+        sh:prefixes : ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this schema:totalPaymentDue/schema:value ?invoiceTotal .
+                
+                # Note: SHACL engines like PySHACL require `$this` to be explicitly 
+                # projected in any nested SELECT sub-queries so the pre-binding carries over.
+                {
+                    SELECT $this (SUM(?price * ?qty) AS ?calculatedTotal)
+                    WHERE {
+                        $this schema:hasPart ?line .
+                        ?line schema:price/schema:value ?price .
+                        ?line schema:orderQuantity/schema:value ?qty .
+                    }
+                    GROUP BY $this
+                }
+                
+                FILTER(ABS(?invoiceTotal - ?calculatedTotal) > 0.05)
+            }
+        """
+    ],
+    [
+        a sh:SPARQLConstraint ;
+        sh:message "An invoice cannot be dated before the year 2000." ;
+        sh:prefixes : ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this schema:dateCreated ?date .
+                FILTER(?date < "2000-01-01"^^xsd:date)
+            }
+        """
+    ] .
+
+:QuantitativeValueShape a sh:NodeShape ;
+    rdfs:label "Quantitative Value"@en ;
+    sh:targetClass schema:QuantitativeValue ;
+    sh:property [
+        sh:order 1 ;
+        sh:name "Value"@en ;
+        sh:path schema:value ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A quantitative value must have exactly one numeric value." ;
+    ],
+    [
+        sh:order 2 ;
+        sh:name "Unit Code"@en ;
+        sh:path schema:unitCode ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A quantitative value must specify its unit via a unitCode URI." ;
     ] .

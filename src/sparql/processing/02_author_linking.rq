@@ -1,0 +1,37 @@
+PREFIX schema: <http://schema.org/>
+
+DELETE {
+    # Remove the old string literal
+    ?track schema:author ?author_string .
+}
+INSERT {
+    # Insert the link to the URI(s)
+    ?track schema:author ?author_node .
+}
+WHERE {
+    # 1. Find tracks that currently have a string literal for the author
+    ?track a schema:MusicRecording ;
+           schema:author ?author_string .
+           
+    # Safety check to ensure we are only targeting string literals, 
+    # preventing infinite loops or deleting URIs that are already linked.
+    FILTER(isLiteral(?author_string))
+    
+    # 2. Iterate through all the Person nodes we minted in authors.ttl
+    ?author_node a schema:Person ;
+                 schema:givenName ?given ;
+                 schema:familyName ?family .
+                 
+    # 3. Convert all strings to lowercase to ensure case-insensitive matching
+    BIND(LCASE(STR(?author_string)) AS ?str_lower)
+    BIND(LCASE(STR(?given)) AS ?given_lower)
+    BIND(LCASE(STR(?family)) AS ?family_lower)
+    
+    # 4. If the messy string contains BOTH the given name and the family name,
+    #    we consider it a match. If the author is a mononym (e.g., "Queen"),
+    #    given_lower and family_lower are the same, so it correctly matches.
+    FILTER(
+        CONTAINS(?str_lower, ?given_lower) && 
+        CONTAINS(?str_lower, ?family_lower)
+    )
+}

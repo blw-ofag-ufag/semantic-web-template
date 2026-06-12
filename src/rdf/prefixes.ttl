@@ -16,6 +16,7 @@
 @prefix media:           <http://example.org/mediatype/> .
 @prefix playlist:        <http://example.org/playlist/> .
 @prefix track:           <http://example.org/tracks/> .
+@prefix person:          <http://example.org/person/> .
 
 # LINDAS-specific namespaces/qnames
 @prefix org:             <https://register.ld.admin.ch/opendataswiss/org/> .

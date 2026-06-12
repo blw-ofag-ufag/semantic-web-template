@@ -3,37 +3,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
-:Person a owl:Class .
+:Genre a owl:Class .
 
-:Parent rdfs:subClassOf :Person ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty :child ;
-        owl:someValuesFrom :Person ;
-    ] .
-
-:parent a owl:ObjectProperty ;
-    rdfs:subPropertyOf :ancestor ;
-    rdfs:domain :Person ;
-    rdfs:range :Person ;
-    owl:inverseOf :child .
-
-:child a owl:ObjectProperty ;
-    rdfs:subPropertyOf :descendent ;
-    rdfs:domain :Person ;
-    rdfs:range :Person ;
-    owl:inverseOf :parent .
-
-:ancestor a owl:ObjectProperty,
-        owl:TransitiveProperty ;
-    rdfs:domain :Person ; 
-    rdfs:range :Person ;
-    owl:inverseOf :descendent .
-
-:name a owl:DatatypeProperty ;
-    rdfs:domain :Person ;
-    rdfs:range xsd:string .
-
-:birthDate a owl:DatatypeProperty ;
-    rdfs:domain :Person ;
-    rdfs:range xsd:date .
+:genre a owl:ObjectProperty ;
+    rdfs:range :Genre .

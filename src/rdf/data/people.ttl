@@ -1,451 +1,835 @@
-@prefix : <http://example.org/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-:P001 :birthDate "1920-01-15"^^xsd:date ;
-    :child :P011,
-        :P012,
-        :P013 ;
-    :name "Arthur" .
-
-:P002 :birthDate "1922-04-20"^^xsd:date ;
-    :child :P011,
-        :P012,
-        :P013 ;
-    :name "Beatrice" .
-
-:P003 :birthDate "1919-08-11"^^xsd:date ;
-    :child :P014,
-        :P015 ;
-    :name "Charles" .
-
-:P004 :birthDate "1921-12-05"^^xsd:date ;
-    :child :P014,
-        :P015 ;
-    :name "Dorothea" .
-
-:P005 :birthDate "1925-03-30"^^xsd:date ;
-    :child :P016,
-        :P017,
-        :P018,
-        :P019 ;
-    :name "Eduard" .
-
-:P006 :birthDate "1928-07-22"^^xsd:date ;
-    :child :P016,
-        :P017,
-        :P018,
-        :P019 ;
-    :name "Frieda" .
-
-:P007 :birthDate "1918-11-14"^^xsd:date ;
-    :child :P020,
-        :P021 ;
-    :name "Gustav" .
-
-:P008 :birthDate "1923-02-28"^^xsd:date ;
-    :child :P020,
-        :P021 ;
-    :name "Helene" .
-
-:P009 :birthDate "1924-09-09"^^xsd:date ;
-    :child :P022,
-        :P023,
-        :P024,
-        :P025 ;
-    :name "Ignaz" .
-
-:P010 :birthDate "1926-10-18"^^xsd:date ;
-    :child :P022,
-        :P023,
-        :P024,
-        :P025 ;
-    :name "Johanna" .
-
-:P026 :birthDate "1947-06-15"^^xsd:date ;
-    :child :P036,
-        :P037 ;
-    :name "Laura" .
-
-:P027 :birthDate "1950-01-22"^^xsd:date ;
-    :child :P038,
-        :P039,
-        :P040 ;
-    :name "Nina" .
-
-:P028 :birthDate "1948-12-10"^^xsd:date ;
-    :child :P041,
-        :P042 ;
-    :name "Paula" .
-
-:P029 :birthDate "1955-08-05"^^xsd:date ;
-    :child :P043,
-        :P044,
-        :P045,
-        :P046 ;
-    :name "Rosa" .
-
-:P030 :birthDate "1960-04-12"^^xsd:date ;
-    :child :P047 ;
-    :name "Tina" .
-
-:P031 :birthDate "1951-11-19"^^xsd:date ;
-    :child :P048,
-        :P049 ;
-    :name "Vera" .
-
-:P032 :birthDate "1953-05-25"^^xsd:date ;
-    :child :P050,
-        :P051,
-        :P052 ;
-    :name "Xenia" .
-
-:P033 :birthDate "1956-02-29"^^xsd:date ;
-    :child :P053,
-        :P054 ;
-    :name "Zoe" .
-
-:P034 :birthDate "1957-03-03"^^xsd:date ;
-    :child :P057,
-        :P058,
-        :P059 ;
-    :name "Doris" .
-
-:P035 :birthDate "1955-10-15"^^xsd:date ;
-    :child :P060,
-        :P061,
-        :P062 ;
-    :name "Flora" .
-
-:P065 :birthDate "1973-05-15"^^xsd:date ;
-    :child :P071,
-        :P072 ;
-    :name "Kevin" .
-
-:P066 :birthDate "1974-11-30"^^xsd:date ;
-    :child :P073,
-        :P074,
-        :P075 ;
-    :name "Martin" .
-
-:P067 :birthDate "1977-07-07"^^xsd:date ;
-    :child :P076 ;
-    :name "Oliver" .
-
-:P068 :birthDate "1979-12-12"^^xsd:date ;
-    :child :P077,
-        :P078 ;
-    :name "Reto" .
-
-:P069 :birthDate "1983-06-18"^^xsd:date ;
-    :child :P079,
-        :P080,
-        :P081,
-        :P082 ;
-    :name "Thomas" .
-
-:P070 :birthDate "1980-04-04"^^xsd:date ;
-    :child :P083,
-        :P084 ;
-    :name "Viktor" .
-
-:P011 :birthDate "1945-05-12"^^xsd:date ;
-    :child :P036,
-        :P037 ;
-    :name "Karl" .
-
-:P012 :birthDate "1948-02-08"^^xsd:date ;
-    :child :P038,
-        :P039,
-        :P040 ;
-    :name "Markus" .
-
-:P013 :birthDate "1951-06-06"^^xsd:date ;
-    :child :P055,
-        :P056 ;
-    :name "Albert" .
-
-:P014 :birthDate "1936-11-30"^^xsd:date ;
-    :child :P041,
-        :P042 ;
-    :name "Otto" .
-
-:P015 :birthDate "1953-08-14"^^xsd:date ;
-    :child :P055,
-        :P056 ;
-    :name "Berta" .
-
-:P016 :birthDate "1952-03-14"^^xsd:date ;
-    :child :P043,
-        :P044,
-        :P045,
-        :P046 ;
-    :name "Quentin" .
-
-:P017 :birthDate "1954-12-12"^^xsd:date ;
-    :child :P057,
-        :P058,
-        :P059 ;
-    :name "Christian" .
-
-:P018 :birthDate "1958-09-21"^^xsd:date ;
-    :child :P047 ;
-    :name "Stefan" .
-
-:P019 :birthDate "1960-12-01"^^xsd:date ;
-    :child :P063,
-        :P064 ;
-    :name "Hanna" .
-
-:P020 :birthDate "1949-07-07"^^xsd:date ;
-    :child :P048,
-        :P049 ;
-    :name "Ulrich" .
-
-:P021 :birthDate "1952-09-08"^^xsd:date ;
-    :child :P060,
-        :P061,
-        :P062 ;
-    :name "Emil" .
-
-:P022 :birthDate "1950-10-02"^^xsd:date ;
-    :child :P050,
-        :P051,
-        :P052 ;
-    :name "Werner" .
-
-:P023 :birthDate "1952-11-20"^^xsd:date ;
-    :child :P063,
-        :P064 ;
-    :name "Georg" .
-
-:P024 :birthDate "1954-01-18"^^xsd:date ;
-    :child :P053,
-        :P054 ;
-    :name "Yves" .
-
-:P025 :birthDate "1958-04-04"^^xsd:date ;
-    :name "Ivan" .
-
-:P036 :birthDate "1975-01-10"^^xsd:date ;
-    :child :P071,
-        :P072 ;
-    :name "Julia" .
-
-:P037 :birthDate "1978-05-05"^^xsd:date ;
-    :child :P085,
-        :P086 ;
-    :name "Xaver" .
-
-:P038 :birthDate "1976-08-22"^^xsd:date ;
-    :child :P073,
-        :P074,
-        :P075 ;
-    :name "Lara" .
-
-:P039 :birthDate "1979-08-08"^^xsd:date ;
-    :child :P087,
-        :P088 ;
-    :name "Zeno" .
-
-:P040 :birthDate "1981-05-20"^^xsd:date ;
-    :name "Monika" .
-
-:P041 :birthDate "1978-02-14"^^xsd:date ;
-    :child :P076 ;
-    :name "Nora" .
-
-:P042 :birthDate "1982-02-22"^^xsd:date ;
-    :child :P089,
-        :P090,
-        :P091 ;
-    :name "Beat" .
-
-:P043 :birthDate "1980-09-09"^^xsd:date ;
-    :child :P077,
-        :P078 ;
-    :name "Pia" .
-
-:P044 :birthDate "1983-01-11"^^xsd:date ;
-    :child :P092,
-        :P093 ;
-    :name "David" .
-
-:P045 :birthDate "1983-07-25"^^xsd:date ;
-    :name "Nicolas" .
-
-:P046 :birthDate "1986-09-12"^^xsd:date ;
-    :name "Olivia" .
-
-:P047 :birthDate "1985-03-25"^^xsd:date ;
-    :child :P079,
-        :P080,
-        :P081,
-        :P082 ;
-    :name "Silvia" .
-
-:P048 :birthDate "1980-06-16"^^xsd:date ;
-    :child :P094,
-        :P095 ;
-    :name "Fabian" .
-
-:P049 :birthDate "1982-12-01"^^xsd:date ;
-    :name "Pascal" .
-
-:P050 :birthDate "1981-10-31"^^xsd:date ;
-    :child :P083,
-        :P084 ;
-    :name "Ursula" .
-
-:P051 :birthDate "1985-11-23"^^xsd:date ;
-    :child :P096 ;
-    :name "Hugo" .
-
-:P052 :birthDate "1988-01-30"^^xsd:date ;
-    :name "Ramona" .
-
-:P053 :birthDate "1982-11-11"^^xsd:date ;
-    :child :P085,
-        :P086 ;
-    :name "Wendy" .
-
-:P054 :birthDate "1985-04-22"^^xsd:date ;
-    :name "Simon" .
-
-:P055 :birthDate "1984-01-20"^^xsd:date ;
-    :child :P087,
-        :P088 ;
-    :name "Yvonne" .
-
-:P056 :birthDate "1986-03-03"^^xsd:date ;
-    :child :P097,
-        :P098 ;
-    :name "Jonas" .
-
-:P057 :birthDate "1986-07-14"^^xsd:date ;
-    :child :P089,
-        :P090,
-        :P091 ;
-    :name "Alice" .
-
-:P058 :birthDate "1988-08-08"^^xsd:date ;
-    :child :P097,
-        :P098 ;
-    :name "Iris" .
-
-:P059 :birthDate "1992-06-15"^^xsd:date ;
-    :name "Tanja" .
-
-:P060 :birthDate "1985-09-30"^^xsd:date ;
-    :child :P092,
-        :P093 ;
-    :name "Carmen" .
-
-:P061 :birthDate "1990-02-14"^^xsd:date ;
-    :child :P099,
-        :P100 ;
-    :name "Karin" .
-
-:P062 :birthDate "1989-10-10"^^xsd:date ;
-    :child :P099,
-        :P100 ;
-    :name "Lukas" .
-
-:P063 :birthDate "1987-12-05"^^xsd:date ;
-    :child :P094,
-        :P095 ;
-    :name "Elena" .
-
-:P064 :birthDate "1989-04-18"^^xsd:date ;
-    :child :P096 ;
-    :name "Gabriela" .
-
-:P071 :birthDate "2005-01-11"^^xsd:date ;
-    :name "Ueli" .
-
-:P072 :birthDate "2007-03-22"^^xsd:date ;
-    :name "Vanessa" .
-
-:P073 :birthDate "2004-05-18"^^xsd:date ;
-    :name "William" .
-
-:P074 :birthDate "2006-08-09"^^xsd:date ;
-    :name "Ximena" .
-
-:P075 :birthDate "2009-11-30"^^xsd:date ;
-    :name "Yannick" .
-
-:P076 :birthDate "2008-02-14"^^xsd:date ;
-    :name "Zara" .
-
-:P077 :birthDate "2007-07-07"^^xsd:date ;
-    :name "Aaron" .
-
-:P078 :birthDate "2010-09-25"^^xsd:date ;
-    :name "Bianca" .
-
-:P079 :birthDate "2011-04-12"^^xsd:date ;
-    :name "Cedric" .
-
-:P080 :birthDate "2013-06-18"^^xsd:date ;
-    :name "Diana" .
-
-:P081 :birthDate "2015-10-31"^^xsd:date ;
-    :name "Elias" .
-
-:P082 :birthDate "2018-01-05"^^xsd:date ;
-    :name "Fiona" .
-
-:P083 :birthDate "2009-12-12"^^xsd:date ;
-    :name "Gabriel" .
-
-:P084 :birthDate "2012-03-03"^^xsd:date ;
-    :name "Heidi" .
-
-:P085 :birthDate "2010-08-08"^^xsd:date ;
-    :name "Ian" .
-
-:P086 :birthDate "2013-11-11"^^xsd:date ;
-    :name "Jasmin" .
-
-:P087 :birthDate "2014-02-20"^^xsd:date ;
-    :name "Kilian" .
-
-:P088 :birthDate "2016-05-25"^^xsd:date ;
-    :name "Leonie" .
-
-:P089 :birthDate "2012-07-14"^^xsd:date ;
-    :name "Matteo" .
-
-:P090 :birthDate "2014-09-30"^^xsd:date ;
-    :name "Noemi" .
-
-:P091 :birthDate "2017-01-11"^^xsd:date ;
-    :name "Oscar" .
-
-:P092 :birthDate "2015-06-16"^^xsd:date ;
-    :name "Penelope" .
-
-:P093 :birthDate "2018-04-18"^^xsd:date ;
-    :name "Quinn" .
-
-:P094 :birthDate "2013-08-08"^^xsd:date ;
-    :name "Raphael" .
-
-:P095 :birthDate "2016-03-03"^^xsd:date ;
-    :name "Sophia" .
-
-:P096 :birthDate "2019-02-14"^^xsd:date ;
-    :name "Tobias" .
-
-:P097 :birthDate "2017-10-10"^^xsd:date ;
-    :name "Uma" .
-
-:P098 :birthDate "2020-12-05"^^xsd:date ;
-    :name "Valentin" .
-
-:P099 :birthDate "2018-05-20"^^xsd:date ;
-    :name "Wanda" .
-
-:P100 :birthDate "2021-07-25"^^xsd:date ;
-    :name "Xavier" .
+@prefix person: <http://example.org/person/> .
+@prefix schema: <http://schema.org/> .
+
+person:aaron_copland a schema:Person ;
+    schema:familyName "Copland" ;
+    schema:givenName "Aaron" .
+
+person:aaron_goldberg a schema:Person ;
+    schema:familyName "Goldberg" ;
+    schema:givenName "Aaron" .
+
+person:ace_frehley a schema:Person ;
+    schema:familyName "Frehley" ;
+    schema:givenName "Ace" .
+
+person:adam_clayton a schema:Person ;
+    schema:familyName "Clayton" ;
+    schema:givenName "Adam" .
+
+person:addie_william_jones a schema:Person ;
+    schema:familyName "Jones" ;
+    schema:givenName "Addie William" .
+
+person:adrian_smith a schema:Person ;
+    schema:familyName "Smith" ;
+    schema:givenName "Adrian" .
+
+person:alanis_morissette a schema:Person ;
+    schema:familyName "Morissette" ;
+    schema:givenName "Alanis" .
+
+person:albert_king a schema:Person ;
+    schema:familyName "King" ;
+    schema:givenName "Albert" .
+
+person:alex_van_halen a schema:Person ;
+    schema:familyName "Van Halen" ;
+    schema:givenName "Alex" .
+
+person:andrea_dulbecco a schema:Person ;
+    schema:familyName "Dulbecco" ;
+    schema:givenName "Andrea" .
+
+person:angus_young a schema:Person ;
+    schema:familyName "Young" ;
+    schema:givenName "Angus" .
+
+person:anthony_kiedis a schema:Person ;
+    schema:familyName "Kiedis" ;
+    schema:givenName "Anthony" .
+
+person:antonio_vivaldi a schema:Person ;
+    schema:familyName "Vivaldi" ;
+    schema:givenName "Antonio" .
+
+person:apocalyptica a schema:Person ;
+    schema:familyName "Apocalyptica" ;
+    schema:givenName "Apocalyptica" .
+
+person:arnaldo_antunes a schema:Person ;
+    schema:familyName "Antunes" ;
+    schema:givenName "Arnaldo" .
+
+person:astor_piazzolla a schema:Person ;
+    schema:familyName "Piazzolla" ;
+    schema:givenName "Astor" .
+
+person:barrett_strong a schema:Person ;
+    schema:familyName "Strong" ;
+    schema:givenName "Barrett" .
+
+person:bela_bartok a schema:Person ;
+    schema:familyName "Bartók" ;
+    schema:givenName "Béla" .
+
+person:ben_shepherd a schema:Person ;
+    schema:familyName "Shepherd" ;
+    schema:givenName "Ben" .
+
+person:big_bill_broonzy a schema:Person ;
+    schema:familyName "Broonzy" ;
+    schema:givenName "Big Bill" .
+
+person:bill_berry a schema:Person ;
+    schema:familyName "Berry" ;
+    schema:givenName "Bill" .
+
+person:bill_gould a schema:Person ;
+    schema:familyName "Gould" ;
+    schema:givenName "Bill" .
+
+person:billie_joe_armstrong a schema:Person ;
+    schema:familyName "Armstrong" ;
+    schema:givenName "Billie Joe" .
+
+person:billy_corgan a schema:Person ;
+    schema:familyName "Corgan" ;
+    schema:givenName "Billy" .
+
+person:billy_duffy a schema:Person ;
+    schema:familyName "Duffy" ;
+    schema:givenName "Billy" .
+
+person:billy_gould a schema:Person ;
+    schema:familyName "Gould" ;
+    schema:givenName "Billy" .
+
+person:blaze_bayley a schema:Person ;
+    schema:familyName "Bayley" ;
+    schema:givenName "Blaze" .
+
+person:bob_dylan a schema:Person ;
+    schema:familyName "Dylan" ;
+    schema:givenName "Bob" .
+
+person:bobby_byrd a schema:Person ;
+    schema:familyName "Byrd" ;
+    schema:givenName "Bobby" .
+
+person:bono a schema:Person ;
+    schema:familyName "Bono" ;
+    schema:givenName "Bono" .
+
+person:brian_eno a schema:Person ;
+    schema:familyName "Eno" ;
+    schema:givenName "Brian" .
+
+person:brian_johnson a schema:Person ;
+    schema:familyName "Johnson" ;
+    schema:givenName "Brian" .
+
+person:brian_may a schema:Person ;
+    schema:familyName "May" ;
+    schema:givenName "Brian" .
+
+person:bruce_dickinson a schema:Person ;
+    schema:familyName "Dickinson" ;
+    schema:givenName "Bruce" .
+
+person:buddy_guy a schema:Person ;
+    schema:familyName "Guy" ;
+    schema:givenName "Buddy" .
+
+person:buzz_cason a schema:Person ;
+    schema:familyName "Cason" ;
+    schema:givenName "Buzz" .
+
+person:caetano_veloso a schema:Person ;
+    schema:familyName "Veloso" ;
+    schema:givenName "Caetano" .
+
+person:carl_nielsen a schema:Person ;
+    schema:familyName "Nielsen" ;
+    schema:givenName "Carl" .
+
+person:carl_orff a schema:Person ;
+    schema:familyName "Orff" ;
+    schema:givenName "Carl" .
+
+person:carlos_santana a schema:Person ;
+    schema:familyName "Santana" ;
+    schema:givenName "Carlos" .
+
+person:chad_smith a schema:Person ;
+    schema:familyName "Smith" ;
+    schema:givenName "Chad" .
+
+person:charles_gavin a schema:Person ;
+    schema:familyName "Gavin" ;
+    schema:givenName "Charles" .
+
+person:charlie_jones a schema:Person ;
+    schema:familyName "Jones" ;
+    schema:givenName "Charlie" .
+
+person:chico_buarque a schema:Person ;
+    schema:familyName "Buarque" ;
+    schema:givenName "Chico" .
+
+person:chico_science a schema:Person ;
+    schema:familyName "Science" ;
+    schema:givenName "Chico" .
+
+person:chris_cornell a schema:Person ;
+    schema:familyName "Cornell" ;
+    schema:givenName "Chris" .
+
+person:chris_shiflett a schema:Person ;
+    schema:familyName "Shiflett" ;
+    schema:givenName "Chris" .
+
+person:chuck_berry a schema:Person ;
+    schema:familyName "Berry" ;
+    schema:givenName "Chuck" .
+
+person:ciro_pressoa a schema:Person ;
+    schema:familyName "Pressoa" ;
+    schema:givenName "Ciro" .
+
+person:claudio_monteverdi a schema:Person ;
+    schema:familyName "Monteverdi" ;
+    schema:givenName "Claudio" .
+
+person:cliff_burton a schema:Person ;
+    schema:familyName "Burton" ;
+    schema:givenName "Cliff" .
+
+person:daragh_otoole a schema:Person ;
+    schema:familyName "O'Toole" ;
+    schema:givenName "Daragh" .
+
+person:dave_grohl a schema:Person ;
+    schema:familyName "Grohl" ;
+    schema:givenName "Dave" .
+
+person:david_bowie a schema:Person ;
+    schema:familyName "Bowie" ;
+    schema:givenName "David" .
+
+person:david_coverdale a schema:Person ;
+    schema:familyName "Coverdale" ;
+    schema:givenName "David" .
+
+person:david_lee_roth a schema:Person ;
+    schema:familyName "Roth" ;
+    schema:givenName "David Lee" .
+
+person:djavan a schema:Person ;
+    schema:familyName "Djavan" ;
+    schema:givenName "Djavan" .
+
+person:duff_mckagan a schema:Person ;
+    schema:familyName "McKagan" ;
+    schema:givenName "Duff" .
+
+person:eddie_vedder a schema:Person ;
+    schema:familyName "Vedder" ;
+    schema:givenName "Eddie" .
+
+person:edvard_grieg a schema:Person ;
+    schema:familyName "Grieg" ;
+    schema:givenName "Edvard" .
+
+person:edward_elgar a schema:Person ;
+    schema:familyName "Elgar" ;
+    schema:givenName "Edward" .
+
+person:edward_van_halen a schema:Person ;
+    schema:familyName "Van Halen" ;
+    schema:givenName "Edward" .
+
+person:eric_clapton a schema:Person ;
+    schema:familyName "Clapton" ;
+    schema:givenName "Eric" .
+
+person:eugene_mcdaniel a schema:Person ;
+    schema:familyName "McDaniel" ;
+    schema:givenName "Eugene" .
+
+person:faith_no_more a schema:Person ;
+    schema:familyName "More" ;
+    schema:givenName "Faith No" .
+
+person:flea a schema:Person ;
+    schema:familyName "Flea" ;
+    schema:givenName "Flea" .
+
+person:foo_fighters a schema:Person ;
+    schema:familyName "Fighters" ;
+    schema:givenName "Foo" .
+
+person:franz_joseph_haydn a schema:Person ;
+    schema:familyName "Haydn" ;
+    schema:givenName "Franz Joseph" .
+
+person:franz_schubert a schema:Person ;
+    schema:familyName "Schubert" ;
+    schema:givenName "Franz" .
+
+person:freddie_mercury a schema:Person ;
+    schema:familyName "Mercury" ;
+    schema:givenName "Freddie" .
+
+person:frederic_chopin a schema:Person ;
+    schema:familyName "Chopin" ;
+    schema:givenName "Frédéric" .
+
+person:gabriel_faure a schema:Person ;
+    schema:familyName "Fauré" ;
+    schema:givenName "Gabriel" .
+
+person:gene_simmons a schema:Person ;
+    schema:familyName "Simmons" ;
+    schema:givenName "Gene" .
+
+person:george_frideric_handel a schema:Person ;
+    schema:familyName "Handel" ;
+    schema:givenName "George Frideric" .
+
+person:georges_bizet a schema:Person ;
+    schema:familyName "Bizet" ;
+    schema:givenName "Georges" .
+
+person:giacomo_puccini a schema:Person ;
+    schema:familyName "Puccini" ;
+    schema:givenName "Giacomo" .
+
+person:gilberto_gil a schema:Person ;
+    schema:familyName "Gil" ;
+    schema:givenName "Gilberto" .
+
+person:giuseppe_verdi a schema:Person ;
+    schema:familyName "Verdi" ;
+    schema:givenName "Giuseppe" .
+
+person:glenn_ballard a schema:Person ;
+    schema:familyName "Ballard" ;
+    schema:givenName "Glenn" .
+
+person:green_day a schema:Person ;
+    schema:familyName "Day" ;
+    schema:givenName "Green" .
+
+person:gregorio_allegri a schema:Person ;
+    schema:familyName "Allegri" ;
+    schema:givenName "Gregorio" .
+
+person:gustav_holst a schema:Person ;
+    schema:familyName "Holst" ;
+    schema:givenName "Gustav" .
+
+person:gustav_mahler a schema:Person ;
+    schema:familyName "Mahler" ;
+    schema:givenName "Gustav" .
+
+person:hector_berlioz a schema:Person ;
+    schema:familyName "Berlioz" ;
+    schema:givenName "Hector" .
+
+person:henry_purcell a schema:Person ;
+    schema:familyName "Purcell" ;
+    schema:givenName "Henry" .
+
+person:henryk_gorecki a schema:Person ;
+    schema:familyName "Górecki" ;
+    schema:givenName "Henryk" .
+
+person:herbert_vianna a schema:Person ;
+    schema:familyName "Vianna" ;
+    schema:givenName "Herbert" .
+
+person:ian_astbury a schema:Person ;
+    schema:familyName "Astbury" ;
+    schema:givenName "Ian" .
+
+person:ian_gillan a schema:Person ;
+    schema:familyName "Gillan" ;
+    schema:givenName "Ian" .
+
+person:ian_paice a schema:Person ;
+    schema:familyName "Paice" ;
+    schema:givenName "Ian" .
+
+person:igor_stravinsky a schema:Person ;
+    schema:familyName "Stravinsky" ;
+    schema:givenName "Igor" .
+
+person:james_brown a schema:Person ;
+    schema:familyName "Brown" ;
+    schema:givenName "James" .
+
+person:james_hetfield a schema:Person ;
+    schema:familyName "Hetfield" ;
+    schema:givenName "James" .
+
+person:janick_gers a schema:Person ;
+    schema:familyName "Gers" ;
+    schema:givenName "Janick" .
+
+person:jay_kay a schema:Person ;
+    schema:familyName "Kay" ;
+    schema:givenName "Jay" .
+
+person:jean_sibelius a schema:Person ;
+    schema:familyName "Sibelius" ;
+    schema:givenName "Jean" .
+
+person:jerry_cantrell a schema:Person ;
+    schema:familyName "Cantrell" ;
+    schema:givenName "Jerry" .
+
+person:jesse_fuller a schema:Person ;
+    schema:familyName "Fuller" ;
+    schema:givenName "Jesse" .
+
+person:jim_gordon a schema:Person ;
+    schema:familyName "Gordon" ;
+    schema:givenName "Jim" .
+
+person:jim_vallance a schema:Person ;
+    schema:familyName "Vallance" ;
+    schema:givenName "Jim" .
+
+person:jimi_hendrix a schema:Person ;
+    schema:familyName "Hendrix" ;
+    schema:givenName "Jimi" .
+
+person:jimmy_cox a schema:Person ;
+    schema:familyName "Cox" ;
+    schema:givenName "Jimmy" .
+
+person:jimmy_page a schema:Person ;
+    schema:familyName "Page" ;
+    schema:givenName "Jimmy" .
+
+person:joe_perry a schema:Person ;
+    schema:familyName "Perry" ;
+    schema:givenName "Joe" .
+
+person:joe_strummer a schema:Person ;
+    schema:familyName "Strummer" ;
+    schema:givenName "Joe" .
+
+person:johann_pachelbel a schema:Person ;
+    schema:familyName "Pachelbel" ;
+    schema:givenName "Johann" .
+
+person:johann_sebastian_bach a schema:Person ;
+    schema:familyName "Bach" ;
+    schema:givenName "Johann Sebastian" .
+
+person:johann_strauss_ii a schema:Person ;
+    schema:familyName "II" ;
+    schema:givenName "Johann Strauss" .
+
+person:john_adams a schema:Person ;
+    schema:familyName "Adams" ;
+    schema:givenName "John" .
+
+person:john_bonham a schema:Person ;
+    schema:familyName "Bonham" ;
+    schema:givenName "John" .
+
+person:john_deacon a schema:Person ;
+    schema:familyName "Deacon" ;
+    schema:givenName "John" .
+
+person:john_frusciante a schema:Person ;
+    schema:familyName "Frusciante" ;
+    schema:givenName "John" .
+
+person:john_lennon a schema:Person ;
+    schema:familyName "Lennon" ;
+    schema:givenName "John" .
+
+person:john_paul_jones a schema:Person ;
+    schema:familyName "Jones" ;
+    schema:givenName "John Paul" .
+
+person:jon_hudson a schema:Person ;
+    schema:familyName "Hudson" ;
+    schema:givenName "Jon" .
+
+person:jon_lord a schema:Person ;
+    schema:familyName "Lord" ;
+    schema:givenName "Jon" .
+
+person:karol_szymanowski a schema:Person ;
+    schema:familyName "Szymanowski" ;
+    schema:givenName "Karol" .
+
+person:keith_richards a schema:Person ;
+    schema:familyName "Richards" ;
+    schema:givenName "Keith" .
+
+person:kevin_robinson a schema:Person ;
+    schema:familyName "Robinson" ;
+    schema:givenName "Kevin" .
+
+person:kirk_hammett a schema:Person ;
+    schema:familyName "Hammett" ;
+    schema:givenName "Kirk" .
+
+person:kurt_cobain a schema:Person ;
+    schema:familyName "Cobain" ;
+    schema:givenName "Kurt" .
+
+person:kurt_weill a schema:Person ;
+    schema:familyName "Weill" ;
+    schema:givenName "Kurt" .
+
+person:larry_mullen a schema:Person ;
+    schema:familyName "Mullen" ;
+    schema:givenName "Larry" .
+
+person:lars_ulrich a schema:Person ;
+    schema:familyName "Ulrich" ;
+    schema:givenName "Lars" .
+
+person:lenny_kravitz a schema:Person ;
+    schema:familyName "Kravitz" ;
+    schema:givenName "Lenny" .
+
+person:little_richard a schema:Person ;
+    schema:familyName "Richard" ;
+    schema:givenName "Little" .
+
+person:ludwig_van_beethoven a schema:Person ;
+    schema:familyName "Beethoven" ;
+    schema:givenName "Ludwig van" .
+
+person:mac_gayden a schema:Person ;
+    schema:familyName "Gayden" ;
+    schema:givenName "Mac" .
+
+person:malcolm_young a schema:Person ;
+    schema:familyName "Young" ;
+    schema:givenName "Malcolm" .
+
+person:marcelo_fromer a schema:Person ;
+    schema:familyName "Fromer" ;
+    schema:givenName "Marcelo" .
+
+person:marvin_gaye a schema:Person ;
+    schema:familyName "Gaye" ;
+    schema:givenName "Marvin" .
+
+person:matt_cameron a schema:Person ;
+    schema:familyName "Cameron" ;
+    schema:givenName "Matt" .
+
+person:metallica a schema:Person ;
+    schema:familyName "Metallica" ;
+    schema:givenName "Metallica" .
+
+person:michael_anthony a schema:Person ;
+    schema:familyName "Anthony" ;
+    schema:givenName "Michael" .
+
+person:michael_jackson a schema:Person ;
+    schema:familyName "Jackson" ;
+    schema:givenName "Michael" .
+
+person:michael_stipe a schema:Person ;
+    schema:familyName "Stipe" ;
+    schema:givenName "Michael" .
+
+person:mick_hucknall a schema:Person ;
+    schema:familyName "Hucknall" ;
+    schema:givenName "Mick" .
+
+person:mick_jagger a schema:Person ;
+    schema:familyName "Jagger" ;
+    schema:givenName "Mick" .
+
+person:mick_jones a schema:Person ;
+    schema:familyName "Jones" ;
+    schema:givenName "Mick" .
+
+person:mike_bordin a schema:Person ;
+    schema:familyName "Bordin" ;
+    schema:givenName "Mike" .
+
+person:mike_dirnt a schema:Person ;
+    schema:familyName "Dirnt" ;
+    schema:givenName "Mike" .
+
+person:mike_mccready a schema:Person ;
+    schema:familyName "McCready" ;
+    schema:givenName "Mike" .
+
+person:mike_mills a schema:Person ;
+    schema:familyName "Mills" ;
+    schema:givenName "Mike" .
+
+person:mike_patton a schema:Person ;
+    schema:familyName "Patton" ;
+    schema:givenName "Mike" .
+
+person:miles_davis a schema:Person ;
+    schema:familyName "Davis" ;
+    schema:givenName "Miles" .
+
+person:milton_nascimento a schema:Person ;
+    schema:familyName "Nascimento" ;
+    schema:givenName "Milton" .
+
+person:nat_jones a schema:Person ;
+    schema:familyName "Jones" ;
+    schema:givenName "Nat" .
+
+person:nate_mendel a schema:Person ;
+    schema:familyName "Mendel" ;
+    schema:givenName "Nate" .
+
+person:neil_young a schema:Person ;
+    schema:familyName "Young" ;
+    schema:givenName "Neil" .
+
+person:nikki_sixx a schema:Person ;
+    schema:familyName "Sixx" ;
+    schema:givenName "Nikki" .
+
+person:nikolai_rimsky_korsakov a schema:Person ;
+    schema:familyName "Rimsky-Korsakov" ;
+    schema:givenName "Nikolai" .
+
+person:nirvana a schema:Person ;
+    schema:familyName "Nirvana" ;
+    schema:givenName "Nirvana" .
+
+person:ozzy_osbourne a schema:Person ;
+    schema:familyName "Osbourne" ;
+    schema:givenName "Ozzy" .
+
+person:paul_mccartney a schema:Person ;
+    schema:familyName "McCartney" ;
+    schema:givenName "Paul" .
+
+person:paul_stanley a schema:Person ;
+    schema:familyName "Stanley" ;
+    schema:givenName "Paul" .
+
+person:pearl_jam a schema:Person ;
+    schema:familyName "Jam" ;
+    schema:givenName "Pearl" .
+
+person:pete_townshend a schema:Person ;
+    schema:familyName "Townshend" ;
+    schema:givenName "Pete" .
+
+person:peter_buck a schema:Person ;
+    schema:familyName "Buck" ;
+    schema:givenName "Peter" .
+
+person:philip_glass a schema:Person ;
+    schema:familyName "Glass" ;
+    schema:givenName "Philip" .
+
+person:pietro_antonio_locatelli a schema:Person ;
+    schema:familyName "Locatelli" ;
+    schema:givenName "Pietro Antonio" .
+
+person:pietro_mascagni a schema:Person ;
+    schema:familyName "Mascagni" ;
+    schema:givenName "Pietro" .
+
+person:queen a schema:Person ;
+    schema:familyName "Queen" ;
+    schema:givenName "Queen" .
+
+person:ralph_vaughan_williams a schema:Person ;
+    schema:familyName "Williams" ;
+    schema:givenName "Ralph Vaughan" .
+
+person:red_hot_chili_peppers a schema:Person ;
+    schema:familyName "Peppers" ;
+    schema:givenName "Red Hot Chili" .
+
+person:renato_russo a schema:Person ;
+    schema:familyName "Russo" ;
+    schema:givenName "Renato" .
+
+person:richard_bull a schema:Person ;
+    schema:familyName "Bull" ;
+    schema:givenName "Richard" .
+
+person:richard_wagner a schema:Person ;
+    schema:familyName "Wagner" ;
+    schema:givenName "Richard" .
+
+person:ritchie_blackmore a schema:Person ;
+    schema:familyName "Blackmore" ;
+    schema:givenName "Ritchie" .
+
+person:robert_cray a schema:Person ;
+    schema:familyName "Cray" ;
+    schema:givenName "Robert" .
+
+person:robert_johnson a schema:Person ;
+    schema:familyName "Johnson" ;
+    schema:givenName "Robert" .
+
+person:robert_plant a schema:Person ;
+    schema:familyName "Plant" ;
+    schema:givenName "Robert" .
+
+person:roddy_bottum a schema:Person ;
+    schema:familyName "Bottum" ;
+    schema:givenName "Roddy" .
+
+person:roger_daltrey a schema:Person ;
+    schema:familyName "Daltrey" ;
+    schema:givenName "Roger" .
+
+person:roger_glover a schema:Person ;
+    schema:familyName "Glover" ;
+    schema:givenName "Roger" .
+
+person:roger_taylor a schema:Person ;
+    schema:familyName "Taylor" ;
+    schema:givenName "Roger" .
+
+person:roy_orbison a schema:Person ;
+    schema:familyName "Orbison" ;
+    schema:givenName "Roy" .
+
+person:samuel_rosa a schema:Person ;
+    schema:familyName "Rosa" ;
+    schema:givenName "Samuel" .
+
+person:scott_weiland a schema:Person ;
+    schema:familyName "Weiland" ;
+    schema:givenName "Scott" .
+
+person:sergio_britto a schema:Person ;
+    schema:familyName "Britto" ;
+    schema:givenName "Sérgio" .
+
+person:slash a schema:Person ;
+    schema:familyName "Slash" ;
+    schema:givenName "Slash" .
+
+person:soundgarden a schema:Person ;
+    schema:familyName "Soundgarden" ;
+    schema:givenName "Soundgarden" .
+
+person:steve_harris a schema:Person ;
+    schema:familyName "Harris" ;
+    schema:givenName "Steve" .
+
+person:steven_tyler a schema:Person ;
+    schema:familyName "Tyler" ;
+    schema:givenName "Steven" .
+
+person:stevie_ray_vaughan a schema:Person ;
+    schema:familyName "Vaughan" ;
+    schema:givenName "Stevie Ray" .
+
+person:stone_gossard a schema:Person ;
+    schema:familyName "Gossard" ;
+    schema:givenName "Stone" .
+
+person:sully_erna a schema:Person ;
+    schema:familyName "Erna" ;
+    schema:givenName "Sully" .
+
+person:taylor_hawkins a schema:Person ;
+    schema:familyName "Hawkins" ;
+    schema:givenName "Taylor" .
+
+person:the_clash a schema:Person ;
+    schema:familyName "Clash" ;
+    schema:givenName "The" .
+
+person:the_edge a schema:Person ;
+    schema:familyName "Edge" ;
+    schema:givenName "The" .
+
+person:the_tea_party a schema:Person ;
+    schema:familyName "Party" ;
+    schema:givenName "The Tea" .
+
+person:thomas_tallis a schema:Person ;
+    schema:familyName "Tallis" ;
+    schema:givenName "Thomas" .
+
+person:tim_maia a schema:Person ;
+    schema:familyName "Maia" ;
+    schema:givenName "Tim" .
+
+person:toby_smith a schema:Person ;
+    schema:familyName "Smith" ;
+    schema:givenName "Toby" .
+
+person:tom_jobim a schema:Person ;
+    schema:familyName "Jobim" ;
+    schema:givenName "Tom" .
+
+person:toni_bellotto a schema:Person ;
+    schema:familyName "Bellotto" ;
+    schema:givenName "Toni" .
+
+person:tony_iommi a schema:Person ;
+    schema:familyName "Iommi" ;
+    schema:givenName "Tony" .
+
+person:traditional a schema:Person ;
+    schema:familyName "Traditional" ;
+    schema:givenName "Traditional" .
+
+person:tre_cool a schema:Person ;
+    schema:familyName "Cool" ;
+    schema:givenName "Tré" .
+
+person:trey_spruance a schema:Person ;
+    schema:familyName "Spruance" ;
+    schema:givenName "Trey" .
+
+person:u2 a schema:Person ;
+    schema:familyName "U2" ;
+    schema:givenName "U2" .
+
+person:van_halen a schema:Person ;
+    schema:familyName "Halen" ;
+    schema:givenName "Van" .
+
+person:vincent_poncia a schema:Person ;
+    schema:familyName "Poncia" ;
+    schema:givenName "Vincent" .
+
+person:w_axl_rose a schema:Person ;
+    schema:familyName "Rose" ;
+    schema:givenName "W. Axl" .
+
+person:waly_salomao a schema:Person ;
+    schema:familyName "Salomão" ;
+    schema:givenName "Waly" .
+
+person:will_jennings a schema:Person ;
+    schema:familyName "Jennings" ;
+    schema:givenName "Will" .
+
+person:william_byrd a schema:Person ;
+    schema:familyName "Byrd" ;
+    schema:givenName "William" .
+
+person:willie_dixon a schema:Person ;
+    schema:familyName "Dixon" ;
+    schema:givenName "Willie" .
+
+person:wolfgang_amadeus_mozart a schema:Person ;
+    schema:familyName "Mozart" ;
+    schema:givenName "Wolfgang Amadeus" .
 

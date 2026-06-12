@@ -5,6 +5,17 @@
 
 # Project-specific namespaces/qnames
 @prefix :                <http://example.org/> .
+@prefix address:         <http://example.org/address/> .
+@prefix album:           <http://example.org/album/> .
+@prefix artist:          <http://example.org/artist/> .
+@prefix customer:        <http://example.org/customer/> .
+@prefix employee:        <http://example.org/employee/> .
+@prefix genre:           <http://example.org/genre/> .
+@prefix invline:         <http://example.org/invoiceline/> .
+@prefix invoice:         <http://example.org/invoice/> .
+@prefix media:           <http://example.org/mediatype/> .
+@prefix playlist:        <http://example.org/playlist/> .
+@prefix track:           <http://example.org/tracks/> .
 
 # LINDAS-specific namespaces/qnames
 @prefix org:             <https://register.ld.admin.ch/opendataswiss/org/> .

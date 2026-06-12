@@ -2,24 +2,45 @@
 # CONFIG
 # ==============================================================================
 
-ROBOT_VERSION := v1.9.5
-ONTO := src/rdf/ontology/model.owl.ttl
-DATA := src/rdf/data/people.ttl
-SHAPES := src/rdf/shapes/model.shacl.ttl
-PREFIXES := src/rdf/prefixes.ttl
-QUERIES := $(wildcard src/sparql/processing/*.rq)
-PYTHON ?= $(shell command -v python3 || command -v python)
-VENV ?= venv
-VENV_BIN := $(VENV)/bin
-VENV_PYTHON := $(VENV_BIN)/python
-VENV_PIP := $(VENV_BIN)/pip
-PYSHACL := $(VENV_BIN)/pyshacl
-PYTEST := $(VENV_BIN)/pytest
-ROBOT := java -jar $(VENV_BIN)/robot.jar
+# Directories
+BUILD_DIR        := build
+RDF_DIR          := $(BUILD_DIR)/rdf
 
-FETCHED_DATA := build/rdf/00-integrated.ttl
+# Tools and binaries
+ROBOT_VERSION    := v1.9.5
+PYTHON           ?= $(shell command -v python3 || command -v python)
+VENV             ?= venv
+VENV_BIN         := $(VENV)/bin
+VENV_PYTHON      := $(VENV_BIN)/python
+VENV_PIP         := $(VENV_BIN)/pip
+PYSHACL          := $(VENV_BIN)/pyshacl
+PYTEST           := $(VENV_BIN)/pytest
+ROBOT            := java -jar $(VENV_BIN)/robot.jar
 
-.PHONY: all robot test docs clean fetch-data
+# Inputs
+ONTO             := src/rdf/ontology/model.owl.ttl
+DATA             := src/rdf/data/people.ttl
+SHAPES           := src/rdf/shapes/model.shacl.ttl
+PREFIXES         := src/rdf/prefixes.ttl
+QUERIES          := $(wildcard src/sparql/processing/*.rq)
+PIPELINE_SCRIPTS := $(sort $(wildcard src/python/pipeline/*.py))
+
+# Intermediate & Output Files
+FETCHED_DATA     := $(RDF_DIR)/00-integrated.ttl
+MERGED_DATA      := $(RDF_DIR)/01-merged.ttl
+INFERRED_DATA    := $(RDF_DIR)/02-inferred.ttl
+PROCESSED_DATA   := $(RDF_DIR)/03-processed.ttl
+SHACL_REPORT     := $(RDF_DIR)/04-shacl-report.ttl
+
+# Logs
+LOG_DIR          := $(BUILD_DIR)/log/
+MERGE_LOG        := $(LOG_DIR)/01-merge.log
+INFER_LOG        := $(LOG_DIR)/02-infer.log
+QUERY_LOG        := $(LOG_DIR)/03-query.log
+SHACL_LOG        := $(LOG_DIR)/04-shacl.log
+QUARTO_LOG       := $(LOG_DIR)/05-quarto.log
+
+.PHONY: all robot test docs clean fetch-data check-python venv install-dependencies setup check-syntax merge infer post-process build shacl delete publish
 
 # Default target
 all: test docs
@@ -54,40 +75,62 @@ setup: install-dependencies robot
 # RDF DATA INTEGRATION, REASONING AND POST-PROCESSING
 # ==============================================================================
 
-FETCHED_DATA := build/rdf/00-integrated.ttl
+# 1. Set up directories
+mkdir:
+	@mkdir -p $(RDF_DIR)
+	@mkdir -p $(LOG_DIR)
 
-# 1. Fetch, Query, and Transform SQLite data
-fetch-data: venv
-	@mkdir -p build/rdf
-	@echo "Extracting SQLite data to RDF..."
-	@$(VENV_PYTHON) src/python/pipeline/01_integrate_example_data.py --output $(FETCHED_DATA)
+# 2. Fetch, Query, and Transform source data sequentially
+fetch-data: venv mkdir
+	@echo "Running data integration pipelines..."
+	@if [ -n "$(PIPELINE_SCRIPTS)" ]; then \
+		for script in $(PIPELINE_SCRIPTS); do \
+			echo "Executing $$script..."; \
+			$(VENV_PYTHON) "$$script" --output $(FETCHED_DATA); \
+		done; \
+	else \
+		echo "No pipeline scripts found. Creating empty data file."; \
+		touch $(FETCHED_DATA); \
+	fi
 
-# 2. Check that all turtle files are syntactically valid
+# 3. Check that all turtle files are syntactically valid
 check-syntax: fetch-data $(DATA) $(ONTO) $(SHAPES) $(PREFIXES)
-	@mkdir -p build/rdf
 	@echo "Checking Turtle syntax..."
 	@$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || (echo "\n[ERROR] Syntax check failed:" && $(PYTEST) tests/test_syntax.py -v && exit 1)
 
-# 3. Merge ontology, static data, fetched data, and prefixes
+# 4. Merge ontology, static data, fetched data, and prefixes
 merge: check-syntax $(DATA) $(ONTO) $(FETCHED_DATA) $(PREFIXES)
 	@echo "Merging ontology and data..."
-	@$(ROBOT) merge --input $(ONTO) --input $(DATA) --input $(FETCHED_DATA) --input $(PREFIXES) --output build/rdf/01-merged.ttl > build/01-merge.log 2>&1 || (cat build/01-merge.log && exit 1)
+	@$(ROBOT) merge \
+		--input $(ONTO) \
+		--input $(DATA) \
+		--input $(FETCHED_DATA) \
+		--input $(PREFIXES) \
+		--output $(MERGED_DATA) > $(MERGE_LOG) 2>&1 || (cat $(MERGE_LOG) && exit 1)
 
-# 4. Inference using HermiT
+# 5. Inference using HermiT
 infer: merge
 	@echo "Running logical inference (HermiT)..."
-	@$(ROBOT) reason --input build/rdf/01-merged.ttl --reasoner HermiT --axiom-generators "SubClass ClassAssertion PropertyAssertion" --output build/rdf/02-inferred.ttl > build/02-infer.log 2>&1 || (cat build/02-infer.log && exit 1)
+	@$(ROBOT) reason \
+		--input $(MERGED_DATA) \
+		--reasoner HermiT \
+		--axiom-generators "SubClass ClassAssertion PropertyAssertion" \
+		--output $(INFERRED_DATA) > $(INFER_LOG) 2>&1 || (cat $(INFER_LOG) && exit 1)
 
-# 5. Model-driven processing via SPARQL
+# 6. Model-driven processing via SPARQL
 post-process: infer $(QUERIES)
 	@echo "Applying SPARQL updates..."
 	@if [ -z "$(QUERIES)" ]; then \
-		cp build/rdf/02-inferred.ttl build/rdf/03-processed.ttl; \
+		cp $(INFERRED_DATA) $(PROCESSED_DATA); \
 	else \
-		$(ROBOT) query --input build/rdf/02-inferred.ttl $(foreach q,$(QUERIES),--update $(q)) convert --output build/rdf/03-processed.ttl > build/03-query.log 2>&1 || (cat build/03-query.log && exit 1); \
+		$(ROBOT) query \
+			--input $(INFERRED_DATA) \
+			$(foreach q,$(QUERIES),--update $(q)) \
+			convert --output $(PROCESSED_DATA) > $(QUERY_LOG) 2>&1 || (cat $(QUERY_LOG) && exit 1); \
 	fi
-	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py build/rdf/03-processed.ttl build/rdf/03-processed.ttl
+	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py $(PROCESSED_DATA) $(PROCESSED_DATA)
 
+# 7. Trigger the whole graph build process
 build: post-process
 
 # ==============================================================================
@@ -96,7 +139,7 @@ build: post-process
 
 docs: shacl
 	@echo "Rendering documentation with Quarto..."
-	@quarto render > build/05-quarto.log 2>&1 || true
+	@quarto render > $(QUARTO_LOG) 2>&1 || true
 
 # ==============================================================================
 # TESTS
@@ -105,10 +148,9 @@ docs: shacl
 # 1. SHACL validation
 shacl: build $(SHAPES)
 	@echo "Running SHACL engine..."
-	@$(PYSHACL) -s $(SHAPES) -m -i rdfs -a -f turtle -o build/rdf/04-shacl-report.ttl $< > build/04-shacl.log 2>&1 || true
+	@$(PYSHACL) -s $(SHAPES) -m -i rdfs -a -f turtle -o $(SHACL_REPORT) $(PROCESSED_DATA) > $(SHACL_LOG) 2>&1 || true
 
-# 2. Run pytest (relies on written SHACL reports for all
-#    shape-related tests)
+# 2. Run pytest (relies on written SHACL reports for all shape-related tests)
 test: build shacl
 	@echo "Running final test suite..."
 	@$(PYTEST) tests/ -v
@@ -136,7 +178,7 @@ publish: test delete
 		--user $(USER):$(PASSWORD) \
 		-X POST \
 		-H "Content-Type: text/turtle" \
-		--data-binary @build/rdf/03-processed.ttl \
+		--data-binary @$(PROCESSED_DATA) \
 		"$(ENDPOINT)?graph=$(GRAPH)"
 
 # ==============================================================================
@@ -144,4 +186,4 @@ publish: test delete
 # ==============================================================================
 
 clean:
-	rm -rf build venv .quarto tests/__pycache__ .pytest_cache
+	rm -rf $(BUILD_DIR) $(VENV) .quarto tests/__pycache__ .pytest_cache

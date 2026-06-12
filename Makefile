@@ -117,6 +117,7 @@ infer: merge
 		--input $(MERGED_DATA) \
 		--reasoner HermiT \
 		--axiom-generators "SubClass ClassAssertion PropertyAssertion" \
+		--include-indirect true \
 		--output $(INFERRED_DATA) > $(INFER_LOG) 2>&1 || (cat $(INFER_LOG) && exit 1)
 	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(INFERRED_DATA) -p $(PREFIXES) -o $(INFERRED_DATA)
 
@@ -151,7 +152,7 @@ docs: shacl
 # 1. SHACL validation
 shacl: build $(SHAPES)
 	@echo "Running SHACL engine..."
-	@$(PYSHACL) -s $(SHAPES) -m -i rdfs -a -f turtle -o $(SHACL_REPORT) $(PROCESSED_DATA) > $(SHACL_LOG) 2>&1 || true
+	@$(PYSHACL) -s $(SHAPES)  -a -f turtle -o $(SHACL_REPORT) $(PROCESSED_DATA) > $(SHACL_LOG) 2>&1 || true
 
 # 2. Run pytest (relies on written SHACL reports for all shape-related tests)
 test: build shacl

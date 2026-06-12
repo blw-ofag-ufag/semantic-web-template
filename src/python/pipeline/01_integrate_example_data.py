@@ -3,7 +3,7 @@ import sqlite3
 import urllib.request
 import hashlib
 from pathlib import Path
-from rdflib import Graph, Namespace, Literal
+from rdflib import Graph, Namespace, Literal, BNode
 from rdflib.namespace import RDF, XSD
 
 def main():
@@ -26,6 +26,7 @@ def main():
     # 1. Initialize Graph and Granular Namespaces
     g = Graph()
     SCHEMA = Namespace("http://schema.org/")
+    UNIT = Namespace("http://qudt.org/vocab/unit/")
     
     ARTIST = Namespace("http://example.org/artist/")
     ALBUM = Namespace("http://example.org/album/")
@@ -40,6 +41,7 @@ def main():
     ADDRESS = Namespace("http://example.org/address/")
 
     g.bind("schema", SCHEMA)
+    g.bind("unit", UNIT)
     g.bind("artist", ARTIST)
     g.bind("album", ALBUM)
     g.bind("track", TRACK)
@@ -60,10 +62,19 @@ def main():
     # PIPELINE HELPERS
     # =========================================================================
 
-    def add_lang_string(subject, predicate, value):
-        """Attaches a string literal with an English language tag."""
+    def add_string(subject, predicate, value):
+        """Attaches a plain string literal without a language tag."""
         if value:
-            g.add((subject, predicate, Literal(str(value).strip(), lang="en")))
+            g.add((subject, predicate, Literal(str(value).strip())))
+
+    def add_quantitative_value(subject, predicate, value, datatype, unit_uri):
+        """Attaches a schema:QuantitativeValue blank node with a QUDT unit."""
+        if value is not None:
+            qnode = BNode()
+            g.add((subject, predicate, qnode))
+            g.add((qnode, RDF.type, SCHEMA.QuantitativeValue))
+            g.add((qnode, SCHEMA.value, Literal(value, datatype=datatype)))
+            g.add((qnode, SCHEMA.unitCode, unit_uri))
 
     def build_address(street, city, state, country, postal_code):
         """Generates a deterministic URI for an address based on its contents."""
@@ -80,10 +91,10 @@ def main():
         
         # Assert the address properties
         g.add((address_uri, RDF.type, SCHEMA.PostalAddress))
-        add_lang_string(address_uri, SCHEMA.streetAddress, street)
-        add_lang_string(address_uri, SCHEMA.addressLocality, city)
-        add_lang_string(address_uri, SCHEMA.addressRegion, state)
-        add_lang_string(address_uri, SCHEMA.addressCountry, country)
+        add_string(address_uri, SCHEMA.streetAddress, street)
+        add_string(address_uri, SCHEMA.addressLocality, city)
+        add_string(address_uri, SCHEMA.addressRegion, state)
+        add_string(address_uri, SCHEMA.addressCountry, country)
         
         if postal_code:
             g.add((address_uri, SCHEMA.postalCode, Literal(postal_code, datatype=XSD.string)))
@@ -99,14 +110,14 @@ def main():
     for row in cursor.fetchall():
         uri = ARTIST[str(row[0])]
         g.add((uri, RDF.type, SCHEMA.MusicGroup))
-        add_lang_string(uri, SCHEMA.name, row[1])
+        add_string(uri, SCHEMA.name, row[1])
 
     # Albums
     cursor.execute("SELECT AlbumId, Title, ArtistId FROM Album")
     for row in cursor.fetchall():
         uri = ALBUM[str(row[0])]
         g.add((uri, RDF.type, SCHEMA.MusicAlbum))
-        add_lang_string(uri, SCHEMA.name, row[1])
+        add_string(uri, SCHEMA.name, row[1])
         g.add((uri, SCHEMA.byArtist, ARTIST[str(row[2])]))
 
     # Genres
@@ -114,14 +125,14 @@ def main():
     for row in cursor.fetchall():
         uri = GENRE[str(row[0])]
         g.add((uri, RDF.type, SCHEMA.DefinedTerm))
-        add_lang_string(uri, SCHEMA.name, row[1])
+        add_string(uri, SCHEMA.name, row[1])
 
     # Media Types
     cursor.execute("SELECT MediaTypeId, Name FROM MediaType")
     for row in cursor.fetchall():
         uri = MEDIATYPE[str(row[0])]
         g.add((uri, RDF.type, SCHEMA.DefinedTerm))
-        add_lang_string(uri, SCHEMA.name, row[1])
+        add_string(uri, SCHEMA.name, row[1])
 
     # Tracks
     cursor.execute("""
@@ -132,14 +143,17 @@ def main():
     for row in cursor.fetchall():
         uri = TRACK[str(row[0])]
         g.add((uri, RDF.type, SCHEMA.MusicRecording))
-        add_lang_string(uri, SCHEMA.name, row[1])
-        g.add((uri, SCHEMA.duration, Literal(row[6], datatype=XSD.integer)))
-        g.add((uri, SCHEMA.offers, Literal(row[8], datatype=XSD.decimal)))
+        add_string(uri, SCHEMA.name, row[1])
+        
+        # Express quantitative values via QUDT units
+        add_quantitative_value(uri, SCHEMA.duration, row[6], XSD.integer, UNIT.MilliSEC)
+        add_quantitative_value(uri, SCHEMA.offers, row[8], XSD.decimal, UNIT.USD)
         
         if row[5]:
-            add_lang_string(uri, SCHEMA.author, row[5])
-        if row[7]:
-            g.add((uri, SCHEMA.contentSize, Literal(str(row[7]), datatype=XSD.string)))
+            add_string(uri, SCHEMA.author, row[5])
+        if row[7] is not None:
+            # Cast bytes to an integer quantitative value
+            add_quantitative_value(uri, SCHEMA.contentSize, int(row[7]), XSD.integer, UNIT.BYTE)
 
         if row[2] is not None:
             g.add((uri, SCHEMA.inAlbum, ALBUM[str(row[2])]))
@@ -153,7 +167,7 @@ def main():
     for row in cursor.fetchall():
         uri = PLAYLIST[str(row[0])]
         g.add((uri, RDF.type, SCHEMA.MusicPlaylist))
-        add_lang_string(uri, SCHEMA.name, row[1])
+        add_string(uri, SCHEMA.name, row[1])
 
     # Playlist-Track mapping
     cursor.execute("SELECT PlaylistId, TrackId FROM PlaylistTrack")
@@ -173,12 +187,14 @@ def main():
     for row in cursor.fetchall():
         uri = EMPLOYEE[str(row[0])]
         g.add((uri, RDF.type, SCHEMA.Person))
-        add_lang_string(uri, SCHEMA.givenName, row[1])
-        add_lang_string(uri, SCHEMA.familyName, row[2])
-        add_lang_string(uri, SCHEMA.jobTitle, row[3])
+        add_string(uri, SCHEMA.givenName, row[1])
+        add_string(uri, SCHEMA.familyName, row[2])
+        add_string(uri, SCHEMA.jobTitle, row[3])
         
         if row[5]:
-            g.add((uri, SCHEMA.birthDate, Literal(row[5], datatype=XSD.dateTime)))
+            # Convert SQLite "1970-05-29 00:00:00" to "1970-05-29" and type as xsd:date
+            date_only = str(row[5])[:10]
+            g.add((uri, SCHEMA.birthDate, Literal(date_only, datatype=XSD.date)))
         if row[12]:
             g.add((uri, SCHEMA.email, Literal(row[12], datatype=XSD.string)))
             
@@ -198,9 +214,9 @@ def main():
     for row in cursor.fetchall():
         uri = CUSTOMER[str(row[0])]
         g.add((uri, RDF.type, SCHEMA.Person))
-        add_lang_string(uri, SCHEMA.givenName, row[1])
-        add_lang_string(uri, SCHEMA.familyName, row[2])
-        add_lang_string(uri, SCHEMA.worksFor, row[3])
+        add_string(uri, SCHEMA.givenName, row[1])
+        add_string(uri, SCHEMA.familyName, row[2])
+        add_string(uri, SCHEMA.worksFor, row[3])
         
         if row[9]:
             g.add((uri, SCHEMA.email, Literal(row[9], datatype=XSD.string)))
@@ -222,8 +238,13 @@ def main():
         uri = INVOICE[str(row[0])]
         g.add((uri, RDF.type, SCHEMA.Invoice))
         g.add((uri, SCHEMA.customer, CUSTOMER[str(row[1])]))
-        g.add((uri, SCHEMA.dateCreated, Literal(row[2], datatype=XSD.dateTime)))
-        g.add((uri, SCHEMA.totalPaymentDue, Literal(row[8], datatype=XSD.decimal)))
+        
+        if row[2]:
+            # Convert SQLite "2022-06-22 00:00:00" to "2022-06-22" and type as xsd:date
+            date_only = str(row[2])[:10]
+            g.add((uri, SCHEMA.dateCreated, Literal(date_only, datatype=XSD.date)))
+            
+        add_quantitative_value(uri, SCHEMA.totalPaymentDue, row[8], XSD.decimal, UNIT.USD)
         
         address_node = build_address(row[3], row[4], row[5], row[6], row[7])
         if address_node:
@@ -237,8 +258,9 @@ def main():
         
         g.add((uri, RDF.type, SCHEMA.OrderItem))
         g.add((uri, SCHEMA.orderedItem, TRACK[str(row[2])]))
-        g.add((uri, SCHEMA.price, Literal(row[3], datatype=XSD.decimal)))
-        g.add((uri, SCHEMA.orderQuantity, Literal(row[4], datatype=XSD.integer)))
+        
+        add_quantitative_value(uri, SCHEMA.price, row[3], XSD.decimal, UNIT.USD)
+        add_quantitative_value(uri, SCHEMA.orderQuantity, row[4], XSD.integer, UNIT.EA) # 'EA' stands for 'Each'
         
         g.add((invoice_uri, SCHEMA.hasPart, uri))
 

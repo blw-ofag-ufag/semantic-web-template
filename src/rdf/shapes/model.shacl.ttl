@@ -152,6 +152,7 @@
         sh:order 4 ;
         sh:name "Genre"@en ;
         sh:path schema:genre ;
+        sh:class :Genre ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
     ],
@@ -257,4 +258,35 @@
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "A quantitative value must specify its unit via a unitCode URI." ;
+    ] .
+
+:GenreShape a sh:NodeShape ;
+    rdfs:label "Genre"@en ;
+    sh:targetClass :Genre ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:order 1 ;
+        sh:name "Name"@en ;
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ],
+    [
+        sh:order 2 ;
+        sh:name "Part of"@en ;
+        sh:path schema:partOf ;
+        sh:nodeKind sh:IRI ;
+        sh:class :Genre ;
+    ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A genre cannot be a part of itself, either directly or transitively." ;
+        sh:prefixes :, schema: ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this schema:partOf+ $this .
+            }
+        """
     ] .

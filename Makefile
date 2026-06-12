@@ -19,7 +19,7 @@ ROBOT            := java -jar $(VENV_BIN)/robot.jar
 
 # Inputs
 ONTO             := src/rdf/ontology/model.owl.ttl
-DATA             := src/rdf/data/people.ttl
+DATA             := $(wildcard src/rdf/data/*.ttl)
 SHAPES           := src/rdf/shapes/model.shacl.ttl
 PREFIXES         := src/rdf/prefixes.ttl
 QUERIES          := $(wildcard src/sparql/processing/*.rq)
@@ -104,7 +104,7 @@ merge: check-syntax $(DATA) $(ONTO) $(FETCHED_DATA) $(PREFIXES)
 	@echo "Merging ontology and data..."
 	@$(ROBOT) merge \
 		--input $(ONTO) \
-		--input $(DATA) \
+		$(foreach d,$(DATA),--input $(d)) \
 		--input $(FETCHED_DATA) \
 		--input $(PREFIXES) \
 		--output $(MERGED_DATA) > $(MERGE_LOG) 2>&1 || (cat $(MERGE_LOG) && exit 1)

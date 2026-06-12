@@ -1,0 +1,92 @@
+@prefix : <http://example.org/> .
+@prefix genre: <http://example.org/genre/> .
+@prefix schema: <http://schema.org/> .
+
+genre:10 a :Genre ;
+    schema:name "Soundtrack" .
+
+genre:11 a :Genre ;
+    schema:name "Bossa Nova" ;
+    schema:partOf genre:7 .
+
+genre:12 a :Genre ;
+    schema:name "Easy Listening" .
+
+genre:13 a :Genre ;
+    schema:name "Heavy Metal" ;
+    schema:partOf genre:3 .
+
+genre:14 a :Genre ;
+    schema:name "R&B/Soul" .
+
+genre:15 a :Genre ;
+    schema:name "Electronica/Dance" .
+
+genre:16 a :Genre ;
+    schema:name "World" .
+
+genre:17 a :Genre ;
+    schema:name "Hip Hop/Rap" .
+
+genre:18 a :Genre ;
+    schema:name "Science Fiction" ;
+    schema:partOf genre:20 .
+
+genre:2 a :Genre ;
+    schema:name "Jazz" .
+
+genre:22 a :Genre ;
+    schema:name "Comedy" ;
+    schema:partOf genre:19 .
+
+genre:25 a :Genre ;
+    schema:name "Opera" ;
+    schema:partOf genre:24 .
+
+genre:4 a :Genre ;
+    schema:name "Alternative & Punk" ;
+    schema:partOf genre:1,
+        genre:23 .
+
+genre:5 a :Genre ;
+    schema:name "Rock And Roll" ;
+    schema:partOf genre:1 .
+
+genre:6 a :Genre ;
+    schema:name "Blues" .
+
+genre:8 a :Genre ;
+    schema:name "Reggae" .
+
+genre:9 a :Genre ;
+    schema:name "Pop" .
+
+genre:20 a :Genre ;
+    schema:name "Sci Fi & Fantasy" ;
+    schema:partOf genre:19 .
+
+genre:21 a :Genre ;
+    schema:name "Drama" ;
+    schema:partOf genre:19 .
+
+genre:23 a :Genre ;
+    schema:name "Alternative" .
+
+genre:24 a :Genre ;
+    schema:name "Classical" .
+
+genre:7 a :Genre ;
+    schema:name "Latin" .
+
+genre:3 a :Genre ;
+    schema:name "Metal" ;
+    schema:partOf genre:1 .
+
+genre:1 a :Genre ;
+    schema:name "Rock" ;
+    schema:partOf genre:3 .
+
+genre:19 a :Genre ;
+    schema:name "TV Shows" ;
+    schema:partOf genre:21 .
+

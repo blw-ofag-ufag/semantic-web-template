@@ -1,8 +1,27 @@
 ---
-title: Test the docs
+title: eCH-3582 Some Fancy Standard
 abstract: This is just some dummy file. It's used to test the pipeline.
 date: today
 date-format: long
 ---
 
-This repo is supposed to harmonize pipelines for semantic web projects. @berners2023semantic envisioned the semantic web as a internet of data compared to an internet of documents.
+# Introduction
+
+This repo is supposed to harmonize pipelines for semantic web projects. @berners2023semantic envisioned the semantic web as an internet of data compared to an internet of documents.
+
+## We can have sub-headings
+
+And write some text.
+
+### Also sub-sub-headings
+
+And write some mor text. Maybe even with a pretty image.
+
+![Always add some text to describe what the image shows.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
+
+# Appendix {.appendix}
+
+# References {.appendix}
+
+::: {#refs}
+:::

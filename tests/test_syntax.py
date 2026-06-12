@@ -2,7 +2,7 @@ import pytest
 from pathlib import Path
 from rdflib import Graph
 
-@pytest.mark.parametrize("file_path", list(Path("rdf").rglob("*.ttl")), ids=lambda p: str(p))
+@pytest.mark.parametrize("file_path", list(Path("src/rdf").rglob("*.ttl")), ids=lambda p: str(p))
 def test_turtle_syntax(file_path):
     """
     Tests if a given .ttl file contains valid Turtle syntax.

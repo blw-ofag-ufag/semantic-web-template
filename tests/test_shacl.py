@@ -11,7 +11,7 @@ def get_shacl_rules():
     """
     g = Graph()
     try:
-        g.parse("rdf/shapes/model.shacl.ttl", format="turtle")
+        g.parse("src/rdf/shapes/model.shacl.ttl", format="turtle")
     except Exception:
         return []
         

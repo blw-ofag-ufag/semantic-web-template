@@ -3,10 +3,11 @@
 # ==============================================================================
 
 ROBOT_VERSION := v1.9.5
-ONTO := rdf/ontology/model.owl.ttl
-DATA := rdf/data/people.ttl
-SHAPES := rdf/shapes/model.shacl.ttl
-QUERIES := $(wildcard src/sparql/*.rq)
+ONTO := src/rdf/ontology/model.owl.ttl
+DATA := src/rdf/data/people.ttl
+SHAPES := src/rdf/shapes/model.shacl.ttl
+PREFIXES := src/rdf/prefixes.ttl
+QUERIES := $(wildcard src/sparql/processing/*.rq)
 PYTHON ?= $(shell command -v python3 || command -v python)
 VENV ?= venv
 VENV_BIN := $(VENV)/bin
@@ -59,18 +60,18 @@ FETCHED_DATA := build/rdf/00-integrated.ttl
 fetch-data: venv
 	@mkdir -p build/rdf
 	@echo "Extracting SQLite data to RDF..."
-	@$(VENV_PYTHON) src/python/integrate-data.py --output $(FETCHED_DATA)
+	@$(VENV_PYTHON) src/python/pipeline/01_integrate_example_data.py --output $(FETCHED_DATA)
 
 # 2. Check that all turtle files are syntactically valid
-check-syntax: fetch-data $(DATA) $(ONTO) $(SHAPES)
+check-syntax: fetch-data $(DATA) $(ONTO) $(SHAPES) $(PREFIXES)
 	@mkdir -p build/rdf
 	@echo "Checking Turtle syntax..."
 	@$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || (echo "\n[ERROR] Syntax check failed:" && $(PYTEST) tests/test_syntax.py -v && exit 1)
 
-# 3. Merge ontology, static data, and fetched data
-merge: check-syntax $(DATA) $(ONTO) $(FETCHED_DATA)
+# 3. Merge ontology, static data, fetched data, and prefixes
+merge: check-syntax $(DATA) $(ONTO) $(FETCHED_DATA) $(PREFIXES)
 	@echo "Merging ontology and data..."
-	@$(ROBOT) merge --input $(ONTO) --input $(DATA) --input $(FETCHED_DATA) --output build/rdf/01-merged.ttl > build/01-merge.log 2>&1 || (cat build/01-merge.log && exit 1)
+	@$(ROBOT) merge --input $(ONTO) --input $(DATA) --input $(FETCHED_DATA) --input $(PREFIXES) --output build/rdf/01-merged.ttl > build/01-merge.log 2>&1 || (cat build/01-merge.log && exit 1)
 
 # 4. Inference using HermiT
 infer: merge
@@ -81,11 +82,11 @@ infer: merge
 post-process: infer $(QUERIES)
 	@echo "Applying SPARQL updates..."
 	@if [ -z "$(QUERIES)" ]; then \
-		cp build/rdf/02-inferred.ttl $@; \
+		cp build/rdf/02-inferred.ttl build/rdf/03-processed.ttl; \
 	else \
 		$(ROBOT) query --input build/rdf/02-inferred.ttl $(foreach q,$(QUERIES),--update $(q)) convert --output build/rdf/03-processed.ttl > build/03-query.log 2>&1 || (cat build/03-query.log && exit 1); \
 	fi
-	@$(VENV_PYTHON) src/python/turtle-serializer.py build/rdf/03-processed.ttl output build/rdf/03-processed.ttl
+	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py build/rdf/03-processed.ttl build/rdf/03-processed.ttl
 
 build: post-process
 

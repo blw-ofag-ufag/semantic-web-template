@@ -22,7 +22,13 @@ Once your work is ready:
 3. Link the PR to the issue it resolves (e.g. `Closes #42`).
 4. Ensure there are no merge conflicts and all tests are passed before you change the status to a standard pull request.
 
-## Resource naming convention
+## Naming conventions
+
+## File naming convention
+
+All files in this project should be named with `snake_case` and lowercase letters.
+
+## RDF resource naming convention
 
 Aligning with standard Semantic Web conventions, we enforce the following casing rules for URI local names:
 

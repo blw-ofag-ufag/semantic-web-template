@@ -92,6 +92,7 @@ fetch-data: venv mkdir
 		echo "No pipeline scripts found. Creating empty data file."; \
 		touch $(FETCHED_DATA); \
 	fi
+	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(FETCHED_DATA) -p $(PREFIXES) -o $(FETCHED_DATA)
 
 # 3. Check that all turtle files are syntactically valid
 check-syntax: fetch-data $(DATA) $(ONTO) $(SHAPES) $(PREFIXES)
@@ -107,6 +108,7 @@ merge: check-syntax $(DATA) $(ONTO) $(FETCHED_DATA) $(PREFIXES)
 		--input $(FETCHED_DATA) \
 		--input $(PREFIXES) \
 		--output $(MERGED_DATA) > $(MERGE_LOG) 2>&1 || (cat $(MERGE_LOG) && exit 1)
+	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(MERGED_DATA) -p $(PREFIXES) -o $(MERGED_DATA)
 
 # 5. Inference using HermiT
 infer: merge
@@ -116,6 +118,7 @@ infer: merge
 		--reasoner HermiT \
 		--axiom-generators "SubClass ClassAssertion PropertyAssertion" \
 		--output $(INFERRED_DATA) > $(INFER_LOG) 2>&1 || (cat $(INFER_LOG) && exit 1)
+	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(INFERRED_DATA) -p $(PREFIXES) -o $(INFERRED_DATA)
 
 # 6. Model-driven processing via SPARQL
 post-process: infer $(QUERIES)
@@ -128,9 +131,9 @@ post-process: infer $(QUERIES)
 			$(foreach q,$(QUERIES),--update $(q)) \
 			convert --output $(PROCESSED_DATA) > $(QUERY_LOG) 2>&1 || (cat $(QUERY_LOG) && exit 1); \
 	fi
-	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py $(PROCESSED_DATA) $(PROCESSED_DATA)
+	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(PROCESSED_DATA) -p $(PREFIXES) -o $(PROCESSED_DATA)
 
-# 7. Trigger the whole graph build process
+# 6. Trigger the whole graph build process
 build: post-process
 
 # ==============================================================================

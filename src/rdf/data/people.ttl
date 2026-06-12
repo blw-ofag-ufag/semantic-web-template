@@ -1,6 +1,10 @@
 @prefix person: <http://example.org/person/> .
 @prefix schema: <http://schema.org/> .
 
+person:a_jamal a schema:Person ;
+    schema:familyName "Jamal" ;
+    schema:givenName "A." .
+
 person:aaron_copland a schema:Person ;
     schema:familyName "Copland" ;
     schema:givenName "Aaron" .
@@ -25,6 +29,10 @@ person:adrian_smith a schema:Person ;
     schema:familyName "Smith" ;
     schema:givenName "Adrian" .
 
+person:alan_bergman a schema:Person ;
+    schema:familyName "Bergman" ;
+    schema:givenName "Alan" .
+
 person:alanis_morissette a schema:Person ;
     schema:familyName "Morissette" ;
     schema:givenName "Alanis" .
@@ -37,6 +45,10 @@ person:alex_van_halen a schema:Person ;
     schema:familyName "Van Halen" ;
     schema:givenName "Alex" .
 
+person:allen_story a schema:Person ;
+    schema:familyName "Story" ;
+    schema:givenName "Allen" .
+
 person:andrea_dulbecco a schema:Person ;
     schema:familyName "Dulbecco" ;
     schema:givenName "Andrea" .
@@ -48,6 +60,10 @@ person:angus_young a schema:Person ;
 person:anthony_kiedis a schema:Person ;
     schema:familyName "Kiedis" ;
     schema:givenName "Anthony" .
+
+person:antonio_carlos_jobim a schema:Person ;
+    schema:familyName "Jobim" ;
+    schema:givenName "Antonio Carlos" .
 
 person:antonio_vivaldi a schema:Person ;
     schema:familyName "Vivaldi" ;
@@ -65,6 +81,10 @@ person:astor_piazzolla a schema:Person ;
     schema:familyName "Piazzolla" ;
     schema:givenName "Astor" .
 
+person:augusto_conceicao a schema:Person ;
+    schema:familyName "Conceição" ;
+    schema:givenName "Augusto" .
+
 person:barrett_strong a schema:Person ;
     schema:familyName "Strong" ;
     schema:givenName "Barrett" .
@@ -76,6 +96,22 @@ person:bela_bartok a schema:Person ;
 person:ben_shepherd a schema:Person ;
     schema:familyName "Shepherd" ;
     schema:givenName "Ben" .
+
+person:bernardo_vilhena a schema:Person ;
+    schema:familyName "Vilhena" ;
+    schema:givenName "Bernardo" .
+
+person:berthold_kaempfert a schema:Person ;
+    schema:familyName "Kaempfert" ;
+    schema:givenName "Berthold" .
+
+person:bertolt_brecht a schema:Person ;
+    schema:familyName "Brecht" ;
+    schema:givenName "Bertolt" .
+
+person:beto_guedes a schema:Person ;
+    schema:familyName "Guedes" ;
+    schema:givenName "Beto" .
 
 person:big_bill_broonzy a schema:Person ;
     schema:familyName "Broonzy" ;
@@ -104,6 +140,10 @@ person:billy_duffy a schema:Person ;
 person:billy_gould a schema:Person ;
     schema:familyName "Gould" ;
     schema:givenName "Billy" .
+
+person:bino_farias a schema:Person ;
+    schema:familyName "Farias" ;
+    schema:givenName "Bino" .
 
 person:blaze_bayley a schema:Person ;
     schema:familyName "Bayley" ;
@@ -145,9 +185,25 @@ person:buzz_cason a schema:Person ;
     schema:familyName "Cason" ;
     schema:givenName "Buzz" .
 
+person:c_burnett a schema:Person ;
+    schema:familyName "Burnett" ;
+    schema:givenName "C." .
+
+person:c_cester a schema:Person ;
+    schema:familyName "Cester" ;
+    schema:givenName "C." .
+
+person:c_muncey a schema:Person ;
+    schema:familyName "Muncey" ;
+    schema:givenName "C." .
+
 person:caetano_veloso a schema:Person ;
     schema:familyName "Veloso" ;
     schema:givenName "Caetano" .
+
+person:cal_adan a schema:Person ;
+    schema:familyName "Adan" ;
+    schema:givenName "Cal" .
 
 person:carl_nielsen a schema:Person ;
     schema:familyName "Nielsen" ;
@@ -157,9 +213,29 @@ person:carl_orff a schema:Person ;
     schema:familyName "Orff" ;
     schema:givenName "Carl" .
 
+person:carlinhos_brown a schema:Person ;
+    schema:familyName "Brown" ;
+    schema:givenName "Carlinhos" .
+
+person:carlos_henrique_ludwig a schema:Person ;
+    schema:familyName "Ludwig" ;
+    schema:givenName "Carlos Henrique" .
+
 person:carlos_santana a schema:Person ;
     schema:familyName "Santana" ;
     schema:givenName "Carlos" .
+
+person:carolyn_leigh a schema:Person ;
+    schema:familyName "Leigh" ;
+    schema:givenName "Carolyn" .
+
+person:carson_c_parks a schema:Person ;
+    schema:familyName "Parks" ;
+    schema:givenName "Carson C." .
+
+person:cassiano_costa a schema:Person ;
+    schema:familyName "Costa" ;
+    schema:givenName "Cassiano" .
 
 person:chad_smith a schema:Person ;
     schema:familyName "Smith" ;
@@ -169,9 +245,21 @@ person:charles_gavin a schema:Person ;
     schema:familyName "Gavin" ;
     schema:givenName "Charles" .
 
+person:charles_singleton a schema:Person ;
+    schema:familyName "Singleton" ;
+    schema:givenName "Charles" .
+
 person:charlie_jones a schema:Person ;
     schema:familyName "Jones" ;
     schema:givenName "Charlie" .
+
+person:chiclete_com_banana a schema:Person ;
+    schema:familyName "Banana" ;
+    schema:givenName "Chiclete Com" .
+
+person:chico_amaral a schema:Person ;
+    schema:familyName "Amaral" ;
+    schema:givenName "Chico" .
 
 person:chico_buarque a schema:Person ;
     schema:familyName "Buarque" ;
@@ -193,9 +281,17 @@ person:chuck_berry a schema:Person ;
     schema:familyName "Berry" ;
     schema:givenName "Chuck" .
 
+person:cintia_maviane a schema:Person ;
+    schema:familyName "Maviane" ;
+    schema:givenName "Cintia" .
+
 person:ciro_pressoa a schema:Person ;
     schema:familyName "Pressoa" ;
     schema:givenName "Ciro" .
+
+person:claude_francois a schema:Person ;
+    schema:familyName "François" ;
+    schema:givenName "Claude" .
 
 person:claudio_monteverdi a schema:Person ;
     schema:familyName "Monteverdi" ;
@@ -205,12 +301,32 @@ person:cliff_burton a schema:Person ;
     schema:familyName "Burton" ;
     schema:givenName "Cliff" .
 
+person:corumba a schema:Person ;
+    schema:familyName "Corumbá" ;
+    schema:givenName "Corumbá" .
+
+person:cy_coleman a schema:Person ;
+    schema:familyName "Coleman" ;
+    schema:givenName "Cy" .
+
+person:da_gama a schema:Person ;
+    schema:familyName "Gama" ;
+    schema:givenName "Da" .
+
+person:dale_evans a schema:Person ;
+    schema:familyName "Evans" ;
+    schema:givenName "Dale" .
+
 person:daragh_otoole a schema:Person ;
     schema:familyName "O'Toole" ;
     schema:givenName "Daragh" .
 
 person:dave_grohl a schema:Person ;
     schema:familyName "Grohl" ;
+    schema:givenName "Dave" .
+
+person:dave_murray a schema:Person ;
+    schema:familyName "Murray" ;
     schema:givenName "Dave" .
 
 person:david_bowie a schema:Person ;
@@ -221,9 +337,17 @@ person:david_coverdale a schema:Person ;
     schema:familyName "Coverdale" ;
     schema:givenName "David" .
 
+person:david_gilmour a schema:Person ;
+    schema:familyName "Gilmour" ;
+    schema:givenName "David" .
+
 person:david_lee_roth a schema:Person ;
     schema:familyName "Roth" ;
     schema:givenName "David Lee" .
+
+person:dean_kay_thompson a schema:Person ;
+    schema:familyName "Thompson" ;
+    schema:givenName "Dean Kay" .
 
 person:djavan a schema:Person ;
     schema:familyName "Djavan" ;
@@ -232,6 +356,14 @@ person:djavan a schema:Person ;
 person:duff_mckagan a schema:Person ;
     schema:familyName "McKagan" ;
     schema:givenName "Duff" .
+
+person:dufort a schema:Person ;
+    schema:familyName "Dufort" ;
+    schema:givenName "Dufort" .
+
+person:eddie_snyder a schema:Person ;
+    schema:familyName "Snyder" ;
+    schema:givenName "Eddie" .
 
 person:eddie_vedder a schema:Person ;
     schema:familyName "Vedder" ;
@@ -257,13 +389,25 @@ person:eugene_mcdaniel a schema:Person ;
     schema:familyName "McDaniel" ;
     schema:givenName "Eugene" .
 
+person:fabio_nolasco a schema:Person ;
+    schema:familyName "Nolasco" ;
+    schema:givenName "Fábio" .
+
 person:faith_no_more a schema:Person ;
     schema:familyName "More" ;
     schema:givenName "Faith No" .
 
+person:ferrugem a schema:Person ;
+    schema:familyName "Ferrugem" ;
+    schema:givenName "Ferrugem" .
+
 person:flea a schema:Person ;
     schema:familyName "Flea" ;
     schema:givenName "Flea" .
+
+person:folclore a schema:Person ;
+    schema:familyName "Folclore" ;
+    schema:givenName "Folclore" .
 
 person:foo_fighters a schema:Person ;
     schema:familyName "Fighters" ;
@@ -289,6 +433,10 @@ person:gabriel_faure a schema:Person ;
     schema:familyName "Fauré" ;
     schema:givenName "Gabriel" .
 
+person:gal_sales a schema:Person ;
+    schema:familyName "Sales" ;
+    schema:givenName "Gal" .
+
 person:gene_simmons a schema:Person ;
     schema:familyName "Simmons" ;
     schema:givenName "Gene" .
@@ -297,9 +445,21 @@ person:george_frideric_handel a schema:Person ;
     schema:familyName "Handel" ;
     schema:givenName "George Frideric" .
 
+person:george_gershwin a schema:Person ;
+    schema:familyName "Gershwin" ;
+    schema:givenName "George" .
+
+person:george_gordy a schema:Person ;
+    schema:familyName "Gordy" ;
+    schema:givenName "George" .
+
 person:georges_bizet a schema:Person ;
     schema:familyName "Bizet" ;
     schema:givenName "Georges" .
+
+person:gerry_deveaux a schema:Person ;
+    schema:familyName "DeVeaux" ;
+    schema:givenName "Gerry" .
 
 person:giacomo_puccini a schema:Person ;
     schema:familyName "Puccini" ;
@@ -308,6 +468,10 @@ person:giacomo_puccini a schema:Person ;
 person:gilberto_gil a schema:Person ;
     schema:familyName "Gil" ;
     schema:givenName "Gilberto" .
+
+person:gilles_thibault a schema:Person ;
+    schema:familyName "Thibault" ;
+    schema:givenName "Gilles" .
 
 person:giuseppe_verdi a schema:Person ;
     schema:familyName "Verdi" ;
@@ -333,9 +497,17 @@ person:gustav_mahler a schema:Person ;
     schema:familyName "Mahler" ;
     schema:givenName "Gustav" .
 
+person:haroldo_de_campos a schema:Person ;
+    schema:familyName "Campos" ;
+    schema:givenName "Haroldo de" .
+
 person:hector_berlioz a schema:Person ;
     schema:familyName "Berlioz" ;
     schema:givenName "Hector" .
+
+person:henry_mancini a schema:Person ;
+    schema:familyName "Mancini" ;
+    schema:givenName "Henry" .
 
 person:henry_purcell a schema:Person ;
     schema:familyName "Purcell" ;
@@ -364,6 +536,34 @@ person:ian_paice a schema:Person ;
 person:igor_stravinsky a schema:Person ;
     schema:familyName "Stravinsky" ;
     schema:givenName "Igor" .
+
+person:ira_gershwin a schema:Person ;
+    schema:familyName "Gershwin" ;
+    schema:givenName "Ira" .
+
+person:ivan_brasil a schema:Person ;
+    schema:familyName "Brasil" ;
+    schema:givenName "Ivan" .
+
+person:ivy_hunter a schema:Person ;
+    schema:familyName "Hunter" ;
+    schema:givenName "Ivy" .
+
+person:j_carisi a schema:Person ;
+    schema:familyName "Carisi" ;
+    schema:givenName "J." .
+
+person:j_f a schema:Person ;
+    schema:familyName "J.F." ;
+    schema:givenName "J.F." .
+
+person:jack_yellen a schema:Person ;
+    schema:familyName "Yellen" ;
+    schema:givenName "Jack" .
+
+person:jacques_revaux a schema:Person ;
+    schema:familyName "Revaux" ;
+    schema:givenName "Jacques" .
 
 person:james_brown a schema:Person ;
     schema:familyName "Brown" ;
@@ -413,6 +613,14 @@ person:jimmy_page a schema:Person ;
     schema:familyName "Page" ;
     schema:givenName "Jimmy" .
 
+person:jj_johnson a schema:Person ;
+    schema:familyName "Johnson" ;
+    schema:givenName "J.J." .
+
+person:joao_do_vale a schema:Person ;
+    schema:familyName "Vale" ;
+    schema:givenName "João Do" .
+
 person:joe_perry a schema:Person ;
     schema:familyName "Perry" ;
     schema:givenName "Joe" .
@@ -441,6 +649,10 @@ person:john_bonham a schema:Person ;
     schema:familyName "Bonham" ;
     schema:givenName "John" .
 
+person:john_brim a schema:Person ;
+    schema:familyName "Brim" ;
+    schema:givenName "John" .
+
 person:john_deacon a schema:Person ;
     schema:familyName "Deacon" ;
     schema:givenName "John" .
@@ -457,6 +669,10 @@ person:john_paul_jones a schema:Person ;
     schema:familyName "Jones" ;
     schema:givenName "John Paul" .
 
+person:johnny_mercer a schema:Person ;
+    schema:familyName "Mercer" ;
+    schema:givenName "Johnny" .
+
 person:jon_hudson a schema:Person ;
     schema:familyName "Hudson" ;
     schema:givenName "Jon" .
@@ -465,6 +681,18 @@ person:jon_lord a schema:Person ;
     schema:familyName "Lord" ;
     schema:givenName "Jon" .
 
+person:jorge_cardoso a schema:Person ;
+    schema:familyName "Cardoso" ;
+    schema:givenName "Jorge" .
+
+person:jose_gumaraes a schema:Person ;
+    schema:familyName "Gumarães" ;
+    schema:givenName "José" .
+
+person:julinho_carioca a schema:Person ;
+    schema:familyName "Carioca" ;
+    schema:givenName "Julinho" .
+
 person:karol_szymanowski a schema:Person ;
     schema:familyName "Szymanowski" ;
     schema:givenName "Karol" .
@@ -472,6 +700,10 @@ person:karol_szymanowski a schema:Person ;
 person:keith_richards a schema:Person ;
     schema:familyName "Richards" ;
     schema:givenName "Keith" .
+
+person:kelly_gordon a schema:Person ;
+    schema:familyName "Gordon" ;
+    schema:givenName "Kelly" .
 
 person:kevin_robinson a schema:Person ;
     schema:familyName "Robinson" ;
@@ -489,6 +721,14 @@ person:kurt_weill a schema:Person ;
     schema:familyName "Weill" ;
     schema:givenName "Kurt" .
 
+person:l_delibes a schema:Person ;
+    schema:familyName "Delibes" ;
+    schema:givenName "L." .
+
+person:l_worth a schema:Person ;
+    schema:familyName "Worth" ;
+    schema:givenName "L." .
+
 person:larry_mullen a schema:Person ;
     schema:familyName "Mullen" ;
     schema:givenName "Larry" .
@@ -496,6 +736,14 @@ person:larry_mullen a schema:Person ;
 person:lars_ulrich a schema:Person ;
     schema:familyName "Ulrich" ;
     schema:givenName "Lars" .
+
+person:lazao a schema:Person ;
+    schema:familyName "Lazão" ;
+    schema:givenName "Lazão" .
+
+person:lelo_zanettik a schema:Person ;
+    schema:familyName "Zanettik" ;
+    schema:givenName "Lelo" .
 
 person:lenny_kravitz a schema:Person ;
     schema:familyName "Kravitz" ;
@@ -505,9 +753,29 @@ person:little_richard a schema:Person ;
     schema:familyName "Richard" ;
     schema:givenName "Little" .
 
+person:lorenz_hart a schema:Person ;
+    schema:familyName "Hart" ;
+    schema:givenName "Lorenz" .
+
+person:luca_predabom a schema:Person ;
+    schema:familyName "Predabom" ;
+    schema:givenName "Luca" .
+
+person:lucas_costa a schema:Person ;
+    schema:familyName "Costa" ;
+    schema:givenName "Lucas" .
+
 person:ludwig_van_beethoven a schema:Person ;
     schema:familyName "Beethoven" ;
     schema:givenName "Ludwig van" .
+
+person:luiz_gonzaga a schema:Person ;
+    schema:familyName "Gonzaga" ;
+    schema:givenName "Luiz" .
+
+person:luiz_wanderley a schema:Person ;
+    schema:familyName "Wanderley" ;
+    schema:givenName "Luiz" .
 
 person:mac_gayden a schema:Person ;
     schema:familyName "Gayden" ;
@@ -521,6 +789,14 @@ person:marcelo_fromer a schema:Person ;
     schema:familyName "Fromer" ;
     schema:givenName "Marcelo" .
 
+person:marilyn_bergman a schema:Person ;
+    schema:familyName "Bergman" ;
+    schema:givenName "Marilyn" .
+
+person:marisa_monte a schema:Person ;
+    schema:familyName "Monte" ;
+    schema:givenName "Marisa" .
+
 person:marvin_gaye a schema:Person ;
     schema:familyName "Gaye" ;
     schema:givenName "Marvin" .
@@ -528,6 +804,14 @@ person:marvin_gaye a schema:Person ;
 person:matt_cameron a schema:Person ;
     schema:familyName "Cameron" ;
     schema:givenName "Matt" .
+
+person:mauricio_vieira a schema:Person ;
+    schema:familyName "Vieira" ;
+    schema:givenName "Maurício" .
+
+person:mcauliffe a schema:Person ;
+    schema:familyName "McAuliffe" ;
+    schema:givenName "McAuliffe" .
 
 person:metallica a schema:Person ;
     schema:familyName "Metallica" ;
@@ -581,9 +865,25 @@ person:miles_davis a schema:Person ;
     schema:familyName "Davis" ;
     schema:givenName "Miles" .
 
+person:milton_ager a schema:Person ;
+    schema:familyName "Ager" ;
+    schema:givenName "Milton" .
+
 person:milton_nascimento a schema:Person ;
     schema:familyName "Nascimento" ;
     schema:givenName "Milton" .
+
+person:morais a schema:Person ;
+    schema:familyName "Morais" ;
+    schema:givenName "Morais" .
+
+person:n_cester a schema:Person ;
+    schema:familyName "Cester" ;
+    schema:givenName "N." .
+
+person:nanker_phelge a schema:Person ;
+    schema:familyName "Phelge" ;
+    schema:givenName "Nanker" .
 
 person:nat_jones a schema:Person ;
     schema:familyName "Jones" ;
@@ -597,6 +897,14 @@ person:neil_young a schema:Person ;
     schema:familyName "Young" ;
     schema:givenName "Neil" .
 
+person:nelson_angelo a schema:Person ;
+    schema:familyName "Angelo" ;
+    schema:givenName "Nelson" .
+
+person:nick_mason a schema:Person ;
+    schema:familyName "Mason" ;
+    schema:givenName "Nick" .
+
 person:nikki_sixx a schema:Person ;
     schema:familyName "Sixx" ;
     schema:givenName "Nikki" .
@@ -609,9 +917,29 @@ person:nirvana a schema:Person ;
     schema:familyName "Nirvana" ;
     schema:givenName "Nirvana" .
 
+person:norman_gimbel a schema:Person ;
+    schema:familyName "Gimbel" ;
+    schema:givenName "Norman" .
+
+person:octavio_paz a schema:Person ;
+    schema:familyName "Paz" ;
+    schema:givenName "Octavio" .
+
+person:orlando_murden a schema:Person ;
+    schema:familyName "Murden" ;
+    schema:givenName "Orlando" .
+
 person:ozzy_osbourne a schema:Person ;
     schema:familyName "Osbourne" ;
     schema:givenName "Ozzy" .
+
+person:paul_anka a schema:Person ;
+    schema:familyName "Anka" ;
+    schema:givenName "Paul" .
+
+person:paul_dianno a schema:Person ;
+    schema:familyName "Di'Anno" ;
+    schema:givenName "Paul" .
 
 person:paul_mccartney a schema:Person ;
     schema:familyName "McCartney" ;
@@ -625,6 +953,14 @@ person:pearl_jam a schema:Person ;
     schema:familyName "Jam" ;
     schema:givenName "Pearl" .
 
+person:pedro_luis a schema:Person ;
+    schema:familyName "Luis" ;
+    schema:givenName "Pedro" .
+
+person:peggy_lipton_jones a schema:Person ;
+    schema:familyName "Jones" ;
+    schema:givenName "Peggy Lipton" .
+
 person:pete_townshend a schema:Person ;
     schema:familyName "Townshend" ;
     schema:givenName "Pete" .
@@ -636,6 +972,10 @@ person:peter_buck a schema:Person ;
 person:philip_glass a schema:Person ;
     schema:familyName "Glass" ;
     schema:givenName "Philip" .
+
+person:pierre_onasis a schema:Person ;
+    schema:familyName "Onasis" ;
+    schema:givenName "Pierre" .
 
 person:pietro_antonio_locatelli a schema:Person ;
     schema:familyName "Locatelli" ;
@@ -649,9 +989,21 @@ person:queen a schema:Person ;
     schema:familyName "Queen" ;
     schema:givenName "Queen" .
 
+person:quincy_jones a schema:Person ;
+    schema:familyName "Jones" ;
+    schema:givenName "Quincy" .
+
+person:r_troup a schema:Person ;
+    schema:familyName "Troup" ;
+    schema:givenName "R." .
+
 person:ralph_vaughan_williams a schema:Person ;
     schema:familyName "Williams" ;
     schema:givenName "Ralph Vaughan" .
+
+person:ras_bernardo a schema:Person ;
+    schema:familyName "Bernardo" ;
+    schema:givenName "Rás" .
 
 person:red_hot_chili_peppers a schema:Person ;
     schema:familyName "Peppers" ;
@@ -661,12 +1013,24 @@ person:renato_russo a schema:Person ;
     schema:familyName "Russo" ;
     schema:givenName "Renato" .
 
+person:ricardo_engels_garay a schema:Person ;
+    schema:familyName "Garay" ;
+    schema:givenName "Ricardo Engels" .
+
 person:richard_bull a schema:Person ;
     schema:familyName "Bull" ;
     schema:givenName "Richard" .
 
+person:richard_rodgers a schema:Person ;
+    schema:familyName "Rodgers" ;
+    schema:givenName "Richard" .
+
 person:richard_wagner a schema:Person ;
     schema:familyName "Wagner" ;
+    schema:givenName "Richard" .
+
+person:richard_wright a schema:Person ;
+    schema:familyName "Wright" ;
     schema:givenName "Richard" .
 
 person:ritchie_blackmore a schema:Person ;
@@ -677,6 +1041,10 @@ person:robert_cray a schema:Person ;
     schema:familyName "Cray" ;
     schema:givenName "Robert" .
 
+person:robert_gordy a schema:Person ;
+    schema:familyName "Gordy" ;
+    schema:givenName "Robert" .
+
 person:robert_johnson a schema:Person ;
     schema:familyName "Johnson" ;
     schema:givenName "Robert" .
@@ -684,6 +1052,10 @@ person:robert_johnson a schema:Person ;
 person:robert_plant a schema:Person ;
     schema:familyName "Plant" ;
     schema:givenName "Robert" .
+
+person:rod_mckuen a schema:Person ;
+    schema:familyName "McKuen" ;
+    schema:givenName "Rod" .
 
 person:roddy_bottum a schema:Person ;
     schema:familyName "Bottum" ;
@@ -700,6 +1072,18 @@ person:roger_glover a schema:Person ;
 person:roger_taylor a schema:Person ;
     schema:familyName "Taylor" ;
     schema:givenName "Roger" .
+
+person:roger_waters a schema:Person ;
+    schema:familyName "Waters" ;
+    schema:givenName "Roger" .
+
+person:ronald_miller a schema:Person ;
+    schema:familyName "Miller" ;
+    schema:givenName "Ronald" .
+
+person:ronaldo_bastos a schema:Person ;
+    schema:familyName "Bastos" ;
+    schema:givenName "Ronaldo" .
 
 person:roy_orbison a schema:Person ;
     schema:familyName "Orbison" ;
@@ -721,6 +1105,14 @@ person:slash a schema:Person ;
     schema:familyName "Slash" ;
     schema:givenName "Slash" .
 
+person:smokey_robinson a schema:Person ;
+    schema:familyName "Robinson" ;
+    schema:givenName "Smokey" .
+
+person:sonny_boy_williamson a schema:Person ;
+    schema:familyName "Williamson" ;
+    schema:givenName "Sonny Boy" .
+
 person:soundgarden a schema:Person ;
     schema:familyName "Soundgarden" ;
     schema:givenName "Soundgarden" .
@@ -737,6 +1129,10 @@ person:stevie_ray_vaughan a schema:Person ;
     schema:familyName "Vaughan" ;
     schema:givenName "Stevie Ray" .
 
+person:stevie_wonder a schema:Person ;
+    schema:familyName "Wonder" ;
+    schema:givenName "Stevie" .
+
 person:stone_gossard a schema:Person ;
     schema:familyName "Gossard" ;
     schema:givenName "Stone" .
@@ -748,6 +1144,10 @@ person:sully_erna a schema:Person ;
 person:taylor_hawkins a schema:Person ;
     schema:familyName "Hawkins" ;
     schema:givenName "Taylor" .
+
+person:terry_britten a schema:Person ;
+    schema:familyName "Britten" ;
+    schema:givenName "Terry" .
 
 person:the_clash a schema:Person ;
     schema:familyName "Clash" ;
@@ -781,6 +1181,10 @@ person:toni_bellotto a schema:Person ;
     schema:familyName "Bellotto" ;
     schema:givenName "Toni" .
 
+person:toni_garrido a schema:Person ;
+    schema:familyName "Garrido" ;
+    schema:givenName "Toni" .
+
 person:tony_iommi a schema:Person ;
     schema:familyName "Iommi" ;
     schema:givenName "Tony" .
@@ -797,6 +1201,10 @@ person:trey_spruance a schema:Person ;
     schema:familyName "Spruance" ;
     schema:givenName "Trey" .
 
+person:triona_ni_dhomhnaill a schema:Person ;
+    schema:familyName "Dhomhnaill" ;
+    schema:givenName "Tríona Ní" .
+
 person:u2 a schema:Person ;
     schema:familyName "U2" ;
     schema:givenName "U2" .
@@ -805,9 +1213,17 @@ person:van_halen a schema:Person ;
     schema:familyName "Halen" ;
     schema:givenName "Van" .
 
+person:venancio a schema:Person ;
+    schema:familyName "Venancio" ;
+    schema:givenName "Venancio" .
+
 person:vincent_poncia a schema:Person ;
     schema:familyName "Poncia" ;
     schema:givenName "Vincent" .
+
+person:vinicius_de_moraes a schema:Person ;
+    schema:familyName "Moraes" ;
+    schema:givenName "Vinicius de" .
 
 person:w_axl_rose a schema:Person ;
     schema:familyName "Rose" ;
@@ -817,6 +1233,10 @@ person:waly_salomao a schema:Person ;
     schema:familyName "Salomão" ;
     schema:givenName "Waly" .
 
+person:warren_moore a schema:Person ;
+    schema:familyName "Moore" ;
+    schema:givenName "Warren" .
+
 person:will_jennings a schema:Person ;
     schema:familyName "Jennings" ;
     schema:givenName "Will" .
@@ -825,6 +1245,14 @@ person:william_byrd a schema:Person ;
     schema:familyName "Byrd" ;
     schema:givenName "William" .
 
+person:william_stevenson a schema:Person ;
+    schema:familyName "Stevens" ;
+    schema:givenName "William" .
+
+person:williams a schema:Person ;
+    schema:familyName "Williams" ;
+    schema:givenName "Williams" .
+
 person:willie_dixon a schema:Person ;
     schema:familyName "Dixon" ;
     schema:givenName "Willie" .
@@ -832,4 +1260,8 @@ person:willie_dixon a schema:Person ;
 person:wolfgang_amadeus_mozart a schema:Person ;
     schema:familyName "Mozart" ;
     schema:givenName "Wolfgang Amadeus" .
+
+person:ze_dantas a schema:Person ;
+    schema:familyName "Dantas" ;
+    schema:givenName "Zé" .
 

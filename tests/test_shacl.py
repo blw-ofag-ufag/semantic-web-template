@@ -77,6 +77,24 @@ def shacl_report():
         pytest.fail(f"Could not load SHACL report. Did PySHACL run? Error: {e}")
     return g
 
+def test_shacl_report_is_populated(shacl_report):
+    """Ensures that the SHACL report actually contains validation data."""
+    if len(shacl_report) == 0:
+        pytest.fail("The SHACL report graph is completely empty. PySHACL may have failed silently.")
+        
+    query = """
+        PREFIX sh: <http://www.w3.org/ns/shacl#>
+        ASK { ?report a sh:ValidationReport }
+    """
+    
+    # Evaluate the ASK query. QueryResult from an ASK query yields a boolean.
+    has_report = False
+    for res in shacl_report.query(query):
+        has_report = bool(res)
+        
+    if not has_report:
+        pytest.fail("The SHACL report does not contain a sh:ValidationReport node. Validation likely failed.")
+
 @pytest.mark.parametrize("rule", RULES, ids=lambda r: f"{r['type']} | {r['test_name']}")
 def test_shacl_rule(rule, shacl_report):
     """Evaluates an individual SHACL constraint against the validation report."""
@@ -85,7 +103,7 @@ def test_shacl_rule(rule, shacl_report):
     # reliably across different RDF graphs, we match by Message, Path, or URI.
     if rule["message"]:
         msg_literal = rule["message"].replace('"', '\\"')
-        filter_str = f'?actualMessage = "{msg_literal}"'
+        filter_str = f'STR(?actualMessage) = "{msg_literal}"'
     elif rule["path"]:
         filter_str = f'?path = <{rule["path"]}>'
     elif rule["shape_uri"]:

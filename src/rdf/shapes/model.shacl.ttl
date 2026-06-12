@@ -105,7 +105,7 @@
         sh:class schema:PostalAddress ;
     ],
     [
-        sh:order 5 ;
+        sh:order 6 ;
         sh:path schema:worksFor ;
         sh:or (
             [ sh:class schema:Person ]
@@ -114,6 +114,18 @@
         sh:message "An employee can report to another person." ;
     ],
     [
+        sh:name "Job title"@en ;
+        sh:order 7 ;
+        sh:path schema:jobTitle ;
+        sh:maxCount 1 ;
+    ],
+    [
+        sh:name "knows"@en ;
+        sh:order 8 ;
+        sh:path schema:knows ;
+        sh:class schema:Person ;
+    ] ;
+    sh:sparql [
         a sh:SPARQLConstraint ;
         sh:message "An employee cannot report to themselves." ;
         sh:prefixes : ;
@@ -282,7 +294,7 @@
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:message "A genre cannot be a part of itself, either directly or transitively." ;
-        sh:prefixes :, schema: ;
+        sh:prefixes : ;
         sh:select """
             SELECT $this
             WHERE {

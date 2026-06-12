@@ -83,10 +83,8 @@ genre:3 a :Genre ;
     schema:partOf genre:1 .
 
 genre:1 a :Genre ;
-    schema:name "Rock" ;
-    schema:partOf genre:3 .
+    schema:name "Rock" .
 
 genre:19 a :Genre ;
-    schema:name "TV Shows" ;
-    schema:partOf genre:21 .
+    schema:name "TV Shows" .
 

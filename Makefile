@@ -14,7 +14,7 @@ VENV_BIN         := $(VENV)/bin
 VENV_PYTHON      := $(VENV_BIN)/python
 VENV_PIP         := $(VENV_BIN)/pip
 PYSHACL          := $(VENV_BIN)/pyshacl
-PYTEST           := $(VENV_BIN)/pytest
+PYTEST           := $(VENV_BIN)/pytest -p no:cacheprovider # suppress cache
 ROBOT            := java -jar $(VENV_BIN)/robot.jar
 
 # Inputs
@@ -190,4 +190,4 @@ publish: test delete
 # ==============================================================================
 
 clean:
-	rm -rf $(BUILD_DIR) $(VENV) .quarto tests/__pycache__ .pytest_cache
+	rm -rf $(BUILD_DIR) $(VENV) .quarto tests/__pycache__

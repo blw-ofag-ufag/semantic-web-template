@@ -1,13 +1,29 @@
 # Semantic web project template
 
-## Tech stack
+## Development Tools
 
-- HermiT
-- Pytest
-- Pyshacl
-- Quarto
+This template uses a variety of tools to ensure robust data integration, reasoning, validation, and documentation.
 
-## Build the data model
+- [HermiT](http://www.hermit-reasoner.com/): An OWL reasoner used for logical reasoning and inferring new knowledge from the ontology and data.
+- [Pytest](https://docs.pytest.org/): A testing framework used to run syntax checks and evaluate SHACL validation reports.
+- [PySHACL](https://github.com/RDFLib/pySHACL): A Python engine used to validate the generated RDF graphs against SHACL shape definitions.
+- [ROBOT](http://robot.obolibrary.org/): CLI tool used to merge, reason, and process RDF graphs.
+- [RDFLib](https://rdflib.readthedocs.io/): A Python library used to parse, serialize, and programmatically manipulate RDF data.
+- [Quarto](https://quarto.org/): An open-source publishing system used for rendering the documentation.
+
+## Semantic Web Standards
+
+The project relies on core W3C Semantic Web standards to model, link, and validate data effectively.
+
+- [RDF (Resource Description Framework)](https://www.w3.org/RDF/): The foundational data model used to represent information as a directed graph of triples.
+- [OWL (Web Ontology Language)](https://www.w3.org/OWL/): Used to define the formal semantics, classes, and properties of the ontology.
+- [SHACL (Shapes Constraint Language)](https://www.w3.org/TR/shacl/): Used to declare structural constraints and validate the integrity of the RDF data.
+- [SPARQL](https://www.w3.org/TR/sparql11-overview/): The standard query language used to extract, transform, and post-process the RDF graphs.
+- [Turtle](https://www.w3.org/TR/turtle/): The primary, human-readable serialization format used for all RDF files in this repository.
+
+## Build and Deployment Orchestration
+
+To streamline the workflow, this project uses `make` as its primary orchestration tool, automating everything from setup to deployment. The `Makefile` defines a single entry point to sequentially execute data integration, logical reasoning, SPARQL updates, SHACL validation, testing, and documentation rendering.
 
 1. Add variables to `.env`
 
@@ -38,10 +54,10 @@
     make publish
     ```
 
-    By default, the publication process starts with by deleting any pre-existing data in the provided named graph on LINDAS.
+    By default, the publication process starts by deleting any pre-existing data in the provided named graph on LINDAS.
     You can also *just* delete any published data by running:
 
-    ```
+    ``` sh
     make delete
     ```
 

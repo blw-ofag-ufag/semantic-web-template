@@ -190,4 +190,4 @@ publish: test delete
 # ==============================================================================
 
 clean:
-	rm -rf $(BUILD_DIR) $(VENV) .quarto tests/__pycache__
+	rm -rf $(BUILD_DIR) $(VENV) .quarto tests/__pycache__ docs/index_files

@@ -40,26 +40,47 @@ def get_shacl_rules():
             OPTIONAL { ?shape sh:path ?path . }
         }
     """
-    rules = []
+
+    shapes_dict = {}
     for row in g.query(query):
-        # Create a user-friendly test name for the terminal
-        if row.message:
-            test_name = str(row.message)
-        elif row.name:
-            test_name = str(row.name)
-        elif row.path:
-            test_name = f"Property {str(row.path).split('/')[-1].split('#')[-1]}"
-        else:
-            test_name = f"Unnamed {row.type}"
+        s = row.shape
+        if s not in shapes_dict:
+            shapes_dict[s] = {
+                "type": str(row.type),
+                "messages": set(),
+                "names": set(),
+                "paths": set(),
+                "shape_uri": str(s) if isinstance(s, URIRef) else None
+            }
             
+        if row.message:
+            shapes_dict[s]["messages"].add(str(row.message))
+        if row.name:
+            shapes_dict[s]["names"].add(str(row.name))
+        if row.path:
+            shapes_dict[s]["paths"].add(str(row.path))
+            
+    rules = []
+    for s, data in shapes_dict.items():
+        # Create a user-friendly test name for the terminal
+        if data["messages"]:
+            test_name = sorted(data["messages"])[0]
+        elif data["names"]:
+            # Prefer shorter names/labels over long descriptions/comments
+            test_name = sorted(data["names"], key=len)[0]
+        elif data["paths"]:
+            test_name = f"Property {sorted(data['paths'])[0].split('/')[-1].split('#')[-1]}"
+        else:
+            test_name = f"Unnamed {data['type']}"
+
         rules.append({
             "test_name": test_name,
-            "type": str(row.type),
-            "message": str(row.message) if row.message else None,
-            "path": str(row.path) if row.path else None,
-            "shape_uri": str(row.shape) if isinstance(row.shape, URIRef) else None
+            "type": data["type"],
+            "message": sorted(data["messages"])[0] if data["messages"] else None,
+            "path": sorted(data["paths"])[0] if data["paths"] else None,
+            "shape_uri": data["shape_uri"]
         })
-        
+
     # Deduplicate rules by their test name
     unique_rules = {r["test_name"]: r for r in rules}
     return list(unique_rules.values())

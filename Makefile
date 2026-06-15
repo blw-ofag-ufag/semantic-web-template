@@ -150,7 +150,7 @@ build: $(PROCESSED_DATA)
 # BUILD DOCUMENTATION
 # ==============================================================================
 
-docs: shacl
+docs: $(SHACL_REPORT)
 	@echo "Rendering documentation with Quarto..."
 	@quarto render > $(QUARTO_LOG) 2>&1 || true
 

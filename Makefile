@@ -33,14 +33,14 @@ PROCESSED_DATA   := $(RDF_DIR)/03-processed.ttl
 SHACL_REPORT     := $(RDF_DIR)/04-shacl-report.ttl
 
 # Logs
-LOG_DIR          := $(BUILD_DIR)/log/
+LOG_DIR          := $(BUILD_DIR)/log
 MERGE_LOG        := $(LOG_DIR)/01-merge.log
 INFER_LOG        := $(LOG_DIR)/02-infer.log
 QUERY_LOG        := $(LOG_DIR)/03-query.log
 SHACL_LOG        := $(LOG_DIR)/04-shacl.log
 QUARTO_LOG       := $(LOG_DIR)/05-quarto.log
 
-.PHONY: all robot test docs clean fetch-data check-python venv install-dependencies setup check-syntax merge infer post-process build shacl delete publish
+.PHONY: all robot test docs clean check-python venv install-dependencies setup build delete publish
 
 # Default target
 all: test docs
@@ -55,17 +55,26 @@ check-python:
 		(echo "ERROR: Python interpreter not found."; exit 1)
 
 # 2. Set up virtual environment
-venv: check-python
+$(VENV_PYTHON):
+	@command -v $(PYTHON) >/dev/null 2>&1 || \
+		(echo "ERROR: Python interpreter not found."; exit 1)
 	@test -d $(VENV) || $(PYTHON) -m venv $(VENV)
 	@$(VENV_PYTHON) -m pip install --upgrade pip
 
+venv: $(VENV_PYTHON)
+
 # 3. Install python dependencies
-install-dependencies: venv
+$(VENV)/.requirements-installed.stamp: requirements.txt | $(VENV_PYTHON)
 	@$(VENV_PIP) install -q -r requirements.txt
+	@touch $@
+
+install-dependencies: $(VENV)/.requirements-installed.stamp
 
 # 4. Install robot
-robot: venv
+$(VENV_BIN)/robot.jar: | $(VENV_PYTHON)
 	@curl -sL https://github.com/ontodev/robot/releases/download/$(ROBOT_VERSION)/robot.jar -o $(VENV_BIN)/robot.jar
+
+robot: $(VENV_BIN)/robot.jar
 
 # 5. Full setup
 setup: install-dependencies robot
@@ -76,12 +85,11 @@ setup: install-dependencies robot
 # ==============================================================================
 
 # 1. Set up directories
-mkdir:
-	@mkdir -p $(RDF_DIR)
-	@mkdir -p $(LOG_DIR)
+$(RDF_DIR) $(LOG_DIR):
+	@mkdir -p $@
 
 # 2. Fetch, Query, and Transform source data sequentially
-fetch-data: venv mkdir
+$(FETCHED_DATA): $(PIPELINE_SCRIPTS) $(PREFIXES) src/python/utils/turtle_serializer.py | $(RDF_DIR) $(LOG_DIR) $(VENV)/.requirements-installed.stamp
 	@echo "Running data integration pipelines..."
 	@if [ -n "$(PIPELINE_SCRIPTS)" ]; then \
 		for script in $(PIPELINE_SCRIPTS); do \
@@ -95,12 +103,13 @@ fetch-data: venv mkdir
 	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(FETCHED_DATA) -p $(PREFIXES) -o $(FETCHED_DATA)
 
 # 3. Check that all turtle files are syntactically valid
-check-syntax: fetch-data $(DATA) $(ONTO) $(SHAPES) $(PREFIXES)
+$(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(PREFIXES) $(FETCHED_DATA) tests/test_syntax.py | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
 	@echo "Checking Turtle syntax..."
 	@$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || (echo "\n[ERROR] Syntax check failed:" && $(PYTEST) tests/test_syntax.py -v && exit 1)
+	@touch $@
 
 # 4. Merge ontology, static data, fetched data, and prefixes
-merge: check-syntax $(DATA) $(ONTO) $(FETCHED_DATA) $(PREFIXES)
+$(MERGED_DATA): $(ONTO) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-check.stamp src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
 	@echo "Merging ontology and data..."
 	@$(ROBOT) merge \
 		--input $(ONTO) \
@@ -111,7 +120,7 @@ merge: check-syntax $(DATA) $(ONTO) $(FETCHED_DATA) $(PREFIXES)
 	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(MERGED_DATA) -p $(PREFIXES) -o $(MERGED_DATA)
 
 # 5. Inference using HermiT
-infer: merge
+$(INFERRED_DATA): $(MERGED_DATA) $(PREFIXES) src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
 	@echo "Running logical inference (HermiT)..."
 	@$(ROBOT) reason \
 		--input $(MERGED_DATA) \
@@ -122,7 +131,7 @@ infer: merge
 	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(INFERRED_DATA) -p $(PREFIXES) -o $(INFERRED_DATA)
 
 # 6. Model-driven processing via SPARQL
-post-process: infer $(QUERIES)
+$(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
 	@echo "Applying SPARQL updates..."
 	@if [ -z "$(QUERIES)" ]; then \
 		cp $(INFERRED_DATA) $(PROCESSED_DATA); \
@@ -135,7 +144,7 @@ post-process: infer $(QUERIES)
 	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(PROCESSED_DATA) -p $(PREFIXES) -o $(PROCESSED_DATA)
 
 # 6. Trigger the whole graph build process
-build: post-process
+build: $(PROCESSED_DATA)
 
 # ==============================================================================
 # BUILD DOCUMENTATION
@@ -150,12 +159,12 @@ docs: shacl
 # ==============================================================================
 
 # 1. SHACL validation
-shacl: build $(SHAPES)
+$(SHACL_REPORT): $(PROCESSED_DATA) $(SHAPES) | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
 	@echo "Running SHACL engine..."
 	@$(PYSHACL) -s $(SHAPES)  -a -f turtle -o $(SHACL_REPORT) $(PROCESSED_DATA) > $(SHACL_LOG) 2>&1 || true
 
 # 2. Run pytest (relies on written SHACL reports for all shape-related tests)
-test: build shacl
+test: build $(SHACL_REPORT) | $(VENV)/.requirements-installed.stamp
 	@echo "Running final test suite..."
 	@$(PYTEST) tests/ -v
 

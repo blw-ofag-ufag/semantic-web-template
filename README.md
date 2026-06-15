@@ -1,5 +1,21 @@
 # Semantic web project template
 
+For demonstrative purposes, this template repository includes a full semantic web pipeline, including
+ 
+1. manual data curation (data files in `src/rdf/data`),
+2. data integration from a relational database (using python, specifically `src/python/pipeline/...`),
+3. OWL-based inferencing (using the ontology in `src/rdf/model.owl.ttl`),
+4. SPARQL-based processing of the graph (using rules in `src/sparql/processing/...`)
+5. SHACL-based graph data validation (using `src/rdf/shapes/model.shacl.ttl`)
+6. a even more customizable Pytest test suite,
+7. uploading of the final graph to LINDAS
+8. a documentation building pipeline using Quarto
+
+Specifically, this demo project creates a graph of around 120k triples from the Chinook database, makes some inferences, processes and validates the graph.
+
+> [!IMPORTANT]
+> After using this template repository for a project, you probably want to delete/overwrite any of the aforementioned turtle/sparql/python files.
+
 ## Development Tools
 
 This template uses a variety of tools to ensure robust data integration, reasoning, validation, and documentation.

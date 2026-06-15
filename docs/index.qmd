@@ -21,22 +21,6 @@ And write some more text. Maybe even with a pretty image.
 
 When displaying diagrams, try to write them in Mermaid JS straight away; this makes changes in the future or translations straightforward.
 
-``` {mermaid}
-sequenceDiagram
-    loop Daily query
-        Alice->>Bob: Hello Bob, how are you?
-        alt is sick
-            Bob->>Alice: Not so good :(
-        else is well
-            Bob->>Alice: Feeling fresh like a daisy
-        end
-
-        opt Extra response
-            Bob->>Alice: Thanks for asking
-        end
-    end
-```
-
 # Technical notes
 
 We use the ROBOT CLI in our project [@jackson2019robot], especially for it's ability to run the HermiT reasoner [@glimm2014hermit].

@@ -6,7 +6,7 @@ project:
 
 website:
   repo-url: https://github.com/blw-ofag-ufag/semantic-web-project-template
-  repo-actions: [source]
+  repo-actions: [source,issue]
 
 bibliography: docs/references.bib
 

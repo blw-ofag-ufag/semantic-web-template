@@ -32,9 +32,6 @@ jobs:
         run: make setup
 
       - name: Run Full Pipeline and Pytest
-        # make test inherently triggers the full pipeline prior to evaluating tests.
-        # It also calls pytest with `-v`, printing individual tests just as requested.
         run: make test
         env:
-          # Forces pytest to retain the colored output in the GitHub Actions console
           FORCE_COLOR: 1

@@ -25,6 +25,10 @@ When displaying diagrams, try to write them in Mermaid JS straight away; this ma
 
 We use the ROBOT CLI in our project [@jackson2019robot], especially for it's ability to run the HermiT reasoner [@glimm2014hermit].
 
+# Data Model
+
+{{< include _data_model.md >}}
+
 # Appendix {.appendix}
 
 # References {.appendix}

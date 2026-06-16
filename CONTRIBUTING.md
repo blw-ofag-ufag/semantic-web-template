@@ -24,11 +24,11 @@ Once your work is ready:
 
 ## Naming conventions
 
-## File naming convention
+### File naming convention
 
 All files in this project should be named with `snake_case` and lowercase letters.
 
-## RDF resource naming convention
+### RDF resource naming convention
 
 Aligning with standard Semantic Web conventions, we enforce the following casing rules for URI local names:
 

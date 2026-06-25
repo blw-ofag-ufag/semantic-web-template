@@ -10,6 +10,10 @@ jobs:
   build-test-publish:
     runs-on: ubuntu-latest
     
+    # force terminal tools to output colors in GitHub Actions
+    env:
+      FORCE_COLOR: "1"
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

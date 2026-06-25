@@ -22,6 +22,13 @@ Once your work is ready:
 3. Link the PR to the issue it resolves (e.g. `Closes #42`).
 4. Ensure there are no merge conflicts and all tests are passed before you change the status to a standard pull request.
 
+### Merging and Deployment
+
+Once your pull request is reviewed and approved, it can be merged into the `main` branch.
+
+> [!IMPORTANT]
+> Merging to `main` triggers an automatic deployment workflow. The new version of the RDF graph will be published to LINDAS, replacing the previous version. Ensure your changes are final and have passed all tests before merging.
+
 ## Naming conventions
 
 ### File naming convention

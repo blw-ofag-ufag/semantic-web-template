@@ -1,0 +1,45 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-test-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up dependencies
+        run: make setup
+
+      # 1. FOR PULL REQUESTS: Only run the tests
+      - name: Run Pipeline and Test
+        if: github.ref != 'refs/heads/main'
+        run: make test
+
+      # 2. FOR MAIN BRANCH: Run tests AND publish
+      - name: Run Pipeline, Test, and Publish
+        if: github.ref == 'refs/heads/main'
+        env:
+          USER: ${{ secrets.USER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          GRAPH: ${{ secrets.GRAPH }}
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+        run: make publish

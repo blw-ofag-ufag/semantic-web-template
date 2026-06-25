@@ -41,7 +41,7 @@ The project relies on core W3C Semantic Web standards to model, link, and valida
 
 To streamline the workflow, this project uses `make` as its primary orchestration tool, automating everything from setup to deployment. The `Makefile` defines a single entry point to sequentially execute data integration, logical reasoning, SPARQL updates, SHACL validation, testing, and documentation rendering.
 
-1. Add variables to `.env`
+1. Add variables to `.env` (for local execution)
 
     ``` sh
     USER=********
@@ -65,6 +65,15 @@ To streamline the workflow, this project uses `make` as its primary orchestratio
     Make sure you pass all tests with `pytest`.
 
 4. Upload the final data to [LINDAS](https://lindas.admin.ch/), the linked data service by the federal archives:
+
+    **Automatic Deployment**
+
+    The deployment is automatically triggered via GitHub Actions whenever changes are pushed or merged to the `main` branch. 
+    To enable this, configure the environment variables listed in step 1 as **repository secrets** in your GitHub project settings (`Settings > Secrets and variables > Actions > New repository secret`):
+
+    **Manual Deployment**
+
+    You can still upload the final data manually by running:
 
     ``` sh
     make publish

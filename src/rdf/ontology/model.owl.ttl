@@ -8,3 +8,6 @@
 
 schema:genre a owl:ObjectProperty ;
     rdfs:range :Genre .
+
+:Genre a owl:Class ;
+    rdfs:subClassOf schema:DefinedTerm .

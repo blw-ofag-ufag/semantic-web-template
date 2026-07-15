@@ -127,7 +127,7 @@
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
-        sh:message "An employee cannot report to themselves."@en ;
+        dcterms:description "An employee cannot report to themselves."@en ;
         sh:prefixes : ;
         sh:select """
             SELECT $this
@@ -253,7 +253,7 @@
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
-        sh:message "Invoice total payment due must exactly match the sum of its lines (within 0.05 tolerance)." ;
+        dcterms:description "Invoice total payment due must exactly match the sum of its lines (within 0.05 tolerance)."@en ;
         sh:prefixes : ;
         sh:select """
             SELECT $this
@@ -274,7 +274,7 @@
     ],
     [
         a sh:SPARQLConstraint ;
-        sh:message "An invoice cannot be dated before the year 2000." ;
+        dcterms:description "An invoice cannot be dated before the year 2000."@en ;
         sh:prefixes : ;
         sh:select """
             SELECT $this
@@ -329,7 +329,7 @@
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
-        sh:message "A genre cannot be a part of itself, either directly or transitively." ;
+        dcterms:description "A genre cannot be a part of itself, either directly or transitively."@en ;
         sh:prefixes : ;
         sh:select """
             SELECT $this

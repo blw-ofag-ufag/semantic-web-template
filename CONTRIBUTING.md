@@ -64,3 +64,12 @@ person:3 a :Person .
 ```
 
 [^1]: Embedding the major version in the namespace creates a structural contract. If a subsequent release introduces breaking changes, a new major version (and consequently, a new namespace) must be created. This isolates the versions, ensuring that existing data graphs remain perfectly valid against the old schema while allowing downstream consumers to migrate to the new version at their own pace.
+
+## Alignment with eCH processes
+
+To maintain consistency, the releases of this repository must strictly align with the official status of the corresponding document on [ech.ch](https://www.ech.ch/).
+
+- **Official releases:** A GitHub release is *only* created when the document is officially published as an approved standard on the eCH website.
+- **Pre-releases (QC/ÖK):** While the project is in intermediate stages such as quality control (QC) or public consultation (ÖK), we use pre-releases.
+
+For a comprehensive overview of the standardization phases, please refer to the [eCH-0003 guidelines](https://www.ech.ch/de/ech/ech-0003).

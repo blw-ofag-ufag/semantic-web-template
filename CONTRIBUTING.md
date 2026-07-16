@@ -70,7 +70,7 @@ person:3 a :Person .
 To maintain consistency, the releases of this repository must strictly align with the official status of the corresponding document on [ech.ch](https://www.ech.ch/).
 
 - **Official releases:** A GitHub release is *only* created when the document is officially published as an approved standard on the eCH website.
-- **Pre-releases (QC/ÖK):** While the project is in intermediate stages such as quality control (QC) or public consultation (ÖK), we use pre-releases.
+- **Pre-releases (QS/ÖK):** While the project is in intermediate stages such as quality control (QS) or public consultation (ÖK), we use pre-releases.
 
 For a comprehensive overview of the standardization phases, please refer to the [eCH-0003 guidelines](https://www.ech.ch/de/ech/ech-0003).
 

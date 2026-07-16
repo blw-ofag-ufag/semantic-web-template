@@ -73,3 +73,7 @@ To maintain consistency, the releases of this repository must strictly align wit
 - **Pre-releases (QC/ÖK):** While the project is in intermediate stages such as quality control (QC) or public consultation (ÖK), we use pre-releases.
 
 For a comprehensive overview of the standardization phases, please refer to the [eCH-0003 guidelines](https://www.ech.ch/de/ech/ech-0003).
+
+## Contact
+
+Any questions? Don't hesitate to contact us via <mailto:agridata.ch@blw.admin.ch>.

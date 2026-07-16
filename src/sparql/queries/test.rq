@@ -1,4 +1,6 @@
-SELECT (COUNT(*) AS ?N)
+# Get the first 10 triples
+SELECT *
 WHERE { 
     ?s ?p ?o .
 }
+LIMIT 10

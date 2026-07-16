@@ -17,8 +17,10 @@ def get_shacl_rules():
         
     query = """
         PREFIX sh: <http://www.w3.org/ns/shacl#>
+        PREFIX dcterms: <http://purl.org/dc/terms/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        
+        PREFIX schema: <http://schema.org/>
+
         SELECT DISTINCT ?shape ?type ?name ?message ?path
         WHERE {
             {
@@ -35,8 +37,8 @@ def get_shacl_rules():
                 [] sh:sparql ?shape .
                 BIND("SPARQL" AS ?type)
             }
-            OPTIONAL { ?shape sh:name|rdfs:label|rdfs:comment ?name . }
-            OPTIONAL { ?shape sh:message ?message . }
+            OPTIONAL { ?shape schema:name|sh:name|rdfs:label|rdfs:comment ?name . }
+            OPTIONAL { ?shape sh:message|dcterms:description ?message . }
             OPTIONAL { ?shape sh:path ?path . }
         }
     """

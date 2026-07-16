@@ -44,7 +44,7 @@ Aligning with standard Semantic Web conventions, we enforce the following casing
 
 Ensure identifiers are semantically meaningful and descriptive to facilitate readability and improve [DX](https://en.wikipedia.org/wiki/Developer_experience).
 
-For individuals, use a sub-namespace based on the most important classes. For example, if the project namespace is <http://example.org/>, use <http://example.org/person/> for all people:
+For individuals, use a sub-namespace based on the most important classes. For example, if the project namespace is `<http://example.org/>`, use `<http://example.org/person/>` for all people:
 
 ``` ttl
 @prefix : <http://example.org/> .

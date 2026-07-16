@@ -35,20 +35,29 @@ Once your pull request is reviewed and approved, it can be merged into the `main
 
 All files in this project should be named with `snake_case` and lowercase letters.
 
-### RDF resource naming convention
+### RDF namespace naming convention
 
 Namespaces follow a standardized pattern and include the project's eCH identifier, and the major version number[^1]:
+
+[^1]: Embedding only the major version number in the namespace creates a structural contract. If a subsequent release introduces breaking changes, a new major version (and consequently, a new namespace) will be created. This isolates the versions, ensuring that existing data graphs can remain perfectly valid using the old schema while allowing downstream consumers to migrate to the new version at their own pace.
 
 ```
 https://agriculture.ld.admin.ch/{identifier}/{version}/
 ```
 
 Note that we use LINDAS namespaces in order to be able to dereference any defined resource.
+Following this logic, we would assign a property `eppoCode` specified in a hypothetical version 3.4.1 of a standard eCH-1234 the following URI: 
+
+```
+https://agriculture.ld.admin.ch/eCH-1234/3/eppoCode
+```
+
+### RDF resource naming convention
 
 Aligning with standard Semantic Web conventions, we enforce the following casing rules for URI local names:
 
 - **Classes and individuals** (e.g., instances of `owl:Class` and instances of these): Use **PascalCase** (a.k.a. UpperCamelCase).
-- **Properties** (e.g., `owl:ObjectProperty`, `owl:DatatypeProperty`): Use **camelCase** (a.k.a. lowerCamelCase).
+- **Properties** (e.g., `owl:ObjectProperty`, `owl:DatatypeProperty`): Use **camelCase** (a.k.a. lowerCamelCase). Don't include starting verbs, i.e. `eppoCode` would be preferred over `hasEppoCode`.
 
 Ensure identifiers are meaningful to facilitate readability and improve [DX](https://en.wikipedia.org/wiki/Developer_experience).
 
@@ -62,8 +71,6 @@ person:1 a :Person .
 person:2 a :Person .
 person:3 a :Person .
 ```
-
-[^1]: Embedding the major version in the namespace creates a structural contract. If a subsequent release introduces breaking changes, a new major version (and consequently, a new namespace) must be created. This isolates the versions, ensuring that existing data graphs remain perfectly valid against the old schema while allowing downstream consumers to migrate to the new version at their own pace.
 
 ## Alignment with eCH processes
 

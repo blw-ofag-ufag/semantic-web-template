@@ -38,7 +38,7 @@ Wir verwenden die ROBOT CLI in unserem Projekt [@jackson2019robot], insbesondere
 
 # Datenmodell
 
-
+{{< include entities.md >}}
 
 # Sicherheitsaspekte
 

@@ -38,7 +38,7 @@ Nous utilisons l'interface en ligne de commande (CLI) ROBOT dans notre projet [@
 
 # Modèle de données
 
-
+{{< include entities.md >}}
 
 # Considérations de sécurité
 

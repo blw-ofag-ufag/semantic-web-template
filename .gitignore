@@ -16,6 +16,7 @@
 *_cache/
 **/.quarto/
 **/*.quarto_ipynb
+entities.md
 
 # Small tests and notes
 /test.*

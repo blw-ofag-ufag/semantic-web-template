@@ -39,7 +39,7 @@ We use the ROBOT CLI in our project [@jackson2019robot], especially for it's abi
 
 # Data Model
 
-{{< include _data_model.md >}}
+
 
 # Safety considerations
 

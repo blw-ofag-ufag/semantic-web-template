@@ -159,7 +159,7 @@ $(SHACL_DOCS): $(SHAPES) $(PREFIXES) src/python/utils/generate_shacl_docs.py | $
 
 docs: $(SHACL_REPORT) $(SHACL_DOCS)
 	@echo "Rendering documentation with Quarto..."
-	@quarto render > $(QUARTO_LOG) 2>&1 || true
+	@quarto render docs > $(QUARTO_LOG) 2>&1 || true
 	@rm -f $(SHACL_DOCS)
 
 # ==============================================================================
@@ -207,4 +207,4 @@ publish: test delete
 # ==============================================================================
 
 clean:
-	rm -rf $(BUILD_DIR) $(VENV) .quarto tests/__pycache__ docs/index_files $(SHACL_DOCS)
+	rm -rf $(BUILD_DIR) $(VENV) .quarto docs/.quarto tests/__pycache__ docs/index_files $(SHACL_DOCS)

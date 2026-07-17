@@ -1,14 +1,14 @@
 project:
-  output-dir: build/docs/
+  output-dir: ../build/docs/
   type: website
   render:
-    - docs/index.qmd
+    - index.qmd
 
 website:
   repo-url: https://github.com/blw-ofag-ufag/semantic-web-project-template
   repo-actions: [source,issue]
 
-bibliography: docs/references.bib
+bibliography: references.bib
 
 format:
   html:

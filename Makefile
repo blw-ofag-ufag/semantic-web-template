@@ -33,7 +33,7 @@ INFERRED_DATA    := $(RDF_DIR)/02-inferred.ttl
 PROCESSED_DATA   := $(RDF_DIR)/03-processed.ttl
 SHACL_REPORT     := $(RDF_DIR)/04-shacl-report.ttl
 DOCS_DIR         := docs
-SHACL_DOCS       := $(DOCS_DIR)/_data_model.md
+SHACL_DOCS_STAMP := $(DOCS_DIR)/.shacl_docs.stamp
 
 # Logs
 LOG_DIR          := $(BUILD_DIR)/log
@@ -155,12 +155,12 @@ build: $(PROCESSED_DATA)
 
 $(SHACL_DOCS): $(SHAPES) $(PREFIXES) src/python/utils/generate_shacl_docs.py | $(VENV)/.requirements-installed.stamp
 	@echo "Generating SHACL documentation..."
-	@$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -o $(SHACL_DOCS) -p $(PREFIXES)
+	@$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -d $(DOCS_DIR) -p $(PREFIXES)
+	@touch $@
 
 docs: $(SHACL_REPORT) $(SHACL_DOCS)
 	@echo "Rendering documentation with Quarto..."
 	@quarto render docs > $(QUARTO_LOG) 2>&1 || true
-	@rm -f $(SHACL_DOCS)
 
 # ==============================================================================
 # TESTS
@@ -207,4 +207,4 @@ publish: test delete
 # ==============================================================================
 
 clean:
-	rm -rf $(BUILD_DIR) $(VENV) .quarto docs/.quarto tests/__pycache__ docs/index_files $(SHACL_DOCS)
+	rm -rf $(BUILD_DIR) $(VENV) .quarto docs/.quarto tests/__pycache__ docs/index_files $(SHACL_DOCS_STAMP) docs/*/entities.md

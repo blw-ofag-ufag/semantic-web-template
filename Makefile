@@ -5,6 +5,7 @@
 # Directories
 BUILD_DIR        := build
 RDF_DIR          := $(BUILD_DIR)/rdf
+PYTHON_DIR       := src/python
 
 # Tools and binaries
 ROBOT_VERSION    := v1.9.5
@@ -66,8 +67,8 @@ $(VENV_PYTHON):
 venv: $(VENV_PYTHON)
 
 # 3. Install python dependencies
-$(VENV)/.requirements-installed.stamp: requirements.txt | $(VENV_PYTHON)
-	@$(VENV_PIP) install -q -r requirements.txt
+$(VENV)/.requirements-installed.stamp: $(PYTHON_DIR)/requirements.txt | $(VENV_PYTHON)
+	@$(VENV_PIP) install -q -r $(PYTHON_DIR)/requirements.txt
 	@touch $@
 
 install-dependencies: $(VENV)/.requirements-installed.stamp

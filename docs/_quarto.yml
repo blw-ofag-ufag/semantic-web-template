@@ -8,7 +8,24 @@ project:
 
 website:
   repo-url: https://github.com/blw-ofag-ufag/semantic-web-template
-  repo-actions: [source,issue]
+  repo-subdir: docs
+  repo-actions: [source, issue]
+  favicon: assets/favicon.svg
+  navbar:
+    right:
+      - text: Language
+        icon: globe
+        menu:
+          - text: English
+            href: /en/index.html
+          - text: Deutsch
+            href: /de/index.html
+          - text: Français
+            href: /fr/index.html
+      - icon: github
+        href: https://github.com/blw-ofag-ufag/semantic-web-template
+      - icon: envelope
+        href: mailto:agridata.ch@blw.admin.ch
 
 bibliography: references.bib
 

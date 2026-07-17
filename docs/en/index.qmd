@@ -3,6 +3,7 @@ title: eCH-1234 Template Quarto Document
 abstract: Brief summary of the purpose of the document.
 date: today
 date-format: long
+lang: en
 ---
 
 # Note {.unnumbered}

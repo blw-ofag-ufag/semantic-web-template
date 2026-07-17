@@ -14,7 +14,7 @@
 # Quarto execution artifacts
 *_files/
 *_cache/
-/.quarto/
+**/.quarto/
 **/*.quarto_ipynb
 
 # Small tests and notes

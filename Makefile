@@ -5,6 +5,7 @@
 # Directories
 BUILD_DIR        := build
 RDF_DIR          := $(BUILD_DIR)/rdf
+PYTHON_DIR       := src/python
 
 # Tools and binaries
 ROBOT_VERSION    := v1.9.5
@@ -32,7 +33,6 @@ INFERRED_DATA    := $(RDF_DIR)/02-inferred.ttl
 PROCESSED_DATA   := $(RDF_DIR)/03-processed.ttl
 SHACL_REPORT     := $(RDF_DIR)/04-shacl-report.ttl
 DOCS_DIR         := docs
-SHACL_DOCS       := $(DOCS_DIR)/_data_model.md
 
 # Logs
 LOG_DIR          := $(BUILD_DIR)/log
@@ -42,7 +42,7 @@ QUERY_LOG        := $(LOG_DIR)/03-query.log
 SHACL_LOG        := $(LOG_DIR)/04-shacl.log
 QUARTO_LOG       := $(LOG_DIR)/05-quarto.log
 
-.PHONY: all robot test docs clean check-python venv install-dependencies setup build delete publish
+.PHONY: all robot test docs clean check-python venv install-dependencies setup build delete publish generate-shacl-docs
 
 # Default target
 all: test docs
@@ -66,8 +66,8 @@ $(VENV_PYTHON):
 venv: $(VENV_PYTHON)
 
 # 3. Install python dependencies
-$(VENV)/.requirements-installed.stamp: requirements.txt | $(VENV_PYTHON)
-	@$(VENV_PIP) install -q -r requirements.txt
+$(VENV)/.requirements-installed.stamp: $(PYTHON_DIR)/requirements.txt | $(VENV_PYTHON)
+	@$(VENV_PIP) install -q -r $(PYTHON_DIR)/requirements.txt
 	@touch $@
 
 install-dependencies: $(VENV)/.requirements-installed.stamp
@@ -152,14 +152,13 @@ build: $(PROCESSED_DATA)
 # BUILD DOCUMENTATION
 # ==============================================================================
 
-$(SHACL_DOCS): $(SHAPES) $(PREFIXES) src/python/utils/generate_shacl_docs.py | $(VENV)/.requirements-installed.stamp
+generate-shacl-docs: $(SHAPES) $(PREFIXES) src/python/utils/generate_shacl_docs.py | $(VENV)/.requirements-installed.stamp
 	@echo "Generating SHACL documentation..."
-	@$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -o $(SHACL_DOCS) -p $(PREFIXES)
+	@$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -d $(DOCS_DIR) -p $(PREFIXES)
 
-docs: $(SHACL_REPORT) $(SHACL_DOCS)
+docs: $(SHACL_REPORT) generate-shacl-docs
 	@echo "Rendering documentation with Quarto..."
-	@quarto render > $(QUARTO_LOG) 2>&1 || true
-	@rm -f $(SHACL_DOCS)
+	@quarto render docs > $(QUARTO_LOG) 2>&1 || true
 
 # ==============================================================================
 # TESTS
@@ -206,4 +205,4 @@ publish: test delete
 # ==============================================================================
 
 clean:
-	rm -rf $(BUILD_DIR) $(VENV) .quarto tests/__pycache__ docs/index_files $(SHACL_DOCS)
+	rm -rf $(BUILD_DIR) $(VENV) .quarto docs/.quarto tests/__pycache__ docs/index_files docs/*/entities.md

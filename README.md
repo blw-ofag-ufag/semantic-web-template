@@ -95,3 +95,7 @@ To streamline the workflow, this project uses `make` as its primary orchestratio
     ``` sh
     make clean
     ```
+
+## Contact
+
+Any questions? Don't hesitate to contact us via <mailto:agridata.ch@blw.admin.ch>.

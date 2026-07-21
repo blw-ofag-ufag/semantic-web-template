@@ -46,4 +46,4 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
           GRAPH: ${{ secrets.GRAPH }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
-        run: make publish
+        run: echo "run `make publish` if you *really* want to publish --- not necessary for a template"

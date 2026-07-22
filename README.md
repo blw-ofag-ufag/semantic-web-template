@@ -98,4 +98,4 @@ To streamline the workflow, this project uses `make` as its primary orchestratio
 
 ## Contact
 
-Any questions? Don't hesitate to contact us via <mailto:agridata.ch@blw.admin.ch>.
+Any questions? Don't hesitate to contact us via [agridata.ch@blw.admin.ch](mailto:agridata.ch@blw.admin.ch)

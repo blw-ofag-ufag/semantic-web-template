@@ -83,4 +83,4 @@ For a comprehensive overview of the standardization phases, please refer to the 
 
 ## Contact
 
-Any questions? Don't hesitate to contact us via <mailto:agridata.ch@blw.admin.ch>.
+Any questions? Don't hesitate to contact us via [agridata.ch@blw.admin.ch](mailto:agridata.ch@blw.admin.ch).

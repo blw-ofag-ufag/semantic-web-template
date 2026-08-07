@@ -33,6 +33,9 @@ format:
   html:
     toc: true
     number-sections: true
+    syntax-definitions:
+     - assets/sparql.xml
+     - assets/turtle.xml
   gfm: 
     toc: true
     number-sections: true
@@ -40,4 +43,7 @@ format:
     toc: true
     reference-doc: https://s.zazuko.com/MHXTkQ
     link-citations: true
-  typst: default
+  typst:
+    syntax-definitions:
+     - assets/sparql.xml
+     - assets/turtle.xml

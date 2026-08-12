@@ -3,6 +3,15 @@
 #show outline: set text(size: 11pt)
 #show figure.caption: set text(size: 9pt)
 #show table.cell: set text(size: 9pt)
+#show table.cell: set par(justify: false)
 #show footnote.entry: set text(size: 9pt)
 #show link: set text(fill: rgb("#D00D28"))
 #set table(fill: (col, row) => if calc.even(row) { rgb("f2f2f2") } else { white })
+#show table.cell.where(y: 0): set text(weight: "bold")
+#show table: it => block(
+  stroke: (top: 1pt + black, bottom: 1pt + black),
+  inset: (top: 0.5pt, bottom: 0.5pt),
+  outset: 0pt,
+  breakable: true,
+  it
+)

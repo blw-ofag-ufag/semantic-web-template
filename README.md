@@ -98,4 +98,4 @@ To streamline the workflow, this project uses `make` as its primary orchestratio
 
 ## Contact
 
-Any questions? Don't hesitate to contact us via [agridata.ch@blw.admin.ch](mailto:agridata.ch@blw.admin.ch)
+Do you have questions? Please do not hesitate to contact us at [agridata.ch@blw.admin.ch](mailto:agridata.ch@blw.admin.ch), open an [issue in this repository](../../issues), or directly submit a [Request for Change (RFC) via the official eCH feedback form](https://ech.ch/de/ech-standards/standardisierungsprozess/request-change-rfc).

@@ -1,0 +1,8 @@
+#show heading.where(level: 1): set text(size: 16pt, weight: "bold")
+#show heading.where(level: 2): set text(size: 12pt, weight: "bold")
+#show outline: set text(size: 11pt)
+#show figure.caption: set text(size: 9pt)
+#show table.cell: set text(size: 9pt)
+#show footnote.entry: set text(size: 9pt)
+#show link: set text(fill: rgb("#D00D28"))
+#set table(fill: (col, row) => if calc.even(row) { rgb("f2f2f2") } else { white })

@@ -60,6 +60,9 @@ format:
     number-sections: true
     mainfont: Nimbus Sans
     fontsize: 12pt
+    margin:
+      x: 2.5cm
+      y: 1.5cm
     include-in-header: assets/typst-header.typ
     include-before-body: assets/typst-before-body.typ
     syntax-definitions:

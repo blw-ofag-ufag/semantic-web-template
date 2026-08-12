@@ -71,10 +71,6 @@ The information in this chapter should provide the reader with a brief
 overview of what this standard is intended for. Information about the
 following matters may be helpful here.
 
-Example: This repo is supposed to harmonize pipelines for semantic web
-projects. Berners-Lee et al. (2023) envisioned the semantic web as an
-internet of data compared to an internet of documents.
-
 ## We can have sub-headings
 
 And write some text.
@@ -276,16 +272,6 @@ references to third party rights.
 # Annex A - References
 
 <div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-berners2023semantic" class="csl-entry">
-
-Berners-Lee, Tim, James Hendler, and Ora Lassila. 2023. “The Semantic
-Web: A New Form of Web Content That Is Meaningful to Computers Will
-Unleash a Revolution of New Possibilities.” In *Linking the World’s
-Information: Essays on Tim Berners-Lee’s Invention of the World Wide
-Web*.
-
-</div>
 
 <div id="ref-glimm2014hermit" class="csl-entry">
 

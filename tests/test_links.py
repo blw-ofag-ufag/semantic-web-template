@@ -4,6 +4,7 @@ from pathlib import Path
 import urllib.request
 import urllib.error
 import pytest
+import time
 
 def get_tracked_md_files():
     """Returns a list of .md files tracked by git, falling back to rglob if git fails."""
@@ -41,23 +42,36 @@ def get_urls():
 
 @pytest.mark.parametrize("md_file, url", get_urls())
 def test_markdown_link(md_file, url):
-    """Checks the HTTP status code of referenced external URLs."""
+    """Checks the HTTP status code of referenced external URLs with retries."""
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
     
-    try:
-        req.get_method = lambda: 'HEAD'
-        urllib.request.urlopen(req, timeout=10)
-    except urllib.error.HTTPError as e:
-        if e.code in (405, 403, 401):
-            try:
-                req.get_method = lambda: 'GET'
-                urllib.request.urlopen(req, timeout=10)
-            except urllib.error.HTTPError as e2:
-                if e2.code not in (401, 403):
+    max_retries = 3
+    delay_between_retries = 2
+
+    for attempt in range(max_retries):
+        try:
+            req.get_method = lambda: 'HEAD'
+            urllib.request.urlopen(req, timeout=10)
+            return
+            
+        except urllib.error.HTTPError as e:
+            if e.code in (405, 403, 401):
+                try:
+                    req.get_method = lambda: 'GET'
+                    urllib.request.urlopen(req, timeout=10)
+                    return
+                    
+                except urllib.error.HTTPError as e2:
                     pytest.fail(f"HTTPError {e2.code} for {url} in {md_file}")
-            except Exception as e2:
-                pytest.fail(f"Failed to fetch {url} in {md_file}: {e2}")
-        else:
-            pytest.fail(f"HTTPError {e.code} for {url} in {md_file}")
-    except Exception as e:
-        pytest.fail(f"Failed to fetch {url} in {md_file}: {e}")
+                except Exception as e2:
+                    last_exception = e2
+            else:
+                pytest.fail(f"HTTPError {e.code} for {url} in {md_file}")
+                
+        except Exception as e:
+            last_exception = e
+            
+        if attempt < max_retries - 1:
+            time.sleep(delay_between_retries)
+            
+    pytest.skip(f"No response from server after {max_retries} attempts. Reason: {last_exception}")

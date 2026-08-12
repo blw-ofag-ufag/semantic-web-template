@@ -17,3 +17,19 @@
   breakable: true,
   it
 )
+#set page(
+  header: context [
+    #grid(
+      columns: (35%, 1fr),
+      align(left + bottom)[#image("../assets/ech.svg", width: 100%)],
+      align(right + bottom)[Page #counter(page).display() of #counter(page).final().first()]
+    )
+    #v(0.25em)
+    #line(length: 100%, stroke: 0.5pt + black)
+  ],
+  footer: [
+    #line(length: 100%, stroke: 0.5pt + black)
+    #v(0.25em)
+    #align(left)[Verein eCH]
+  ]
+)

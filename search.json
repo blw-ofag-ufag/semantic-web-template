@@ -1,0 +1,233 @@
+[
+  {
+    "objectID": "en/index.html",
+    "href": "en/index.html",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "",
+    "text": "This document uses a gender-neutral formulation when referring to persons. This is based on the guidelines (German) of the Federal Chancellery. Depending on the situation, paired forms (citizens), gender-abstract forms (insured person), gender-neutral forms (insured person) or paraphrases with-out personal reference are used. The generic masculine (citizen) is not permitted. Full forms are used in continuous texts, i.e. in texts consisting of formulated sentences. Short forms can be used in ab-breviated text passages, namely in tables. The short form is used with a slash but without an ellipsis (referent). Gender asterisks and similar spellings are not used."
+  },
+  {
+    "objectID": "en/index.html#status",
+    "href": "en/index.html#status",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "1.1 Status",
+    "text": "1.1 Status\nApproved: This document was approved by the Experts’ Committee. It has normative power for the defined field of application in the determined scope of application."
+  },
+  {
+    "objectID": "en/index.html#scope-of-application",
+    "href": "en/index.html#scope-of-application",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "1.2 Scope of application",
+    "text": "1.2 Scope of application\nThe information in this chapter should provide the reader with a brief overview of what this standard is intended for. Information about the following matters may be helpful here.\nExample: This repo is supposed to harmonize pipelines for semantic web projects. Berners-Lee et al. (2023) envisioned the semantic web as an internet of data compared to an internet of documents."
+  },
+  {
+    "objectID": "en/index.html#we-can-have-sub-headings",
+    "href": "en/index.html#we-can-have-sub-headings",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "1.3 We can have sub-headings",
+    "text": "1.3 We can have sub-headings\nAnd write some text.\n\n1.3.1 Also sub-sub-headings\nAnd write some more text. Maybe even with a pretty image.\n\n\n\n\n\n\nFigure 1: Always add some text to describe what the image shows.\n\n\n\nWhen displaying diagrams, try to write them in Mermaid JS straight away; this makes changes in the future or translations straightforward."
+  },
+  {
+    "objectID": "en/index.html#sec-genre",
+    "href": "en/index.html#sec-genre",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "3.1 Genre",
+    "text": "3.1 Genre\nTarget Class: :Genre\n\n\n\nTable 1: Genre properties\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nName\nschema:name\n\n1..1\n\n\nPart of\nschema:partOf\n:Genre or sh:IRI\n0..*"
+  },
+  {
+    "objectID": "en/index.html#sec-invoice",
+    "href": "en/index.html#sec-invoice",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "3.2 Invoice",
+    "text": "3.2 Invoice\nTarget Class: schema:Invoice\n\n\n\nTable 2: Invoice properties\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nCustomer: An invoice must be linked to exactly one customer.\nschema:customer\nschema:Person\n1..1\n\n\nTotal Payment Due: An invoice must define a total payment due as a schema:QuantitativeValue.\nschema:totalPaymentDue\nschema:QuantitativeValue\n1..1\n\n\nHas Part: An invoice must have at least one line item (OrderItem).\nschema:hasPart\nschema:OrderItem\n1..*\n\n\n\nschema:dateCreated\nxsd:date\n0..*"
+  },
+  {
+    "objectID": "en/index.html#sec-music-album",
+    "href": "en/index.html#sec-music-album",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "3.3 Music album",
+    "text": "3.3 Music album\nTarget Class: schema:MusicAlbum\n\n\n\nTable 3: Music album properties\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nName: Every album must have a name.\nschema:name\nxsd:string\n1..1\n\n\nArtist: Person or music group who created the album.\nschema:byArtist\nschema:Person or schema:MusicGroup\n0..*"
+  },
+  {
+    "objectID": "en/index.html#sec-music-recording",
+    "href": "en/index.html#sec-music-recording",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "3.4 Music Recording",
+    "text": "3.4 Music Recording\nTarget Class: schema:MusicRecording\n\n\n\nTable 4: Music Recording properties\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nName: Every track must have a name.\nschema:name\nxsd:string\n1..1\n\n\nIn Album: A track can only belong to a valid schema:MusicAlbum.\nschema:inAlbum\nschema:MusicAlbum\n0..*\n\n\n\nschema:author\n\n0..*\n\n\nGenre\nschema:genre\n:Genre\n1..1\n\n\nDuration: Track duration must be expressed as a schema:QuantitativeValue.\nschema:duration\nschema:QuantitativeValue\n0..*\n\n\n\nschema:contentSize\nschema:QuantitativeValue\n0..*"
+  },
+  {
+    "objectID": "en/index.html#sec-organisation",
+    "href": "en/index.html#sec-organisation",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "3.5 Organisation",
+    "text": "3.5 Organisation\nTarget Class: schema:Organisation\n\n\n\nTable 5: Organisation properties\n\n\n\n\n\n\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nName: Every organisation must have a name.\nschema:name\nxsd:string\n1..1"
+  },
+  {
+    "objectID": "en/index.html#sec-person",
+    "href": "en/index.html#sec-person",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "3.6 Person",
+    "text": "3.6 Person\nAny person (employee, customer, or custom person) present in the dataset.\nTarget Class: schema:Person\n\n\n\nTable 6: Person properties\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nGiven Name: Every person must have a given name.\nschema:givenName\nxsd:string\n1..1\n\n\nFamily Name: Every person must have a family name.\nschema:familyName\nxsd:string\n1..1\n\n\nEmail Address: If an email is provided, it must follow a standard email format.\nschema:email\nxsd:string\n0..*\n\n\nBirth date: A person should have a valid birth date.\nschema:birthDate\nxsd:date\n0..*\n\n\n\nschema:address\nschema:PostalAddress\n0..*\n\n\nAn employee can report to another person.\nschema:worksFor\nschema:Person or schema:Organization\n0..*\n\n\nJob title\nschema:jobTitle\n\n0..1\n\n\nknows\nschema:knows\nschema:Person\n0..*"
+  },
+  {
+    "objectID": "en/index.html#sec-quantitative-value",
+    "href": "en/index.html#sec-quantitative-value",
+    "title": "eCH-1234 Template Quarto Document",
+    "section": "3.7 Quantitative Value",
+    "text": "3.7 Quantitative Value\nTarget Class: schema:QuantitativeValue\n\n\n\nTable 7: Quantitative Value properties\n\n\n\n\n\n\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nValue: A quantitative value must have exactly one numeric value.\nschema:value\n\n1..1\n\n\nUnit Code: A quantitative value must specify its unit via a unitCode URI.\nschema:unitCode\nsh:IRI\n1..1"
+  },
+  {
+    "objectID": "de/index.html",
+    "href": "de/index.html",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "",
+    "text": "Im vorliegenden Dokument wird bei der Bezeichnung von Personen eine geschlechtsneutrale Formulierung verwendet. Basis bildet der Leitfaden der Bundeskanzlei. Je nach Situation kommen Paarformen (Bürgerinnen und Bürger), geschlechtsabstrakte Formen (versicherte Person), geschlechtsneutrale Formen (Versicherte) oder Umschreibungen ohne Personenbezug zum Einsatz. Das generische Maskulin (Bürger) ist nicht zulässig. Vollformen werden in fortlaufenden Texten verwendet, also in Texten, die aus ausformulierten Sätzen bestehen. In verknappten Textpassagen, namentlich in Tabellen, können Kurzformen verwendet werden. Dabei wird die Kurzform mit Schrägstrich, aber ohne Auslassungsstrich verwendet (Referent/in). Genderstern und ähnliche Schreibweisen werden nicht verwendet."
+  },
+  {
+    "objectID": "de/index.html#status",
+    "href": "de/index.html#status",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "1.1 Status",
+    "text": "1.1 Status\nGenehmigt: Dieses Dokument wurde vom Fach-Ausschuss verabschiedet. Es entfaltet normative Kraft für den definierten Anwendungsbereich im festgelegten Geltungsbereich."
+  },
+  {
+    "objectID": "de/index.html#geltungsbereich",
+    "href": "de/index.html#geltungsbereich",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "1.2 Geltungsbereich",
+    "text": "1.2 Geltungsbereich\nDie Angaben in diesem Kapitel sollen dem Leser einen raschen Überblick geben, wofür dieser Standard gedacht ist. Hinweise zu folgenden Sachverhalten können dabei hilfreich sein."
+  },
+  {
+    "objectID": "de/index.html#wir-können-untertitel-haben",
+    "href": "de/index.html#wir-können-untertitel-haben",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "1.3 Wir können Untertitel haben",
+    "text": "1.3 Wir können Untertitel haben\nUnd etwas Text schreiben.\n\n1.3.1 Auch Unter-Unterüberschriften\nUnd noch mehr Text schreiben. Vielleicht sogar mit einem schönen Bild.\n\n\n\n\n\n\nAbbildung 1: Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt.\n\n\n\nBei der Darstellung von Diagrammen sollte versucht werden, diese direkt in Mermaid JS zu erstellen; dies macht zukünftige Änderungen oder Übersetzungen sehr einfach."
+  },
+  {
+    "objectID": "de/index.html#sec-genreshape",
+    "href": "de/index.html#sec-genreshape",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "3.1 :GenreShape",
+    "text": "3.1 :GenreShape\nZielklasse: :Genre\n\n\n\nTabelle 1: :GenreShape Eigenschaften\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\n\nschema:name\n\n1..1\n\n\n\nschema:partOf\n:Genre oder sh:IRI\n0..*"
+  },
+  {
+    "objectID": "de/index.html#sec-invoiceshape",
+    "href": "de/index.html#sec-invoiceshape",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "3.2 :InvoiceShape",
+    "text": "3.2 :InvoiceShape\nZielklasse: schema:Invoice\n\n\n\nTabelle 2: :InvoiceShape Eigenschaften\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nAn invoice must be linked to exactly one customer.\nschema:customer\nschema:Person\n1..1\n\n\nAn invoice must define a total payment due as a schema:QuantitativeValue.\nschema:totalPaymentDue\nschema:QuantitativeValue\n1..1\n\n\nAn invoice must have at least one line item (OrderItem).\nschema:hasPart\nschema:OrderItem\n1..*\n\n\n\nschema:dateCreated\nxsd:date\n0..*"
+  },
+  {
+    "objectID": "de/index.html#sec-musicalbumshape",
+    "href": "de/index.html#sec-musicalbumshape",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "3.3 :MusicAlbumShape",
+    "text": "3.3 :MusicAlbumShape\nZielklasse: schema:MusicAlbum\n\n\n\nTabelle 3: :MusicAlbumShape Eigenschaften\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nEvery album must have a name.\nschema:name\nxsd:string\n1..1\n\n\n\nschema:byArtist\nschema:Person oder schema:MusicGroup\n0..*"
+  },
+  {
+    "objectID": "de/index.html#sec-organisationshape",
+    "href": "de/index.html#sec-organisationshape",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "3.4 :OrganisationShape",
+    "text": "3.4 :OrganisationShape\nZielklasse: schema:Organisation\n\n\n\nTabelle 4: :OrganisationShape Eigenschaften\n\n\n\n\n\n\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nEvery organisation must have a name.\nschema:name\nxsd:string\n1..1"
+  },
+  {
+    "objectID": "de/index.html#sec-personshape",
+    "href": "de/index.html#sec-personshape",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "3.5 :PersonShape",
+    "text": "3.5 :PersonShape\nZielklasse: schema:Person\n\n\n\nTabelle 5: :PersonShape Eigenschaften\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nEvery person must have a given name.\nschema:givenName\nxsd:string\n1..1\n\n\nEvery person must have a family name.\nschema:familyName\nxsd:string\n1..1\n\n\nIf an email is provided, it must follow a standard email format.\nschema:email\nxsd:string\n0..*\n\n\nA person should have a valid birth date.\nschema:birthDate\nxsd:date\n0..*\n\n\n\nschema:address\nschema:PostalAddress\n0..*\n\n\nAn employee can report to another person.\nschema:worksFor\nschema:Person oder schema:Organization\n0..*\n\n\n\nschema:jobTitle\n\n0..1\n\n\n\nschema:knows\nschema:Person\n0..*"
+  },
+  {
+    "objectID": "de/index.html#sec-quantitativevalueshape",
+    "href": "de/index.html#sec-quantitativevalueshape",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "3.6 :QuantitativeValueShape",
+    "text": "3.6 :QuantitativeValueShape\nZielklasse: schema:QuantitativeValue\n\n\n\nTabelle 6: :QuantitativeValueShape Eigenschaften\n\n\n\n\n\n\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nA quantitative value must have exactly one numeric value.\nschema:value\n\n1..1\n\n\nA quantitative value must specify its unit via a unitCode URI.\nschema:unitCode\nsh:IRI\n1..1"
+  },
+  {
+    "objectID": "de/index.html#sec-trackshape",
+    "href": "de/index.html#sec-trackshape",
+    "title": "eCH-1234 Quarto-Dokument als Vorlage",
+    "section": "3.7 :TrackShape",
+    "text": "3.7 :TrackShape\nZielklasse: schema:MusicRecording\n\n\n\nTabelle 7: :TrackShape Eigenschaften\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nEvery track must have a name.\nschema:name\nxsd:string\n1..1\n\n\nA track can only belong to a valid schema:MusicAlbum.\nschema:inAlbum\nschema:MusicAlbum\n0..*\n\n\n\nschema:author\n\n0..*\n\n\n\nschema:genre\n:Genre\n1..1\n\n\nTrack duration must be expressed as a schema:QuantitativeValue.\nschema:duration\nschema:QuantitativeValue\n0..*\n\n\n\nschema:contentSize\nschema:QuantitativeValue\n0..*"
+  },
+  {
+    "objectID": "fr/index.html",
+    "href": "fr/index.html",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "",
+    "text": "Dans le présent document, les désignations de personnes sont formulées de manière épicène (neutre du point de vue du genre). Le guide de la Chancellerie fédérale sert de base. Selon la situation, on utilise des formulations paires (citoyennes et citoyens), des formes abstraites (personne assurée), des formes neutres ou des périphrases sans référence à la personne. L’usage du masculin générique n’est pas autorisé. Les formes complètes sont employées dans le texte continu, c’est-à-dire dans les textes composés de phrases rédigées. Dans les passages de texte raccourcis, notamment dans les tableaux, des formes abrégées peuvent être utilisées. La forme abrégée s’utilise alors avec une barre oblique, mais sans trait d’omission (rapporteur/euse). L’astérisque de genre et les typographies similaires ne sont pas utilisés."
+  },
+  {
+    "objectID": "fr/index.html#statut",
+    "href": "fr/index.html#statut",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "1.1 Statut",
+    "text": "1.1 Statut\nApprouvé : Ce document a été approuvé par le comité d’experts. Il a force normative pour le domaine d’application défini et dans le champ d’application déterminé."
+  },
+  {
+    "objectID": "fr/index.html#champ-dapplication",
+    "href": "fr/index.html#champ-dapplication",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "1.2 Champ d’application",
+    "text": "1.2 Champ d’application\nLes informations de ce chapitre doivent donner au lecteur un aperçu rapide de ce à quoi ce standard est destiné. Des indications sur les éléments suivants peuvent s’avérer utiles."
+  },
+  {
+    "objectID": "fr/index.html#nous-pouvons-avoir-des-sous-titres",
+    "href": "fr/index.html#nous-pouvons-avoir-des-sous-titres",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "1.3 Nous pouvons avoir des sous-titres",
+    "text": "1.3 Nous pouvons avoir des sous-titres\nEt écrire un peu de texte.\n\n1.3.1 Et aussi des sous-sous-titres\nEt écrire encore plus de texte. Peut-être même avec une belle image.\n\n\n\n\n\n\nFigure 1: Ajoutez toujours du texte pour décrire ce que montre l’image.\n\n\n\nLors de la présentation de diagrammes, essayez de les créer directement dans Mermaid JS ; cela facilite grandement les modifications futures ou les traductions."
+  },
+  {
+    "objectID": "fr/index.html#sec-genreshape",
+    "href": "fr/index.html#sec-genreshape",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "3.1 :GenreShape",
+    "text": "3.1 :GenreShape\nClasse cible: :Genre\n\n\n\nTable 1: :GenreShape propriétés\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\n\nschema:name\n\n1..1\n\n\n\nschema:partOf\n:Genre ou sh:IRI\n0..*"
+  },
+  {
+    "objectID": "fr/index.html#sec-invoiceshape",
+    "href": "fr/index.html#sec-invoiceshape",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "3.2 :InvoiceShape",
+    "text": "3.2 :InvoiceShape\nClasse cible: schema:Invoice\n\n\n\nTable 2: :InvoiceShape propriétés\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nAn invoice must be linked to exactly one customer.\nschema:customer\nschema:Person\n1..1\n\n\nAn invoice must define a total payment due as a schema:QuantitativeValue.\nschema:totalPaymentDue\nschema:QuantitativeValue\n1..1\n\n\nAn invoice must have at least one line item (OrderItem).\nschema:hasPart\nschema:OrderItem\n1..*\n\n\n\nschema:dateCreated\nxsd:date\n0..*"
+  },
+  {
+    "objectID": "fr/index.html#sec-musicalbumshape",
+    "href": "fr/index.html#sec-musicalbumshape",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "3.3 :MusicAlbumShape",
+    "text": "3.3 :MusicAlbumShape\nClasse cible: schema:MusicAlbum\n\n\n\nTable 3: :MusicAlbumShape propriétés\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nEvery album must have a name.\nschema:name\nxsd:string\n1..1\n\n\n\nschema:byArtist\nschema:Person ou schema:MusicGroup\n0..*"
+  },
+  {
+    "objectID": "fr/index.html#sec-organisationshape",
+    "href": "fr/index.html#sec-organisationshape",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "3.4 :OrganisationShape",
+    "text": "3.4 :OrganisationShape\nClasse cible: schema:Organisation\n\n\n\nTable 4: :OrganisationShape propriétés\n\n\n\n\n\n\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nEvery organisation must have a name.\nschema:name\nxsd:string\n1..1"
+  },
+  {
+    "objectID": "fr/index.html#sec-personshape",
+    "href": "fr/index.html#sec-personshape",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "3.5 :PersonShape",
+    "text": "3.5 :PersonShape\nClasse cible: schema:Person\n\n\n\nTable 5: :PersonShape propriétés\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nEvery person must have a given name.\nschema:givenName\nxsd:string\n1..1\n\n\nEvery person must have a family name.\nschema:familyName\nxsd:string\n1..1\n\n\nIf an email is provided, it must follow a standard email format.\nschema:email\nxsd:string\n0..*\n\n\nA person should have a valid birth date.\nschema:birthDate\nxsd:date\n0..*\n\n\n\nschema:address\nschema:PostalAddress\n0..*\n\n\nAn employee can report to another person.\nschema:worksFor\nschema:Person ou schema:Organization\n0..*\n\n\n\nschema:jobTitle\n\n0..1\n\n\n\nschema:knows\nschema:Person\n0..*"
+  },
+  {
+    "objectID": "fr/index.html#sec-quantitativevalueshape",
+    "href": "fr/index.html#sec-quantitativevalueshape",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "3.6 :QuantitativeValueShape",
+    "text": "3.6 :QuantitativeValueShape\nClasse cible: schema:QuantitativeValue\n\n\n\nTable 6: :QuantitativeValueShape propriétés\n\n\n\n\n\n\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nA quantitative value must have exactly one numeric value.\nschema:value\n\n1..1\n\n\nA quantitative value must specify its unit via a unitCode URI.\nschema:unitCode\nsh:IRI\n1..1"
+  },
+  {
+    "objectID": "fr/index.html#sec-trackshape",
+    "href": "fr/index.html#sec-trackshape",
+    "title": "Modèle de document Quarto eCH-1234",
+    "section": "3.7 :TrackShape",
+    "text": "3.7 :TrackShape\nClasse cible: schema:MusicRecording\n\n\n\nTable 7: :TrackShape propriétés\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nEvery track must have a name.\nschema:name\nxsd:string\n1..1\n\n\nA track can only belong to a valid schema:MusicAlbum.\nschema:inAlbum\nschema:MusicAlbum\n0..*\n\n\n\nschema:author\n\n0..*\n\n\n\nschema:genre\n:Genre\n1..1\n\n\nTrack duration must be expressed as a schema:QuantitativeValue.\nschema:duration\nschema:QuantitativeValue\n0..*\n\n\n\nschema:contentSize\nschema:QuantitativeValue\n0..*"
+  }
+]

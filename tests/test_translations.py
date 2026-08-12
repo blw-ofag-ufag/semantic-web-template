@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
 import pytest
+from rdflib import Graph
 
 DOCS_DIR = Path("docs")
 ALLOWED_LANGS = {"de", "fr", "it", "en"}
@@ -95,9 +96,27 @@ def analyze_qmd(path):
                 
     return yaml_keys, stats
 
+def format_uri(g, uri):
+    """Attempts to shorten a full URI to a prefix:localname format for readability."""
+    if not uri:
+        return ""
+    try:
+        return g.namespace_manager.normalizeUri(uri)
+    except Exception:
+        return str(uri)
+
 # ==============================================================================
 # TESTS
 # ==============================================================================
+
+@pytest.fixture(scope="session")
+def shacl_graph():
+    """Loads the SHACL definition graph for translation completeness verification."""
+    g = Graph()
+    shacl_path = Path("src/rdf/shapes/model.shacl.ttl")
+    if shacl_path.exists():
+        g.parse(shacl_path, format="turtle")
+    return g
 
 def test_translation_directories_exist():
     """Sanity check to ensure language directories exist."""
@@ -185,3 +204,63 @@ def test_translation_content_matches(rel_path, target_lang):
             f"Expected roughly {ref_chars} characters, but got {target_chars} "
             f"({(ratio * 100):.1f}% of reference). A translation should be within +/- 25%."
         )
+
+def test_shacl_translations_complete(shacl_graph):
+    """
+    Ensures that for all localized strings in the SHACL model,
+    translations are provided for all languages that have documentation.
+    """
+    if not LANG_DIRS:
+        pytest.skip(f"No allowed language directories {ALLOWED_LANGS} found in docs/")
+        
+    expected_langs = {d.name for d in LANG_DIRS}
+    
+    from collections import defaultdict
+    lang_map = defaultdict(set)
+    
+    query = """
+        SELECT DISTINCT ?s ?p (LANG(?o) AS ?lang)
+        WHERE {
+            ?s ?p ?o .
+            FILTER(LANG(?o) != "")
+        }
+    """
+    
+    for row in shacl_graph.query(query):
+        lang = str(row.lang).lower().split('-')[0]
+        lang_map[(row.s, row.p)].add(lang)
+
+    errors = []
+    
+    for (s, p), langs in lang_map.items():
+        missing_langs = expected_langs - langs
+        if missing_langs:
+            errors.append({
+                "subject": format_uri(shacl_graph, s),
+                "predicate": format_uri(shacl_graph, p),
+                "found": ", ".join(sorted(langs)),
+                "missing": ", ".join(sorted(missing_langs))
+            })
+
+    if errors:
+        subj_len = max(len("Subject"), max((len(e["subject"]) for e in errors), default=0))
+        pred_len = max(len("Predicate"), max((len(e["predicate"]) for e in errors), default=0))
+        found_len = max(len("Found"), max((len(e["found"]) for e in errors), default=0))
+        missing_len = max(len("Missing"), max((len(e["missing"]) for e in errors), default=0))
+
+        header = f"| {'Subject'.ljust(subj_len)} | {'Predicate'.ljust(pred_len)} | {'Found'.ljust(found_len)} | {'Missing'.ljust(missing_len)} |"
+        separator = f"|-{'-' * subj_len}-|-{'-' * pred_len}-|-{'-' * found_len}-|-{'-' * missing_len}-|"
+
+        table_lines = [
+            "Incomplete translations found in the SHACL model.",
+            f"Required languages based on docs/ directories: {', '.join(sorted(expected_langs))}",
+            "",
+            header,
+            separator
+        ]
+
+        for e in sorted(errors, key=lambda x: (x["subject"], x["predicate"])):
+            line = f"| {e['subject'].ljust(subj_len)} | {e['predicate'].ljust(pred_len)} | {e['found'].ljust(found_len)} | {e['missing'].ljust(missing_len)} |"
+            table_lines.append(line)
+
+        pytest.fail("\n".join(table_lines))

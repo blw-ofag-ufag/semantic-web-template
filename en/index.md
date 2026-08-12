@@ -10,8 +10,6 @@ August 12, 2026
     application](#scope-of-application)
   - [<span class="toc-section-number">1.3</span> We can have
     sub-headings](#we-can-have-sub-headings)
-    - [<span class="toc-section-number">1.3.1</span> Also
-      sub-sub-headings](#also-sub-sub-headings)
 - [<span class="toc-section-number">2</span> Technical
   notes](#technical-notes)
 - [<span class="toc-section-number">3</span> Data Model](#data-model)

@@ -9,8 +9,6 @@
     Geltungsbereich](#geltungsbereich)
   - [<span class="toc-section-number">1.3</span> Wir können Untertitel
     haben](#wir-können-untertitel-haben)
-    - [<span class="toc-section-number">1.3.1</span> Auch
-      Unter-Unterüberschriften](#auch-unter-unterüberschriften)
 - [<span class="toc-section-number">2</span> Technische
   Hinweise](#technische-hinweise)
 - [<span class="toc-section-number">3</span> Datenmodell](#datenmodell)

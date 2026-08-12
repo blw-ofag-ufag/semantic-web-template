@@ -10,8 +10,6 @@
     d’application](#champ-dapplication)
   - [<span class="toc-section-number">1.3</span> Nous pouvons avoir des
     sous-titres](#nous-pouvons-avoir-des-sous-titres)
-    - [<span class="toc-section-number">1.3.1</span> Et aussi des
-      sous-sous-titres](#et-aussi-des-sous-sous-titres)
 - [<span class="toc-section-number">2</span> Notes
   techniques](#notes-techniques)
 - [<span class="toc-section-number">3</span> Modèle de

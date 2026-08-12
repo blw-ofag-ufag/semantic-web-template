@@ -18,7 +18,8 @@ Approuvé : Ce document a été approuvé par le comité d'experts. Il a force n
 
 ## Champ d'application
 
-Les informations de ce chapitre doivent donner au lecteur un aperçu rapide de ce à quoi ce standard est destiné. Des indications sur les éléments suivants peuvent s'avérer utiles.
+Les informations de ce chapitre doivent donner au lecteur un aperçu rapide de ce à quoi ce standard est destiné.
+Des indications sur les éléments suivants peuvent s'avérer utiles.
 
 ## Nous pouvons avoir des sous-titres
 

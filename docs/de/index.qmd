@@ -18,7 +18,8 @@ Genehmigt: Dieses Dokument wurde vom Fach-Ausschuss verabschiedet. Es entfaltet 
 
 ## Geltungsbereich
 
-Die Angaben in diesem Kapitel sollen dem Leser einen raschen Überblick geben, wofür dieser Standard gedacht ist. Hinweise zu folgenden Sachverhalten können dabei hilfreich sein.
+Die Angaben in diesem Kapitel sollen dem Leser einen raschen Überblick geben, wofür dieser Standard gedacht ist.
+Hinweise zu folgenden Sachverhalten können dabei hilfreich sein.
 
 ## Wir können Untertitel haben
 

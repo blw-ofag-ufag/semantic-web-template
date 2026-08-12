@@ -18,9 +18,8 @@ Approved: This document was approved by the Experts’ Committee. It has normati
 
 ## Scope of application
 
-The information in this chapter should provide the reader with a brief overview of what this standard is intended for. Information about the following matters may be helpful here.
-
-Example: This repo is supposed to harmonize pipelines for semantic web projects. @berners2023semantic envisioned the semantic web as an internet of data compared to an internet of documents.
+The information in this chapter should provide the reader with a brief overview of what this standard is intended for.
+Information about the following matters may be helpful here.
 
 ## We can have sub-headings
 

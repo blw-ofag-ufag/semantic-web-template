@@ -272,13 +272,19 @@ Abbildung&nbsp;1: Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das 
 <h2 data-number="3.1" class="anchored" data-anchor-id="sec-genre"><span class="header-section-number">3.1</span> Genre</h2>
 <p>Eine musikalische Kategorie im Chinook-Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>:Genre</code></p>
-<div id="tbl-genre" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-genre" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-genre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;1: Genre Eigenschaften
+Tabelle&nbsp;1: Eigenschaften Genre
 </figcaption>
 <div aria-describedby="tbl-genre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
@@ -297,7 +303,7 @@ Tabelle&nbsp;1: Genre Eigenschaften
 <tr class="even">
 <td style="text-align: left;"><strong>Teil von</strong></td>
 <td style="text-align: left;"><code>schema:partOf</code></td>
-<td style="text-align: left;"><a href="#sec-genre">:Genre</a> oder <code>sh:IRI</code></td>
+<td style="text-align: left;"><a href="#sec-genre"><code>:Genre</code></a> oder <code>sh:IRI</code></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -310,13 +316,19 @@ Tabelle&nbsp;1: Genre Eigenschaften
 <h2 data-number="3.2" class="anchored" data-anchor-id="sec-musikalbum"><span class="header-section-number">3.2</span> Musikalbum</h2>
 <p>Eine Sammlung von Titeln im Chinook-Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>schema:MusicAlbum</code></p>
-<div id="tbl-musikalbum" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-musikalbum" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-musikalbum-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;2: Musikalbum Eigenschaften
+Tabelle&nbsp;2: Eigenschaften Musikalbum
 </figcaption>
 <div aria-describedby="tbl-musikalbum-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
@@ -335,7 +347,7 @@ Tabelle&nbsp;2: Musikalbum Eigenschaften
 <tr class="even">
 <td style="text-align: left;"><strong>Künstler</strong>: Person oder Musikgruppe, die das Album erstellt hat.</td>
 <td style="text-align: left;"><code>schema:byArtist</code></td>
-<td style="text-align: left;"><a href="#sec-person">schema:Person</a> oder <code>schema:MusicGroup</code></td>
+<td style="text-align: left;"><a href="#sec-person"><code>schema:Person</code></a> oder <code>schema:MusicGroup</code></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -348,13 +360,19 @@ Tabelle&nbsp;2: Musikalbum Eigenschaften
 <h2 data-number="3.3" class="anchored" data-anchor-id="sec-musikaufnahme"><span class="header-section-number">3.3</span> Musikaufnahme</h2>
 <p>Ein einzelner Musiktitel im Chinook-Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>schema:MusicRecording</code></p>
-<div id="tbl-musikaufnahme" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-musikaufnahme" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-musikaufnahme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;3: Musikaufnahme Eigenschaften
+Tabelle&nbsp;3: Eigenschaften Musikaufnahme
 </figcaption>
 <div aria-describedby="tbl-musikaufnahme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
@@ -373,7 +391,7 @@ Tabelle&nbsp;3: Musikaufnahme Eigenschaften
 <tr class="even">
 <td style="text-align: left;"><strong>In Album</strong>: Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören.</td>
 <td style="text-align: left;"><code>schema:inAlbum</code></td>
-<td style="text-align: left;"><a href="#sec-musikalbum">schema:MusicAlbum</a></td>
+<td style="text-align: left;"><a href="#sec-musikalbum"><code>schema:MusicAlbum</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
@@ -385,19 +403,19 @@ Tabelle&nbsp;3: Musikaufnahme Eigenschaften
 <tr class="even">
 <td style="text-align: left;"><strong>Genre</strong></td>
 <td style="text-align: left;"><code>schema:genre</code></td>
-<td style="text-align: left;"><a href="#sec-genre">:Genre</a></td>
+<td style="text-align: left;"><a href="#sec-genre"><code>:Genre</code></a></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Dauer</strong>: Die Dauer muss als schema:QuantitativeValue ausgedrückt werden.</td>
 <td style="text-align: left;"><code>schema:duration</code></td>
-<td style="text-align: left;"><a href="#sec-quantitativer-wert">schema:QuantitativeValue</a></td>
+<td style="text-align: left;"><a href="#sec-quantitativer-wert"><code>schema:QuantitativeValue</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Dateigröße</strong></td>
 <td style="text-align: left;"><code>schema:contentSize</code></td>
-<td style="text-align: left;"><a href="#sec-quantitativer-wert">schema:QuantitativeValue</a></td>
+<td style="text-align: left;"><a href="#sec-quantitativer-wert"><code>schema:QuantitativeValue</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -410,18 +428,18 @@ Tabelle&nbsp;3: Musikaufnahme Eigenschaften
 <h2 data-number="3.4" class="anchored" data-anchor-id="sec-organisation"><span class="header-section-number">3.4</span> Organisation</h2>
 <p>Ein Unternehmen oder eine Organisation im Chinook-Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>schema:Organisation</code></p>
-<div id="tbl-organisation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-organisation" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-organisation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;4: Organisation Eigenschaften
+Tabelle&nbsp;4: Eigenschaften Organisation
 </figcaption>
 <div aria-describedby="tbl-organisation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
+<col style="width: 40%">
 <col style="width: 25%">
 <col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -448,13 +466,19 @@ Tabelle&nbsp;4: Organisation Eigenschaften
 <h2 data-number="3.5" class="anchored" data-anchor-id="sec-person"><span class="header-section-number">3.5</span> Person</h2>
 <p>Jede Person (Mitarbeiter, Kunde oder benutzerdefinierte Person) im Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>schema:Person</code></p>
-<div id="tbl-person" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-person" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-person-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;5: Person Eigenschaften
+Tabelle&nbsp;5: Eigenschaften Person
 </figcaption>
 <div aria-describedby="tbl-person-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
@@ -497,7 +521,7 @@ Tabelle&nbsp;5: Person Eigenschaften
 <tr class="even">
 <td style="text-align: left;"><strong>Arbeitet für</strong>: Ein Mitarbeiter kann einer anderen Person unterstellt sein.</td>
 <td style="text-align: left;"><code>schema:worksFor</code></td>
-<td style="text-align: left;"><a href="#sec-person">schema:Person</a> oder <code>schema:Organization</code></td>
+<td style="text-align: left;"><a href="#sec-person"><code>schema:Person</code></a> oder <code>schema:Organization</code></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
@@ -509,7 +533,7 @@ Tabelle&nbsp;5: Person Eigenschaften
 <tr class="even">
 <td style="text-align: left;"><strong>Kennt</strong></td>
 <td style="text-align: left;"><code>schema:knows</code></td>
-<td style="text-align: left;"><a href="#sec-person">schema:Person</a></td>
+<td style="text-align: left;"><a href="#sec-person"><code>schema:Person</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -522,18 +546,18 @@ Tabelle&nbsp;5: Person Eigenschaften
 <h2 data-number="3.6" class="anchored" data-anchor-id="sec-quantitativer-wert"><span class="header-section-number">3.6</span> Quantitativer Wert</h2>
 <p>Ein numerischer Wert mit einer dazugehörigen Einheit.</p>
 <p><strong>Zielklasse:</strong> <code>schema:QuantitativeValue</code></p>
-<div id="tbl-quantitativer-wert" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-quantitativer-wert" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-quantitativer-wert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;6: Quantitativer Wert Eigenschaften
+Tabelle&nbsp;6: Eigenschaften Quantitativer Wert
 </figcaption>
 <div aria-describedby="tbl-quantitativer-wert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
+<col style="width: 40%">
 <col style="width: 25%">
 <col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -566,13 +590,19 @@ Tabelle&nbsp;6: Quantitativer Wert Eigenschaften
 <h2 data-number="3.7" class="anchored" data-anchor-id="sec-rechnung"><span class="header-section-number">3.7</span> Rechnung</h2>
 <p>Ein Kaufbeleg im Chinook-Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>schema:Invoice</code></p>
-<div id="tbl-rechnung" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-rechnung" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rechnung-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;7: Rechnung Eigenschaften
+Tabelle&nbsp;7: Eigenschaften Rechnung
 </figcaption>
 <div aria-describedby="tbl-rechnung-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
@@ -585,13 +615,13 @@ Tabelle&nbsp;7: Rechnung Eigenschaften
 <tr class="odd">
 <td style="text-align: left;"><strong>Kunde</strong>: Eine Rechnung muss genau einem Kunden zugeordnet sein.</td>
 <td style="text-align: left;"><code>schema:customer</code></td>
-<td style="text-align: left;"><a href="#sec-person">schema:Person</a></td>
+<td style="text-align: left;"><a href="#sec-person"><code>schema:Person</code></a></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Fälliger Gesamtbetrag</strong>: Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren.</td>
 <td style="text-align: left;"><code>schema:totalPaymentDue</code></td>
-<td style="text-align: left;"><a href="#sec-quantitativer-wert">schema:QuantitativeValue</a></td>
+<td style="text-align: left;"><a href="#sec-quantitativer-wert"><code>schema:QuantitativeValue</code></a></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">

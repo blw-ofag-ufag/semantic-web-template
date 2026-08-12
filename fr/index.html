@@ -272,13 +272,19 @@ Figure&nbsp;1: Ajoutez toujours du texte pour décrire ce que montre l’image.
 <h2 data-number="3.1" class="anchored" data-anchor-id="sec-album-de-musique"><span class="header-section-number">3.1</span> Album de musique</h2>
 <p>Une collection de pistes dans le jeu de données Chinook.</p>
 <p><strong>Classe cible:</strong> <code>schema:MusicAlbum</code></p>
-<div id="tbl-album-de-musique" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-album-de-musique" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-album-de-musique-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Album de musique propriétés
+Table&nbsp;1: propriétés Album de musique
 </figcaption>
 <div aria-describedby="tbl-album-de-musique-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Description</th>
@@ -297,7 +303,7 @@ Table&nbsp;1: Album de musique propriétés
 <tr class="even">
 <td style="text-align: left;"><strong>Artiste</strong>: Personne ou groupe de musique ayant créé l’album.</td>
 <td style="text-align: left;"><code>schema:byArtist</code></td>
-<td style="text-align: left;"><a href="#sec-personne">schema:Person</a> ou <code>schema:MusicGroup</code></td>
+<td style="text-align: left;"><a href="#sec-personne"><code>schema:Person</code></a> ou <code>schema:MusicGroup</code></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -310,13 +316,19 @@ Table&nbsp;1: Album de musique propriétés
 <h2 data-number="3.2" class="anchored" data-anchor-id="sec-enregistrement-musical"><span class="header-section-number">3.2</span> Enregistrement musical</h2>
 <p>Une piste musicale unique dans le jeu de données Chinook.</p>
 <p><strong>Classe cible:</strong> <code>schema:MusicRecording</code></p>
-<div id="tbl-enregistrement-musical" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-enregistrement-musical" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-enregistrement-musical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Enregistrement musical propriétés
+Table&nbsp;2: propriétés Enregistrement musical
 </figcaption>
 <div aria-describedby="tbl-enregistrement-musical-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Description</th>
@@ -335,7 +347,7 @@ Table&nbsp;2: Enregistrement musical propriétés
 <tr class="even">
 <td style="text-align: left;"><strong>Dans l’album</strong>: Une piste ne peut appartenir qu’à un schema:MusicAlbum valide.</td>
 <td style="text-align: left;"><code>schema:inAlbum</code></td>
-<td style="text-align: left;"><a href="#sec-album-de-musique">schema:MusicAlbum</a></td>
+<td style="text-align: left;"><a href="#sec-album-de-musique"><code>schema:MusicAlbum</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
@@ -347,19 +359,19 @@ Table&nbsp;2: Enregistrement musical propriétés
 <tr class="even">
 <td style="text-align: left;"><strong>Genre</strong></td>
 <td style="text-align: left;"><code>schema:genre</code></td>
-<td style="text-align: left;"><a href="#sec-genre">:Genre</a></td>
+<td style="text-align: left;"><a href="#sec-genre"><code>:Genre</code></a></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Durée</strong>: La durée doit être exprimée en tant que schema:QuantitativeValue.</td>
 <td style="text-align: left;"><code>schema:duration</code></td>
-<td style="text-align: left;"><a href="#sec-valeur-quantitative">schema:QuantitativeValue</a></td>
+<td style="text-align: left;"><a href="#sec-valeur-quantitative"><code>schema:QuantitativeValue</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Taille du contenu</strong></td>
 <td style="text-align: left;"><code>schema:contentSize</code></td>
-<td style="text-align: left;"><a href="#sec-valeur-quantitative">schema:QuantitativeValue</a></td>
+<td style="text-align: left;"><a href="#sec-valeur-quantitative"><code>schema:QuantitativeValue</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -372,13 +384,19 @@ Table&nbsp;2: Enregistrement musical propriétés
 <h2 data-number="3.3" class="anchored" data-anchor-id="sec-facture"><span class="header-section-number">3.3</span> Facture</h2>
 <p>Un reçu d’achat dans le jeu de données Chinook.</p>
 <p><strong>Classe cible:</strong> <code>schema:Invoice</code></p>
-<div id="tbl-facture" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-facture" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-facture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3: Facture propriétés
+Table&nbsp;3: propriétés Facture
 </figcaption>
 <div aria-describedby="tbl-facture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Description</th>
@@ -391,13 +409,13 @@ Table&nbsp;3: Facture propriétés
 <tr class="odd">
 <td style="text-align: left;"><strong>Client</strong>: Une facture doit être liée à exactement un client.</td>
 <td style="text-align: left;"><code>schema:customer</code></td>
-<td style="text-align: left;"><a href="#sec-personne">schema:Person</a></td>
+<td style="text-align: left;"><a href="#sec-personne"><code>schema:Person</code></a></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Paiement total dû</strong>: Une facture doit définir un paiement total dû en tant que schema:QuantitativeValue.</td>
 <td style="text-align: left;"><code>schema:totalPaymentDue</code></td>
-<td style="text-align: left;"><a href="#sec-valeur-quantitative">schema:QuantitativeValue</a></td>
+<td style="text-align: left;"><a href="#sec-valeur-quantitative"><code>schema:QuantitativeValue</code></a></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">
@@ -422,13 +440,19 @@ Table&nbsp;3: Facture propriétés
 <h2 data-number="3.4" class="anchored" data-anchor-id="sec-genre"><span class="header-section-number">3.4</span> Genre</h2>
 <p>Une catégorie musicale dans le jeu de données Chinook.</p>
 <p><strong>Classe cible:</strong> <code>:Genre</code></p>
-<div id="tbl-genre" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-genre" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-genre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4: Genre propriétés
+Table&nbsp;4: propriétés Genre
 </figcaption>
 <div aria-describedby="tbl-genre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Description</th>
@@ -447,7 +471,7 @@ Table&nbsp;4: Genre propriétés
 <tr class="even">
 <td style="text-align: left;"><strong>Partie de</strong></td>
 <td style="text-align: left;"><code>schema:partOf</code></td>
-<td style="text-align: left;"><a href="#sec-genre">:Genre</a> ou <code>sh:IRI</code></td>
+<td style="text-align: left;"><a href="#sec-genre"><code>:Genre</code></a> ou <code>sh:IRI</code></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -460,18 +484,18 @@ Table&nbsp;4: Genre propriétés
 <h2 data-number="3.5" class="anchored" data-anchor-id="sec-organisation"><span class="header-section-number">3.5</span> Organisation</h2>
 <p>Une entreprise ou organisation dans le jeu de données Chinook.</p>
 <p><strong>Classe cible:</strong> <code>schema:Organisation</code></p>
-<div id="tbl-organisation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-organisation" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-organisation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5: Organisation propriétés
+Table&nbsp;5: propriétés Organisation
 </figcaption>
 <div aria-describedby="tbl-organisation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
+<col style="width: 40%">
 <col style="width: 25%">
 <col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -498,13 +522,19 @@ Table&nbsp;5: Organisation propriétés
 <h2 data-number="3.6" class="anchored" data-anchor-id="sec-personne"><span class="header-section-number">3.6</span> Personne</h2>
 <p>Toute personne (employé, client ou personne personnalisée) présente dans le jeu de données.</p>
 <p><strong>Classe cible:</strong> <code>schema:Person</code></p>
-<div id="tbl-personne" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-personne" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-personne-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;6: Personne propriétés
+Table&nbsp;6: propriétés Personne
 </figcaption>
 <div aria-describedby="tbl-personne-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Description</th>
@@ -547,7 +577,7 @@ Table&nbsp;6: Personne propriétés
 <tr class="even">
 <td style="text-align: left;"><strong>Travaille pour</strong>: Un employé peut relever d’une autre personne.</td>
 <td style="text-align: left;"><code>schema:worksFor</code></td>
-<td style="text-align: left;"><a href="#sec-personne">schema:Person</a> ou <code>schema:Organization</code></td>
+<td style="text-align: left;"><a href="#sec-personne"><code>schema:Person</code></a> ou <code>schema:Organization</code></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
@@ -559,7 +589,7 @@ Table&nbsp;6: Personne propriétés
 <tr class="even">
 <td style="text-align: left;"><strong>Connaît</strong></td>
 <td style="text-align: left;"><code>schema:knows</code></td>
-<td style="text-align: left;"><a href="#sec-personne">schema:Person</a></td>
+<td style="text-align: left;"><a href="#sec-personne"><code>schema:Person</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -572,18 +602,18 @@ Table&nbsp;6: Personne propriétés
 <h2 data-number="3.7" class="anchored" data-anchor-id="sec-valeur-quantitative"><span class="header-section-number">3.7</span> Valeur quantitative</h2>
 <p>Une valeur numérique avec une unité associée.</p>
 <p><strong>Classe cible:</strong> <code>schema:QuantitativeValue</code></p>
-<div id="tbl-valeur-quantitative" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-valeur-quantitative" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-valeur-quantitative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7: Valeur quantitative propriétés
+Table&nbsp;7: propriétés Valeur quantitative
 </figcaption>
 <div aria-describedby="tbl-valeur-quantitative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
+<col style="width: 40%">
 <col style="width: 25%">
 <col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">

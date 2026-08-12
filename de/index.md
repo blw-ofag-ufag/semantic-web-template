@@ -110,12 +110,12 @@ Eine musikalische Kategorie im Chinook-Datensatz.
 
 <div id="tbl-genre">
 
-Tabelle 1: Genre Eigenschaften
+Tabelle 1: Eigenschaften Genre
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
 | **Name** | `schema:name` |  | 1..1 |
-| **Teil von** | `schema:partOf` | [:Genre](#sec-genre) oder `sh:IRI` | 0..\* |
+| **Teil von** | `schema:partOf` | [`:Genre`](#sec-genre) oder `sh:IRI` | 0..\* |
 
 </div>
 
@@ -127,12 +127,12 @@ Eine Sammlung von Titeln im Chinook-Datensatz.
 
 <div id="tbl-musikalbum">
 
-Tabelle 2: Musikalbum Eigenschaften
+Tabelle 2: Eigenschaften Musikalbum
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
 | **Name**: Jedes Album muss einen Namen haben. | `schema:name` | `xsd:string` | 1..1 |
-| **Künstler**: Person oder Musikgruppe, die das Album erstellt hat. | `schema:byArtist` | [schema:Person](#sec-person) oder `schema:MusicGroup` | 0..\* |
+| **Künstler**: Person oder Musikgruppe, die das Album erstellt hat. | `schema:byArtist` | [`schema:Person`](#sec-person) oder `schema:MusicGroup` | 0..\* |
 
 </div>
 
@@ -144,16 +144,16 @@ Ein einzelner Musiktitel im Chinook-Datensatz.
 
 <div id="tbl-musikaufnahme">
 
-Tabelle 3: Musikaufnahme Eigenschaften
+Tabelle 3: Eigenschaften Musikaufnahme
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
 | **Name**: Jeder Titel muss einen Namen haben. | `schema:name` | `xsd:string` | 1..1 |
-| **In Album**: Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören. | `schema:inAlbum` | [schema:MusicAlbum](#sec-musikalbum) | 0..\* |
+| **In Album**: Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören. | `schema:inAlbum` | [`schema:MusicAlbum`](#sec-musikalbum) | 0..\* |
 | **Autor**: Die Person oder Gruppe, die den Titel geschrieben hat. | `schema:author` |  | 0..\* |
-| **Genre** | `schema:genre` | [:Genre](#sec-genre) | 1..1 |
-| **Dauer**: Die Dauer muss als schema:QuantitativeValue ausgedrückt werden. | `schema:duration` | [schema:QuantitativeValue](#sec-quantitativer-wert) | 0..\* |
-| **Dateigröße** | `schema:contentSize` | [schema:QuantitativeValue](#sec-quantitativer-wert) | 0..\* |
+| **Genre** | `schema:genre` | [`:Genre`](#sec-genre) | 1..1 |
+| **Dauer**: Die Dauer muss als schema:QuantitativeValue ausgedrückt werden. | `schema:duration` | [`schema:QuantitativeValue`](#sec-quantitativer-wert) | 0..\* |
+| **Dateigröße** | `schema:contentSize` | [`schema:QuantitativeValue`](#sec-quantitativer-wert) | 0..\* |
 
 </div>
 
@@ -165,7 +165,7 @@ Ein Unternehmen oder eine Organisation im Chinook-Datensatz.
 
 <div id="tbl-organisation">
 
-Tabelle 4: Organisation Eigenschaften
+Tabelle 4: Eigenschaften Organisation
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
@@ -182,7 +182,7 @@ Datensatz.
 
 <div id="tbl-person">
 
-Tabelle 5: Person Eigenschaften
+Tabelle 5: Eigenschaften Person
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
@@ -191,9 +191,9 @@ Tabelle 5: Person Eigenschaften
 | **E-Mail-Adresse**: Falls angegeben, muss die E-Mail-Adresse einem Standardformat entsprechen. | `schema:email` | `xsd:string` | 0..\* |
 | **Geburtsdatum**: Eine Person sollte ein gültiges Geburtsdatum haben. | `schema:birthDate` | `xsd:date` | 0..\* |
 | **Adresse** | `schema:address` | `schema:PostalAddress` | 0..\* |
-| **Arbeitet für**: Ein Mitarbeiter kann einer anderen Person unterstellt sein. | `schema:worksFor` | [schema:Person](#sec-person) oder `schema:Organization` | 0..\* |
+| **Arbeitet für**: Ein Mitarbeiter kann einer anderen Person unterstellt sein. | `schema:worksFor` | [`schema:Person`](#sec-person) oder `schema:Organization` | 0..\* |
 | **Berufsbezeichnung** | `schema:jobTitle` |  | 0..1 |
-| **Kennt** | `schema:knows` | [schema:Person](#sec-person) | 0..\* |
+| **Kennt** | `schema:knows` | [`schema:Person`](#sec-person) | 0..\* |
 
 </div>
 
@@ -205,7 +205,7 @@ Ein numerischer Wert mit einer dazugehörigen Einheit.
 
 <div id="tbl-quantitativer-wert">
 
-Tabelle 6: Quantitativer Wert Eigenschaften
+Tabelle 6: Eigenschaften Quantitativer Wert
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
@@ -222,12 +222,12 @@ Ein Kaufbeleg im Chinook-Datensatz.
 
 <div id="tbl-rechnung">
 
-Tabelle 7: Rechnung Eigenschaften
+Tabelle 7: Eigenschaften Rechnung
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
-| **Kunde**: Eine Rechnung muss genau einem Kunden zugeordnet sein. | `schema:customer` | [schema:Person](#sec-person) | 1..1 |
-| **Fälliger Gesamtbetrag**: Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren. | `schema:totalPaymentDue` | [schema:QuantitativeValue](#sec-quantitativer-wert) | 1..1 |
+| **Kunde**: Eine Rechnung muss genau einem Kunden zugeordnet sein. | `schema:customer` | [`schema:Person`](#sec-person) | 1..1 |
+| **Fälliger Gesamtbetrag**: Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren. | `schema:totalPaymentDue` | [`schema:QuantitativeValue`](#sec-quantitativer-wert) | 1..1 |
 | **Enthält**: Eine Rechnung muss mindestens eine Position (OrderItem) enthalten. | `schema:hasPart` | `schema:OrderItem` | 1..\* |
 | **Erstellungsdatum** | `schema:dateCreated` | `xsd:date` | 0..\* |
 

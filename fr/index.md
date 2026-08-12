@@ -111,12 +111,12 @@ Une collection de pistes dans le jeu de données Chinook.
 
 <div id="tbl-album-de-musique">
 
-Table 1: Album de musique propriétés
+Table 1: propriétés Album de musique
 
 | Description | Chemin | Type | Cardinalité |
 |:---|:---|:---|---:|
 | **Nom**: Chaque album doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
-| **Artiste**: Personne ou groupe de musique ayant créé l’album. | `schema:byArtist` | [schema:Person](#sec-personne) ou `schema:MusicGroup` | 0..\* |
+| **Artiste**: Personne ou groupe de musique ayant créé l’album. | `schema:byArtist` | [`schema:Person`](#sec-personne) ou `schema:MusicGroup` | 0..\* |
 
 </div>
 
@@ -128,16 +128,16 @@ Une piste musicale unique dans le jeu de données Chinook.
 
 <div id="tbl-enregistrement-musical">
 
-Table 2: Enregistrement musical propriétés
+Table 2: propriétés Enregistrement musical
 
 | Description | Chemin | Type | Cardinalité |
 |:---|:---|:---|---:|
 | **Nom**: Chaque piste doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
-| **Dans l’album**: Une piste ne peut appartenir qu’à un schema:MusicAlbum valide. | `schema:inAlbum` | [schema:MusicAlbum](#sec-album-de-musique) | 0..\* |
+| **Dans l’album**: Une piste ne peut appartenir qu’à un schema:MusicAlbum valide. | `schema:inAlbum` | [`schema:MusicAlbum`](#sec-album-de-musique) | 0..\* |
 | **Auteur**: La personne ou le groupe qui a écrit la piste. | `schema:author` |  | 0..\* |
-| **Genre** | `schema:genre` | [:Genre](#sec-genre) | 1..1 |
-| **Durée**: La durée doit être exprimée en tant que schema:QuantitativeValue. | `schema:duration` | [schema:QuantitativeValue](#sec-valeur-quantitative) | 0..\* |
-| **Taille du contenu** | `schema:contentSize` | [schema:QuantitativeValue](#sec-valeur-quantitative) | 0..\* |
+| **Genre** | `schema:genre` | [`:Genre`](#sec-genre) | 1..1 |
+| **Durée**: La durée doit être exprimée en tant que schema:QuantitativeValue. | `schema:duration` | [`schema:QuantitativeValue`](#sec-valeur-quantitative) | 0..\* |
+| **Taille du contenu** | `schema:contentSize` | [`schema:QuantitativeValue`](#sec-valeur-quantitative) | 0..\* |
 
 </div>
 
@@ -149,12 +149,12 @@ Un reçu d’achat dans le jeu de données Chinook.
 
 <div id="tbl-facture">
 
-Table 3: Facture propriétés
+Table 3: propriétés Facture
 
 | Description | Chemin | Type | Cardinalité |
 |:---|:---|:---|---:|
-| **Client**: Une facture doit être liée à exactement un client. | `schema:customer` | [schema:Person](#sec-personne) | 1..1 |
-| **Paiement total dû**: Une facture doit définir un paiement total dû en tant que schema:QuantitativeValue. | `schema:totalPaymentDue` | [schema:QuantitativeValue](#sec-valeur-quantitative) | 1..1 |
+| **Client**: Une facture doit être liée à exactement un client. | `schema:customer` | [`schema:Person`](#sec-personne) | 1..1 |
+| **Paiement total dû**: Une facture doit définir un paiement total dû en tant que schema:QuantitativeValue. | `schema:totalPaymentDue` | [`schema:QuantitativeValue`](#sec-valeur-quantitative) | 1..1 |
 | **Contient**: Une facture doit avoir au moins un article (OrderItem). | `schema:hasPart` | `schema:OrderItem` | 1..\* |
 | **Date de création** | `schema:dateCreated` | `xsd:date` | 0..\* |
 
@@ -168,12 +168,12 @@ Une catégorie musicale dans le jeu de données Chinook.
 
 <div id="tbl-genre">
 
-Table 4: Genre propriétés
+Table 4: propriétés Genre
 
-| Description   | Chemin          | Type                             | Cardinalité |
-|:--------------|:----------------|:---------------------------------|------------:|
-| **Nom**       | `schema:name`   |                                  |        1..1 |
-| **Partie de** | `schema:partOf` | [:Genre](#sec-genre) ou `sh:IRI` |       0..\* |
+| Description | Chemin | Type | Cardinalité |
+|:---|:---|:---|---:|
+| **Nom** | `schema:name` |  | 1..1 |
+| **Partie de** | `schema:partOf` | [`:Genre`](#sec-genre) ou `sh:IRI` | 0..\* |
 
 </div>
 
@@ -185,7 +185,7 @@ Une entreprise ou organisation dans le jeu de données Chinook.
 
 <div id="tbl-organisation">
 
-Table 5: Organisation propriétés
+Table 5: propriétés Organisation
 
 | Description | Chemin | Type | Cardinalité |
 |:---|:---|:---|---:|
@@ -202,7 +202,7 @@ le jeu de données.
 
 <div id="tbl-personne">
 
-Table 6: Personne propriétés
+Table 6: propriétés Personne
 
 | Description | Chemin | Type | Cardinalité |
 |:---|:---|:---|---:|
@@ -211,9 +211,9 @@ Table 6: Personne propriétés
 | **Adresse e-mail**: Si une adresse e-mail est fournie, elle doit respecter un format standard. | `schema:email` | `xsd:string` | 0..\* |
 | **Date de naissance**: Une personne doit avoir une date de naissance valide. | `schema:birthDate` | `xsd:date` | 0..\* |
 | **Adresse** | `schema:address` | `schema:PostalAddress` | 0..\* |
-| **Travaille pour**: Un employé peut relever d’une autre personne. | `schema:worksFor` | [schema:Person](#sec-personne) ou `schema:Organization` | 0..\* |
+| **Travaille pour**: Un employé peut relever d’une autre personne. | `schema:worksFor` | [`schema:Person`](#sec-personne) ou `schema:Organization` | 0..\* |
 | **Titre du poste** | `schema:jobTitle` |  | 0..1 |
-| **Connaît** | `schema:knows` | [schema:Person](#sec-personne) | 0..\* |
+| **Connaît** | `schema:knows` | [`schema:Person`](#sec-personne) | 0..\* |
 
 </div>
 
@@ -225,7 +225,7 @@ Une valeur numérique avec une unité associée.
 
 <div id="tbl-valeur-quantitative">
 
-Table 7: Valeur quantitative propriétés
+Table 7: propriétés Valeur quantitative
 
 | Description | Chemin | Type | Cardinalité |
 |:---|:---|:---|---:|

@@ -66,7 +66,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d1f9d6778f1c126e43da7fea03df6f67.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-63180c5dda01c187c33bc16bc49fe53e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -274,6 +274,7 @@ Figure&nbsp;1: Always add some text to describe what the image shows.
 <h1 data-number="3"><span class="header-section-number">3</span> Data Model</h1>
 <section id="sec-genre" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sec-genre"><span class="header-section-number">3.1</span> Genre</h2>
+<p>A musical category in the Chinook dataset.</p>
 <p><strong>Target Class:</strong> <code>:Genre</code></p>
 <div id="tbl-genre" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -311,6 +312,7 @@ Table&nbsp;1: Genre properties
 </section>
 <section id="sec-invoice" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="sec-invoice"><span class="header-section-number">3.2</span> Invoice</h2>
+<p>A purchase receipt in the Chinook dataset.</p>
 <p><strong>Target Class:</strong> <code>schema:Invoice</code></p>
 <div id="tbl-invoice" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -335,19 +337,19 @@ Table&nbsp;2: Invoice properties
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Total Payment Due</strong>: An invoice must define a total payment due as a schema:QuantitativeValue.</td>
+<td style="text-align: left;"><strong>Total payment due</strong>: An invoice must define a total payment due as a schema:QuantitativeValue.</td>
 <td style="text-align: left;"><code>schema:totalPaymentDue</code></td>
 <td style="text-align: left;"><a href="#sec-quantitative-value">schema:QuantitativeValue</a></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Has Part</strong>: An invoice must have at least one line item (OrderItem).</td>
+<td style="text-align: left;"><strong>Has part</strong>: An invoice must have at least one line item (OrderItem).</td>
 <td style="text-align: left;"><code>schema:hasPart</code></td>
 <td style="text-align: left;"><code>schema:OrderItem</code></td>
 <td style="text-align: right;">1..*</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Date created</strong></td>
 <td style="text-align: left;"><code>schema:dateCreated</code></td>
 <td style="text-align: left;"><code>xsd:date</code></td>
 <td style="text-align: right;">0..*</td>
@@ -360,6 +362,7 @@ Table&nbsp;2: Invoice properties
 </section>
 <section id="sec-music-album" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="sec-music-album"><span class="header-section-number">3.3</span> Music album</h2>
+<p>A collection of tracks in the Chinook dataset.</p>
 <p><strong>Target Class:</strong> <code>schema:MusicAlbum</code></p>
 <div id="tbl-music-album" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -397,6 +400,7 @@ Table&nbsp;3: Music album properties
 </section>
 <section id="sec-music-recording" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="sec-music-recording"><span class="header-section-number">3.4</span> Music Recording</h2>
+<p>A single music track in the Chinook dataset.</p>
 <p><strong>Target Class:</strong> <code>schema:MusicRecording</code></p>
 <div id="tbl-music-recording" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -427,7 +431,7 @@ Table&nbsp;4: Music Recording properties
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Author</strong>: The person or group who wrote the track.</td>
 <td style="text-align: left;"><code>schema:author</code></td>
 <td style="text-align: left;"></td>
 <td style="text-align: right;">0..*</td>
@@ -445,7 +449,7 @@ Table&nbsp;4: Music Recording properties
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Content Size</strong></td>
 <td style="text-align: left;"><code>schema:contentSize</code></td>
 <td style="text-align: left;"><a href="#sec-quantitative-value">schema:QuantitativeValue</a></td>
 <td style="text-align: right;">0..*</td>
@@ -458,6 +462,7 @@ Table&nbsp;4: Music Recording properties
 </section>
 <section id="sec-organisation" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="sec-organisation"><span class="header-section-number">3.5</span> Organisation</h2>
+<p>A company or organization in the Chinook dataset.</p>
 <p><strong>Target Class:</strong> <code>schema:Organisation</code></p>
 <div id="tbl-organisation" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -538,13 +543,13 @@ Table&nbsp;6: Person properties
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Address</strong></td>
 <td style="text-align: left;"><code>schema:address</code></td>
 <td style="text-align: left;"><code>schema:PostalAddress</code></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">An employee can report to another person.</td>
+<td style="text-align: left;"><strong>Works for</strong>: An employee can report to another person.</td>
 <td style="text-align: left;"><code>schema:worksFor</code></td>
 <td style="text-align: left;"><a href="#sec-person">schema:Person</a> or <code>schema:Organization</code></td>
 <td style="text-align: right;">0..*</td>
@@ -569,6 +574,7 @@ Table&nbsp;6: Person properties
 </section>
 <section id="sec-quantitative-value" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="sec-quantitative-value"><span class="header-section-number">3.7</span> Quantitative Value</h2>
+<p>A numerical value with an associated unit.</p>
 <p><strong>Target Class:</strong> <code>schema:QuantitativeValue</code></p>
 <div id="tbl-quantitative-value" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">

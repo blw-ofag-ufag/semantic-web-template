@@ -14,20 +14,18 @@
 - [<span class="toc-section-number">2</span> Technische
   Hinweise](#technische-hinweise)
 - [<span class="toc-section-number">3</span> Datenmodell](#datenmodell)
-  - [<span class="toc-section-number">3.1</span>
-    :GenreShape](#sec-genreshape)
+  - [<span class="toc-section-number">3.1</span> Genre](#sec-genre)
   - [<span class="toc-section-number">3.2</span>
-    :InvoiceShape](#sec-invoiceshape)
+    Musikalbum](#sec-musikalbum)
   - [<span class="toc-section-number">3.3</span>
-    :MusicAlbumShape](#sec-musicalbumshape)
+    Musikaufnahme](#sec-musikaufnahme)
   - [<span class="toc-section-number">3.4</span>
-    :OrganisationShape](#sec-organisationshape)
-  - [<span class="toc-section-number">3.5</span>
-    :PersonShape](#sec-personshape)
-  - [<span class="toc-section-number">3.6</span>
-    :QuantitativeValueShape](#sec-quantitativevalueshape)
+    Organisation](#sec-organisation)
+  - [<span class="toc-section-number">3.5</span> Person](#sec-person)
+  - [<span class="toc-section-number">3.6</span> Quantitativer
+    Wert](#sec-quantitativer-wert)
   - [<span class="toc-section-number">3.7</span>
-    :TrackShape](#sec-trackshape)
+    Rechnung](#sec-rechnung)
 - [<span class="toc-section-number">4</span>
   Sicherheitsaspekte](#sicherheitsaspekte)
 - [<span class="toc-section-number">5</span>
@@ -106,119 +104,134 @@ insbesondere wegen ihrer Fähigkeit, den HermiT Reasoner auszuführen
 
 # Datenmodell
 
-## :GenreShape
+## Genre
+
+Eine musikalische Kategorie im Chinook-Datensatz.
 
 **Zielklasse:** `:Genre`
 
-<div id="tbl-genreshape">
+<div id="tbl-genre">
 
-Tabelle 1: :GenreShape Eigenschaften
-
-| Beschreibung | Pfad | Typ | Kardinalität |
-|:---|:---|:---|---:|
-|  | `schema:name` |  | 1..1 |
-|  | `schema:partOf` | [:Genre](#sec-genreshape) oder `sh:IRI` | 0..\* |
-
-</div>
-
-## :InvoiceShape
-
-**Zielklasse:** `schema:Invoice`
-
-<div id="tbl-invoiceshape">
-
-Tabelle 2: :InvoiceShape Eigenschaften
+Tabelle 1: Genre Eigenschaften
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
-| An invoice must be linked to exactly one customer. | `schema:customer` | [schema:Person](#sec-personshape) | 1..1 |
-| An invoice must define a total payment due as a schema:QuantitativeValue. | `schema:totalPaymentDue` | [schema:QuantitativeValue](#sec-quantitativevalueshape) | 1..1 |
-| An invoice must have at least one line item (OrderItem). | `schema:hasPart` | `schema:OrderItem` | 1..\* |
-|  | `schema:dateCreated` | `xsd:date` | 0..\* |
+| **Name** | `schema:name` |  | 1..1 |
+| **Teil von** | `schema:partOf` | [:Genre](#sec-genre) oder `sh:IRI` | 0..\* |
 
 </div>
 
-## :MusicAlbumShape
+## Musikalbum
+
+Eine Sammlung von Titeln im Chinook-Datensatz.
 
 **Zielklasse:** `schema:MusicAlbum`
 
-<div id="tbl-musicalbumshape">
+<div id="tbl-musikalbum">
 
-Tabelle 3: :MusicAlbumShape Eigenschaften
-
-| Beschreibung | Pfad | Typ | Kardinalität |
-|:---|:---|:---|---:|
-| Every album must have a name. | `schema:name` | `xsd:string` | 1..1 |
-|  | `schema:byArtist` | [schema:Person](#sec-personshape) oder `schema:MusicGroup` | 0..\* |
-
-</div>
-
-## :OrganisationShape
-
-**Zielklasse:** `schema:Organisation`
-
-<div id="tbl-organisationshape">
-
-Tabelle 4: :OrganisationShape Eigenschaften
+Tabelle 2: Musikalbum Eigenschaften
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
-| Every organisation must have a name. | `schema:name` | `xsd:string` | 1..1 |
+| **Name**: Jedes Album muss einen Namen haben. | `schema:name` | `xsd:string` | 1..1 |
+| **Künstler**: Person oder Musikgruppe, die das Album erstellt hat. | `schema:byArtist` | [schema:Person](#sec-person) oder `schema:MusicGroup` | 0..\* |
 
 </div>
 
-## :PersonShape
+## Musikaufnahme
 
-**Zielklasse:** `schema:Person`
-
-<div id="tbl-personshape">
-
-Tabelle 5: :PersonShape Eigenschaften
-
-| Beschreibung | Pfad | Typ | Kardinalität |
-|:---|:---|:---|---:|
-| Every person must have a given name. | `schema:givenName` | `xsd:string` | 1..1 |
-| Every person must have a family name. | `schema:familyName` | `xsd:string` | 1..1 |
-| If an email is provided, it must follow a standard email format. | `schema:email` | `xsd:string` | 0..\* |
-| A person should have a valid birth date. | `schema:birthDate` | `xsd:date` | 0..\* |
-|  | `schema:address` | `schema:PostalAddress` | 0..\* |
-| An employee can report to another person. | `schema:worksFor` | [schema:Person](#sec-personshape) oder `schema:Organization` | 0..\* |
-|  | `schema:jobTitle` |  | 0..1 |
-|  | `schema:knows` | [schema:Person](#sec-personshape) | 0..\* |
-
-</div>
-
-## :QuantitativeValueShape
-
-**Zielklasse:** `schema:QuantitativeValue`
-
-<div id="tbl-quantitativevalueshape">
-
-Tabelle 6: :QuantitativeValueShape Eigenschaften
-
-| Beschreibung | Pfad | Typ | Kardinalität |
-|:---|:---|:---|---:|
-| A quantitative value must have exactly one numeric value. | `schema:value` |  | 1..1 |
-| A quantitative value must specify its unit via a unitCode URI. | `schema:unitCode` | `sh:IRI` | 1..1 |
-
-</div>
-
-## :TrackShape
+Ein einzelner Musiktitel im Chinook-Datensatz.
 
 **Zielklasse:** `schema:MusicRecording`
 
-<div id="tbl-trackshape">
+<div id="tbl-musikaufnahme">
 
-Tabelle 7: :TrackShape Eigenschaften
+Tabelle 3: Musikaufnahme Eigenschaften
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
-| Every track must have a name. | `schema:name` | `xsd:string` | 1..1 |
-| A track can only belong to a valid schema:MusicAlbum. | `schema:inAlbum` | [schema:MusicAlbum](#sec-musicalbumshape) | 0..\* |
-|  | `schema:author` |  | 0..\* |
-|  | `schema:genre` | [:Genre](#sec-genreshape) | 1..1 |
-| Track duration must be expressed as a schema:QuantitativeValue. | `schema:duration` | [schema:QuantitativeValue](#sec-quantitativevalueshape) | 0..\* |
-|  | `schema:contentSize` | [schema:QuantitativeValue](#sec-quantitativevalueshape) | 0..\* |
+| **Name**: Jeder Titel muss einen Namen haben. | `schema:name` | `xsd:string` | 1..1 |
+| **In Album**: Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören. | `schema:inAlbum` | [schema:MusicAlbum](#sec-musikalbum) | 0..\* |
+| **Autor**: Die Person oder Gruppe, die den Titel geschrieben hat. | `schema:author` |  | 0..\* |
+| **Genre** | `schema:genre` | [:Genre](#sec-genre) | 1..1 |
+| **Dauer**: Die Dauer muss als schema:QuantitativeValue ausgedrückt werden. | `schema:duration` | [schema:QuantitativeValue](#sec-quantitativer-wert) | 0..\* |
+| **Dateigröße** | `schema:contentSize` | [schema:QuantitativeValue](#sec-quantitativer-wert) | 0..\* |
+
+</div>
+
+## Organisation
+
+Ein Unternehmen oder eine Organisation im Chinook-Datensatz.
+
+**Zielklasse:** `schema:Organisation`
+
+<div id="tbl-organisation">
+
+Tabelle 4: Organisation Eigenschaften
+
+| Beschreibung | Pfad | Typ | Kardinalität |
+|:---|:---|:---|---:|
+| **Name**: Jede Organisation muss einen Namen haben. | `schema:name` | `xsd:string` | 1..1 |
+
+</div>
+
+## Person
+
+Jede Person (Mitarbeiter, Kunde oder benutzerdefinierte Person) im
+Datensatz.
+
+**Zielklasse:** `schema:Person`
+
+<div id="tbl-person">
+
+Tabelle 5: Person Eigenschaften
+
+| Beschreibung | Pfad | Typ | Kardinalität |
+|:---|:---|:---|---:|
+| **Vorname**: Jede Person muss einen Vornamen haben. | `schema:givenName` | `xsd:string` | 1..1 |
+| **Nachname**: Jede Person muss einen Nachnamen haben. | `schema:familyName` | `xsd:string` | 1..1 |
+| **E-Mail-Adresse**: Falls angegeben, muss die E-Mail-Adresse einem Standardformat entsprechen. | `schema:email` | `xsd:string` | 0..\* |
+| **Geburtsdatum**: Eine Person sollte ein gültiges Geburtsdatum haben. | `schema:birthDate` | `xsd:date` | 0..\* |
+| **Adresse** | `schema:address` | `schema:PostalAddress` | 0..\* |
+| **Arbeitet für**: Ein Mitarbeiter kann einer anderen Person unterstellt sein. | `schema:worksFor` | [schema:Person](#sec-person) oder `schema:Organization` | 0..\* |
+| **Berufsbezeichnung** | `schema:jobTitle` |  | 0..1 |
+| **Kennt** | `schema:knows` | [schema:Person](#sec-person) | 0..\* |
+
+</div>
+
+## Quantitativer Wert
+
+Ein numerischer Wert mit einer dazugehörigen Einheit.
+
+**Zielklasse:** `schema:QuantitativeValue`
+
+<div id="tbl-quantitativer-wert">
+
+Tabelle 6: Quantitativer Wert Eigenschaften
+
+| Beschreibung | Pfad | Typ | Kardinalität |
+|:---|:---|:---|---:|
+| **Wert**: Ein quantitativer Wert muss genau einen numerischen Wert haben. | `schema:value` |  | 1..1 |
+| **Einheitencode**: Ein quantitativer Wert muss seine Einheit über eine unitCode-URI angeben. | `schema:unitCode` | `sh:IRI` | 1..1 |
+
+</div>
+
+## Rechnung
+
+Ein Kaufbeleg im Chinook-Datensatz.
+
+**Zielklasse:** `schema:Invoice`
+
+<div id="tbl-rechnung">
+
+Tabelle 7: Rechnung Eigenschaften
+
+| Beschreibung | Pfad | Typ | Kardinalität |
+|:---|:---|:---|---:|
+| **Kunde**: Eine Rechnung muss genau einem Kunden zugeordnet sein. | `schema:customer` | [schema:Person](#sec-person) | 1..1 |
+| **Fälliger Gesamtbetrag**: Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren. | `schema:totalPaymentDue` | [schema:QuantitativeValue](#sec-quantitativer-wert) | 1..1 |
+| **Enthält**: Eine Rechnung muss mindestens eine Position (OrderItem) enthalten. | `schema:hasPart` | `schema:OrderItem` | 1..\* |
+| **Erstellungsdatum** | `schema:dateCreated` | `xsd:date` | 0..\* |
 
 </div>
 

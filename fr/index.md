@@ -16,20 +16,18 @@
   techniques](#notes-techniques)
 - [<span class="toc-section-number">3</span> Modèle de
   données](#modèle-de-données)
-  - [<span class="toc-section-number">3.1</span>
-    :GenreShape](#sec-genreshape)
-  - [<span class="toc-section-number">3.2</span>
-    :InvoiceShape](#sec-invoiceshape)
-  - [<span class="toc-section-number">3.3</span>
-    :MusicAlbumShape](#sec-musicalbumshape)
-  - [<span class="toc-section-number">3.4</span>
-    :OrganisationShape](#sec-organisationshape)
+  - [<span class="toc-section-number">3.1</span> Album de
+    musique](#sec-album-de-musique)
+  - [<span class="toc-section-number">3.2</span> Enregistrement
+    musical](#sec-enregistrement-musical)
+  - [<span class="toc-section-number">3.3</span> Facture](#sec-facture)
+  - [<span class="toc-section-number">3.4</span> Genre](#sec-genre)
   - [<span class="toc-section-number">3.5</span>
-    :PersonShape](#sec-personshape)
+    Organisation](#sec-organisation)
   - [<span class="toc-section-number">3.6</span>
-    :QuantitativeValueShape](#sec-quantitativevalueshape)
-  - [<span class="toc-section-number">3.7</span>
-    :TrackShape](#sec-trackshape)
+    Personne](#sec-personne)
+  - [<span class="toc-section-number">3.7</span> Valeur
+    quantitative](#sec-valeur-quantitative)
 - [<span class="toc-section-number">4</span> Considérations de
   sécurité](#considérations-de-sécurité)
 - [<span class="toc-section-number">5</span> Clause de
@@ -107,119 +105,134 @@ le raisonneur HermiT (Glimm et al. 2014).
 
 # Modèle de données
 
-## :GenreShape
+## Album de musique
 
-**Classe cible:** `:Genre`
-
-<div id="tbl-genreshape">
-
-Table 1: :GenreShape propriétés
-
-| Description | Chemin | Type | Cardinalité |
-|:---|:---|:---|---:|
-|  | `schema:name` |  | 1..1 |
-|  | `schema:partOf` | [:Genre](#sec-genreshape) ou `sh:IRI` | 0..\* |
-
-</div>
-
-## :InvoiceShape
-
-**Classe cible:** `schema:Invoice`
-
-<div id="tbl-invoiceshape">
-
-Table 2: :InvoiceShape propriétés
-
-| Description | Chemin | Type | Cardinalité |
-|:---|:---|:---|---:|
-| An invoice must be linked to exactly one customer. | `schema:customer` | [schema:Person](#sec-personshape) | 1..1 |
-| An invoice must define a total payment due as a schema:QuantitativeValue. | `schema:totalPaymentDue` | [schema:QuantitativeValue](#sec-quantitativevalueshape) | 1..1 |
-| An invoice must have at least one line item (OrderItem). | `schema:hasPart` | `schema:OrderItem` | 1..\* |
-|  | `schema:dateCreated` | `xsd:date` | 0..\* |
-
-</div>
-
-## :MusicAlbumShape
+Une collection de pistes dans le jeu de données Chinook.
 
 **Classe cible:** `schema:MusicAlbum`
 
-<div id="tbl-musicalbumshape">
+<div id="tbl-album-de-musique">
 
-Table 3: :MusicAlbumShape propriétés
-
-| Description | Chemin | Type | Cardinalité |
-|:---|:---|:---|---:|
-| Every album must have a name. | `schema:name` | `xsd:string` | 1..1 |
-|  | `schema:byArtist` | [schema:Person](#sec-personshape) ou `schema:MusicGroup` | 0..\* |
-
-</div>
-
-## :OrganisationShape
-
-**Classe cible:** `schema:Organisation`
-
-<div id="tbl-organisationshape">
-
-Table 4: :OrganisationShape propriétés
-
-| Description                          | Chemin        | Type         | Cardinalité |
-|:-------------------------------------|:--------------|:-------------|------------:|
-| Every organisation must have a name. | `schema:name` | `xsd:string` |        1..1 |
-
-</div>
-
-## :PersonShape
-
-**Classe cible:** `schema:Person`
-
-<div id="tbl-personshape">
-
-Table 5: :PersonShape propriétés
+Table 1: Album de musique propriétés
 
 | Description | Chemin | Type | Cardinalité |
 |:---|:---|:---|---:|
-| Every person must have a given name. | `schema:givenName` | `xsd:string` | 1..1 |
-| Every person must have a family name. | `schema:familyName` | `xsd:string` | 1..1 |
-| If an email is provided, it must follow a standard email format. | `schema:email` | `xsd:string` | 0..\* |
-| A person should have a valid birth date. | `schema:birthDate` | `xsd:date` | 0..\* |
-|  | `schema:address` | `schema:PostalAddress` | 0..\* |
-| An employee can report to another person. | `schema:worksFor` | [schema:Person](#sec-personshape) ou `schema:Organization` | 0..\* |
-|  | `schema:jobTitle` |  | 0..1 |
-|  | `schema:knows` | [schema:Person](#sec-personshape) | 0..\* |
+| **Nom**: Chaque album doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
+| **Artiste**: Personne ou groupe de musique ayant créé l’album. | `schema:byArtist` | [schema:Person](#sec-personne) ou `schema:MusicGroup` | 0..\* |
 
 </div>
 
-## :QuantitativeValueShape
+## Enregistrement musical
 
-**Classe cible:** `schema:QuantitativeValue`
-
-<div id="tbl-quantitativevalueshape">
-
-Table 6: :QuantitativeValueShape propriétés
-
-| Description | Chemin | Type | Cardinalité |
-|:---|:---|:---|---:|
-| A quantitative value must have exactly one numeric value. | `schema:value` |  | 1..1 |
-| A quantitative value must specify its unit via a unitCode URI. | `schema:unitCode` | `sh:IRI` | 1..1 |
-
-</div>
-
-## :TrackShape
+Une piste musicale unique dans le jeu de données Chinook.
 
 **Classe cible:** `schema:MusicRecording`
 
-<div id="tbl-trackshape">
+<div id="tbl-enregistrement-musical">
 
-Table 7: :TrackShape propriétés
+Table 2: Enregistrement musical propriétés
 
 | Description | Chemin | Type | Cardinalité |
 |:---|:---|:---|---:|
-| Every track must have a name. | `schema:name` | `xsd:string` | 1..1 |
-| A track can only belong to a valid schema:MusicAlbum. | `schema:inAlbum` | [schema:MusicAlbum](#sec-musicalbumshape) | 0..\* |
-|  | `schema:author` |  | 0..\* |
-|  | `schema:genre` | [:Genre](#sec-genreshape) | 1..1 |
-| Track duration must be expressed as a schema:QuantitativeValue. | `schema:duration` | [schema:QuantitativeValue](#sec-quantitativevalueshape) | 0..\* |
-|  | `schema:contentSize` | [schema:QuantitativeValue](#sec-quantitativevalueshape) | 0..\* |
+| **Nom**: Chaque piste doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
+| **Dans l’album**: Une piste ne peut appartenir qu’à un schema:MusicAlbum valide. | `schema:inAlbum` | [schema:MusicAlbum](#sec-album-de-musique) | 0..\* |
+| **Auteur**: La personne ou le groupe qui a écrit la piste. | `schema:author` |  | 0..\* |
+| **Genre** | `schema:genre` | [:Genre](#sec-genre) | 1..1 |
+| **Durée**: La durée doit être exprimée en tant que schema:QuantitativeValue. | `schema:duration` | [schema:QuantitativeValue](#sec-valeur-quantitative) | 0..\* |
+| **Taille du contenu** | `schema:contentSize` | [schema:QuantitativeValue](#sec-valeur-quantitative) | 0..\* |
+
+</div>
+
+## Facture
+
+Un reçu d’achat dans le jeu de données Chinook.
+
+**Classe cible:** `schema:Invoice`
+
+<div id="tbl-facture">
+
+Table 3: Facture propriétés
+
+| Description | Chemin | Type | Cardinalité |
+|:---|:---|:---|---:|
+| **Client**: Une facture doit être liée à exactement un client. | `schema:customer` | [schema:Person](#sec-personne) | 1..1 |
+| **Paiement total dû**: Une facture doit définir un paiement total dû en tant que schema:QuantitativeValue. | `schema:totalPaymentDue` | [schema:QuantitativeValue](#sec-valeur-quantitative) | 1..1 |
+| **Contient**: Une facture doit avoir au moins un article (OrderItem). | `schema:hasPart` | `schema:OrderItem` | 1..\* |
+| **Date de création** | `schema:dateCreated` | `xsd:date` | 0..\* |
+
+</div>
+
+## Genre
+
+Une catégorie musicale dans le jeu de données Chinook.
+
+**Classe cible:** `:Genre`
+
+<div id="tbl-genre">
+
+Table 4: Genre propriétés
+
+| Description   | Chemin          | Type                             | Cardinalité |
+|:--------------|:----------------|:---------------------------------|------------:|
+| **Nom**       | `schema:name`   |                                  |        1..1 |
+| **Partie de** | `schema:partOf` | [:Genre](#sec-genre) ou `sh:IRI` |       0..\* |
+
+</div>
+
+## Organisation
+
+Une entreprise ou organisation dans le jeu de données Chinook.
+
+**Classe cible:** `schema:Organisation`
+
+<div id="tbl-organisation">
+
+Table 5: Organisation propriétés
+
+| Description | Chemin | Type | Cardinalité |
+|:---|:---|:---|---:|
+| **Nom**: Chaque organisation doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
+
+</div>
+
+## Personne
+
+Toute personne (employé, client ou personne personnalisée) présente dans
+le jeu de données.
+
+**Classe cible:** `schema:Person`
+
+<div id="tbl-personne">
+
+Table 6: Personne propriétés
+
+| Description | Chemin | Type | Cardinalité |
+|:---|:---|:---|---:|
+| **Prénom**: Chaque personne doit avoir un prénom. | `schema:givenName` | `xsd:string` | 1..1 |
+| **Nom de famille**: Chaque personne doit avoir un nom de famille. | `schema:familyName` | `xsd:string` | 1..1 |
+| **Adresse e-mail**: Si une adresse e-mail est fournie, elle doit respecter un format standard. | `schema:email` | `xsd:string` | 0..\* |
+| **Date de naissance**: Une personne doit avoir une date de naissance valide. | `schema:birthDate` | `xsd:date` | 0..\* |
+| **Adresse** | `schema:address` | `schema:PostalAddress` | 0..\* |
+| **Travaille pour**: Un employé peut relever d’une autre personne. | `schema:worksFor` | [schema:Person](#sec-personne) ou `schema:Organization` | 0..\* |
+| **Titre du poste** | `schema:jobTitle` |  | 0..1 |
+| **Connaît** | `schema:knows` | [schema:Person](#sec-personne) | 0..\* |
+
+</div>
+
+## Valeur quantitative
+
+Une valeur numérique avec une unité associée.
+
+**Classe cible:** `schema:QuantitativeValue`
+
+<div id="tbl-valeur-quantitative">
+
+Table 7: Valeur quantitative propriétés
+
+| Description | Chemin | Type | Cardinalité |
+|:---|:---|:---|---:|
+| **Valeur**: Une valeur quantitative doit avoir exactement une valeur numérique. | `schema:value` |  | 1..1 |
+| **Code d’unité**: Une valeur quantitative doit spécifier son unité via une URI unitCode. | `schema:unitCode` | `sh:IRI` | 1..1 |
 
 </div>
 

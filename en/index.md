@@ -99,6 +99,8 @@ for it’s ability to run the HermiT reasoner (Glimm et al. 2014).
 
 ## Genre
 
+A musical category in the Chinook dataset.
+
 **Target Class:** `:Genre`
 
 <div id="tbl-genre">
@@ -114,6 +116,8 @@ Table 1: Genre properties
 
 ## Invoice
 
+A purchase receipt in the Chinook dataset.
+
 **Target Class:** `schema:Invoice`
 
 <div id="tbl-invoice">
@@ -123,13 +127,15 @@ Table 2: Invoice properties
 | Description | Path | Type | Cardinality |
 |:---|:---|:---|---:|
 | **Customer**: An invoice must be linked to exactly one customer. | `schema:customer` | [schema:Person](#sec-person) | 1..1 |
-| **Total Payment Due**: An invoice must define a total payment due as a schema:QuantitativeValue. | `schema:totalPaymentDue` | [schema:QuantitativeValue](#sec-quantitative-value) | 1..1 |
-| **Has Part**: An invoice must have at least one line item (OrderItem). | `schema:hasPart` | `schema:OrderItem` | 1..\* |
-|  | `schema:dateCreated` | `xsd:date` | 0..\* |
+| **Total payment due**: An invoice must define a total payment due as a schema:QuantitativeValue. | `schema:totalPaymentDue` | [schema:QuantitativeValue](#sec-quantitative-value) | 1..1 |
+| **Has part**: An invoice must have at least one line item (OrderItem). | `schema:hasPart` | `schema:OrderItem` | 1..\* |
+| **Date created** | `schema:dateCreated` | `xsd:date` | 0..\* |
 
 </div>
 
 ## Music album
+
+A collection of tracks in the Chinook dataset.
 
 **Target Class:** `schema:MusicAlbum`
 
@@ -146,6 +152,8 @@ Table 3: Music album properties
 
 ## Music Recording
 
+A single music track in the Chinook dataset.
+
 **Target Class:** `schema:MusicRecording`
 
 <div id="tbl-music-recording">
@@ -156,14 +164,16 @@ Table 4: Music Recording properties
 |:---|:---|:---|---:|
 | **Name**: Every track must have a name. | `schema:name` | `xsd:string` | 1..1 |
 | **In Album**: A track can only belong to a valid schema:MusicAlbum. | `schema:inAlbum` | [schema:MusicAlbum](#sec-music-album) | 0..\* |
-|  | `schema:author` |  | 0..\* |
+| **Author**: The person or group who wrote the track. | `schema:author` |  | 0..\* |
 | **Genre** | `schema:genre` | [:Genre](#sec-genre) | 1..1 |
 | **Duration**: Track duration must be expressed as a schema:QuantitativeValue. | `schema:duration` | [schema:QuantitativeValue](#sec-quantitative-value) | 0..\* |
-|  | `schema:contentSize` | [schema:QuantitativeValue](#sec-quantitative-value) | 0..\* |
+| **Content Size** | `schema:contentSize` | [schema:QuantitativeValue](#sec-quantitative-value) | 0..\* |
 
 </div>
 
 ## Organisation
+
+A company or organization in the Chinook dataset.
 
 **Target Class:** `schema:Organisation`
 
@@ -194,14 +204,16 @@ Table 6: Person properties
 | **Family Name**: Every person must have a family name. | `schema:familyName` | `xsd:string` | 1..1 |
 | **Email Address**: If an email is provided, it must follow a standard email format. | `schema:email` | `xsd:string` | 0..\* |
 | **Birth date**: A person should have a valid birth date. | `schema:birthDate` | `xsd:date` | 0..\* |
-|  | `schema:address` | `schema:PostalAddress` | 0..\* |
-| An employee can report to another person. | `schema:worksFor` | [schema:Person](#sec-person) or `schema:Organization` | 0..\* |
+| **Address** | `schema:address` | `schema:PostalAddress` | 0..\* |
+| **Works for**: An employee can report to another person. | `schema:worksFor` | [schema:Person](#sec-person) or `schema:Organization` | 0..\* |
 | **Job title** | `schema:jobTitle` |  | 0..1 |
 | **knows** | `schema:knows` | [schema:Person](#sec-person) | 0..\* |
 
 </div>
 
 ## Quantitative Value
+
+A numerical value with an associated unit.
 
 **Target Class:** `schema:QuantitativeValue`
 

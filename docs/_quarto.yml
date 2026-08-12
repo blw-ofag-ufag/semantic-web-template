@@ -7,14 +7,19 @@ project:
     - en/index.qmd
 
 website:
+  title: eCH-1234 Version 2.4.1 (Working Draft)
   repo-url: https://github.com/blw-ofag-ufag/semantic-web-template
   repo-subdir: docs
   repo-actions: [source, issue]
   favicon: assets/favicon.svg
   navbar:
+    background: dark
     right:
-      - text: Language
-        icon: globe
+      - icon: github
+        href: https://github.com/blw-ofag-ufag/semantic-web-template
+      - icon: envelope
+        href: mailto:agridata.ch@blw.admin.ch
+      - icon: translate
         menu:
           - text: English
             href: /en/index.html
@@ -22,15 +27,17 @@ website:
             href: /de/index.html
           - text: Français
             href: /fr/index.html
-      - icon: github
-        href: https://github.com/blw-ofag-ufag/semantic-web-template
-      - icon: envelope
-        href: mailto:agridata.ch@blw.admin.ch
+  announcement:
+    icon: info-circle
+    dismissable: true
+    content: Diese Seite beinhaltet einen *Working Draft* und kann sich dadurch laufend verändern. Für eine aktuelle Version, besuchen Sie [ech.ch](https://ech.ch/).
+    type: warning
 
 bibliography: references.bib
 
 format:
   html:
+    theme: cosmo
     toc: true
     number-sections: true
     syntax-definitions:

@@ -47,8 +47,14 @@
 # ==============================================================================
 
 : a owl:Ontology ;
-    rdfs:label "Chinook Data Model"@en ;
-    rdfs:comment "This SHACL data model describes and validates the integrated Chinook dataset and custom person data."@en ;
+    rdfs:label "Chinook-Datenmodell"@de,
+        "Chinook Data Model"@en,
+        "Modèle de données Chinook"@fr,
+        "Modello di dati Chinook"@it ;
+    rdfs:comment "Dieses SHACL-Datenmodell beschreibt und validiert den integrierten Chinook-Datensatz und benutzerdefinierte Personendaten."@de,
+        "This SHACL data model describes and validates the integrated Chinook dataset and custom person data."@en,
+        "Ce modèle de données SHACL décrit et valide le jeu de données Chinook intégré et les données de personnes personnalisées."@fr,
+        "Questo modello di dati SHACL descrive e convalida il set di dati Chinook integrato e i dati personali personalizzati."@it ;
     sh:declare [
         sh:prefix "schema" ;
         sh:namespace "http://schema.org/"^^xsd:anyURI ;
@@ -59,75 +65,125 @@
     ] .
 
 :PersonShape a sh:NodeShape ;
-    rdfs:label "Person"@en ;
-    rdfs:comment "Any person (employee, customer, or custom person) present in the dataset."@en ;
+    rdfs:label "Person"@de,
+        "Person"@en,
+        "Personne"@fr,
+        "Persona"@it ;
+    rdfs:comment "Jede Person (Mitarbeiter, Kunde oder benutzerdefinierte Person) im Datensatz."@de,
+        "Any person (employee, customer, or custom person) present in the dataset."@en,
+        "Toute personne (employé, client ou personne personnalisée) présente dans le jeu de données."@fr,
+        "Qualsiasi persona (dipendente, cliente o persona personalizzata) presente nel set di dati."@it ;
     sh:targetClass schema:Person ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [
         sh:order 1 ;
-        sh:name "Given Name"@en ;
+        sh:name "Vorname"@de,
+            "Given Name"@en,
+            "Prénom"@fr,
+            "Nome"@it ;
         sh:path schema:givenName ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "Every person must have a given name." ;
+        sh:message "Jede Person muss einen Vornamen haben."@de,
+            "Every person must have a given name."@en,
+            "Chaque personne doit avoir un prénom."@fr,
+            "Ogni persona deve avere un nome."@it ;
     ],
     [
         sh:order 2 ;
-        sh:name "Family Name"@en ;
+        sh:name "Nachname"@de,
+            "Family Name"@en,
+            "Nom de famille"@fr,
+            "Cognome"@it ;
         sh:path schema:familyName ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "Every person must have a family name." ;
+        sh:message "Jede Person muss einen Nachnamen haben."@de,
+            "Every person must have a family name."@en,
+            "Chaque personne doit avoir un nom de famille."@fr,
+            "Ogni persona deve avere un cognome."@it ;
     ],
     [
         sh:order 3 ;
-        sh:name "Email Address"@en ;
+        sh:name "E-Mail-Adresse"@de,
+            "Email Address"@en,
+            "Adresse e-mail"@fr,
+            "Indirizzo email"@it ;
         sh:path schema:email ;
         sh:datatype xsd:string ;
         sh:pattern "^.+@.+\\..+$" ;
         sh:severity sh:Warning ;
-        sh:message "If an email is provided, it must follow a standard email format." ;
+        sh:message "Falls angegeben, muss die E-Mail-Adresse einem Standardformat entsprechen."@de,
+            "If an email is provided, it must follow a standard email format."@en,
+            "Si une adresse e-mail est fournie, elle doit respecter un format standard."@fr,
+            "Se viene fornita un'email, deve seguire un formato standard."@it ;
     ],
     [
         sh:order 4 ;
-        sh:name "Birth date"@en ;
+        sh:name "Geburtsdatum"@de,
+            "Birth date"@en,
+            "Date de naissance"@fr,
+            "Data di nascita"@it ;
         sh:path schema:birthDate ;
         sh:datatype xsd:date ;
         sh:severity sh:Warning ;
-        sh:message "A person should have a valid birth date." ;
+        sh:message "Eine Person sollte ein gültiges Geburtsdatum haben."@de,
+            "A person should have a valid birth date."@en,
+            "Une personne doit avoir une date de naissance valide."@fr,
+            "Una persona dovrebbe avere una data di nascita valida."@it ;
     ],
     [
         sh:order 5 ;
+        sh:name "Adresse"@de,
+            "Address"@en,
+            "Adresse"@fr,
+            "Indirizzo"@it ;
         sh:path schema:address ;
         sh:class schema:PostalAddress ;
     ],
     [
         sh:order 6 ;
+        sh:name "Arbeitet für"@de,
+            "Works for"@en,
+            "Travaille pour"@fr,
+            "Lavora per"@it ;
         sh:path schema:worksFor ;
         sh:or (
             [ sh:class schema:Person ]
             [ sh:class schema:Organization ]
         ) ;
-        sh:message "An employee can report to another person." ;
+        sh:message "Ein Mitarbeiter kann einer anderen Person unterstellt sein."@de,
+            "An employee can report to another person."@en,
+            "Un employé peut relever d'une autre personne."@fr,
+            "Un dipendente può fare riferimento a un'altra persona."@it ;
     ],
     [
-        sh:name "Job title"@en ;
+        sh:name "Berufsbezeichnung"@de,
+            "Job title"@en,
+            "Titre du poste"@fr,
+            "Titolo di lavoro"@it ;
         sh:order 7 ;
         sh:path schema:jobTitle ;
         sh:maxCount 1 ;
     ],
     [
-        sh:name "knows"@en ;
+        sh:name "Kennt"@de,
+            "knows"@en,
+            "Connaît"@fr,
+            "Conosce"@it ;
         sh:order 8 ;
         sh:path schema:knows ;
         sh:class schema:Person ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
-        dcterms:description "An employee cannot report to themselves."@en ;
+        dcterms:description "Ein Mitarbeiter kann nicht sich selbst unterstellt sein."@de,
+            "An employee cannot report to themselves."@en,
+            "Un employé ne peut pas relever de lui-même."@fr,
+            "Un dipendente non può fare riferimento a se stesso."@it ;
         sh:prefixes : ;
         sh:select """
             SELECT $this
@@ -138,31 +194,61 @@
     ] .
 
 :TrackShape a sh:NodeShape ;
-    rdfs:label "Music Recording"@en ;
+    rdfs:label "Musikaufnahme"@de,
+        "Music Recording"@en,
+        "Enregistrement musical"@fr,
+        "Registrazione musicale"@it ;
+    rdfs:comment "Ein einzelner Musiktitel im Chinook-Datensatz."@de,
+        "A single music track in the Chinook dataset."@en,
+        "Une piste musicale unique dans le jeu de données Chinook."@fr,
+        "Un singolo brano musicale nel set di dati Chinook."@it ;
     sh:targetClass schema:MusicRecording ;
     sh:property [
         sh:order 1 ;
-        sh:name "Name"@en ;
+        sh:name "Name"@de,
+            "Name"@en,
+            "Nom"@fr,
+            "Nome"@it ;
         sh:path schema:name ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "Every track must have a name." ;
+        sh:message "Jeder Titel muss einen Namen haben."@de,
+            "Every track must have a name."@en,
+            "Chaque piste doit avoir un nom."@fr,
+            "Ogni brano deve avere un nome."@it ;
     ],
     [
         sh:order 2 ;
-        sh:name "In Album"@en ;
+        sh:name "In Album"@de,
+            "In Album"@en,
+            "Dans l'album"@fr,
+            "Nell'album"@it ;
         sh:path schema:inAlbum ;
         sh:class schema:MusicAlbum ;
-        sh:message "A track can only belong to a valid schema:MusicAlbum." ;
+        sh:message "Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören."@de,
+            "A track can only belong to a valid schema:MusicAlbum."@en,
+            "Une piste ne peut appartenir qu'à un schema:MusicAlbum valide."@fr,
+            "Un brano può appartenere solo a un schema:MusicAlbum valido."@it ;
     ],
     [
         sh:order 3 ;
+        sh:name "Autor"@de,
+            "Author"@en,
+            "Auteur"@fr,
+            "Autore"@it ;
+        sh:description "Die Person oder Gruppe, die den Titel geschrieben hat."@de,
+            "The person or group who wrote the track."@en,
+            "La personne ou le groupe qui a écrit la piste."@fr,
+            "La persona o il gruppo che ha scritto il brano."@it ;
         sh:path schema:author ;
     ],
     [
         sh:order 4 ;
-        sh:name "Genre"@en ;
+        sh:name "Genre"@de,
+            "Genre"@en,
+            "Genre"@fr,
+            "Genere"@it ;
         sh:path schema:genre ;
         sh:class :Genre ;
         sh:minCount 1 ;
@@ -170,33 +256,62 @@
     ],
     [
         sh:order 5 ;
-        sh:name "Duration"@en ;
+        sh:name "Dauer"@de,
+            "Duration"@en,
+            "Durée"@fr,
+            "Durata"@it ;
         sh:path schema:duration ;
         sh:class schema:QuantitativeValue ;
-        sh:message "Track duration must be expressed as a schema:QuantitativeValue." ;
+        sh:message "Die Dauer muss als schema:QuantitativeValue ausgedrückt werden."@de,
+            "Track duration must be expressed as a schema:QuantitativeValue."@en,
+            "La durée doit être exprimée en tant que schema:QuantitativeValue."@fr,
+            "La durata deve essere espressa come schema:QuantitativeValue."@it ;
     ],
     [
         sh:order 6 ;
+        sh:name "Dateigröße"@de,
+            "Content Size"@en,
+            "Taille du contenu"@fr,
+            "Dimensione del contenuto"@it ;
         sh:path schema:contentSize ;
         sh:class schema:QuantitativeValue ;
     ] .
 
 :MusicAlbumShape a sh:NodeShape ;
-    rdfs:label "Music album"@en ;
+    rdfs:label "Musikalbum"@de,
+        "Music album"@en,
+        "Album de musique"@fr,
+        "Album musicale"@it ;
+    rdfs:comment "Eine Sammlung von Titeln im Chinook-Datensatz."@de,
+        "A collection of tracks in the Chinook dataset."@en,
+        "Une collection de pistes dans le jeu de données Chinook."@fr,
+        "Una raccolta di brani nel set di dati Chinook."@it ;
     sh:targetClass schema:MusicAlbum ;
     sh:property [
         sh:order 1 ;
-        sh:name "Name"@en ;
+        sh:name "Name"@de,
+            "Name"@en,
+            "Nom"@fr,
+            "Nome"@it ;
         sh:path schema:name ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "Every album must have a name." ;
+        sh:message "Jedes Album muss einen Namen haben."@de,
+            "Every album must have a name."@en,
+            "Chaque album doit avoir un nom."@fr,
+            "Ogni album deve avere un nome."@it ;
     ],
     [
         sh:order 2 ;
-        sh:name "Artist"@en ;
-        sh:description "Person or music group who created the album."@en ;
+        sh:name "Künstler"@de,
+            "Artist"@en,
+            "Artiste"@fr,
+            "Artista"@it ;
+        sh:description "Person oder Musikgruppe, die das Album erstellt hat."@de,
+            "Person or music group who created the album."@en,
+            "Personne ou groupe de musique ayant créé l'album."@fr,
+            "Persona o gruppo musicale che ha creato l'album."@it ;
         sh:path schema:byArtist ;
         sh:or (
             [ sh:class schema:Person ]
@@ -205,55 +320,100 @@
     ] .
 
 :OrganisationShape a sh:NodeShape ;
-    rdfs:label "Organisation"@en ;
+    rdfs:label "Organisation"@de,
+        "Organisation"@en,
+        "Organisation"@fr,
+        "Organizzazione"@it ;
+    rdfs:comment "Ein Unternehmen oder eine Organisation im Chinook-Datensatz."@de,
+        "A company or organization in the Chinook dataset."@en,
+        "Une entreprise ou organisation dans le jeu de données Chinook."@fr,
+        "Un'azienda o organizzazione nel set di dati Chinook."@it ;
     sh:targetClass schema:Organisation ;
     sh:property [
         sh:order 1 ;
-        sh:name "Name"@en ;
+        sh:name "Name"@de,
+            "Name"@en,
+            "Nom"@fr,
+            "Nome"@it ;
         sh:path schema:name ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "Every organisation must have a name." ;
+        sh:message "Jede Organisation muss einen Namen haben."@de,
+            "Every organisation must have a name."@en,
+            "Chaque organisation doit avoir un nom."@fr,
+            "Ogni organizzazione deve avere un nome."@it ;
     ] .
 
 :InvoiceShape a sh:NodeShape ;
-    rdfs:label "Invoice"@en ;
+    rdfs:label "Rechnung"@de,
+        "Invoice"@en,
+        "Facture"@fr,
+        "Fattura"@it ;
+    rdfs:comment "Ein Kaufbeleg im Chinook-Datensatz."@de,
+        "A purchase receipt in the Chinook dataset."@en,
+        "Un reçu d'achat dans le jeu de données Chinook."@fr,
+        "Una ricevuta di acquisto nel set di dati Chinook."@it ;
     sh:targetClass schema:Invoice ;
     sh:property [
         sh:order 1 ;
-        sh:name "Customer"@en ;
+        sh:name "Kunde"@de,
+            "Customer"@en,
+            "Client"@fr,
+            "Cliente"@it ;
         sh:path schema:customer ;
         sh:class schema:Person ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "An invoice must be linked to exactly one customer." ;
+        sh:message "Eine Rechnung muss genau einem Kunden zugeordnet sein."@de,
+            "An invoice must be linked to exactly one customer."@en,
+            "Une facture doit être liée à exactement un client."@fr,
+            "Una fattura deve essere collegata a esattamente un cliente."@it ;
     ],
     [
         sh:order 2 ;
-        sh:name "Total Payment Due"@en ;
+        sh:name "Fälliger Gesamtbetrag"@de,
+            "Total payment due"@en,
+            "Paiement total dû"@fr,
+            "Pagamento totale dovuto"@it ;
         sh:path schema:totalPaymentDue ;
         sh:class schema:QuantitativeValue ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "An invoice must define a total payment due as a schema:QuantitativeValue." ;
+        sh:message "Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren."@de,
+            "An invoice must define a total payment due as a schema:QuantitativeValue."@en,
+            "Une facture doit définir un paiement total dû en tant que schema:QuantitativeValue."@fr,
+            "Una fattura deve definire un pagamento totale dovuto come schema:QuantitativeValue."@it ;
     ],
     [
         sh:order 3 ;
-        sh:name "Has Part"@en ;
+        sh:name "Enthält"@de,
+            "Has part"@en,
+            "Contient"@fr,
+            "Contiene"@it ;
         sh:path schema:hasPart ;
         sh:class schema:OrderItem ;
         sh:minCount 1 ;
-        sh:message "An invoice must have at least one line item (OrderItem)." ;
+        sh:message "Eine Rechnung muss mindestens eine Position (OrderItem) enthalten."@de,
+            "An invoice must have at least one line item (OrderItem)."@en,
+            "Une facture doit avoir au moins un article (OrderItem)."@fr,
+            "Una fattura deve avere almeno una riga di ordine (OrderItem)."@it ;
     ],
     [
         sh:order 4 ;
+        sh:name "Erstellungsdatum"@de,
+            "Date created"@en,
+            "Date de création"@fr,
+            "Data di creazione"@it ;
         sh:path schema:dateCreated ;
         sh:datatype xsd:date ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
-        dcterms:description "Invoice total payment due must exactly match the sum of its lines (within 0.05 tolerance)."@en ;
+        dcterms:description "Die Rechnungssumme muss exakt mit der Summe ihrer Positionen übereinstimmen (Toleranz 0.05)."@de,
+            "Invoice total payment due must exactly match the sum of its lines (within 0.05 tolerance)."@en,
+            "Le total de la facture doit correspondre exactement à la somme de ses lignes (tolérance de 0.05)."@fr,
+            "Il totale della fattura deve corrispondere esattamente alla somma delle sue righe (tolleranza di 0.05)."@it ;
         sh:prefixes : ;
         sh:select """
             SELECT $this
@@ -274,7 +434,10 @@
     ],
     [
         a sh:SPARQLConstraint ;
-        dcterms:description "An invoice cannot be dated before the year 2000."@en ;
+        dcterms:description "Eine Rechnung darf nicht vor dem Jahr 2000 datiert sein."@de,
+            "An invoice cannot be dated before the year 2000."@en,
+            "Une facture ne peut pas être datée d'avant l'année 2000."@fr,
+            "Una fattura non può essere datata prima dell'anno 2000."@it ;
         sh:prefixes : ;
         sh:select """
             SELECT $this
@@ -286,50 +449,85 @@
     ] .
 
 :QuantitativeValueShape a sh:NodeShape ;
-    rdfs:label "Quantitative Value"@en ;
+    rdfs:label "Quantitativer Wert"@de,
+        "Quantitative Value"@en,
+        "Valeur quantitative"@fr,
+        "Valore quantitativo"@it ;
+    rdfs:comment "Ein numerischer Wert mit einer dazugehörigen Einheit."@de,
+        "A numerical value with an associated unit."@en,
+        "Une valeur numérique avec une unité associée."@fr,
+        "Un valore numerico con un'unità associata."@it ;
     sh:targetClass schema:QuantitativeValue ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [
         sh:order 1 ;
-        sh:name "Value"@en ;
+        sh:name "Wert"@de,
+            "Value"@en,
+            "Valeur"@fr,
+            "Valore"@it ;
         sh:path schema:value ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "A quantitative value must have exactly one numeric value." ;
+        sh:message "Ein quantitativer Wert muss genau einen numerischen Wert haben."@de,
+            "A quantitative value must have exactly one numeric value."@en,
+            "Une valeur quantitative doit avoir exactement une valeur numérique."@fr,
+            "Un valore quantitativo deve avere esattamente un valore numerico."@it ;
     ],
     [
         sh:order 2 ;
-        sh:name "Unit Code"@en ;
+        sh:name "Einheitencode"@de,
+            "Unit Code"@en,
+            "Code d'unité"@fr,
+            "Codice unità"@it ;
         sh:path schema:unitCode ;
         sh:nodeKind sh:IRI ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "A quantitative value must specify its unit via a unitCode URI." ;
+        sh:message "Ein quantitativer Wert muss seine Einheit über eine unitCode-URI angeben."@de,
+            "A quantitative value must specify its unit via a unitCode URI."@en,
+            "Une valeur quantitative doit spécifier son unité via une URI unitCode."@fr,
+            "Un valore quantitativo deve specificare la sua unità tramite un'URI unitCode."@it ;
     ] .
 
 :GenreShape a sh:NodeShape ;
-    rdfs:label "Genre"@en ;
+    rdfs:label "Genre"@de,
+        "Genre"@en,
+        "Genre"@fr,
+        "Genere"@it ;
+    rdfs:comment "Eine musikalische Kategorie im Chinook-Datensatz."@de,
+        "A musical category in the Chinook dataset."@en,
+        "Une catégorie musicale dans le jeu de données Chinook."@fr,
+        "Una categoria musicale nel set di dati Chinook."@it ;
     sh:targetClass :Genre ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [
         sh:order 1 ;
-        sh:name "Name"@en ;
+        sh:name "Name"@de,
+            "Name"@en,
+            "Nom"@fr,
+            "Nome"@it ;
         sh:path schema:name ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
     ],
     [
         sh:order 2 ;
-        sh:name "Part of"@en ;
+        sh:name "Teil von"@de,
+            "Part of"@en,
+            "Partie de"@fr,
+            "Parte di"@it ;
         sh:path schema:partOf ;
         sh:nodeKind sh:IRI ;
         sh:class :Genre ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
-        dcterms:description "A genre cannot be a part of itself, either directly or transitively."@en ;
+        dcterms:description "Ein Genre darf weder direkt noch transitiv ein Teil von sich selbst sein."@de,
+            "A genre cannot be a part of itself, either directly or transitively."@en,
+            "Un genre ne peut pas faire partie de lui-même, ni directement ni transitivement."@fr,
+            "Un genere non può essere parte di se stesso, né direttamente né transitivamente."@it ;
         sh:prefixes : ;
         sh:select """
             SELECT $this

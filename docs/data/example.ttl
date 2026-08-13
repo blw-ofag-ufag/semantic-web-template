@@ -1,0 +1,13 @@
+@base <http://example.org/> .
+@prefix genre: <http://example.org/genre/> .
+@prefix schema: <http://schema.org/> .
+
+genre:1 a <Genre> ;
+    schema:name "Rock" .
+
+genre:2 a <Genre> ;
+    schema:name "Jazz" .
+
+genre:3 a <Genre> ;
+    schema:name "Metal" ;
+    schema:partOf genre:1 .

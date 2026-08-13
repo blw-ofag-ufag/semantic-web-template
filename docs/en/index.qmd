@@ -10,22 +10,22 @@ lang: en
 
 This document uses a gender-neutral formulation when referring to persons. This is based on the guidelines (German) of the Federal Chancellery. Depending on the situation, paired forms (citizens), gender-abstract forms (insured person), gender-neutral forms (insured person) or paraphrases with-out personal reference are used. The generic masculine (citizen) is not permitted. Full forms are used in continuous texts, i.e. in texts consisting of formulated sentences. Short forms can be used in ab-breviated text passages, namely in tables. The short form is used with a slash but without an ellipsis (referent). Gender asterisks and similar spellings are not used.
 
-# Introduction
+# Introduction {#sec-introduction}
 
-## Status
+## Status {#sec-status}
 
 Approved: This document was approved by the Experts’ Committee. It has normative power for the defined field of application in the determined scope of application.
 
-## Scope of application
+## Scope of application {#sec-scope-of-application}
 
 The information in this chapter should provide the reader with a brief overview of what this standard is intended for.
 Information about the following matters may be helpful here.
 
-## We can have sub-headings
+## We can have sub-headings {#sec-example-subheading}
 
 And write some text.
 
-### Also sub-sub-headings
+### Also sub-sub-headings {#sec-example-subsubheading}
 
 And write some more text. Maybe even with a pretty image.
 
@@ -33,19 +33,43 @@ And write some more text. Maybe even with a pretty image.
 
 When displaying diagrams, try to write them in Mermaid JS straight away; this makes changes in the future or translations straightforward.
 
-# Technical notes
+# Technical notes {#sec-technical-notes}
 
 We use the ROBOT CLI in our project [@jackson2019robot], especially for it's ability to run the HermiT reasoner [@glimm2014hermit].
 
-# Data Model
+# Data Model {#sec-data-model}
 
 {{< include entities.md >}}
 
-# Safety considerations
+# Data Retrieval {#sec-data-retrieval}
+
+The master and reference data underlying this document are available as *Linked Data*.
+
+The technological basis for this is the [Resource Description Framework (RDF)](https://www.w3.org/TR/rdf11-concepts/), a central standard of the World Wide Web Consortium (W3C) for modeling data structures on the web.
+In RDF, information is not represented in classic tables, but as interconnected graphs.
+Each statement consists of a so-called triple (subject, predicate, object).
+This structure enables a machine-readable, interoperable, and cross-system unambiguous description of resources and their relations to one another.
+
+For the storage and publication of this RDF data, [LINDAS](https://lindas.admin.ch/) (Linked Data Service) is used, the official Linked Data service of the Swiss Federal Administration.
+LINDAS functions as a so-called *triple store*, a specialized graph database optimized for the efficient storage and querying of RDF triples, which makes the data publicly available via a standardized interface.
+
+The following chapter provides minimal instructions on how the data can be queried and retrieved from LINDAS.
+
+```rq
+{{< include ../data/example.rq >}}
+```
+
+The underlying data itself is maintained on GitHub as Turtle files.
+
+```ttl
+{{< include ../data/example.ttl >}}
+```
+
+# Safety considerations {#sec-safety-consideration}
 
 Information about the explicitly relevant legal bases or a note that during the implementation the rele-vant legal bases must be observed.
 
-# Disclaimer
+# Disclaimer {#sec-disclaimer}
 
 eCH-standards which the registered association eCH provides the user free of charge or which make reference to eCH shall only have the status of recommendations. The registered association eCH will not be liable in any event for any decisions made or measures taken by the user based on these documents. The user will be responsible for verifying the documents himself prior to their use and to seek advice if required. eCH-standards can and shall not replace the technical, organizational or legal advice in the individual case.
 
@@ -55,7 +79,7 @@ Although the registered association eCH has taken adequate care to prepare the e
 
 Any liability for damage caused by the use of the eCH-standards by the user shall be excluded to the extent legally admissible.
 
-# Copyrights
+# Copyrights {#sec-copyrights}
 
 Persons preparing eCH-standards shall remain the owners of their intellectual property rights. These persons, however, obligate themselves to provide their intellectual property rights or other rights in third party intellectual property rights, to the extent possible, to the relevant technical units and the registered association eCH for free and for unlimited use and further development as part of the purpose of the association.
 

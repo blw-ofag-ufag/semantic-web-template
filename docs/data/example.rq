@@ -1,0 +1,8 @@
+BASE <https://example.org/>
+PREFIX schema: <http://schema.org/>
+SELECT *
+WHERE {
+    ?genre a <Genre> ;
+        schema:name ?name .
+}
+LIMIT 10

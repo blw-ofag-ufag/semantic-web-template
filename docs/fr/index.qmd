@@ -41,6 +41,30 @@ Nous utilisons l'interface en ligne de commande (CLI) ROBOT dans notre projet [@
 
 {{< include entities.md >}}
 
+# Accès aux données
+
+Les données de base et de référence qui sous-tendent ce document sont disponibles sous forme de *Linked Data*.
+
+La base technologique de cette approche est le [Resource Description Framework (RDF)](https://www.w3.org/TR/rdf11-concepts/), un standard central du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web.
+En RDF, les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés.
+Chaque déclaration est constituée de ce que l'on appelle un triplet (sujet, prédicat, objet).
+Cette structure permet une description des ressources et de leurs relations mutuelles qui soit lisible par machine, interopérable et univoque à travers différents systèmes.
+
+Pour le stockage et la publication de ces données RDF, on utilise [LINDAS](https://lindas.admin.ch/) (Linked Data Service), le service officiel de Linked Data de l'administration fédérale suisse.
+LINDAS fait office de *Triple Store*, une base de données orientée graphe spécialisée et optimisée pour le stockage et l'interrogation efficaces de triplets RDF, qui met les données publiquement à disposition via une interface standardisée.
+
+Le chapitre suivant fournit des instructions minimales sur la façon dont les données peuvent être interrogées et extraites de LINDAS.
+
+```rq
+{{< include ../data/example.rq >}}
+```
+
+Les données sous-jacentes elles-mêmes sont gérées sur GitHub sous forme de fichiers Turtle.
+
+```ttl
+{{< include ../data/example.ttl >}}
+```
+
 # Considérations de sécurité
 
 Informations sur les bases légales expressément déterminantes ou remarque indiquant que les bases légales pertinentes doivent être respectées lors de la mise en œuvre.

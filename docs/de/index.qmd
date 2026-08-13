@@ -41,6 +41,30 @@ Wir verwenden die ROBOT CLI in unserem Projekt [@jackson2019robot], insbesondere
 
 {{< include entities.md >}}
 
+# Datenbezug
+
+Die diesem Dokument zugrundeliegenden Master- und Referenzdaten sind als _Linked Data_ verfügbar.
+
+Die technologische Basis dafür bildet das [Resource Description Framework (RDF)](https://www.w3.org/TR/rdf11-concepts/), ein zentraler Standard des World Wide Web Consortiums (W3C) zur Modellierung von Datenstrukturen im Web.
+In RDF werden Informationen nicht in klassischen Tabellen, sondern als vernetzte Graphen abgebildet.
+Jede Aussage besteht dabei aus einem sogenannten Triple (Subjekt, Prädikat, Objekt).
+Diese Struktur ermöglicht eine maschinenlesbare, interoperable und systemübergreifend eindeutige Beschreibung von Ressourcen und deren Relationen zueinander.
+
+Für die Speicherung und Publikation dieser RDF-Daten wird [LINDAS](https://lindas.admin.ch/) (Linked Data Service) genutzt, der offizielle Linked-Data-Dienst der Schweizer Bundesverwaltung.
+LINDAS fungiert als sogenannter _Triple Store_, einer spezialisierte Graphdatenbank, die für das effiziente Speichern und Abfragen von RDF-Triples optimiert ist und die Daten öffentlich über eine genormte Schnittstelle bereitstellt.
+
+Das folgende Kapitel gibt eine minimale Anleitung, wie die Daten von LINDAS abgefragt und bezogen werden können.
+
+``` rq
+{{< include ../data/example.rq >}}
+```
+
+Die zugrundeliegenden Daten selbst werden auf GitHub als Turtle-Files gepflegt.
+
+``` ttl
+{{< include ../data/example.ttl >}}
+```
+
 # Sicherheitsaspekte
 
 Informationen zu den ausdrücklich massgeblichen rechtlichen Grundlagen oder ein Hinweis darauf, dass bei der Umsetzung die entsprechenden rechtlichen Grundlagen zu beachten sind.

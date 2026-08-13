@@ -56,7 +56,7 @@ format:
     link-citations: true
   typst:
     toc: true
-    toc-depth: 2
+    toc-depth: 3
     number-sections: true
     section-numbering: 1.1.1
     mainfont: Nimbus Sans
@@ -69,3 +69,4 @@ format:
     syntax-definitions:
      - assets/sparql.xml
      - assets/turtle.xml
+    citeproc: true

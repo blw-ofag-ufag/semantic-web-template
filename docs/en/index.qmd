@@ -93,7 +93,7 @@ These provisions shall apply to the standards prepared by eCH only, however, not
 ::: {#refs}
 :::
 
-# Annex B - Cooperation & Verification {.appendix}
+# Annex B - Cooperation and Verification {.appendix}
 
 # Annex C - Abbreviations and Glossary {.appendix}
 

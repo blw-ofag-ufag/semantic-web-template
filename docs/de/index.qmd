@@ -93,7 +93,7 @@ Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, ni
 ::: {#refs}
 :::
 
-# Anhang B - Mitwirkung & Prüfung {.appendix}
+# Anhang B - Mitwirkung und Prüfung {.appendix}
 
 # Anhang C - Abkürzungen und Glossar {.appendix}
 

@@ -93,7 +93,7 @@ Ces dispositions ne s'appliquent toutefois qu'aux standards élaborés par eCH, 
 ::: {#refs}
 :::
 
-# Annexe B - Collaboration & Vérification {.appendix}
+# Annexe B - Collaboration et Vérification {.appendix}
 
 # Annexe C - Abréviations et glossaire {.appendix}
 

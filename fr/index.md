@@ -36,8 +36,8 @@
   d’auteur](#droits-dauteur)
 - [<span class="toc-section-number">8</span> Annexe A -
   Références](#annexe-a---références)
-- [<span class="toc-section-number">9</span> Annexe B - Collaboration &
-  Vérification](#annexe-b---collaboration--vérification)
+- [<span class="toc-section-number">9</span> Annexe B - Collaboration et
+  Vérification](#annexe-b---collaboration-et-vérification)
 - [<span class="toc-section-number">10</span> Annexe C - Abréviations et
   glossaire](#annexe-c---abréviations-et-glossaire)
 - [<span class="toc-section-number">11</span> Annexe D - Modifications
@@ -372,7 +372,7 @@ automating ontology workflows ». *BMC bioinformatics* 20 (1): 407.
 
 </div>
 
-# Annexe B - Collaboration & Vérification
+# Annexe B - Collaboration et Vérification
 
 # Annexe C - Abréviations et glossaire
 

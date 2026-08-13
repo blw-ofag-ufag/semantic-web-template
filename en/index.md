@@ -35,8 +35,8 @@ August 13, 2026
   Copyrights](#sec-copyrights)
 - [<span class="toc-section-number">8</span> Annex A -
   References](#annex-a---references)
-- [<span class="toc-section-number">9</span> Annex B - Cooperation &
-  Verification](#annex-b---cooperation--verification)
+- [<span class="toc-section-number">9</span> Annex B - Cooperation and
+  Verification](#annex-b---cooperation-and-verification)
 - [<span class="toc-section-number">10</span> Annex C - Abbreviations
   and Glossary](#annex-c---abbreviations-and-glossary)
 - [<span class="toc-section-number">11</span> Annex D - Changes in
@@ -359,7 +359,7 @@ Automating Ontology Workflows.” *BMC Bioinformatics* 20 (1): 407.
 
 </div>
 
-# Annex B - Cooperation & Verification
+# Annex B - Cooperation and Verification
 
 # Annex C - Abbreviations and Glossary
 

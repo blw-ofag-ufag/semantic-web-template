@@ -33,8 +33,8 @@
   Urheberrechte](#urheberrechte)
 - [<span class="toc-section-number">8</span> Anhang A -
   Referenzen](#anhang-a---referenzen)
-- [<span class="toc-section-number">9</span> Anhang B - Mitwirkung &
-  Prüfung](#anhang-b---mitwirkung--prüfung)
+- [<span class="toc-section-number">9</span> Anhang B - Mitwirkung und
+  Prüfung](#anhang-b---mitwirkung-und-prüfung)
 - [<span class="toc-section-number">10</span> Anhang C - Abkürzungen und
   Glossar](#anhang-c---abkürzungen-und-glossar)
 - [<span class="toc-section-number">11</span> Anhang D - Änderungen
@@ -367,7 +367,7 @@ automating ontology workflows“. *BMC bioinformatics* 20 (1): 407.
 
 </div>
 
-# Anhang B - Mitwirkung & Prüfung
+# Anhang B - Mitwirkung und Prüfung
 
 # Anhang C - Abkürzungen und Glossar
 

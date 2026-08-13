@@ -1,3 +1,7 @@
+#show heading.where(level: 1): it => {
+  colbreak(weak: true)
+  it
+}
 #show heading.where(level: 1): set text(size: 16pt, weight: "bold")
 #show heading.where(level: 2): set text(size: 12pt, weight: "bold")
 #show heading: set block(above: 1.8em, below: 1em)

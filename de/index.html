@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -182,9 +217,10 @@ div.csl-indent {
   <li><a href="#sec-quantitativer-wert" id="toc-sec-quantitativer-wert" class="nav-link" data-scroll-target="#sec-quantitativer-wert"><span class="header-section-number">3.6</span> Quantitativer Wert</a></li>
   <li><a href="#sec-rechnung" id="toc-sec-rechnung" class="nav-link" data-scroll-target="#sec-rechnung"><span class="header-section-number">3.7</span> Rechnung</a></li>
   </ul></li>
-  <li><a href="#sicherheitsaspekte" id="toc-sicherheitsaspekte" class="nav-link" data-scroll-target="#sicherheitsaspekte"><span class="header-section-number">4</span> Sicherheitsaspekte</a></li>
-  <li><a href="#haftungsausschluss" id="toc-haftungsausschluss" class="nav-link" data-scroll-target="#haftungsausschluss"><span class="header-section-number">5</span> Haftungsausschluss</a></li>
-  <li><a href="#urheberrechte" id="toc-urheberrechte" class="nav-link" data-scroll-target="#urheberrechte"><span class="header-section-number">6</span> Urheberrechte</a></li>
+  <li><a href="#datenbezug" id="toc-datenbezug" class="nav-link" data-scroll-target="#datenbezug"><span class="header-section-number">4</span> Datenbezug</a></li>
+  <li><a href="#sicherheitsaspekte" id="toc-sicherheitsaspekte" class="nav-link" data-scroll-target="#sicherheitsaspekte"><span class="header-section-number">5</span> Sicherheitsaspekte</a></li>
+  <li><a href="#haftungsausschluss" id="toc-haftungsausschluss" class="nav-link" data-scroll-target="#haftungsausschluss"><span class="header-section-number">6</span> Haftungsausschluss</a></li>
+  <li><a href="#urheberrechte" id="toc-urheberrechte" class="nav-link" data-scroll-target="#urheberrechte"><span class="header-section-number">7</span> Urheberrechte</a></li>
   
   
   
@@ -210,7 +246,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">12. August 2026</p>
+      <p class="date">13. August 2026</p>
     </div>
   </div>
   
@@ -643,19 +679,48 @@ Tabelle&nbsp;7: Eigenschaften Rechnung
 </div>
 </section>
 </section>
-<section id="sicherheitsaspekte" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Sicherheitsaspekte</h1>
+<section id="datenbezug" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Datenbezug</h1>
+<p>Die diesem Dokument zugrundeliegenden Master- und Referenzdaten sind als <em>Linked Data</em> verfügbar.</p>
+<p>Die technologische Basis dafür bildet das <a href="https://www.w3.org/TR/rdf11-concepts/">Resource Description Framework (RDF)</a>, ein zentraler Standard des World Wide Web Consortiums (W3C) zur Modellierung von Datenstrukturen im Web. In RDF werden Informationen nicht in klassischen Tabellen, sondern als vernetzte Graphen abgebildet. Jede Aussage besteht dabei aus einem sogenannten Triple (Subjekt, Prädikat, Objekt). Diese Struktur ermöglicht eine maschinenlesbare, interoperable und systemübergreifend eindeutige Beschreibung von Ressourcen und deren Relationen zueinander.</p>
+<p>Für die Speicherung und Publikation dieser RDF-Daten wird <a href="https://lindas.admin.ch/">LINDAS</a> (Linked Data Service) genutzt, der offizielle Linked-Data-Dienst der Schweizer Bundesverwaltung. LINDAS fungiert als sogenannter <em>Triple Store</em>, einer spezialisierte Graphdatenbank, die für das effiziente Speichern und Abfragen von RDF-Triples optimiert ist und die Daten öffentlich über eine genormte Schnittstelle bereitstellt.</p>
+<p>Das folgende Kapitel gibt eine minimale Anleitung, wie die Daten von LINDAS abgefragt und bezogen werden können.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rq code-with-copy"><code class="sourceCode sparql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">BASE</span> <span class="st">&lt;https://example.org/&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">PREFIX</span> schema: <span class="st">&lt;http://schema.org/&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    ?genre a <span class="st">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        schema:name ?name <span class="op">.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Die zugrundeliegenden Daten selbst werden auf GitHub als Turtle-Files gepflegt.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ttl code-with-copy"><code class="sourceCode turtle"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@base</span> <span class="bu">&lt;http://example.org/&gt;</span> <span class="op">.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">genre:</span> <span class="bu">&lt;http://example.org/genre/&gt;</span> <span class="op">.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">schema:</span> <span class="bu">&lt;http://schema.org/&gt;</span> <span class="op">.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:1</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:name</span> <span class="st">"Rock"</span> <span class="op">.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:2</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:name</span> <span class="st">"Jazz"</span> <span class="op">.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:3</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:name</span> <span class="st">"Metal"</span> <span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:partOf</span> <span class="dt">genre:1</span> <span class="op">.</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sicherheitsaspekte" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Sicherheitsaspekte</h1>
 <p>Informationen zu den ausdrücklich massgeblichen rechtlichen Grundlagen oder ein Hinweis darauf, dass bei der Umsetzung die entsprechenden rechtlichen Grundlagen zu beachten sind.</p>
 </section>
-<section id="haftungsausschluss" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Haftungsausschluss</h1>
+<section id="haftungsausschluss" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Haftungsausschluss</h1>
 <p>eCH-Standards, die der Verein eCH dem Anwender kostenlos zur Verfügung stellt oder die auf eCH verweisen, haben nur den Status von Empfehlungen. Der Verein eCH haftet in keinem Fall für Entscheidungen oder Massnahmen, die der Anwender auf der Grundlage dieser Dokumente trifft bzw. ergreift. Der Anwender ist dafür verantwortlich, die Dokumente vor ihrer Verwendung selbst zu überprüfen und gegebenenfalls fachlichen Rat einzuholen. eCH-Standards können und sollen die technische, organisatorische oder rechtliche Beratung im Einzelfall nicht ersetzen.</p>
 <p>Dokumente, Verfahren, Methoden, Produkte und Standards, auf die in eCH-Standards verwiesen wird, sind möglicherweise durch Marken-, Urheber- oder Patentrechte geschützt. Es liegt in der ausschliesslichen Verantwortung des Anwenders, die erforderlichen Lizenzen von den berechtigten Personen und/oder Organisationen einzuholen.</p>
 <p>Obwohl der Verein eCH bei der Erstellung der eCH-Standards mit angemessener Sorgfalt vorgegangen ist, kann er keine Gewährleistung oder Garantie dafür übernehmen, dass die bereitgestellten Informationen und Dokumente aktuell, vollständig, richtig oder fehlerfrei sind. eCH behält sich das Recht vor, die Inhalte der eCH-Standards jederzeit und ohne vorherige Ankündigung zu ändern.</p>
 <p>Jede Haftung für Schäden, die durch die Nutzung der eCH-Standards durch den Anwender entstehen, wird im gesetzlich zulässigen Rahmen ausgeschlossen.</p>
 </section>
-<section id="urheberrechte" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Urheberrechte</h1>
+<section id="urheberrechte" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Urheberrechte</h1>
 <p>Personen, die eCH-Standards erarbeiten, bleiben Inhaber ihrer geistigen Eigentumsrechte. Diese Personen verpflichten sich jedoch, ihre geistigen Eigentumsrechte oder andere Rechte an geistigen Eigentumsrechten Dritter, soweit möglich, den jeweiligen Fachgruppen und dem Verein eCH kostenlos und zur uneingeschränkten Nutzung und Weiterentwicklung im Rahmen des Vereinszwecks zur Verfügung zu stellen.</p>
 <p>Die von den Fachgruppen erarbeiteten Standards dürfen unter Nennung des jeweiligen Autors von eCH kostenlos und in uneingeschränktem Umfang genutzt, verbreitet und weiterentwickelt werden.</p>
 <p>eCH-Standards sind vollständig dokumentiert und frei von lizenz- und/oder patentrechtlichen Einschränkungen. Die dazugehörige Dokumentation kann kostenlos angefordert werden. Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, nicht aber für Standards oder Produkte Dritter, die auf eCH-Standards verweisen. Die Standards enthalten die entsprechenden Hinweise auf Rechte Dritter.</p>
@@ -667,7 +732,7 @@ Tabelle&nbsp;7: Eigenschaften Rechnung
 
 
 
-<div id="quarto-appendix" class="default"><section id="anhang-a---referenzen" class="level1 appendix" data-number="7"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">7</span> Anhang A - Referenzen</h2><div class="quarto-appendix-contents">
+<div id="quarto-appendix" class="default"><section id="anhang-a---referenzen" class="level1 appendix" data-number="8"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">8</span> Anhang A - Referenzen</h2><div class="quarto-appendix-contents">
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-glimm2014hermit" class="csl-entry" role="listitem">
@@ -677,15 +742,15 @@ Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, und Zhe Wang. 2014. <s
 Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris, Christopher J Mungall, und James A Overton. 2019. <span>„ROBOT: a tool for automating ontology workflows“</span>. <em>BMC bioinformatics</em> 20 (1): 407.
 </div>
 </div>
-</div></section><section id="anhang-b---mitwirkung-prüfung" class="level1 appendix" data-number="8"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">8</span> Anhang B - Mitwirkung &amp; Prüfung</h2><div class="quarto-appendix-contents">
+</div></section><section id="anhang-b---mitwirkung-prüfung" class="level1 appendix" data-number="9"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">9</span> Anhang B - Mitwirkung &amp; Prüfung</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="anhang-c---abkürzungen-und-glossar" class="level1 appendix" data-number="9"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">9</span> Anhang C - Abkürzungen und Glossar</h2><div class="quarto-appendix-contents">
+</div></section><section id="anhang-c---abkürzungen-und-glossar" class="level1 appendix" data-number="10"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">10</span> Anhang C - Abkürzungen und Glossar</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="anhang-d---änderungen-gegenüber-der-vorversion" class="level1 appendix" data-number="10"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">10</span> Anhang D - Änderungen gegenüber der Vorversion</h2><div class="quarto-appendix-contents">
+</div></section><section id="anhang-d---änderungen-gegenüber-der-vorversion" class="level1 appendix" data-number="11"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">11</span> Anhang D - Änderungen gegenüber der Vorversion</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="anhang-e---abbildungsverzeichnis" class="level1 appendix" data-number="11"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">11</span> Anhang E - Abbildungsverzeichnis</h2><div class="quarto-appendix-contents">
+</div></section><section id="anhang-e---abbildungsverzeichnis" class="level1 appendix" data-number="12"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">12</span> Anhang E - Abbildungsverzeichnis</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="anhang-f---tabellenverzeichnis" class="level1 appendix" data-number="12"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">12</span> Anhang F - Tabellenverzeichnis</h2><div class="quarto-appendix-contents">
+</div></section><section id="anhang-f---tabellenverzeichnis" class="level1 appendix" data-number="13"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">13</span> Anhang F - Tabellenverzeichnis</h2><div class="quarto-appendix-contents">
 
 
 

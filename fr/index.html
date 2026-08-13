@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -182,9 +217,10 @@ div.csl-indent {
   <li><a href="#sec-personne" id="toc-sec-personne" class="nav-link" data-scroll-target="#sec-personne"><span class="header-section-number">3.6</span> Personne</a></li>
   <li><a href="#sec-valeur-quantitative" id="toc-sec-valeur-quantitative" class="nav-link" data-scroll-target="#sec-valeur-quantitative"><span class="header-section-number">3.7</span> Valeur quantitative</a></li>
   </ul></li>
-  <li><a href="#considérations-de-sécurité" id="toc-considérations-de-sécurité" class="nav-link" data-scroll-target="#considérations-de-sécurité"><span class="header-section-number">4</span> Considérations de sécurité</a></li>
-  <li><a href="#clause-de-non-responsabilité" id="toc-clause-de-non-responsabilité" class="nav-link" data-scroll-target="#clause-de-non-responsabilité"><span class="header-section-number">5</span> Clause de non-responsabilité</a></li>
-  <li><a href="#droits-dauteur" id="toc-droits-dauteur" class="nav-link" data-scroll-target="#droits-dauteur"><span class="header-section-number">6</span> Droits d’auteur</a></li>
+  <li><a href="#accès-aux-données" id="toc-accès-aux-données" class="nav-link" data-scroll-target="#accès-aux-données"><span class="header-section-number">4</span> Accès aux données</a></li>
+  <li><a href="#considérations-de-sécurité" id="toc-considérations-de-sécurité" class="nav-link" data-scroll-target="#considérations-de-sécurité"><span class="header-section-number">5</span> Considérations de sécurité</a></li>
+  <li><a href="#clause-de-non-responsabilité" id="toc-clause-de-non-responsabilité" class="nav-link" data-scroll-target="#clause-de-non-responsabilité"><span class="header-section-number">6</span> Clause de non-responsabilité</a></li>
+  <li><a href="#droits-dauteur" id="toc-droits-dauteur" class="nav-link" data-scroll-target="#droits-dauteur"><span class="header-section-number">7</span> Droits d’auteur</a></li>
   
   
   
@@ -210,7 +246,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Date de publication</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">12 août 2026</p>
+      <p class="date">13 août 2026</p>
     </div>
   </div>
   
@@ -643,19 +679,48 @@ Table&nbsp;7: propriétés Valeur quantitative
 </div>
 </section>
 </section>
-<section id="considérations-de-sécurité" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Considérations de sécurité</h1>
+<section id="accès-aux-données" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Accès aux données</h1>
+<p>Les données de base et de référence qui sous-tendent ce document sont disponibles sous forme de <em>Linked Data</em>.</p>
+<p>La base technologique de cette approche est le <a href="https://www.w3.org/TR/rdf11-concepts/">Resource Description Framework (RDF)</a>, un standard central du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web. En RDF, les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés. Chaque déclaration est constituée de ce que l’on appelle un triplet (sujet, prédicat, objet). Cette structure permet une description des ressources et de leurs relations mutuelles qui soit lisible par machine, interopérable et univoque à travers différents systèmes.</p>
+<p>Pour le stockage et la publication de ces données RDF, on utilise <a href="https://lindas.admin.ch/">LINDAS</a> (Linked Data Service), le service officiel de Linked Data de l’administration fédérale suisse. LINDAS fait office de <em>Triple Store</em>, une base de données orientée graphe spécialisée et optimisée pour le stockage et l’interrogation efficaces de triplets RDF, qui met les données publiquement à disposition via une interface standardisée.</p>
+<p>Le chapitre suivant fournit des instructions minimales sur la façon dont les données peuvent être interrogées et extraites de LINDAS.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rq code-with-copy"><code class="sourceCode sparql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">BASE</span> <span class="st">&lt;https://example.org/&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">PREFIX</span> schema: <span class="st">&lt;http://schema.org/&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    ?genre a <span class="st">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        schema:name ?name <span class="op">.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Les données sous-jacentes elles-mêmes sont gérées sur GitHub sous forme de fichiers Turtle.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ttl code-with-copy"><code class="sourceCode turtle"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@base</span> <span class="bu">&lt;http://example.org/&gt;</span> <span class="op">.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">genre:</span> <span class="bu">&lt;http://example.org/genre/&gt;</span> <span class="op">.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">schema:</span> <span class="bu">&lt;http://schema.org/&gt;</span> <span class="op">.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:1</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:name</span> <span class="st">"Rock"</span> <span class="op">.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:2</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:name</span> <span class="st">"Jazz"</span> <span class="op">.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:3</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:name</span> <span class="st">"Metal"</span> <span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:partOf</span> <span class="dt">genre:1</span> <span class="op">.</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="considérations-de-sécurité" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Considérations de sécurité</h1>
 <p>Informations sur les bases légales expressément déterminantes ou remarque indiquant que les bases légales pertinentes doivent être respectées lors de la mise en œuvre.</p>
 </section>
-<section id="clause-de-non-responsabilité" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Clause de non-responsabilité</h1>
+<section id="clause-de-non-responsabilité" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Clause de non-responsabilité</h1>
 <p>Les standards eCH que l’association eCH met gratuitement à la disposition de l’utilisateur ou qui font référence à eCH n’ont que le statut de recommandations. L’association eCH décline toute responsabilité pour les décisions ou mesures prises par l’utilisateur sur la base de ces documents. Il incombe à l’utilisateur de vérifier lui-même les documents avant de les utiliser et, si nécessaire, de demander des conseils professionnels. Les standards eCH ne peuvent et ne doivent pas remplacer les conseils techniques, organisationnels ou juridiques dans un cas individuel.</p>
 <p>Les documents, procédures, méthodes, produits et standards auxquels il est fait référence dans les standards eCH sont potentiellement protégés par des droits de marque, d’auteur ou de brevet. Il est de la responsabilité exclusive de l’utilisateur d’obtenir les licences nécessaires auprès des ayants droit et/ou des organisations.</p>
 <p>Bien que l’association eCH ait apporté le soin nécessaire à l’élaboration des standards eCH, elle ne peut garantir ni assurer que les informations et documents fournis sont actuels, complets, exacts ou exempts d’erreurs. eCH se réserve le droit de modifier le contenu de ses standards à tout moment et sans préavis.</p>
 <p>Toute responsabilité pour les dommages causés par l’utilisation des standards eCH par l’utilisateur est exclue dans les limites autorisées par la loi.</p>
 </section>
-<section id="droits-dauteur" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Droits d’auteur</h1>
+<section id="droits-dauteur" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Droits d’auteur</h1>
 <p>Les personnes qui élaborent les standards eCH restent propriétaires de leurs droits de propriété intellectuelle. Ces personnes s’engagent toutefois à mettre leurs droits de propriété intellectuelle ou d’autres droits sur des droits de propriété intellectuelle de tiers, dans la mesure du possible, à la disposition des groupes d’experts concernés et de l’association eCH, et ce gratuitement et pour une utilisation ainsi qu’un développement ultérieur illimités dans le cadre du but de l’association.</p>
 <p>Les standards élaborés par les groupes d’experts peuvent être utilisés, diffusés et développés gratuitement et de manière illimitée en mentionnant le nom de l’auteur respectif d’eCH.</p>
 <p>Les standards eCH sont entièrement documentés et libres de toute restriction de droit de licence et/ou de brevet. La documentation correspondante peut être demandée gratuitement. Ces dispositions ne s’appliquent toutefois qu’aux standards élaborés par eCH, et non aux standards ou produits de tiers qui font référence aux standards eCH. Les standards contiennent les références correspondantes aux droits de tiers.</p>
@@ -667,7 +732,7 @@ Table&nbsp;7: propriétés Valeur quantitative
 
 
 
-<div id="quarto-appendix" class="default"><section id="annexe-a---références" class="level1 appendix" data-number="7"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">7</span> Annexe A - Références</h2><div class="quarto-appendix-contents">
+<div id="quarto-appendix" class="default"><section id="annexe-a---références" class="level1 appendix" data-number="8"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">8</span> Annexe A - Références</h2><div class="quarto-appendix-contents">
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-glimm2014hermit" class="csl-entry" role="listitem">
@@ -677,15 +742,15 @@ Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, et Zhe Wang. 2014. <sp
 Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris, Christopher J Mungall, et James A Overton. 2019. <span>«&nbsp;ROBOT: a tool for automating ontology workflows&nbsp;»</span>. <em>BMC bioinformatics</em> 20 (1): 407.
 </div>
 </div>
-</div></section><section id="annexe-b---collaboration-vérification" class="level1 appendix" data-number="8"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">8</span> Annexe B - Collaboration &amp; Vérification</h2><div class="quarto-appendix-contents">
+</div></section><section id="annexe-b---collaboration-vérification" class="level1 appendix" data-number="9"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">9</span> Annexe B - Collaboration &amp; Vérification</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="annexe-c---abréviations-et-glossaire" class="level1 appendix" data-number="9"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">9</span> Annexe C - Abréviations et glossaire</h2><div class="quarto-appendix-contents">
+</div></section><section id="annexe-c---abréviations-et-glossaire" class="level1 appendix" data-number="10"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">10</span> Annexe C - Abréviations et glossaire</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="annexe-d---modifications-par-rapport-à-la-version-précédente" class="level1 appendix" data-number="10"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">10</span> Annexe D - Modifications par rapport à la version précédente</h2><div class="quarto-appendix-contents">
+</div></section><section id="annexe-d---modifications-par-rapport-à-la-version-précédente" class="level1 appendix" data-number="11"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">11</span> Annexe D - Modifications par rapport à la version précédente</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="annexe-e---table-des-illustrations" class="level1 appendix" data-number="11"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">11</span> Annexe E - Table des illustrations</h2><div class="quarto-appendix-contents">
+</div></section><section id="annexe-e---table-des-illustrations" class="level1 appendix" data-number="12"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">12</span> Annexe E - Table des illustrations</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="annexe-f---liste-des-tableaux" class="level1 appendix" data-number="12"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">12</span> Annexe F - Liste des tableaux</h2><div class="quarto-appendix-contents">
+</div></section><section id="annexe-f---liste-des-tableaux" class="level1 appendix" data-number="13"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">13</span> Annexe F - Liste des tableaux</h2><div class="quarto-appendix-contents">
 
 
 

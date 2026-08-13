@@ -1,6 +1,6 @@
 # eCH-1234 Quarto-Dokument als Vorlage
 
-12. August 2026
+13. August 2026
 
 - [Hinweis](#hinweis)
 - [<span class="toc-section-number">1</span> Einleitung](#einleitung)
@@ -24,24 +24,25 @@
     Wert](#sec-quantitativer-wert)
   - [<span class="toc-section-number">3.7</span>
     Rechnung](#sec-rechnung)
-- [<span class="toc-section-number">4</span>
-  Sicherheitsaspekte](#sicherheitsaspekte)
+- [<span class="toc-section-number">4</span> Datenbezug](#datenbezug)
 - [<span class="toc-section-number">5</span>
-  Haftungsausschluss](#haftungsausschluss)
+  Sicherheitsaspekte](#sicherheitsaspekte)
 - [<span class="toc-section-number">6</span>
+  Haftungsausschluss](#haftungsausschluss)
+- [<span class="toc-section-number">7</span>
   Urheberrechte](#urheberrechte)
-- [<span class="toc-section-number">7</span> Anhang A -
+- [<span class="toc-section-number">8</span> Anhang A -
   Referenzen](#anhang-a---referenzen)
-- [<span class="toc-section-number">8</span> Anhang B - Mitwirkung &
+- [<span class="toc-section-number">9</span> Anhang B - Mitwirkung &
   Prüfung](#anhang-b---mitwirkung--prüfung)
-- [<span class="toc-section-number">9</span> Anhang C - Abkürzungen und
+- [<span class="toc-section-number">10</span> Anhang C - Abkürzungen und
   Glossar](#anhang-c---abkürzungen-und-glossar)
-- [<span class="toc-section-number">10</span> Anhang D - Änderungen
+- [<span class="toc-section-number">11</span> Anhang D - Änderungen
   gegenüber der
   Vorversion](#anhang-d---änderungen-gegenüber-der-vorversion)
-- [<span class="toc-section-number">11</span> Anhang E -
+- [<span class="toc-section-number">12</span> Anhang E -
   Abbildungsverzeichnis](#anhang-e---abbildungsverzeichnis)
-- [<span class="toc-section-number">12</span> Anhang F -
+- [<span class="toc-section-number">13</span> Anhang F -
   Tabellenverzeichnis](#anhang-f---tabellenverzeichnis)
 
 # Hinweis
@@ -232,6 +233,62 @@ Tabelle 7: Eigenschaften Rechnung
 | **Erstellungsdatum** | `schema:dateCreated` | `xsd:date` | 0..\* |
 
 </div>
+
+# Datenbezug
+
+Die diesem Dokument zugrundeliegenden Master- und Referenzdaten sind als
+*Linked Data* verfügbar.
+
+Die technologische Basis dafür bildet das [Resource Description
+Framework (RDF)](https://www.w3.org/TR/rdf11-concepts/), ein zentraler
+Standard des World Wide Web Consortiums (W3C) zur Modellierung von
+Datenstrukturen im Web. In RDF werden Informationen nicht in klassischen
+Tabellen, sondern als vernetzte Graphen abgebildet. Jede Aussage besteht
+dabei aus einem sogenannten Triple (Subjekt, Prädikat, Objekt). Diese
+Struktur ermöglicht eine maschinenlesbare, interoperable und
+systemübergreifend eindeutige Beschreibung von Ressourcen und deren
+Relationen zueinander.
+
+Für die Speicherung und Publikation dieser RDF-Daten wird
+[LINDAS](https://lindas.admin.ch/) (Linked Data Service) genutzt, der
+offizielle Linked-Data-Dienst der Schweizer Bundesverwaltung. LINDAS
+fungiert als sogenannter *Triple Store*, einer spezialisierte
+Graphdatenbank, die für das effiziente Speichern und Abfragen von
+RDF-Triples optimiert ist und die Daten öffentlich über eine genormte
+Schnittstelle bereitstellt.
+
+Das folgende Kapitel gibt eine minimale Anleitung, wie die Daten von
+LINDAS abgefragt und bezogen werden können.
+
+``` rq
+BASE <https://example.org/>
+PREFIX schema: <http://schema.org/>
+SELECT *
+WHERE {
+    ?genre a <Genre> ;
+        schema:name ?name .
+}
+LIMIT 10
+```
+
+Die zugrundeliegenden Daten selbst werden auf GitHub als Turtle-Files
+gepflegt.
+
+``` ttl
+@base <http://example.org/> .
+@prefix genre: <http://example.org/genre/> .
+@prefix schema: <http://schema.org/> .
+
+genre:1 a <Genre> ;
+    schema:name "Rock" .
+
+genre:2 a <Genre> ;
+    schema:name "Jazz" .
+
+genre:3 a <Genre> ;
+    schema:name "Metal" ;
+    schema:partOf genre:1 .
+```
 
 # Sicherheitsaspekte
 

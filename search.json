@@ -7,22 +7,22 @@
     "text": "This document uses a gender-neutral formulation when referring to persons. This is based on the guidelines (German) of the Federal Chancellery. Depending on the situation, paired forms (citizens), gender-abstract forms (insured person), gender-neutral forms (insured person) or paraphrases with-out personal reference are used. The generic masculine (citizen) is not permitted. Full forms are used in continuous texts, i.e. in texts consisting of formulated sentences. Short forms can be used in ab-breviated text passages, namely in tables. The short form is used with a slash but without an ellipsis (referent). Gender asterisks and similar spellings are not used."
   },
   {
-    "objectID": "en/index.html#status",
-    "href": "en/index.html#status",
+    "objectID": "en/index.html#sec-status",
+    "href": "en/index.html#sec-status",
     "title": "eCH-1234 Template Quarto Document",
     "section": "1.1 Status",
     "text": "1.1 Status\nApproved: This document was approved by the Experts’ Committee. It has normative power for the defined field of application in the determined scope of application."
   },
   {
-    "objectID": "en/index.html#scope-of-application",
-    "href": "en/index.html#scope-of-application",
+    "objectID": "en/index.html#sec-scope-of-application",
+    "href": "en/index.html#sec-scope-of-application",
     "title": "eCH-1234 Template Quarto Document",
     "section": "1.2 Scope of application",
     "text": "1.2 Scope of application\nThe information in this chapter should provide the reader with a brief overview of what this standard is intended for. Information about the following matters may be helpful here."
   },
   {
-    "objectID": "en/index.html#we-can-have-sub-headings",
-    "href": "en/index.html#we-can-have-sub-headings",
+    "objectID": "en/index.html#sec-example-subheading",
+    "href": "en/index.html#sec-example-subheading",
     "title": "eCH-1234 Template Quarto Document",
     "section": "1.3 We can have sub-headings",
     "text": "1.3 We can have sub-headings\nAnd write some text.\n\n1.3.1 Also sub-sub-headings\nAnd write some more text. Maybe even with a pretty image.\n\n\n\n\n\n\nFigure 1: Always add some text to describe what the image shows.\n\n\n\nWhen displaying diagrams, try to write them in Mermaid JS straight away; this makes changes in the future or translations straightforward."

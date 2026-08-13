@@ -1,18 +1,19 @@
 # eCH-1234 Template Quarto Document
 
-August 12, 2026
+August 13, 2026
 
 - [Note](#note)
 - [<span class="toc-section-number">1</span>
-  Introduction](#introduction)
-  - [<span class="toc-section-number">1.1</span> Status](#status)
+  Introduction](#sec-introduction)
+  - [<span class="toc-section-number">1.1</span> Status](#sec-status)
   - [<span class="toc-section-number">1.2</span> Scope of
-    application](#scope-of-application)
+    application](#sec-scope-of-application)
   - [<span class="toc-section-number">1.3</span> We can have
-    sub-headings](#we-can-have-sub-headings)
+    sub-headings](#sec-example-subheading)
 - [<span class="toc-section-number">2</span> Technical
-  notes](#technical-notes)
-- [<span class="toc-section-number">3</span> Data Model](#data-model)
+  notes](#sec-technical-notes)
+- [<span class="toc-section-number">3</span> Data
+  Model](#sec-data-model)
   - [<span class="toc-section-number">3.1</span> Genre](#sec-genre)
   - [<span class="toc-section-number">3.2</span> Invoice](#sec-invoice)
   - [<span class="toc-section-number">3.3</span> Music
@@ -24,22 +25,26 @@ August 12, 2026
   - [<span class="toc-section-number">3.6</span> Person](#sec-person)
   - [<span class="toc-section-number">3.7</span> Quantitative
     Value](#sec-quantitative-value)
-- [<span class="toc-section-number">4</span> Safety
-  considerations](#safety-considerations)
-- [<span class="toc-section-number">5</span> Disclaimer](#disclaimer)
-- [<span class="toc-section-number">6</span> Copyrights](#copyrights)
-- [<span class="toc-section-number">7</span> Annex A -
+- [<span class="toc-section-number">4</span> Data
+  Retrieval](#sec-data-retrieval)
+- [<span class="toc-section-number">5</span> Safety
+  considerations](#sec-safety-consideration)
+- [<span class="toc-section-number">6</span>
+  Disclaimer](#sec-disclaimer)
+- [<span class="toc-section-number">7</span>
+  Copyrights](#sec-copyrights)
+- [<span class="toc-section-number">8</span> Annex A -
   References](#annex-a---references)
-- [<span class="toc-section-number">8</span> Annex B - Cooperation &
+- [<span class="toc-section-number">9</span> Annex B - Cooperation &
   Verification](#annex-b---cooperation--verification)
-- [<span class="toc-section-number">9</span> Annex C - Abbreviations and
-  Glossary](#annex-c---abbreviations-and-glossary)
-- [<span class="toc-section-number">10</span> Annex D - Changes in
+- [<span class="toc-section-number">10</span> Annex C - Abbreviations
+  and Glossary](#annex-c---abbreviations-and-glossary)
+- [<span class="toc-section-number">11</span> Annex D - Changes in
   comparison to previous
   version](#annex-d---changes-in-comparison-to-previous-version)
-- [<span class="toc-section-number">11</span> Annex E - Table of
+- [<span class="toc-section-number">12</span> Annex E - Table of
   figures](#annex-e---table-of-figures)
-- [<span class="toc-section-number">12</span> Annex F - Table of
+- [<span class="toc-section-number">13</span> Annex F - Table of
   tables](#annex-f---table-of-tables)
 
 # Note
@@ -225,6 +230,59 @@ Table 7: properties Quantitative Value
 | **Unit Code**: A quantitative value must specify its unit via a unitCode URI. | `schema:unitCode` | `sh:IRI` | 1..1 |
 
 </div>
+
+# Data Retrieval
+
+The master and reference data underlying this document are available as
+*Linked Data*.
+
+The technological basis for this is the [Resource Description Framework
+(RDF)](https://www.w3.org/TR/rdf11-concepts/), a central standard of the
+World Wide Web Consortium (W3C) for modeling data structures on the web.
+In RDF, information is not represented in classic tables, but as
+interconnected graphs. Each statement consists of a so-called triple
+(subject, predicate, object). This structure enables a machine-readable,
+interoperable, and cross-system unambiguous description of resources and
+their relations to one another.
+
+For the storage and publication of this RDF data,
+[LINDAS](https://lindas.admin.ch/) (Linked Data Service) is used, the
+official Linked Data service of the Swiss Federal Administration. LINDAS
+functions as a so-called *triple store*, a specialized graph database
+optimized for the efficient storage and querying of RDF triples, which
+makes the data publicly available via a standardized interface.
+
+The following chapter provides minimal instructions on how the data can
+be queried and retrieved from LINDAS.
+
+``` rq
+BASE <https://example.org/>
+PREFIX schema: <http://schema.org/>
+SELECT *
+WHERE {
+    ?genre a <Genre> ;
+        schema:name ?name .
+}
+LIMIT 10
+```
+
+The underlying data itself is maintained on GitHub as Turtle files.
+
+``` ttl
+@base <http://example.org/> .
+@prefix genre: <http://example.org/genre/> .
+@prefix schema: <http://schema.org/> .
+
+genre:1 a <Genre> ;
+    schema:name "Rock" .
+
+genre:2 a <Genre> ;
+    schema:name "Jazz" .
+
+genre:3 a <Genre> ;
+    schema:name "Metal" ;
+    schema:partOf genre:1 .
+```
 
 # Safety considerations
 

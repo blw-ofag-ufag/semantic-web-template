@@ -1,6 +1,6 @@
 # Modèle de document Quarto eCH-1234
 
-12 août 2026
+13 août 2026
 
 - [Remarque](#remarque)
 - [<span class="toc-section-number">1</span>
@@ -26,24 +26,26 @@
     Personne](#sec-personne)
   - [<span class="toc-section-number">3.7</span> Valeur
     quantitative](#sec-valeur-quantitative)
-- [<span class="toc-section-number">4</span> Considérations de
+- [<span class="toc-section-number">4</span> Accès aux
+  données](#accès-aux-données)
+- [<span class="toc-section-number">5</span> Considérations de
   sécurité](#considérations-de-sécurité)
-- [<span class="toc-section-number">5</span> Clause de
+- [<span class="toc-section-number">6</span> Clause de
   non-responsabilité](#clause-de-non-responsabilité)
-- [<span class="toc-section-number">6</span> Droits
+- [<span class="toc-section-number">7</span> Droits
   d’auteur](#droits-dauteur)
-- [<span class="toc-section-number">7</span> Annexe A -
+- [<span class="toc-section-number">8</span> Annexe A -
   Références](#annexe-a---références)
-- [<span class="toc-section-number">8</span> Annexe B - Collaboration &
+- [<span class="toc-section-number">9</span> Annexe B - Collaboration &
   Vérification](#annexe-b---collaboration--vérification)
-- [<span class="toc-section-number">9</span> Annexe C - Abréviations et
+- [<span class="toc-section-number">10</span> Annexe C - Abréviations et
   glossaire](#annexe-c---abréviations-et-glossaire)
-- [<span class="toc-section-number">10</span> Annexe D - Modifications
+- [<span class="toc-section-number">11</span> Annexe D - Modifications
   par rapport à la version
   précédente](#annexe-d---modifications-par-rapport-à-la-version-précédente)
-- [<span class="toc-section-number">11</span> Annexe E - Table des
+- [<span class="toc-section-number">12</span> Annexe E - Table des
   illustrations](#annexe-e---table-des-illustrations)
-- [<span class="toc-section-number">12</span> Annexe F - Liste des
+- [<span class="toc-section-number">13</span> Annexe F - Liste des
   tableaux](#annexe-f---liste-des-tableaux)
 
 # Remarque
@@ -233,6 +235,63 @@ Table 7: propriétés Valeur quantitative
 | **Code d’unité**: Une valeur quantitative doit spécifier son unité via une URI unitCode. | `schema:unitCode` | `sh:IRI` | 1..1 |
 
 </div>
+
+# Accès aux données
+
+Les données de base et de référence qui sous-tendent ce document sont
+disponibles sous forme de *Linked Data*.
+
+La base technologique de cette approche est le [Resource Description
+Framework (RDF)](https://www.w3.org/TR/rdf11-concepts/), un standard
+central du World Wide Web Consortium (W3C) pour la modélisation des
+structures de données sur le Web. En RDF, les informations ne sont pas
+représentées dans des tableaux classiques, mais sous forme de graphes
+interconnectés. Chaque déclaration est constituée de ce que l’on appelle
+un triplet (sujet, prédicat, objet). Cette structure permet une
+description des ressources et de leurs relations mutuelles qui soit
+lisible par machine, interopérable et univoque à travers différents
+systèmes.
+
+Pour le stockage et la publication de ces données RDF, on utilise
+[LINDAS](https://lindas.admin.ch/) (Linked Data Service), le service
+officiel de Linked Data de l’administration fédérale suisse. LINDAS fait
+office de *Triple Store*, une base de données orientée graphe
+spécialisée et optimisée pour le stockage et l’interrogation efficaces
+de triplets RDF, qui met les données publiquement à disposition via une
+interface standardisée.
+
+Le chapitre suivant fournit des instructions minimales sur la façon dont
+les données peuvent être interrogées et extraites de LINDAS.
+
+``` rq
+BASE <https://example.org/>
+PREFIX schema: <http://schema.org/>
+SELECT *
+WHERE {
+    ?genre a <Genre> ;
+        schema:name ?name .
+}
+LIMIT 10
+```
+
+Les données sous-jacentes elles-mêmes sont gérées sur GitHub sous forme
+de fichiers Turtle.
+
+``` ttl
+@base <http://example.org/> .
+@prefix genre: <http://example.org/genre/> .
+@prefix schema: <http://schema.org/> .
+
+genre:1 a <Genre> ;
+    schema:name "Rock" .
+
+genre:2 a <Genre> ;
+    schema:name "Jazz" .
+
+genre:3 a <Genre> ;
+    schema:name "Metal" ;
+    schema:partOf genre:1 .
+```
 
 # Considérations de sécurité
 

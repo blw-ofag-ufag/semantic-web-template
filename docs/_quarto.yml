@@ -63,9 +63,6 @@ format:
     section-numbering: 1.1.1
     mainfont: Nimbus Sans
     fontsize: 12pt
-    margin:
-      x: 2.5cm
-      y: 3.5cm
     syntax-definitions:
      - assets/sparql.xml
      - assets/turtle.xml

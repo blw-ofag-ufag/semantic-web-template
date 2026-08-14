@@ -5,7 +5,7 @@
   abstract: none,
   abstract-title: none,
   cols: 1,
-  margin: (x: 1.25in, y: 1.25in),
+  margin: (x: 2.5cm, y: 3.5cm),
   paper: "us-letter",
   lang: "en",
   region: "US",
@@ -40,17 +40,13 @@
   )
 
   // Wire up the mainfont, fontsize, and language passed from Quarto's YAML
-  if font != none and font != () {
-    set text(font: font, size: fontsize, lang: lang, region: region)
-  } else {
-    set text(size: fontsize, lang: lang, region: region)
-  }
+  set text(size: fontsize, lang: lang, region: region)
+  set text(font: font) if font != none and font != ()
+  
   set par(leading: 0.8em)
   
   // Wire up section-numbering passed from Quarto's YAML
-  if sectionnumbering != none {
-    set heading(numbering: sectionnumbering)
-  }
+  set heading(numbering: sectionnumbering) if sectionnumbering != none
   
   show heading.where(level: 1): it => {
     colbreak(weak: true)
@@ -77,7 +73,7 @@
     breakable: true,
     it
   )
-  
+
   // Render Title
   if title != none {
     align(center)[
@@ -107,7 +103,7 @@
     }
     
     // Abstract formatting
-    block(text(size: fontsize, style: "italic", abstract))
+    block(text(size: fontsize, abstract))
   }
 
   // Render Table of Contents (Standalone page)

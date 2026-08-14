@@ -55,6 +55,8 @@ format:
     reference-doc: https://s.zazuko.com/MHXTkQ
     link-citations: true
   typst:
+    template-partials:
+      - assets/typst-template.typ
     toc: true
     toc-depth: 3
     number-sections: true
@@ -64,8 +66,6 @@ format:
     margin:
       x: 2.5cm
       y: 3.5cm
-    include-in-header: assets/typst-header.typ
-    include-before-body: assets/typst-before-body.typ
     syntax-definitions:
      - assets/sparql.xml
      - assets/turtle.xml

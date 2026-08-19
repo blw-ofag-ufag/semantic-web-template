@@ -88,17 +88,17 @@ Die von den Fachgruppen erarbeiteten Standards dürfen unter Nennung des jeweili
 eCH-Standards sind vollständig dokumentiert und frei von lizenz- und/oder patentrechtlichen Einschränkungen. Die dazugehörige Dokumentation kann kostenlos angefordert werden.
 Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, nicht aber für Standards oder Produkte Dritter, die auf eCH-Standards verweisen. Die Standards enthalten die entsprechenden Hinweise auf Rechte Dritter.
 
-# Anhang A - Referenzen {.appendix}
+# Anhang A - Referenzen {.appendix .unnumbered}
 
 ::: {#refs}
 :::
 
-# Anhang B - Mitwirkung und Prüfung {.appendix}
+# Anhang B - Mitwirkung und Prüfung {.appendix .unnumbered}
 
-# Anhang C - Abkürzungen und Glossar {.appendix}
+# Anhang C - Abkürzungen und Glossar {.appendix .unnumbered}
 
-# Anhang D - Änderungen gegenüber der Vorversion {.appendix}
+# Anhang D - Änderungen gegenüber der Vorversion {.appendix .unnumbered}
 
-# Anhang E - Abbildungsverzeichnis {.appendix}
+# Anhang E - Abbildungsverzeichnis {.appendix .unnumbered}
 
-# Anhang F - Tabellenverzeichnis {.appendix}
+# Anhang F - Tabellenverzeichnis {.appendix .unnumbered}

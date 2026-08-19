@@ -88,17 +88,17 @@ Les standards élaborés par les groupes d'experts peuvent être utilisés, diff
 Les standards eCH sont entièrement documentés et libres de toute restriction de droit de licence et/ou de brevet. La documentation correspondante peut être demandée gratuitement.
 Ces dispositions ne s'appliquent toutefois qu'aux standards élaborés par eCH, et non aux standards ou produits de tiers qui font référence aux standards eCH. Les standards contiennent les références correspondantes aux droits de tiers.
 
-# Annexe A - Références {.appendix}
+# Annexe A - Références {.appendix .unnumbered}
 
 ::: {#refs}
 :::
 
-# Annexe B - Collaboration et Vérification {.appendix}
+# Annexe B - Collaboration et Vérification {.appendix .unnumbered}
 
-# Annexe C - Abréviations et glossaire {.appendix}
+# Annexe C - Abréviations et glossaire {.appendix .unnumbered}
 
-# Annexe D - Modifications par rapport à la version précédente {.appendix}
+# Annexe D - Modifications par rapport à la version précédente {.appendix .unnumbered}
 
-# Annexe E - Table des illustrations {.appendix}
+# Annexe E - Table des illustrations {.appendix .unnumbered}
 
-# Annexe F - Liste des tableaux {.appendix}
+# Annexe F - Liste des tableaux {.appendix .unnumbered}

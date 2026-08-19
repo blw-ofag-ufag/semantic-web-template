@@ -88,17 +88,17 @@ The standards prepared by the technical units can be used, distributed and devel
 eCH-standards are fully documented and free of any restrictions of licence and/or patent law. The associated documentation can be requested for free.
 These provisions shall apply to the standards prepared by eCH only, however, not to any standards or products of third parties which include reference to eCH-standards. The standards include the relevant references to third party rights.
 
-# Annex A - References {.appendix}
+# Annex A - References {.appendix .unnumbered}
 
 ::: {#refs}
 :::
 
-# Annex B - Cooperation and Verification {.appendix}
+# Annex B - Cooperation and Verification {.appendix .unnumbered}
 
-# Annex C - Abbreviations and Glossary {.appendix}
+# Annex C - Abbreviations and Glossary {.appendix .unnumbered}
 
-# Annex D - Changes in comparison to previous version {.appendix}
+# Annex D - Changes in comparison to previous version {.appendix .unnumbered}
 
-# Annex E - Table of figures {.appendix}
+# Annex E - Table of figures {.appendix .unnumbered}
 
-# Annex F - Table of tables {.appendix}
+# Annex F - Table of tables {.appendix .unnumbered}

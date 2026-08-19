@@ -64,7 +64,15 @@
   show footnote.entry: set text(size: 10pt)
   show link: set text(fill: rgb("#D00D28"))
   
-  set table(fill: (col, row) => if calc.even(row) { rgb("f2f2f2") } else { white })
+  set table(
+    fill: (col, row) => if calc.even(row) { rgb("f2f2f2") } else { white },
+    stroke: (x, y) => (
+      left: none,
+      right: none,
+      top: if y == 0 { none } else { 0.5pt + black },
+      bottom: none,
+    )
+  )
   show table.cell.where(y: 0): set text(weight: "bold")
   show table: it => block(
     stroke: (top: 1pt + black, bottom: 1pt + black),

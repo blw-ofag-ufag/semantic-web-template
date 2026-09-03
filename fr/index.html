@@ -100,7 +100,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d1f9d6778f1c126e43da7fea03df6f67.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2b00583592e815700529758077e730d0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -682,7 +682,7 @@ Table&nbsp;7: propriétés Valeur quantitative
 <section id="accès-aux-données" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Accès aux données</h1>
 <p>Les données de base et de référence qui sous-tendent ce document sont disponibles sous forme de <em>Linked Data</em>.</p>
-<p>La base technologique de cette approche est le <a href="https://www.w3.org/TR/rdf11-concepts/">Resource Description Framework (RDF)</a>, un standard central du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web. En RDF, les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés. Chaque déclaration est constituée de ce que l’on appelle un triplet (sujet, prédicat, objet). Cette structure permet une description des ressources et de leurs relations mutuelles qui soit lisible par machine, interopérable et univoque à travers différents systèmes.</p>
+<p>La base technologique de cette approche est le Resource Description Framework <span class="citation" data-cites="cyganiak2014rdf11">(RDF, <a href="#ref-cyganiak2014rdf11" role="doc-biblioref">Cyganiak et al. 2014</a>)</span>, un standard central du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web. En RDF, les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés. Chaque déclaration est constituée de ce que l’on appelle un triplet (sujet, prédicat, objet). Cette structure permet une description des ressources et de leurs relations mutuelles qui soit lisible par machine, interopérable et univoque à travers différents systèmes.</p>
 <p>Pour le stockage et la publication de ces données RDF, on utilise <a href="https://lindas.admin.ch/">LINDAS</a> (Linked Data Service), le service officiel de Linked Data de l’administration fédérale suisse. LINDAS fait office de <em>Triple Store</em>, une base de données orientée graphe spécialisée et optimisée pour le stockage et l’interrogation efficaces de triplets RDF, qui met les données publiquement à disposition via une interface standardisée.</p>
 <p>Le chapitre suivant fournit des instructions minimales sur la façon dont les données peuvent être interrogées et extraites de LINDAS.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rq code-with-copy"><code class="sourceCode sparql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">BASE</span> <span class="st">&lt;https://example.org/&gt;</span></span>
@@ -735,11 +735,14 @@ Table&nbsp;7: propriétés Valeur quantitative
 <div id="quarto-appendix" class="default"><section id="annexe-a---références" class="level1 appendix" data-number="8"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">8</span> Annexe A - Références</h2><div class="quarto-appendix-contents">
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-cyganiak2014rdf11" class="csl-entry" role="listitem">
+Cyganiak, Richard, David Wood, et Markus Lanthaler. 2014. <em><span>RDF</span> 1.1 Concepts and Abstract Syntax</em>. W3C Recommendation. World Wide Web Consortium (W3C). <a href="https://www.w3.org/TR/rdf11-concepts/">https://www.w3.org/TR/rdf11-concepts/</a>.
+</div>
 <div id="ref-glimm2014hermit" class="csl-entry" role="listitem">
 Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, et Zhe Wang. 2014. <span>«&nbsp;HermiT: an OWL 2 reasoner&nbsp;»</span>. <em>Journal of automated reasoning</em> 53 (3): 245‑69.
 </div>
 <div id="ref-jackson2019robot" class="csl-entry" role="listitem">
-Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris, Christopher J Mungall, et James A Overton. 2019. <span>«&nbsp;ROBOT: a tool for automating ontology workflows&nbsp;»</span>. <em>BMC bioinformatics</em> 20 (1): 407.
+Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris, Christopher J Mungall, et James A Overton. 2019. <span>«&nbsp;ROBOT: a tool for automating ontology workflows&nbsp;»</span>. <em>BMC bioinformatics</em> 20 (1): 407. <a href="https://doi.org/10.1186/s12859-019-3002-3">https://doi.org/10.1186/s12859-019-3002-3</a>.
 </div>
 </div>
 </div></section><section id="annexe-b---collaboration-et-vérification" class="level1 appendix" data-number="9"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">9</span> Annexe B - Collaboration et Vérification</h2><div class="quarto-appendix-contents">

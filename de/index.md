@@ -241,15 +241,14 @@ Tabelle 7: Eigenschaften Rechnung
 Die diesem Dokument zugrundeliegenden Master- und Referenzdaten sind als
 *Linked Data* verfügbar.
 
-Die technologische Basis dafür bildet das [Resource Description
-Framework (RDF)](https://www.w3.org/TR/rdf11-concepts/), ein zentraler
-Standard des World Wide Web Consortiums (W3C) zur Modellierung von
-Datenstrukturen im Web. In RDF werden Informationen nicht in klassischen
-Tabellen, sondern als vernetzte Graphen abgebildet. Jede Aussage besteht
-dabei aus einem sogenannten Triple (Subjekt, Prädikat, Objekt). Diese
-Struktur ermöglicht eine maschinenlesbare, interoperable und
-systemübergreifend eindeutige Beschreibung von Ressourcen und deren
-Relationen zueinander.
+Die technologische Basis dafür bildet das Resource Description Framework
+(RDF, Cyganiak u. a. 2014), ein zentraler Standard des World Wide Web
+Consortiums (W3C) zur Modellierung von Datenstrukturen im Web. In RDF
+werden Informationen nicht in klassischen Tabellen, sondern als
+vernetzte Graphen abgebildet. Jede Aussage besteht dabei aus einem
+sogenannten Triple (Subjekt, Prädikat, Objekt). Diese Struktur
+ermöglicht eine maschinenlesbare, interoperable und systemübergreifend
+eindeutige Beschreibung von Ressourcen und deren Relationen zueinander.
 
 Für die Speicherung und Publikation dieser RDF-Daten wird
 [LINDAS](https://lindas.admin.ch/) (Linked Data Service) genutzt, der
@@ -351,6 +350,14 @@ Standards enthalten die entsprechenden Hinweise auf Rechte Dritter.
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 
+<div id="ref-cyganiak2014rdf11" class="csl-entry">
+
+Cyganiak, Richard, David Wood, und Markus Lanthaler. 2014. *RDF 1.1
+Concepts and Abstract Syntax*. W3C Recommendation. World Wide Web
+Consortium (W3C). <https://www.w3.org/TR/rdf11-concepts/>.
+
+</div>
+
 <div id="ref-glimm2014hermit" class="csl-entry">
 
 Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, und Zhe Wang.
@@ -364,6 +371,7 @@ Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, und Zhe Wang.
 Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris,
 Christopher J Mungall, und James A Overton. 2019. „ROBOT: a tool for
 automating ontology workflows“. *BMC bioinformatics* 20 (1): 407.
+<https://doi.org/10.1186/s12859-019-3002-3>.
 
 </div>
 

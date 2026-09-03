@@ -101,7 +101,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d1f9d6778f1c126e43da7fea03df6f67.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2b00583592e815700529758077e730d0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -683,7 +683,7 @@ Table&nbsp;7: properties Quantitative Value
 <section id="sec-data-retrieval" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Data Retrieval</h1>
 <p>The master and reference data underlying this document are available as <em>Linked Data</em>.</p>
-<p>The technological basis for this is the <a href="https://www.w3.org/TR/rdf11-concepts/">Resource Description Framework (RDF)</a>, a central standard of the World Wide Web Consortium (W3C) for modeling data structures on the web. In RDF, information is not represented in classic tables, but as interconnected graphs. Each statement consists of a so-called triple (subject, predicate, object). This structure enables a machine-readable, interoperable, and cross-system unambiguous description of resources and their relations to one another.</p>
+<p>The technological basis for this is the Resource Description Framework <span class="citation" data-cites="cyganiak2014rdf11">(RDF, <a href="#ref-cyganiak2014rdf11" role="doc-biblioref">Cyganiak et al. 2014</a>)</span>, a central standard of the World Wide Web Consortium (W3C) for modeling data structures on the web. In RDF, information is not represented in classic tables, but as interconnected graphs. Each statement consists of a so-called triple (subject, predicate, object). This structure enables a machine-readable, interoperable, and cross-system unambiguous description of resources and their relations to one another.</p>
 <p>For the storage and publication of this RDF data, <a href="https://lindas.admin.ch/">LINDAS</a> (Linked Data Service) is used, the official Linked Data service of the Swiss Federal Administration. LINDAS functions as a so-called <em>triple store</em>, a specialized graph database optimized for the efficient storage and querying of RDF triples, which makes the data publicly available via a standardized interface.</p>
 <p>The following chapter provides minimal instructions on how the data can be queried and retrieved from LINDAS.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rq code-with-copy"><code class="sourceCode sparql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">BASE</span> <span class="st">&lt;https://example.org/&gt;</span></span>
@@ -736,11 +736,14 @@ Table&nbsp;7: properties Quantitative Value
 <div id="quarto-appendix" class="default"><section id="annex-a---references" class="level1 appendix" data-number="8"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">8</span> Annex A - References</h2><div class="quarto-appendix-contents">
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-cyganiak2014rdf11" class="csl-entry" role="listitem">
+Cyganiak, Richard, David Wood, and Markus Lanthaler. 2014. <em><span>RDF</span> 1.1 Concepts and Abstract Syntax</em>. W3C Recommendation. World Wide Web Consortium (W3C). <a href="https://www.w3.org/TR/rdf11-concepts/">https://www.w3.org/TR/rdf11-concepts/</a>.
+</div>
 <div id="ref-glimm2014hermit" class="csl-entry" role="listitem">
 Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, and Zhe Wang. 2014. <span>“HermiT: An OWL 2 Reasoner.”</span> <em>Journal of Automated Reasoning</em> 53 (3): 245–69.
 </div>
 <div id="ref-jackson2019robot" class="csl-entry" role="listitem">
-Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris, Christopher J Mungall, and James A Overton. 2019. <span>“ROBOT: A Tool for Automating Ontology Workflows.”</span> <em>BMC Bioinformatics</em> 20 (1): 407.
+Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris, Christopher J Mungall, and James A Overton. 2019. <span>“ROBOT: A Tool for Automating Ontology Workflows.”</span> <em>BMC Bioinformatics</em> 20 (1): 407. <a href="https://doi.org/10.1186/s12859-019-3002-3">https://doi.org/10.1186/s12859-019-3002-3</a>.
 </div>
 </div>
 </div></section><section id="annex-b---cooperation-and-verification" class="level1 appendix" data-number="9"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">9</span> Annex B - Cooperation and Verification</h2><div class="quarto-appendix-contents">

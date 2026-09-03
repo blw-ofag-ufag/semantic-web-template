@@ -239,12 +239,12 @@ Table 7: properties Quantitative Value
 The master and reference data underlying this document are available as
 *Linked Data*.
 
-The technological basis for this is the [Resource Description Framework
-(RDF)](https://www.w3.org/TR/rdf11-concepts/), a central standard of the
-World Wide Web Consortium (W3C) for modeling data structures on the web.
-In RDF, information is not represented in classic tables, but as
-interconnected graphs. Each statement consists of a so-called triple
-(subject, predicate, object). This structure enables a machine-readable,
+The technological basis for this is the Resource Description Framework
+(RDF, Cyganiak et al. 2014), a central standard of the World Wide Web
+Consortium (W3C) for modeling data structures on the web. In RDF,
+information is not represented in classic tables, but as interconnected
+graphs. Each statement consists of a so-called triple (subject,
+predicate, object). This structure enables a machine-readable,
 interoperable, and cross-system unambiguous description of resources and
 their relations to one another.
 
@@ -344,6 +344,14 @@ references to third party rights.
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 
+<div id="ref-cyganiak2014rdf11" class="csl-entry">
+
+Cyganiak, Richard, David Wood, and Markus Lanthaler. 2014. *RDF 1.1
+Concepts and Abstract Syntax*. W3C Recommendation. World Wide Web
+Consortium (W3C). <https://www.w3.org/TR/rdf11-concepts/>.
+
+</div>
+
 <div id="ref-glimm2014hermit" class="csl-entry">
 
 Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, and Zhe Wang.
@@ -357,6 +365,7 @@ Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, and Zhe Wang.
 Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris,
 Christopher J Mungall, and James A Overton. 2019. “ROBOT: A Tool for
 Automating Ontology Workflows.” *BMC Bioinformatics* 20 (1): 407.
+<https://doi.org/10.1186/s12859-019-3002-3>.
 
 </div>
 

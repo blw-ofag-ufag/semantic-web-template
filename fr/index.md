@@ -243,16 +243,15 @@ Table 7: propriétés Valeur quantitative
 Les données de base et de référence qui sous-tendent ce document sont
 disponibles sous forme de *Linked Data*.
 
-La base technologique de cette approche est le [Resource Description
-Framework (RDF)](https://www.w3.org/TR/rdf11-concepts/), un standard
-central du World Wide Web Consortium (W3C) pour la modélisation des
-structures de données sur le Web. En RDF, les informations ne sont pas
-représentées dans des tableaux classiques, mais sous forme de graphes
-interconnectés. Chaque déclaration est constituée de ce que l’on appelle
-un triplet (sujet, prédicat, objet). Cette structure permet une
-description des ressources et de leurs relations mutuelles qui soit
-lisible par machine, interopérable et univoque à travers différents
-systèmes.
+La base technologique de cette approche est le Resource Description
+Framework (RDF, Cyganiak et al. 2014), un standard central du World Wide
+Web Consortium (W3C) pour la modélisation des structures de données sur
+le Web. En RDF, les informations ne sont pas représentées dans des
+tableaux classiques, mais sous forme de graphes interconnectés. Chaque
+déclaration est constituée de ce que l’on appelle un triplet (sujet,
+prédicat, objet). Cette structure permet une description des ressources
+et de leurs relations mutuelles qui soit lisible par machine,
+interopérable et univoque à travers différents systèmes.
 
 Pour le stockage et la publication de ces données RDF, on utilise
 [LINDAS](https://lindas.admin.ch/) (Linked Data Service), le service
@@ -356,6 +355,14 @@ tiers.
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 
+<div id="ref-cyganiak2014rdf11" class="csl-entry">
+
+Cyganiak, Richard, David Wood, et Markus Lanthaler. 2014. *RDF 1.1
+Concepts and Abstract Syntax*. W3C Recommendation. World Wide Web
+Consortium (W3C). <https://www.w3.org/TR/rdf11-concepts/>.
+
+</div>
+
 <div id="ref-glimm2014hermit" class="csl-entry">
 
 Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, et Zhe Wang.
@@ -369,6 +376,7 @@ Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, et Zhe Wang.
 Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris,
 Christopher J Mungall, et James A Overton. 2019. « ROBOT: a tool for
 automating ontology workflows ». *BMC bioinformatics* 20 (1): 407.
+<https://doi.org/10.1186/s12859-019-3002-3>.
 
 </div>
 

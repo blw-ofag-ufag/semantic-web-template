@@ -100,7 +100,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-63180c5dda01c187c33bc16bc49fe53e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2b00583592e815700529758077e730d0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -209,13 +209,13 @@ div.csl-indent {
   <li><a href="#technische-hinweise" id="toc-technische-hinweise" class="nav-link" data-scroll-target="#technische-hinweise"><span class="header-section-number">2</span> Technische Hinweise</a></li>
   <li><a href="#datenmodell" id="toc-datenmodell" class="nav-link" data-scroll-target="#datenmodell"><span class="header-section-number">3</span> Datenmodell</a>
   <ul class="collapse">
-  <li><a href="#sec-genre" id="toc-sec-genre" class="nav-link" data-scroll-target="#sec-genre"><span class="header-section-number">3.1</span> Genre</a></li>
-  <li><a href="#sec-musikalbum" id="toc-sec-musikalbum" class="nav-link" data-scroll-target="#sec-musikalbum"><span class="header-section-number">3.2</span> Musikalbum</a></li>
-  <li><a href="#sec-musikaufnahme" id="toc-sec-musikaufnahme" class="nav-link" data-scroll-target="#sec-musikaufnahme"><span class="header-section-number">3.3</span> Musikaufnahme</a></li>
-  <li><a href="#sec-organisation" id="toc-sec-organisation" class="nav-link" data-scroll-target="#sec-organisation"><span class="header-section-number">3.4</span> Organisation</a></li>
-  <li><a href="#sec-person" id="toc-sec-person" class="nav-link" data-scroll-target="#sec-person"><span class="header-section-number">3.5</span> Person</a></li>
-  <li><a href="#sec-quantitativer-wert" id="toc-sec-quantitativer-wert" class="nav-link" data-scroll-target="#sec-quantitativer-wert"><span class="header-section-number">3.6</span> Quantitativer Wert</a></li>
-  <li><a href="#sec-rechnung" id="toc-sec-rechnung" class="nav-link" data-scroll-target="#sec-rechnung"><span class="header-section-number">3.7</span> Rechnung</a></li>
+  <li><a href="#sec-nodeshape-genreshape" id="toc-sec-nodeshape-genreshape" class="nav-link" data-scroll-target="#sec-nodeshape-genreshape"><span class="header-section-number">3.1</span> Genre</a></li>
+  <li><a href="#sec-nodeshape-musicalbumshape" id="toc-sec-nodeshape-musicalbumshape" class="nav-link" data-scroll-target="#sec-nodeshape-musicalbumshape"><span class="header-section-number">3.2</span> Musikalbum</a></li>
+  <li><a href="#sec-nodeshape-trackshape" id="toc-sec-nodeshape-trackshape" class="nav-link" data-scroll-target="#sec-nodeshape-trackshape"><span class="header-section-number">3.3</span> Musikaufnahme</a></li>
+  <li><a href="#sec-nodeshape-organisationshape" id="toc-sec-nodeshape-organisationshape" class="nav-link" data-scroll-target="#sec-nodeshape-organisationshape"><span class="header-section-number">3.4</span> Organisation</a></li>
+  <li><a href="#sec-nodeshape-personshape" id="toc-sec-nodeshape-personshape" class="nav-link" data-scroll-target="#sec-nodeshape-personshape"><span class="header-section-number">3.5</span> Person</a></li>
+  <li><a href="#sec-nodeshape-quantitativevalueshape" id="toc-sec-nodeshape-quantitativevalueshape" class="nav-link" data-scroll-target="#sec-nodeshape-quantitativevalueshape"><span class="header-section-number">3.6</span> Quantitativer Wert</a></li>
+  <li><a href="#sec-nodeshape-invoiceshape" id="toc-sec-nodeshape-invoiceshape" class="nav-link" data-scroll-target="#sec-nodeshape-invoiceshape"><span class="header-section-number">3.7</span> Rechnung</a></li>
   </ul></li>
   <li><a href="#datenbezug" id="toc-datenbezug" class="nav-link" data-scroll-target="#datenbezug"><span class="header-section-number">4</span> Datenbezug</a></li>
   <li><a href="#sicherheitsaspekte" id="toc-sicherheitsaspekte" class="nav-link" data-scroll-target="#sicherheitsaspekte"><span class="header-section-number">5</span> Sicherheitsaspekte</a></li>
@@ -246,7 +246,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">13. August 2026</p>
+      <p class="date">3. September 2026</p>
     </div>
   </div>
   
@@ -304,16 +304,16 @@ Abbildung&nbsp;1: Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das 
 </section>
 <section id="datenmodell" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Datenmodell</h1>
-<section id="sec-genre" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="sec-genre"><span class="header-section-number">3.1</span> Genre</h2>
+<section id="sec-nodeshape-genreshape" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-nodeshape-genreshape"><span class="header-section-number">3.1</span> Genre</h2>
 <p>Eine musikalische Kategorie im Chinook-Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>:Genre</code></p>
-<div id="tbl-genre" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
+<div id="tbl-nodeshape-genreshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-genre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-genreshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabelle&nbsp;1: Eigenschaften Genre
 </figcaption>
-<div aria-describedby="tbl-genre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-nodeshape-genreshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
@@ -339,7 +339,7 @@ Tabelle&nbsp;1: Eigenschaften Genre
 <tr class="even">
 <td style="text-align: left;"><strong>Teil von</strong></td>
 <td style="text-align: left;"><code>schema:partOf</code></td>
-<td style="text-align: left;"><a href="#sec-genre"><code>:Genre</code></a> oder <code>sh:IRI</code></td>
+<td style="text-align: left;"><a href="#sec-nodeshape-genreshape"><code>:Genre</code></a> oder <code>sh:IRI</code></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -348,16 +348,16 @@ Tabelle&nbsp;1: Eigenschaften Genre
 </figure>
 </div>
 </section>
-<section id="sec-musikalbum" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="sec-musikalbum"><span class="header-section-number">3.2</span> Musikalbum</h2>
+<section id="sec-nodeshape-musicalbumshape" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-nodeshape-musicalbumshape"><span class="header-section-number">3.2</span> Musikalbum</h2>
 <p>Eine Sammlung von Titeln im Chinook-Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>schema:MusicAlbum</code></p>
-<div id="tbl-musikalbum" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
+<div id="tbl-nodeshape-musicalbumshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-musikalbum-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-musicalbumshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabelle&nbsp;2: Eigenschaften Musikalbum
 </figcaption>
-<div aria-describedby="tbl-musikalbum-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-nodeshape-musicalbumshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
@@ -383,7 +383,7 @@ Tabelle&nbsp;2: Eigenschaften Musikalbum
 <tr class="even">
 <td style="text-align: left;"><strong>Künstler</strong>: Person oder Musikgruppe, die das Album erstellt hat.</td>
 <td style="text-align: left;"><code>schema:byArtist</code></td>
-<td style="text-align: left;"><a href="#sec-person"><code>schema:Person</code></a> oder <code>schema:MusicGroup</code></td>
+<td style="text-align: left;"><a href="#sec-nodeshape-personshape"><code>schema:Person</code></a> oder <code>schema:MusicGroup</code></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -392,16 +392,16 @@ Tabelle&nbsp;2: Eigenschaften Musikalbum
 </figure>
 </div>
 </section>
-<section id="sec-musikaufnahme" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="sec-musikaufnahme"><span class="header-section-number">3.3</span> Musikaufnahme</h2>
+<section id="sec-nodeshape-trackshape" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-nodeshape-trackshape"><span class="header-section-number">3.3</span> Musikaufnahme</h2>
 <p>Ein einzelner Musiktitel im Chinook-Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>schema:MusicRecording</code></p>
-<div id="tbl-musikaufnahme" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
+<div id="tbl-nodeshape-trackshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-musikaufnahme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-trackshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabelle&nbsp;3: Eigenschaften Musikaufnahme
 </figcaption>
-<div aria-describedby="tbl-musikaufnahme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-nodeshape-trackshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
@@ -427,7 +427,7 @@ Tabelle&nbsp;3: Eigenschaften Musikaufnahme
 <tr class="even">
 <td style="text-align: left;"><strong>In Album</strong>: Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören.</td>
 <td style="text-align: left;"><code>schema:inAlbum</code></td>
-<td style="text-align: left;"><a href="#sec-musikalbum"><code>schema:MusicAlbum</code></a></td>
+<td style="text-align: left;"><a href="#sec-nodeshape-musicalbumshape"><code>schema:MusicAlbum</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
@@ -439,19 +439,19 @@ Tabelle&nbsp;3: Eigenschaften Musikaufnahme
 <tr class="even">
 <td style="text-align: left;"><strong>Genre</strong></td>
 <td style="text-align: left;"><code>schema:genre</code></td>
-<td style="text-align: left;"><a href="#sec-genre"><code>:Genre</code></a></td>
+<td style="text-align: left;"><a href="#sec-nodeshape-genreshape"><code>:Genre</code></a></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Dauer</strong>: Die Dauer muss als schema:QuantitativeValue ausgedrückt werden.</td>
 <td style="text-align: left;"><code>schema:duration</code></td>
-<td style="text-align: left;"><a href="#sec-quantitativer-wert"><code>schema:QuantitativeValue</code></a></td>
+<td style="text-align: left;"><a href="#sec-nodeshape-quantitativevalueshape"><code>schema:QuantitativeValue</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Dateigröße</strong></td>
 <td style="text-align: left;"><code>schema:contentSize</code></td>
-<td style="text-align: left;"><a href="#sec-quantitativer-wert"><code>schema:QuantitativeValue</code></a></td>
+<td style="text-align: left;"><a href="#sec-nodeshape-quantitativevalueshape"><code>schema:QuantitativeValue</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -460,16 +460,16 @@ Tabelle&nbsp;3: Eigenschaften Musikaufnahme
 </figure>
 </div>
 </section>
-<section id="sec-organisation" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="sec-organisation"><span class="header-section-number">3.4</span> Organisation</h2>
+<section id="sec-nodeshape-organisationshape" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-nodeshape-organisationshape"><span class="header-section-number">3.4</span> Organisation</h2>
 <p>Ein Unternehmen oder eine Organisation im Chinook-Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>schema:Organisation</code></p>
-<div id="tbl-organisation" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
+<div id="tbl-nodeshape-organisationshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-organisation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-organisationshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabelle&nbsp;4: Eigenschaften Organisation
 </figcaption>
-<div aria-describedby="tbl-organisation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-nodeshape-organisationshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
@@ -498,16 +498,16 @@ Tabelle&nbsp;4: Eigenschaften Organisation
 </figure>
 </div>
 </section>
-<section id="sec-person" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="sec-person"><span class="header-section-number">3.5</span> Person</h2>
+<section id="sec-nodeshape-personshape" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sec-nodeshape-personshape"><span class="header-section-number">3.5</span> Person</h2>
 <p>Jede Person (Mitarbeiter, Kunde oder benutzerdefinierte Person) im Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>schema:Person</code></p>
-<div id="tbl-person" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
+<div id="tbl-nodeshape-personshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-person-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-personshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabelle&nbsp;5: Eigenschaften Person
 </figcaption>
-<div aria-describedby="tbl-person-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-nodeshape-personshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
@@ -557,7 +557,7 @@ Tabelle&nbsp;5: Eigenschaften Person
 <tr class="even">
 <td style="text-align: left;"><strong>Arbeitet für</strong>: Ein Mitarbeiter kann einer anderen Person unterstellt sein.</td>
 <td style="text-align: left;"><code>schema:worksFor</code></td>
-<td style="text-align: left;"><a href="#sec-person"><code>schema:Person</code></a> oder <code>schema:Organization</code></td>
+<td style="text-align: left;"><a href="#sec-nodeshape-personshape"><code>schema:Person</code></a> oder <code>schema:Organization</code></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
@@ -569,7 +569,7 @@ Tabelle&nbsp;5: Eigenschaften Person
 <tr class="even">
 <td style="text-align: left;"><strong>Kennt</strong></td>
 <td style="text-align: left;"><code>schema:knows</code></td>
-<td style="text-align: left;"><a href="#sec-person"><code>schema:Person</code></a></td>
+<td style="text-align: left;"><a href="#sec-nodeshape-personshape"><code>schema:Person</code></a></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
@@ -578,16 +578,16 @@ Tabelle&nbsp;5: Eigenschaften Person
 </figure>
 </div>
 </section>
-<section id="sec-quantitativer-wert" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="sec-quantitativer-wert"><span class="header-section-number">3.6</span> Quantitativer Wert</h2>
+<section id="sec-nodeshape-quantitativevalueshape" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="sec-nodeshape-quantitativevalueshape"><span class="header-section-number">3.6</span> Quantitativer Wert</h2>
 <p>Ein numerischer Wert mit einer dazugehörigen Einheit.</p>
 <p><strong>Zielklasse:</strong> <code>schema:QuantitativeValue</code></p>
-<div id="tbl-quantitativer-wert" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
+<div id="tbl-nodeshape-quantitativevalueshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-quantitativer-wert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-quantitativevalueshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabelle&nbsp;6: Eigenschaften Quantitativer Wert
 </figcaption>
-<div aria-describedby="tbl-quantitativer-wert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-nodeshape-quantitativevalueshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
@@ -622,16 +622,16 @@ Tabelle&nbsp;6: Eigenschaften Quantitativer Wert
 </figure>
 </div>
 </section>
-<section id="sec-rechnung" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="sec-rechnung"><span class="header-section-number">3.7</span> Rechnung</h2>
+<section id="sec-nodeshape-invoiceshape" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="sec-nodeshape-invoiceshape"><span class="header-section-number">3.7</span> Rechnung</h2>
 <p>Ein Kaufbeleg im Chinook-Datensatz.</p>
 <p><strong>Zielklasse:</strong> <code>schema:Invoice</code></p>
-<div id="tbl-rechnung" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
+<div id="tbl-nodeshape-invoiceshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rechnung-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-invoiceshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabelle&nbsp;7: Eigenschaften Rechnung
 </figcaption>
-<div aria-describedby="tbl-rechnung-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-nodeshape-invoiceshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
@@ -651,13 +651,13 @@ Tabelle&nbsp;7: Eigenschaften Rechnung
 <tr class="odd">
 <td style="text-align: left;"><strong>Kunde</strong>: Eine Rechnung muss genau einem Kunden zugeordnet sein.</td>
 <td style="text-align: left;"><code>schema:customer</code></td>
-<td style="text-align: left;"><a href="#sec-person"><code>schema:Person</code></a></td>
+<td style="text-align: left;"><a href="#sec-nodeshape-personshape"><code>schema:Person</code></a></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Fälliger Gesamtbetrag</strong>: Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren.</td>
 <td style="text-align: left;"><code>schema:totalPaymentDue</code></td>
-<td style="text-align: left;"><a href="#sec-quantitativer-wert"><code>schema:QuantitativeValue</code></a></td>
+<td style="text-align: left;"><a href="#sec-nodeshape-quantitativevalueshape"><code>schema:QuantitativeValue</code></a></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">

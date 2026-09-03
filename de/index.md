@@ -1,6 +1,6 @@
 # eCH-1234 Quarto-Dokument als Vorlage
 
-13. August 2026
+3. September 2026
 
 - [Hinweis](#hinweis)
 - [<span class="toc-section-number">1</span> Einleitung](#einleitung)
@@ -12,18 +12,20 @@
 - [<span class="toc-section-number">2</span> Technische
   Hinweise](#technische-hinweise)
 - [<span class="toc-section-number">3</span> Datenmodell](#datenmodell)
-  - [<span class="toc-section-number">3.1</span> Genre](#sec-genre)
+  - [<span class="toc-section-number">3.1</span>
+    Genre](#sec-nodeshape-genreshape)
   - [<span class="toc-section-number">3.2</span>
-    Musikalbum](#sec-musikalbum)
+    Musikalbum](#sec-nodeshape-musicalbumshape)
   - [<span class="toc-section-number">3.3</span>
-    Musikaufnahme](#sec-musikaufnahme)
+    Musikaufnahme](#sec-nodeshape-trackshape)
   - [<span class="toc-section-number">3.4</span>
-    Organisation](#sec-organisation)
-  - [<span class="toc-section-number">3.5</span> Person](#sec-person)
+    Organisation](#sec-nodeshape-organisationshape)
+  - [<span class="toc-section-number">3.5</span>
+    Person](#sec-nodeshape-personshape)
   - [<span class="toc-section-number">3.6</span> Quantitativer
-    Wert](#sec-quantitativer-wert)
+    Wert](#sec-nodeshape-quantitativevalueshape)
   - [<span class="toc-section-number">3.7</span>
-    Rechnung](#sec-rechnung)
+    Rechnung](#sec-nodeshape-invoiceshape)
 - [<span class="toc-section-number">4</span> Datenbezug](#datenbezug)
 - [<span class="toc-section-number">5</span>
   Sicherheitsaspekte](#sicherheitsaspekte)
@@ -109,14 +111,14 @@ Eine musikalische Kategorie im Chinook-Datensatz.
 
 **Zielklasse:** `:Genre`
 
-<div id="tbl-genre">
+<div id="tbl-nodeshape-genreshape">
 
 Tabelle 1: Eigenschaften Genre
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
 | **Name** | `schema:name` |  | 1..1 |
-| **Teil von** | `schema:partOf` | [`:Genre`](#sec-genre) oder `sh:IRI` | 0..\* |
+| **Teil von** | `schema:partOf` | [`:Genre`](#sec-nodeshape-genreshape) oder `sh:IRI` | 0..\* |
 
 </div>
 
@@ -126,14 +128,14 @@ Eine Sammlung von Titeln im Chinook-Datensatz.
 
 **Zielklasse:** `schema:MusicAlbum`
 
-<div id="tbl-musikalbum">
+<div id="tbl-nodeshape-musicalbumshape">
 
 Tabelle 2: Eigenschaften Musikalbum
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
 | **Name**: Jedes Album muss einen Namen haben. | `schema:name` | `xsd:string` | 1..1 |
-| **Künstler**: Person oder Musikgruppe, die das Album erstellt hat. | `schema:byArtist` | [`schema:Person`](#sec-person) oder `schema:MusicGroup` | 0..\* |
+| **Künstler**: Person oder Musikgruppe, die das Album erstellt hat. | `schema:byArtist` | [`schema:Person`](#sec-nodeshape-personshape) oder `schema:MusicGroup` | 0..\* |
 
 </div>
 
@@ -143,18 +145,18 @@ Ein einzelner Musiktitel im Chinook-Datensatz.
 
 **Zielklasse:** `schema:MusicRecording`
 
-<div id="tbl-musikaufnahme">
+<div id="tbl-nodeshape-trackshape">
 
 Tabelle 3: Eigenschaften Musikaufnahme
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
 | **Name**: Jeder Titel muss einen Namen haben. | `schema:name` | `xsd:string` | 1..1 |
-| **In Album**: Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören. | `schema:inAlbum` | [`schema:MusicAlbum`](#sec-musikalbum) | 0..\* |
+| **In Album**: Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören. | `schema:inAlbum` | [`schema:MusicAlbum`](#sec-nodeshape-musicalbumshape) | 0..\* |
 | **Autor**: Die Person oder Gruppe, die den Titel geschrieben hat. | `schema:author` |  | 0..\* |
-| **Genre** | `schema:genre` | [`:Genre`](#sec-genre) | 1..1 |
-| **Dauer**: Die Dauer muss als schema:QuantitativeValue ausgedrückt werden. | `schema:duration` | [`schema:QuantitativeValue`](#sec-quantitativer-wert) | 0..\* |
-| **Dateigröße** | `schema:contentSize` | [`schema:QuantitativeValue`](#sec-quantitativer-wert) | 0..\* |
+| **Genre** | `schema:genre` | [`:Genre`](#sec-nodeshape-genreshape) | 1..1 |
+| **Dauer**: Die Dauer muss als schema:QuantitativeValue ausgedrückt werden. | `schema:duration` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 0..\* |
+| **Dateigröße** | `schema:contentSize` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 0..\* |
 
 </div>
 
@@ -164,7 +166,7 @@ Ein Unternehmen oder eine Organisation im Chinook-Datensatz.
 
 **Zielklasse:** `schema:Organisation`
 
-<div id="tbl-organisation">
+<div id="tbl-nodeshape-organisationshape">
 
 Tabelle 4: Eigenschaften Organisation
 
@@ -181,7 +183,7 @@ Datensatz.
 
 **Zielklasse:** `schema:Person`
 
-<div id="tbl-person">
+<div id="tbl-nodeshape-personshape">
 
 Tabelle 5: Eigenschaften Person
 
@@ -192,9 +194,9 @@ Tabelle 5: Eigenschaften Person
 | **E-Mail-Adresse**: Falls angegeben, muss die E-Mail-Adresse einem Standardformat entsprechen. | `schema:email` | `xsd:string` | 0..\* |
 | **Geburtsdatum**: Eine Person sollte ein gültiges Geburtsdatum haben. | `schema:birthDate` | `xsd:date` | 0..\* |
 | **Adresse** | `schema:address` | `schema:PostalAddress` | 0..\* |
-| **Arbeitet für**: Ein Mitarbeiter kann einer anderen Person unterstellt sein. | `schema:worksFor` | [`schema:Person`](#sec-person) oder `schema:Organization` | 0..\* |
+| **Arbeitet für**: Ein Mitarbeiter kann einer anderen Person unterstellt sein. | `schema:worksFor` | [`schema:Person`](#sec-nodeshape-personshape) oder `schema:Organization` | 0..\* |
 | **Berufsbezeichnung** | `schema:jobTitle` |  | 0..1 |
-| **Kennt** | `schema:knows` | [`schema:Person`](#sec-person) | 0..\* |
+| **Kennt** | `schema:knows` | [`schema:Person`](#sec-nodeshape-personshape) | 0..\* |
 
 </div>
 
@@ -204,7 +206,7 @@ Ein numerischer Wert mit einer dazugehörigen Einheit.
 
 **Zielklasse:** `schema:QuantitativeValue`
 
-<div id="tbl-quantitativer-wert">
+<div id="tbl-nodeshape-quantitativevalueshape">
 
 Tabelle 6: Eigenschaften Quantitativer Wert
 
@@ -221,14 +223,14 @@ Ein Kaufbeleg im Chinook-Datensatz.
 
 **Zielklasse:** `schema:Invoice`
 
-<div id="tbl-rechnung">
+<div id="tbl-nodeshape-invoiceshape">
 
 Tabelle 7: Eigenschaften Rechnung
 
 | Beschreibung | Pfad | Typ | Kardinalität |
 |:---|:---|:---|---:|
-| **Kunde**: Eine Rechnung muss genau einem Kunden zugeordnet sein. | `schema:customer` | [`schema:Person`](#sec-person) | 1..1 |
-| **Fälliger Gesamtbetrag**: Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren. | `schema:totalPaymentDue` | [`schema:QuantitativeValue`](#sec-quantitativer-wert) | 1..1 |
+| **Kunde**: Eine Rechnung muss genau einem Kunden zugeordnet sein. | `schema:customer` | [`schema:Person`](#sec-nodeshape-personshape) | 1..1 |
+| **Fälliger Gesamtbetrag**: Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren. | `schema:totalPaymentDue` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 1..1 |
 | **Enthält**: Eine Rechnung muss mindestens eine Position (OrderItem) enthalten. | `schema:hasPart` | `schema:OrderItem` | 1..\* |
 | **Erstellungsdatum** | `schema:dateCreated` | `xsd:date` | 0..\* |
 

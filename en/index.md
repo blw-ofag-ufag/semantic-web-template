@@ -1,6 +1,6 @@
 # eCH-1234 Template Quarto Document
 
-August 13, 2026
+September 3, 2026
 
 - [Note](#note)
 - [<span class="toc-section-number">1</span>
@@ -14,17 +14,20 @@ August 13, 2026
   notes](#sec-technical-notes)
 - [<span class="toc-section-number">3</span> Data
   Model](#sec-data-model)
-  - [<span class="toc-section-number">3.1</span> Genre](#sec-genre)
-  - [<span class="toc-section-number">3.2</span> Invoice](#sec-invoice)
+  - [<span class="toc-section-number">3.1</span>
+    Genre](#sec-nodeshape-genreshape)
+  - [<span class="toc-section-number">3.2</span>
+    Invoice](#sec-nodeshape-invoiceshape)
   - [<span class="toc-section-number">3.3</span> Music
-    album](#sec-music-album)
+    album](#sec-nodeshape-musicalbumshape)
   - [<span class="toc-section-number">3.4</span> Music
-    Recording](#sec-music-recording)
+    Recording](#sec-nodeshape-trackshape)
   - [<span class="toc-section-number">3.5</span>
-    Organisation](#sec-organisation)
-  - [<span class="toc-section-number">3.6</span> Person](#sec-person)
+    Organisation](#sec-nodeshape-organisationshape)
+  - [<span class="toc-section-number">3.6</span>
+    Person](#sec-nodeshape-personshape)
   - [<span class="toc-section-number">3.7</span> Quantitative
-    Value](#sec-quantitative-value)
+    Value](#sec-nodeshape-quantitativevalueshape)
 - [<span class="toc-section-number">4</span> Data
   Retrieval](#sec-data-retrieval)
 - [<span class="toc-section-number">5</span> Safety
@@ -106,14 +109,14 @@ A musical category in the Chinook dataset.
 
 **Target Class:** `:Genre`
 
-<div id="tbl-genre">
+<div id="tbl-nodeshape-genreshape">
 
 Table 1: properties Genre
 
-| Description | Path            | Type                               | Cardinality |
-|:------------|:----------------|:-----------------------------------|------------:|
-| **Name**    | `schema:name`   |                                    |        1..1 |
-| **Part of** | `schema:partOf` | [`:Genre`](#sec-genre) or `sh:IRI` |       0..\* |
+| Description | Path | Type | Cardinality |
+|:---|:---|:---|---:|
+| **Name** | `schema:name` |  | 1..1 |
+| **Part of** | `schema:partOf` | [`:Genre`](#sec-nodeshape-genreshape) or `sh:IRI` | 0..\* |
 
 </div>
 
@@ -123,14 +126,14 @@ A purchase receipt in the Chinook dataset.
 
 **Target Class:** `schema:Invoice`
 
-<div id="tbl-invoice">
+<div id="tbl-nodeshape-invoiceshape">
 
 Table 2: properties Invoice
 
 | Description | Path | Type | Cardinality |
 |:---|:---|:---|---:|
-| **Customer**: An invoice must be linked to exactly one customer. | `schema:customer` | [`schema:Person`](#sec-person) | 1..1 |
-| **Total payment due**: An invoice must define a total payment due as a schema:QuantitativeValue. | `schema:totalPaymentDue` | [`schema:QuantitativeValue`](#sec-quantitative-value) | 1..1 |
+| **Customer**: An invoice must be linked to exactly one customer. | `schema:customer` | [`schema:Person`](#sec-nodeshape-personshape) | 1..1 |
+| **Total payment due**: An invoice must define a total payment due as a schema:QuantitativeValue. | `schema:totalPaymentDue` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 1..1 |
 | **Has part**: An invoice must have at least one line item (OrderItem). | `schema:hasPart` | `schema:OrderItem` | 1..\* |
 | **Date created** | `schema:dateCreated` | `xsd:date` | 0..\* |
 
@@ -142,14 +145,14 @@ A collection of tracks in the Chinook dataset.
 
 **Target Class:** `schema:MusicAlbum`
 
-<div id="tbl-music-album">
+<div id="tbl-nodeshape-musicalbumshape">
 
 Table 3: properties Music album
 
 | Description | Path | Type | Cardinality |
 |:---|:---|:---|---:|
 | **Name**: Every album must have a name. | `schema:name` | `xsd:string` | 1..1 |
-| **Artist**: Person or music group who created the album. | `schema:byArtist` | [`schema:Person`](#sec-person) or `schema:MusicGroup` | 0..\* |
+| **Artist**: Person or music group who created the album. | `schema:byArtist` | [`schema:Person`](#sec-nodeshape-personshape) or `schema:MusicGroup` | 0..\* |
 
 </div>
 
@@ -159,18 +162,18 @@ A single music track in the Chinook dataset.
 
 **Target Class:** `schema:MusicRecording`
 
-<div id="tbl-music-recording">
+<div id="tbl-nodeshape-trackshape">
 
 Table 4: properties Music Recording
 
 | Description | Path | Type | Cardinality |
 |:---|:---|:---|---:|
 | **Name**: Every track must have a name. | `schema:name` | `xsd:string` | 1..1 |
-| **In Album**: A track can only belong to a valid schema:MusicAlbum. | `schema:inAlbum` | [`schema:MusicAlbum`](#sec-music-album) | 0..\* |
+| **In Album**: A track can only belong to a valid schema:MusicAlbum. | `schema:inAlbum` | [`schema:MusicAlbum`](#sec-nodeshape-musicalbumshape) | 0..\* |
 | **Author**: The person or group who wrote the track. | `schema:author` |  | 0..\* |
-| **Genre** | `schema:genre` | [`:Genre`](#sec-genre) | 1..1 |
-| **Duration**: Track duration must be expressed as a schema:QuantitativeValue. | `schema:duration` | [`schema:QuantitativeValue`](#sec-quantitative-value) | 0..\* |
-| **Content Size** | `schema:contentSize` | [`schema:QuantitativeValue`](#sec-quantitative-value) | 0..\* |
+| **Genre** | `schema:genre` | [`:Genre`](#sec-nodeshape-genreshape) | 1..1 |
+| **Duration**: Track duration must be expressed as a schema:QuantitativeValue. | `schema:duration` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 0..\* |
+| **Content Size** | `schema:contentSize` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 0..\* |
 
 </div>
 
@@ -180,7 +183,7 @@ A company or organization in the Chinook dataset.
 
 **Target Class:** `schema:Organisation`
 
-<div id="tbl-organisation">
+<div id="tbl-nodeshape-organisationshape">
 
 Table 5: properties Organisation
 
@@ -197,7 +200,7 @@ dataset.
 
 **Target Class:** `schema:Person`
 
-<div id="tbl-person">
+<div id="tbl-nodeshape-personshape">
 
 Table 6: properties Person
 
@@ -208,9 +211,9 @@ Table 6: properties Person
 | **Email Address**: If an email is provided, it must follow a standard email format. | `schema:email` | `xsd:string` | 0..\* |
 | **Birth date**: A person should have a valid birth date. | `schema:birthDate` | `xsd:date` | 0..\* |
 | **Address** | `schema:address` | `schema:PostalAddress` | 0..\* |
-| **Works for**: An employee can report to another person. | `schema:worksFor` | [`schema:Person`](#sec-person) or `schema:Organization` | 0..\* |
+| **Works for**: An employee can report to another person. | `schema:worksFor` | [`schema:Person`](#sec-nodeshape-personshape) or `schema:Organization` | 0..\* |
 | **Job title** | `schema:jobTitle` |  | 0..1 |
-| **knows** | `schema:knows` | [`schema:Person`](#sec-person) | 0..\* |
+| **knows** | `schema:knows` | [`schema:Person`](#sec-nodeshape-personshape) | 0..\* |
 
 </div>
 
@@ -220,7 +223,7 @@ A numerical value with an associated unit.
 
 **Target Class:** `schema:QuantitativeValue`
 
-<div id="tbl-quantitative-value">
+<div id="tbl-nodeshape-quantitativevalueshape">
 
 Table 7: properties Quantitative Value
 

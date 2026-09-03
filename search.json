@@ -28,50 +28,50 @@
     "text": "1.3 We can have sub-headings\nAnd write some text.\n\n1.3.1 Also sub-sub-headings\nAnd write some more text. Maybe even with a pretty image.\n\n\n\n\n\n\nFigure 1: Always add some text to describe what the image shows.\n\n\n\nWhen displaying diagrams, try to write them in Mermaid JS straight away; this makes changes in the future or translations straightforward."
   },
   {
-    "objectID": "en/index.html#sec-genre",
-    "href": "en/index.html#sec-genre",
+    "objectID": "en/index.html#sec-nodeshape-genreshape",
+    "href": "en/index.html#sec-nodeshape-genreshape",
     "title": "eCH-1234 Template Quarto Document",
     "section": "3.1 Genre",
     "text": "3.1 Genre\nA musical category in the Chinook dataset.\nTarget Class: :Genre\n\n\n\nTable 1: properties Genre\n\n\n\n\n\n\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nName\nschema:name\n\n1..1\n\n\nPart of\nschema:partOf\n:Genre or sh:IRI\n0..*"
   },
   {
-    "objectID": "en/index.html#sec-invoice",
-    "href": "en/index.html#sec-invoice",
+    "objectID": "en/index.html#sec-nodeshape-invoiceshape",
+    "href": "en/index.html#sec-nodeshape-invoiceshape",
     "title": "eCH-1234 Template Quarto Document",
     "section": "3.2 Invoice",
     "text": "3.2 Invoice\nA purchase receipt in the Chinook dataset.\nTarget Class: schema:Invoice\n\n\n\nTable 2: properties Invoice\n\n\n\n\n\n\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nCustomer: An invoice must be linked to exactly one customer.\nschema:customer\nschema:Person\n1..1\n\n\nTotal payment due: An invoice must define a total payment due as a schema:QuantitativeValue.\nschema:totalPaymentDue\nschema:QuantitativeValue\n1..1\n\n\nHas part: An invoice must have at least one line item (OrderItem).\nschema:hasPart\nschema:OrderItem\n1..*\n\n\nDate created\nschema:dateCreated\nxsd:date\n0..*"
   },
   {
-    "objectID": "en/index.html#sec-music-album",
-    "href": "en/index.html#sec-music-album",
+    "objectID": "en/index.html#sec-nodeshape-musicalbumshape",
+    "href": "en/index.html#sec-nodeshape-musicalbumshape",
     "title": "eCH-1234 Template Quarto Document",
     "section": "3.3 Music album",
     "text": "3.3 Music album\nA collection of tracks in the Chinook dataset.\nTarget Class: schema:MusicAlbum\n\n\n\nTable 3: properties Music album\n\n\n\n\n\n\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nName: Every album must have a name.\nschema:name\nxsd:string\n1..1\n\n\nArtist: Person or music group who created the album.\nschema:byArtist\nschema:Person or schema:MusicGroup\n0..*"
   },
   {
-    "objectID": "en/index.html#sec-music-recording",
-    "href": "en/index.html#sec-music-recording",
+    "objectID": "en/index.html#sec-nodeshape-trackshape",
+    "href": "en/index.html#sec-nodeshape-trackshape",
     "title": "eCH-1234 Template Quarto Document",
     "section": "3.4 Music Recording",
     "text": "3.4 Music Recording\nA single music track in the Chinook dataset.\nTarget Class: schema:MusicRecording\n\n\n\nTable 4: properties Music Recording\n\n\n\n\n\n\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nName: Every track must have a name.\nschema:name\nxsd:string\n1..1\n\n\nIn Album: A track can only belong to a valid schema:MusicAlbum.\nschema:inAlbum\nschema:MusicAlbum\n0..*\n\n\nAuthor: The person or group who wrote the track.\nschema:author\n\n0..*\n\n\nGenre\nschema:genre\n:Genre\n1..1\n\n\nDuration: Track duration must be expressed as a schema:QuantitativeValue.\nschema:duration\nschema:QuantitativeValue\n0..*\n\n\nContent Size\nschema:contentSize\nschema:QuantitativeValue\n0..*"
   },
   {
-    "objectID": "en/index.html#sec-organisation",
-    "href": "en/index.html#sec-organisation",
+    "objectID": "en/index.html#sec-nodeshape-organisationshape",
+    "href": "en/index.html#sec-nodeshape-organisationshape",
     "title": "eCH-1234 Template Quarto Document",
     "section": "3.5 Organisation",
     "text": "3.5 Organisation\nA company or organization in the Chinook dataset.\nTarget Class: schema:Organisation\n\n\n\nTable 5: properties Organisation\n\n\n\n\n\n\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nName: Every organisation must have a name.\nschema:name\nxsd:string\n1..1"
   },
   {
-    "objectID": "en/index.html#sec-person",
-    "href": "en/index.html#sec-person",
+    "objectID": "en/index.html#sec-nodeshape-personshape",
+    "href": "en/index.html#sec-nodeshape-personshape",
     "title": "eCH-1234 Template Quarto Document",
     "section": "3.6 Person",
     "text": "3.6 Person\nAny person (employee, customer, or custom person) present in the dataset.\nTarget Class: schema:Person\n\n\n\nTable 6: properties Person\n\n\n\n\n\n\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nGiven Name: Every person must have a given name.\nschema:givenName\nxsd:string\n1..1\n\n\nFamily Name: Every person must have a family name.\nschema:familyName\nxsd:string\n1..1\n\n\nEmail Address: If an email is provided, it must follow a standard email format.\nschema:email\nxsd:string\n0..*\n\n\nBirth date: A person should have a valid birth date.\nschema:birthDate\nxsd:date\n0..*\n\n\nAddress\nschema:address\nschema:PostalAddress\n0..*\n\n\nWorks for: An employee can report to another person.\nschema:worksFor\nschema:Person or schema:Organization\n0..*\n\n\nJob title\nschema:jobTitle\n\n0..1\n\n\nknows\nschema:knows\nschema:Person\n0..*"
   },
   {
-    "objectID": "en/index.html#sec-quantitative-value",
-    "href": "en/index.html#sec-quantitative-value",
+    "objectID": "en/index.html#sec-nodeshape-quantitativevalueshape",
+    "href": "en/index.html#sec-nodeshape-quantitativevalueshape",
     "title": "eCH-1234 Template Quarto Document",
     "section": "3.7 Quantitative Value",
     "text": "3.7 Quantitative Value\nA numerical value with an associated unit.\nTarget Class: schema:QuantitativeValue\n\n\n\nTable 7: properties Quantitative Value\n\n\n\n\n\n\n\n\n\n\n\nDescription\nPath\nType\nCardinality\n\n\n\n\nValue: A quantitative value must have exactly one numeric value.\nschema:value\n\n1..1\n\n\nUnit Code: A quantitative value must specify its unit via a unitCode URI.\nschema:unitCode\nsh:IRI\n1..1"
@@ -105,50 +105,50 @@
     "text": "1.3 Wir können Untertitel haben\nUnd etwas Text schreiben.\n\n1.3.1 Auch Unter-Unterüberschriften\nUnd noch mehr Text schreiben. Vielleicht sogar mit einem schönen Bild.\n\n\n\n\n\n\nAbbildung 1: Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt.\n\n\n\nBei der Darstellung von Diagrammen sollte versucht werden, diese direkt in Mermaid JS zu erstellen; dies macht zukünftige Änderungen oder Übersetzungen sehr einfach."
   },
   {
-    "objectID": "de/index.html#sec-genre",
-    "href": "de/index.html#sec-genre",
+    "objectID": "de/index.html#sec-nodeshape-genreshape",
+    "href": "de/index.html#sec-nodeshape-genreshape",
     "title": "eCH-1234 Quarto-Dokument als Vorlage",
     "section": "3.1 Genre",
     "text": "3.1 Genre\nEine musikalische Kategorie im Chinook-Datensatz.\nZielklasse: :Genre\n\n\n\nTabelle 1: Eigenschaften Genre\n\n\n\n\n\n\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nName\nschema:name\n\n1..1\n\n\nTeil von\nschema:partOf\n:Genre oder sh:IRI\n0..*"
   },
   {
-    "objectID": "de/index.html#sec-musikalbum",
-    "href": "de/index.html#sec-musikalbum",
+    "objectID": "de/index.html#sec-nodeshape-musicalbumshape",
+    "href": "de/index.html#sec-nodeshape-musicalbumshape",
     "title": "eCH-1234 Quarto-Dokument als Vorlage",
     "section": "3.2 Musikalbum",
     "text": "3.2 Musikalbum\nEine Sammlung von Titeln im Chinook-Datensatz.\nZielklasse: schema:MusicAlbum\n\n\n\nTabelle 2: Eigenschaften Musikalbum\n\n\n\n\n\n\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nName: Jedes Album muss einen Namen haben.\nschema:name\nxsd:string\n1..1\n\n\nKünstler: Person oder Musikgruppe, die das Album erstellt hat.\nschema:byArtist\nschema:Person oder schema:MusicGroup\n0..*"
   },
   {
-    "objectID": "de/index.html#sec-musikaufnahme",
-    "href": "de/index.html#sec-musikaufnahme",
+    "objectID": "de/index.html#sec-nodeshape-trackshape",
+    "href": "de/index.html#sec-nodeshape-trackshape",
     "title": "eCH-1234 Quarto-Dokument als Vorlage",
     "section": "3.3 Musikaufnahme",
     "text": "3.3 Musikaufnahme\nEin einzelner Musiktitel im Chinook-Datensatz.\nZielklasse: schema:MusicRecording\n\n\n\nTabelle 3: Eigenschaften Musikaufnahme\n\n\n\n\n\n\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nName: Jeder Titel muss einen Namen haben.\nschema:name\nxsd:string\n1..1\n\n\nIn Album: Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören.\nschema:inAlbum\nschema:MusicAlbum\n0..*\n\n\nAutor: Die Person oder Gruppe, die den Titel geschrieben hat.\nschema:author\n\n0..*\n\n\nGenre\nschema:genre\n:Genre\n1..1\n\n\nDauer: Die Dauer muss als schema:QuantitativeValue ausgedrückt werden.\nschema:duration\nschema:QuantitativeValue\n0..*\n\n\nDateigröße\nschema:contentSize\nschema:QuantitativeValue\n0..*"
   },
   {
-    "objectID": "de/index.html#sec-organisation",
-    "href": "de/index.html#sec-organisation",
+    "objectID": "de/index.html#sec-nodeshape-organisationshape",
+    "href": "de/index.html#sec-nodeshape-organisationshape",
     "title": "eCH-1234 Quarto-Dokument als Vorlage",
     "section": "3.4 Organisation",
     "text": "3.4 Organisation\nEin Unternehmen oder eine Organisation im Chinook-Datensatz.\nZielklasse: schema:Organisation\n\n\n\nTabelle 4: Eigenschaften Organisation\n\n\n\n\n\n\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nName: Jede Organisation muss einen Namen haben.\nschema:name\nxsd:string\n1..1"
   },
   {
-    "objectID": "de/index.html#sec-person",
-    "href": "de/index.html#sec-person",
+    "objectID": "de/index.html#sec-nodeshape-personshape",
+    "href": "de/index.html#sec-nodeshape-personshape",
     "title": "eCH-1234 Quarto-Dokument als Vorlage",
     "section": "3.5 Person",
     "text": "3.5 Person\nJede Person (Mitarbeiter, Kunde oder benutzerdefinierte Person) im Datensatz.\nZielklasse: schema:Person\n\n\n\nTabelle 5: Eigenschaften Person\n\n\n\n\n\n\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nVorname: Jede Person muss einen Vornamen haben.\nschema:givenName\nxsd:string\n1..1\n\n\nNachname: Jede Person muss einen Nachnamen haben.\nschema:familyName\nxsd:string\n1..1\n\n\nE-Mail-Adresse: Falls angegeben, muss die E-Mail-Adresse einem Standardformat entsprechen.\nschema:email\nxsd:string\n0..*\n\n\nGeburtsdatum: Eine Person sollte ein gültiges Geburtsdatum haben.\nschema:birthDate\nxsd:date\n0..*\n\n\nAdresse\nschema:address\nschema:PostalAddress\n0..*\n\n\nArbeitet für: Ein Mitarbeiter kann einer anderen Person unterstellt sein.\nschema:worksFor\nschema:Person oder schema:Organization\n0..*\n\n\nBerufsbezeichnung\nschema:jobTitle\n\n0..1\n\n\nKennt\nschema:knows\nschema:Person\n0..*"
   },
   {
-    "objectID": "de/index.html#sec-quantitativer-wert",
-    "href": "de/index.html#sec-quantitativer-wert",
+    "objectID": "de/index.html#sec-nodeshape-quantitativevalueshape",
+    "href": "de/index.html#sec-nodeshape-quantitativevalueshape",
     "title": "eCH-1234 Quarto-Dokument als Vorlage",
     "section": "3.6 Quantitativer Wert",
     "text": "3.6 Quantitativer Wert\nEin numerischer Wert mit einer dazugehörigen Einheit.\nZielklasse: schema:QuantitativeValue\n\n\n\nTabelle 6: Eigenschaften Quantitativer Wert\n\n\n\n\n\n\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nWert: Ein quantitativer Wert muss genau einen numerischen Wert haben.\nschema:value\n\n1..1\n\n\nEinheitencode: Ein quantitativer Wert muss seine Einheit über eine unitCode-URI angeben.\nschema:unitCode\nsh:IRI\n1..1"
   },
   {
-    "objectID": "de/index.html#sec-rechnung",
-    "href": "de/index.html#sec-rechnung",
+    "objectID": "de/index.html#sec-nodeshape-invoiceshape",
+    "href": "de/index.html#sec-nodeshape-invoiceshape",
     "title": "eCH-1234 Quarto-Dokument als Vorlage",
     "section": "3.7 Rechnung",
     "text": "3.7 Rechnung\nEin Kaufbeleg im Chinook-Datensatz.\nZielklasse: schema:Invoice\n\n\n\nTabelle 7: Eigenschaften Rechnung\n\n\n\n\n\n\n\n\n\n\n\nBeschreibung\nPfad\nTyp\nKardinalität\n\n\n\n\nKunde: Eine Rechnung muss genau einem Kunden zugeordnet sein.\nschema:customer\nschema:Person\n1..1\n\n\nFälliger Gesamtbetrag: Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren.\nschema:totalPaymentDue\nschema:QuantitativeValue\n1..1\n\n\nEnthält: Eine Rechnung muss mindestens eine Position (OrderItem) enthalten.\nschema:hasPart\nschema:OrderItem\n1..*\n\n\nErstellungsdatum\nschema:dateCreated\nxsd:date\n0..*"
@@ -182,50 +182,50 @@
     "text": "1.3 Nous pouvons avoir des sous-titres\nEt écrire un peu de texte.\n\n1.3.1 Et aussi des sous-sous-titres\nEt écrire encore plus de texte. Peut-être même avec une belle image.\n\n\n\n\n\n\nFigure 1: Ajoutez toujours du texte pour décrire ce que montre l’image.\n\n\n\nLors de la présentation de diagrammes, essayez de les créer directement dans Mermaid JS ; cela facilite grandement les modifications futures ou les traductions."
   },
   {
-    "objectID": "fr/index.html#sec-album-de-musique",
-    "href": "fr/index.html#sec-album-de-musique",
+    "objectID": "fr/index.html#sec-nodeshape-musicalbumshape",
+    "href": "fr/index.html#sec-nodeshape-musicalbumshape",
     "title": "Modèle de document Quarto eCH-1234",
     "section": "3.1 Album de musique",
     "text": "3.1 Album de musique\nUne collection de pistes dans le jeu de données Chinook.\nClasse cible: schema:MusicAlbum\n\n\n\nTable 1: propriétés Album de musique\n\n\n\n\n\n\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nNom: Chaque album doit avoir un nom.\nschema:name\nxsd:string\n1..1\n\n\nArtiste: Personne ou groupe de musique ayant créé l’album.\nschema:byArtist\nschema:Person ou schema:MusicGroup\n0..*"
   },
   {
-    "objectID": "fr/index.html#sec-enregistrement-musical",
-    "href": "fr/index.html#sec-enregistrement-musical",
+    "objectID": "fr/index.html#sec-nodeshape-trackshape",
+    "href": "fr/index.html#sec-nodeshape-trackshape",
     "title": "Modèle de document Quarto eCH-1234",
     "section": "3.2 Enregistrement musical",
     "text": "3.2 Enregistrement musical\nUne piste musicale unique dans le jeu de données Chinook.\nClasse cible: schema:MusicRecording\n\n\n\nTable 2: propriétés Enregistrement musical\n\n\n\n\n\n\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nNom: Chaque piste doit avoir un nom.\nschema:name\nxsd:string\n1..1\n\n\nDans l’album: Une piste ne peut appartenir qu’à un schema:MusicAlbum valide.\nschema:inAlbum\nschema:MusicAlbum\n0..*\n\n\nAuteur: La personne ou le groupe qui a écrit la piste.\nschema:author\n\n0..*\n\n\nGenre\nschema:genre\n:Genre\n1..1\n\n\nDurée: La durée doit être exprimée en tant que schema:QuantitativeValue.\nschema:duration\nschema:QuantitativeValue\n0..*\n\n\nTaille du contenu\nschema:contentSize\nschema:QuantitativeValue\n0..*"
   },
   {
-    "objectID": "fr/index.html#sec-facture",
-    "href": "fr/index.html#sec-facture",
+    "objectID": "fr/index.html#sec-nodeshape-invoiceshape",
+    "href": "fr/index.html#sec-nodeshape-invoiceshape",
     "title": "Modèle de document Quarto eCH-1234",
     "section": "3.3 Facture",
     "text": "3.3 Facture\nUn reçu d’achat dans le jeu de données Chinook.\nClasse cible: schema:Invoice\n\n\n\nTable 3: propriétés Facture\n\n\n\n\n\n\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nClient: Une facture doit être liée à exactement un client.\nschema:customer\nschema:Person\n1..1\n\n\nPaiement total dû: Une facture doit définir un paiement total dû en tant que schema:QuantitativeValue.\nschema:totalPaymentDue\nschema:QuantitativeValue\n1..1\n\n\nContient: Une facture doit avoir au moins un article (OrderItem).\nschema:hasPart\nschema:OrderItem\n1..*\n\n\nDate de création\nschema:dateCreated\nxsd:date\n0..*"
   },
   {
-    "objectID": "fr/index.html#sec-genre",
-    "href": "fr/index.html#sec-genre",
+    "objectID": "fr/index.html#sec-nodeshape-genreshape",
+    "href": "fr/index.html#sec-nodeshape-genreshape",
     "title": "Modèle de document Quarto eCH-1234",
     "section": "3.4 Genre",
     "text": "3.4 Genre\nUne catégorie musicale dans le jeu de données Chinook.\nClasse cible: :Genre\n\n\n\nTable 4: propriétés Genre\n\n\n\n\n\n\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nNom\nschema:name\n\n1..1\n\n\nPartie de\nschema:partOf\n:Genre ou sh:IRI\n0..*"
   },
   {
-    "objectID": "fr/index.html#sec-organisation",
-    "href": "fr/index.html#sec-organisation",
+    "objectID": "fr/index.html#sec-nodeshape-organisationshape",
+    "href": "fr/index.html#sec-nodeshape-organisationshape",
     "title": "Modèle de document Quarto eCH-1234",
     "section": "3.5 Organisation",
     "text": "3.5 Organisation\nUne entreprise ou organisation dans le jeu de données Chinook.\nClasse cible: schema:Organisation\n\n\n\nTable 5: propriétés Organisation\n\n\n\n\n\n\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nNom: Chaque organisation doit avoir un nom.\nschema:name\nxsd:string\n1..1"
   },
   {
-    "objectID": "fr/index.html#sec-personne",
-    "href": "fr/index.html#sec-personne",
+    "objectID": "fr/index.html#sec-nodeshape-personshape",
+    "href": "fr/index.html#sec-nodeshape-personshape",
     "title": "Modèle de document Quarto eCH-1234",
     "section": "3.6 Personne",
     "text": "3.6 Personne\nToute personne (employé, client ou personne personnalisée) présente dans le jeu de données.\nClasse cible: schema:Person\n\n\n\nTable 6: propriétés Personne\n\n\n\n\n\n\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nPrénom: Chaque personne doit avoir un prénom.\nschema:givenName\nxsd:string\n1..1\n\n\nNom de famille: Chaque personne doit avoir un nom de famille.\nschema:familyName\nxsd:string\n1..1\n\n\nAdresse e-mail: Si une adresse e-mail est fournie, elle doit respecter un format standard.\nschema:email\nxsd:string\n0..*\n\n\nDate de naissance: Une personne doit avoir une date de naissance valide.\nschema:birthDate\nxsd:date\n0..*\n\n\nAdresse\nschema:address\nschema:PostalAddress\n0..*\n\n\nTravaille pour: Un employé peut relever d’une autre personne.\nschema:worksFor\nschema:Person ou schema:Organization\n0..*\n\n\nTitre du poste\nschema:jobTitle\n\n0..1\n\n\nConnaît\nschema:knows\nschema:Person\n0..*"
   },
   {
-    "objectID": "fr/index.html#sec-valeur-quantitative",
-    "href": "fr/index.html#sec-valeur-quantitative",
+    "objectID": "fr/index.html#sec-nodeshape-quantitativevalueshape",
+    "href": "fr/index.html#sec-nodeshape-quantitativevalueshape",
     "title": "Modèle de document Quarto eCH-1234",
     "section": "3.7 Valeur quantitative",
     "text": "3.7 Valeur quantitative\nUne valeur numérique avec une unité associée.\nClasse cible: schema:QuantitativeValue\n\n\n\nTable 7: propriétés Valeur quantitative\n\n\n\n\n\n\n\n\n\n\n\nDescription\nChemin\nType\nCardinalité\n\n\n\n\nValeur: Une valeur quantitative doit avoir exactement une valeur numérique.\nschema:value\n\n1..1\n\n\nCode d’unité: Une valeur quantitative doit spécifier son unité via une URI unitCode.\nschema:unitCode\nsh:IRI\n1..1"

@@ -45,7 +45,7 @@ Nous utilisons l'interface en ligne de commande (CLI) ROBOT dans notre projet [@
 
 Les données de base et de référence qui sous-tendent ce document sont disponibles sous forme de *Linked Data*.
 
-La base technologique de cette approche est le [Resource Description Framework (RDF)](https://www.w3.org/TR/rdf11-concepts/), un standard central du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web.
+La base technologique de cette approche est le Resource Description Framework [RDF, @cyganiak2014rdf11], un standard central du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web.
 En RDF, les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés.
 Chaque déclaration est constituée de ce que l'on appelle un triplet (sujet, prédicat, objet).
 Cette structure permet une description des ressources et de leurs relations mutuelles qui soit lisible par machine, interopérable et univoque à travers différents systèmes.

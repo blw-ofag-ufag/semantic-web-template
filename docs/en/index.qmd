@@ -45,7 +45,7 @@ We use the ROBOT CLI in our project [@jackson2019robot], especially for it's abi
 
 The master and reference data underlying this document are available as *Linked Data*.
 
-The technological basis for this is the [Resource Description Framework (RDF)](https://www.w3.org/TR/rdf11-concepts/), a central standard of the World Wide Web Consortium (W3C) for modeling data structures on the web.
+The technological basis for this is the Resource Description Framework [RDF, @cyganiak2014rdf11], a central standard of the World Wide Web Consortium (W3C) for modeling data structures on the web.
 In RDF, information is not represented in classic tables, but as interconnected graphs.
 Each statement consists of a so-called triple (subject, predicate, object).
 This structure enables a machine-readable, interoperable, and cross-system unambiguous description of resources and their relations to one another.

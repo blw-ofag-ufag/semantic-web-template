@@ -42,6 +42,11 @@ QUERY_LOG        := $(LOG_DIR)/03-query.log
 SHACL_LOG        := $(LOG_DIR)/04-shacl.log
 QUARTO_LOG       := $(LOG_DIR)/05-quarto.log
 
+# Colors for logging
+RED              := \033[0;31m
+GREY             := \033[0;90m
+NC               := \033[0m
+
 .PHONY: all robot test docs clean check-python venv install-dependencies setup build delete publish generate-shacl-docs
 
 # Default target
@@ -54,12 +59,12 @@ all: test docs
 # 1. Check python interpreter
 check-python:
 	@command -v $(PYTHON) >/dev/null 2>&1 || \
-		(echo "ERROR: Python interpreter not found."; exit 1)
+		(printf "$(RED)ERROR: Python interpreter not found.$(NC)\n"; exit 1)
 
 # 2. Set up virtual environment
 $(VENV_PYTHON):
 	@command -v $(PYTHON) >/dev/null 2>&1 || \
-		(echo "ERROR: Python interpreter not found."; exit 1)
+		(printf "$(RED)ERROR: Python interpreter not found.$(NC)\n"; exit 1)
 	@test -d $(VENV) || $(PYTHON) -m venv $(VENV)
 	@$(VENV_PYTHON) -m pip install --upgrade pip
 
@@ -107,7 +112,7 @@ $(FETCHED_DATA): $(PIPELINE_SCRIPTS) $(PREFIXES) src/python/utils/turtle_seriali
 # 3. Check that all turtle files are syntactically valid
 $(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(PREFIXES) $(FETCHED_DATA) tests/test_syntax.py | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
 	@echo "Checking Turtle syntax..."
-	@$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || (echo "\n[ERROR] Syntax check failed:" && $(PYTEST) tests/test_syntax.py -v && exit 1)
+	@$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || (printf "\n$(RED)[ERROR] Syntax check failed:$(NC)\n" && $(PYTEST) tests/test_syntax.py -v && exit 1)
 	@touch $@
 
 # 4. Merge ontology, static data, fetched data, and prefixes
@@ -118,7 +123,7 @@ $(MERGED_DATA): $(ONTO) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-ch
 		$(foreach d,$(DATA),--input $(d)) \
 		--input $(FETCHED_DATA) \
 		--input $(PREFIXES) \
-		--output $(MERGED_DATA) > $(MERGE_LOG) 2>&1 || (cat $(MERGE_LOG) && exit 1)
+		--output $(MERGED_DATA) > $(MERGE_LOG) 2>&1 || (printf "$(RED)ERROR: ROBOT merge failed. See log below:$(NC)\n" && printf "$(GREY)" && cat $(MERGE_LOG) && printf "$(NC)\n" && exit 1)
 	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(MERGED_DATA) -p $(PREFIXES) -o $(MERGED_DATA)
 
 # 5. Inference using HermiT
@@ -129,7 +134,7 @@ $(INFERRED_DATA): $(MERGED_DATA) $(PREFIXES) src/python/utils/turtle_serializer.
 		--reasoner HermiT \
 		--axiom-generators "SubClass ClassAssertion PropertyAssertion" \
 		--include-indirect true \
-		--output $(INFERRED_DATA) > $(INFER_LOG) 2>&1 || (cat $(INFER_LOG) && exit 1)
+		--output $(INFERRED_DATA) > $(INFER_LOG) 2>&1 || (printf "$(RED)ERROR: ROBOT reason failed. See log below:$(NC)\n" && printf "$(GREY)" && cat $(INFER_LOG) && printf "$(NC)\n" && exit 1)
 	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(INFERRED_DATA) -p $(PREFIXES) -o $(INFERRED_DATA)
 
 # 6. Model-driven processing via SPARQL
@@ -141,7 +146,7 @@ $(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) src/python/utils/turt
 		$(ROBOT) query \
 			--input $(INFERRED_DATA) \
 			$(foreach q,$(QUERIES),--update $(q)) \
-			convert --output $(PROCESSED_DATA) > $(QUERY_LOG) 2>&1 || (cat $(QUERY_LOG) && exit 1); \
+			convert --output $(PROCESSED_DATA) > $(QUERY_LOG) 2>&1 || (printf "$(RED)ERROR: ROBOT query failed. See log below:$(NC)\n" && printf "$(GREY)" && cat $(QUERY_LOG) && printf "$(NC)\n" && exit 1); \
 	fi
 	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(PROCESSED_DATA) -p $(PREFIXES) -o $(PROCESSED_DATA)
 
@@ -158,7 +163,7 @@ generate-shacl-docs: $(SHAPES) $(PREFIXES) src/python/utils/generate_shacl_docs.
 
 docs: $(SHACL_REPORT) generate-shacl-docs
 	@echo "Rendering documentation with Quarto..."
-	@quarto render docs > $(QUARTO_LOG) 2>&1 || true
+	@quarto render docs > $(QUARTO_LOG) 2>&1 || (printf "$(RED)ERROR: Quarto rendering failed. See log below:$(NC)\n" && printf "$(GREY)" && cat $(QUARTO_LOG) && printf "$(NC)\n" && exit 1)
 
 # ==============================================================================
 # TESTS

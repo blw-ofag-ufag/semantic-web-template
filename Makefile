@@ -120,12 +120,13 @@ $(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(PREFIXES) $(FETCHED_D
 	printf "$(NC)"
 	@touch $@
 
-# 4. Merge ontology, static data, fetched data, and prefixes
-$(MERGED_DATA): $(ONTO) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-check.stamp src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
-	@printf "$(BOLD)[*] Merging ontology and data...$(NC)\n"
+# 4. Merge ontology, shapes, static data, fetched data, and prefixes
+$(MERGED_DATA): $(ONTO) $(SHAPES) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-check.stamp src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
+	@printf "$(BOLD)[*] Merging ontology, shapes and data...$(NC)\n"
 	@printf "$(GREY)"; \
 	$(ROBOT) merge \
 		--input $(ONTO) \
+		--input $(SHAPES) \
 		$(foreach d,$(DATA),--input $(d)) \
 		--input $(FETCHED_DATA) \
 		--input $(PREFIXES) \

@@ -141,7 +141,9 @@ def main():
                 
             comment = get_localized_value(g, shape_uri, [RDFS.comment, SH.description], lang) or ""
             
-            slug = slugify(label)
+            # Extract local name from the URI to ensure stable, language-independent slugs
+            local_name = str(shape_uri).split('#')[-1].split('/')[-1]
+            slug = f"nodeshape-{slugify(local_name)}"
             
             uri_to_slug[shape_uri] = slug
             if target_class:

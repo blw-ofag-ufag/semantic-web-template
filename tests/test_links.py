@@ -6,18 +6,21 @@ import urllib.error
 import pytest
 import time
 
-def get_tracked_md_files():
-    """Returns a list of .md files tracked by git, falling back to rglob if git fails."""
+def get_tracked_markdown_files():
+    """Returns a list of .md and .qmd files tracked by git, falling back to rglob if git fails."""
     try:
         result = subprocess.run(["git", "ls-files", "-z"], capture_output=True, text=True, check=True)
-        files = [f for f in result.stdout.split('\0') if f and f.endswith('.md')]
+        files = [f for f in result.stdout.split('\0') if f and f.endswith(('.md', '.qmd'))]
         return [Path(f) for f in files]
         
     except (subprocess.SubprocessError, FileNotFoundError):
-        return [
-            p for p in Path(".").rglob("*.md")
-            if not set(p.parts) & {"venv", "build", ".quarto", ".git"}
-        ]
+        files = []
+        for ext in ("*.md", "*.qmd"):
+            files.extend(
+                p for p in Path(".").rglob(ext)
+                if not set(p.parts) & {"venv", "build", ".quarto", ".git"}
+            )
+        return files
 
 def get_urls():
     """Extract URLs from all tracked Markdown files, ignoring code blocks."""
@@ -25,7 +28,7 @@ def get_urls():
     url_regex_angle = re.compile(r'<(https?://[^>]+)>')
     
     urls = []
-    for md_file in get_tracked_md_files():
+    for md_file in get_tracked_markdown_files():
         if not md_file.exists():
             continue
             

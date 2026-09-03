@@ -45,6 +45,7 @@ QUARTO_LOG       := $(LOG_DIR)/05-quarto.log
 # Colors for logging
 RED              := \033[0;31m
 GREY             := \033[0;90m
+BOLD       := \033[1;37m
 NC               := \033[0m
 
 .PHONY: all robot test docs clean check-python venv install-dependencies setup build delete publish generate-shacl-docs
@@ -66,26 +67,26 @@ $(VENV_PYTHON):
 	@command -v $(PYTHON) >/dev/null 2>&1 || \
 		(printf "$(RED)ERROR: Python interpreter not found.$(NC)\n"; exit 1)
 	@test -d $(VENV) || $(PYTHON) -m venv $(VENV)
-	@$(VENV_PYTHON) -m pip install --upgrade pip
+	@printf "$(GREY)"; $(VENV_PYTHON) -m pip install --upgrade pip || { printf "$(NC)"; exit 1; }; printf "$(NC)"
 
 venv: $(VENV_PYTHON)
 
 # 3. Install python dependencies
 $(VENV)/.requirements-installed.stamp: $(PYTHON_DIR)/requirements.txt | $(VENV_PYTHON)
-	@$(VENV_PIP) install -q -r $(PYTHON_DIR)/requirements.txt
+	@printf "$(GREY)"; $(VENV_PIP) install -q -r $(PYTHON_DIR)/requirements.txt || { printf "$(NC)"; exit 1; }; printf "$(NC)"
 	@touch $@
 
 install-dependencies: $(VENV)/.requirements-installed.stamp
 
 # 4. Install robot
 $(VENV_BIN)/robot.jar: | $(VENV_PYTHON)
-	@curl -sL https://github.com/ontodev/robot/releases/download/$(ROBOT_VERSION)/robot.jar -o $(VENV_BIN)/robot.jar
+	@printf "$(GREY)"; curl -sL https://github.com/ontodev/robot/releases/download/$(ROBOT_VERSION)/robot.jar -o $(VENV_BIN)/robot.jar || { printf "$(NC)"; exit 1; }; printf "$(NC)"
 
 robot: $(VENV_BIN)/robot.jar
 
 # 5. Full setup
 setup: install-dependencies robot
-	@echo "Setup complete."
+	@printf "$(BOLD)[*] Setup complete.$(NC)\n"
 
 # ==============================================================================
 # RDF DATA INTEGRATION, REASONING AND POST-PROCESSING
@@ -97,58 +98,68 @@ $(RDF_DIR) $(LOG_DIR):
 
 # 2. Fetch, Query, and Transform source data sequentially
 $(FETCHED_DATA): $(PIPELINE_SCRIPTS) $(PREFIXES) src/python/utils/turtle_serializer.py | $(RDF_DIR) $(LOG_DIR) $(VENV)/.requirements-installed.stamp
-	@echo "Running data integration pipelines..."
-	@if [ -n "$(PIPELINE_SCRIPTS)" ]; then \
+	@printf "$(BOLD)[*] Running data integration pipelines...$(NC)\n"
+	@printf "$(GREY)"; \
+	if [ -n "$(PIPELINE_SCRIPTS)" ]; then \
 		for script in $(PIPELINE_SCRIPTS); do \
 			echo "Executing $$script..."; \
-			$(VENV_PYTHON) "$$script" --output $(FETCHED_DATA); \
+			$(VENV_PYTHON) "$$script" --output $(FETCHED_DATA) || { printf "$(NC)"; exit 1; }; \
 		done; \
 	else \
 		echo "No pipeline scripts found. Creating empty data file."; \
 		touch $(FETCHED_DATA); \
-	fi
-	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(FETCHED_DATA) -p $(PREFIXES) -o $(FETCHED_DATA)
+	fi; \
+	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(FETCHED_DATA) -p $(PREFIXES) -o $(FETCHED_DATA) || { printf "$(NC)"; exit 1; }; \
+	printf "$(NC)"
 
 # 3. Check that all turtle files are syntactically valid
 $(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(PREFIXES) $(FETCHED_DATA) tests/test_syntax.py | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
-	@echo "Checking Turtle syntax..."
-	@$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || (printf "\n$(RED)[ERROR] Syntax check failed:$(NC)\n" && $(PYTEST) tests/test_syntax.py -v && exit 1)
+	@printf "$(BOLD)[*] Checking Turtle syntax...$(NC)\n"
+	@printf "$(GREY)"; \
+	$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || { printf "$(NC)\n$(RED)[ERROR] Syntax check failed:$(NC)\n"; $(PYTEST) tests/test_syntax.py -v; exit 1; }; \
+	printf "$(NC)"
 	@touch $@
 
 # 4. Merge ontology, static data, fetched data, and prefixes
 $(MERGED_DATA): $(ONTO) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-check.stamp src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
-	@echo "Merging ontology and data..."
-	@$(ROBOT) merge \
+	@printf "$(BOLD)[*] Merging ontology and data...$(NC)\n"
+	@printf "$(GREY)"; \
+	$(ROBOT) merge \
 		--input $(ONTO) \
 		$(foreach d,$(DATA),--input $(d)) \
 		--input $(FETCHED_DATA) \
 		--input $(PREFIXES) \
-		--output $(MERGED_DATA) > $(MERGE_LOG) 2>&1 || (printf "$(RED)ERROR: ROBOT merge failed. See log below:$(NC)\n" && printf "$(GREY)" && cat $(MERGE_LOG) && printf "$(NC)\n" && exit 1)
-	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(MERGED_DATA) -p $(PREFIXES) -o $(MERGED_DATA)
+		--output $(MERGED_DATA) > $(MERGE_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: ROBOT merge failed. See log below:$(NC)\n$(GREY)"; cat $(MERGE_LOG); printf "$(NC)\n"; exit 1; }; \
+	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(MERGED_DATA) -p $(PREFIXES) -o $(MERGED_DATA) || { printf "$(NC)"; exit 1; }; \
+	printf "$(NC)"
 
 # 5. Inference using HermiT
 $(INFERRED_DATA): $(MERGED_DATA) $(PREFIXES) src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
-	@echo "Running logical inference (HermiT)..."
-	@$(ROBOT) reason \
+	@printf "$(BOLD)[*] Running logical inference (HermiT)...$(NC)\n"
+	@printf "$(GREY)"; \
+	$(ROBOT) reason \
 		--input $(MERGED_DATA) \
 		--reasoner HermiT \
 		--axiom-generators "SubClass ClassAssertion PropertyAssertion" \
 		--include-indirect true \
-		--output $(INFERRED_DATA) > $(INFER_LOG) 2>&1 || (printf "$(RED)ERROR: ROBOT reason failed. See log below:$(NC)\n" && printf "$(GREY)" && cat $(INFER_LOG) && printf "$(NC)\n" && exit 1)
-	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(INFERRED_DATA) -p $(PREFIXES) -o $(INFERRED_DATA)
+		--output $(INFERRED_DATA) > $(INFER_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: ROBOT reason failed. See log below:$(NC)\n$(GREY)"; cat $(INFER_LOG); printf "$(NC)\n"; exit 1; }; \
+	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(INFERRED_DATA) -p $(PREFIXES) -o $(INFERRED_DATA) || { printf "$(NC)"; exit 1; }; \
+	printf "$(NC)"
 
 # 6. Model-driven processing via SPARQL
 $(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
-	@echo "Applying SPARQL updates..."
-	@if [ -z "$(QUERIES)" ]; then \
+	@printf "$(BOLD)[*] Applying SPARQL updates...$(NC)\n"
+	@printf "$(GREY)"; \
+	if [ -z "$(QUERIES)" ]; then \
 		cp $(INFERRED_DATA) $(PROCESSED_DATA); \
 	else \
 		$(ROBOT) query \
 			--input $(INFERRED_DATA) \
 			$(foreach q,$(QUERIES),--update $(q)) \
-			convert --output $(PROCESSED_DATA) > $(QUERY_LOG) 2>&1 || (printf "$(RED)ERROR: ROBOT query failed. See log below:$(NC)\n" && printf "$(GREY)" && cat $(QUERY_LOG) && printf "$(NC)\n" && exit 1); \
-	fi
-	@$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(PROCESSED_DATA) -p $(PREFIXES) -o $(PROCESSED_DATA)
+			convert --output $(PROCESSED_DATA) > $(QUERY_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: ROBOT query failed. See log below:$(NC)\n$(GREY)"; cat $(QUERY_LOG); printf "$(NC)\n"; exit 1; }; \
+	fi; \
+	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(PROCESSED_DATA) -p $(PREFIXES) -o $(PROCESSED_DATA) || { printf "$(NC)"; exit 1; }; \
+	printf "$(NC)"
 
 # 6. Trigger the whole graph build process
 build: $(PROCESSED_DATA)
@@ -158,12 +169,16 @@ build: $(PROCESSED_DATA)
 # ==============================================================================
 
 generate-shacl-docs: $(SHAPES) $(PREFIXES) src/python/utils/generate_shacl_docs.py | $(VENV)/.requirements-installed.stamp
-	@echo "Generating SHACL documentation..."
-	@$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -d $(DOCS_DIR) -p $(PREFIXES)
+	@printf "$(BOLD)[*] Generating SHACL documentation...$(NC)\n"
+	@printf "$(GREY)"; \
+	$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -d $(DOCS_DIR) -p $(PREFIXES) || { printf "$(NC)"; exit 1; }; \
+	printf "$(NC)"
 
 docs: $(SHACL_REPORT) generate-shacl-docs
-	@echo "Rendering documentation with Quarto..."
-	@quarto render docs > $(QUARTO_LOG) 2>&1 || (printf "$(RED)ERROR: Quarto rendering failed. See log below:$(NC)\n" && printf "$(GREY)" && cat $(QUARTO_LOG) && printf "$(NC)\n" && exit 1)
+	@printf "$(BOLD)[*] Rendering documentation with Quarto...$(NC)\n"
+	@printf "$(GREY)"; \
+	quarto render docs > $(QUARTO_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: Quarto rendering failed. See log below:$(NC)\n$(GREY)"; cat $(QUARTO_LOG); printf "$(NC)\n"; exit 1; }; \
+	printf "$(NC)"
 
 # ==============================================================================
 # TESTS
@@ -171,12 +186,14 @@ docs: $(SHACL_REPORT) generate-shacl-docs
 
 # 1. SHACL validation
 $(SHACL_REPORT): $(PROCESSED_DATA) $(SHAPES) | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
-	@echo "Running SHACL engine..."
-	@$(PYSHACL) -s $(SHAPES)  -a -f turtle -o $(SHACL_REPORT) $(PROCESSED_DATA) > $(SHACL_LOG) 2>&1 || true
+	@printf "$(BOLD)[*] Running SHACL engine...$(NC)\n"
+	@printf "$(GREY)"; \
+	$(PYSHACL) -s $(SHAPES)  -a -f turtle -o $(SHACL_REPORT) $(PROCESSED_DATA) > $(SHACL_LOG) 2>&1 || true; \
+	printf "$(NC)"
 
 # 2. Run pytest (relies on written SHACL reports for all shape-related tests)
 test: build $(SHACL_REPORT) | $(VENV)/.requirements-installed.stamp
-	@echo "Running final test suite..."
+	@printf "$(BOLD)[*] Running final test suite...$(NC)\n"
 	@$(PYTEST) tests/ -v
 
 # ==============================================================================
@@ -189,25 +206,30 @@ export
 
 # 2. Delete the existing data from LINDAS
 delete:
-	@echo "Delete existing data from LINDAS"
-	@curl \
+	@printf "$(BOLD)[*] Delete existing data from LINDAS$(NC)\n"
+	@printf "$(GREY)"; \
+	curl \
 		--user $(USER):$(PASSWORD) \
 		-X DELETE \
-		"$(ENDPOINT)?graph=$(GRAPH)"
+		"$(ENDPOINT)?graph=$(GRAPH)" || { printf "$(NC)"; exit 1; }; \
+	printf "$(NC)\n"
 
 # 3. Publish final graph to LINDAS
 publish: test delete
-	@echo "Upload final graph to LINDAS"
-	@curl \
+	@printf "$(BOLD)[*] Upload final graph to LINDAS$(NC)\n"
+	@printf "$(GREY)"; \
+	curl \
 		--user $(USER):$(PASSWORD) \
 		-X POST \
 		-H "Content-Type: text/turtle" \
 		--data-binary @$(PROCESSED_DATA) \
-		"$(ENDPOINT)?graph=$(GRAPH)"
+		"$(ENDPOINT)?graph=$(GRAPH)" || { printf "$(NC)"; exit 1; }; \
+	printf "$(NC)\n"
 
 # ==============================================================================
 # CLEANUP
 # ==============================================================================
 
 clean:
-	rm -rf $(BUILD_DIR) $(VENV) .quarto docs/.quarto tests/__pycache__ docs/index_files docs/*/entities.md
+	@printf "$(BOLD)[*] Cleaning build artifacts...$(NC)\n"
+	@rm -rf $(BUILD_DIR) $(VENV) .quarto docs/.quarto tests/__pycache__ docs/index_files docs/*/entities.md

@@ -2,16 +2,18 @@
 
 4. September 2026
 
-- [Hinweis](#hinweis)
-- [<span class="toc-section-number">1</span> Einleitung](#einleitung)
-  - [<span class="toc-section-number">1.1</span> Status](#status)
+- [Hinweis](#sec-note)
+- [<span class="toc-section-number">1</span>
+  Einleitung](#sec-introduction)
+  - [<span class="toc-section-number">1.1</span> Status](#sec-status)
   - [<span class="toc-section-number">1.2</span>
-    Geltungsbereich](#geltungsbereich)
+    Geltungsbereich](#sec-scope-of-application)
   - [<span class="toc-section-number">1.3</span> Wir können Untertitel
-    haben](#wir-können-untertitel-haben)
+    haben](#sec-example-subheading)
 - [<span class="toc-section-number">2</span> Technische
-  Hinweise](#technische-hinweise)
-- [<span class="toc-section-number">3</span> Datenmodell](#datenmodell)
+  Hinweise](#sec-technical-notes)
+- [<span class="toc-section-number">3</span>
+  Datenmodell](#sec-data-model)
   - [<span class="toc-section-number">3.1</span>
     Genre](#sec-nodeshape-genreshape)
   - [<span class="toc-section-number">3.2</span>
@@ -26,26 +28,26 @@
     Wert](#sec-nodeshape-quantitativevalueshape)
   - [<span class="toc-section-number">3.7</span>
     Rechnung](#sec-nodeshape-invoiceshape)
-- [<span class="toc-section-number">4</span> Datenbezug](#datenbezug)
+- [<span class="toc-section-number">4</span>
+  Datenbezug](#sec-data-retrieval)
 - [<span class="toc-section-number">5</span>
-  Sicherheitsaspekte](#sicherheitsaspekte)
+  Sicherheitsaspekte](#sec-safety-consideration)
 - [<span class="toc-section-number">6</span>
-  Haftungsausschluss](#haftungsausschluss)
+  Haftungsausschluss](#sec-disclaimer)
 - [<span class="toc-section-number">7</span>
-  Urheberrechte](#urheberrechte)
+  Urheberrechte](#sec-copyrights)
 - [<span class="toc-section-number">8</span> Anhang A -
-  Referenzen](#anhang-a---referenzen)
+  Referenzen](#sec-appendix-a)
 - [<span class="toc-section-number">9</span> Anhang B - Mitwirkung und
-  Prüfung](#anhang-b---mitwirkung-und-prüfung)
+  Prüfung](#sec-appendix-b)
 - [<span class="toc-section-number">10</span> Anhang C - Abkürzungen und
-  Glossar](#anhang-c---abkürzungen-und-glossar)
+  Glossar](#sec-appendix-c)
 - [<span class="toc-section-number">11</span> Anhang D - Änderungen
-  gegenüber der
-  Vorversion](#anhang-d---änderungen-gegenüber-der-vorversion)
+  gegenüber der Vorversion](#sec-appendix-d)
 - [<span class="toc-section-number">12</span> Anhang E -
-  Abbildungsverzeichnis](#anhang-e---abbildungsverzeichnis)
+  Abbildungsverzeichnis](#sec-appendix-e)
 - [<span class="toc-section-number">13</span> Anhang F -
-  Tabellenverzeichnis](#anhang-f---tabellenverzeichnis)
+  Tabellenverzeichnis](#sec-appendix-f)
 
 # Hinweis
 

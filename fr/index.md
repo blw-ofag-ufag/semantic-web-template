@@ -2,18 +2,18 @@
 
 4 septembre 2026
 
-- [Remarque](#remarque)
+- [Remarque](#sec-note)
 - [<span class="toc-section-number">1</span>
-  Introduction](#introduction)
-  - [<span class="toc-section-number">1.1</span> Statut](#statut)
+  Introduction](#sec-introduction)
+  - [<span class="toc-section-number">1.1</span> Statut](#sec-status)
   - [<span class="toc-section-number">1.2</span> Champ
-    d’application](#champ-dapplication)
+    d’application](#sec-scope-of-application)
   - [<span class="toc-section-number">1.3</span> Nous pouvons avoir des
-    sous-titres](#nous-pouvons-avoir-des-sous-titres)
+    sous-titres](#sec-example-subheading)
 - [<span class="toc-section-number">2</span> Notes
-  techniques](#notes-techniques)
+  techniques](#sec-technical-notes)
 - [<span class="toc-section-number">3</span> Modèle de
-  données](#modèle-de-données)
+  données](#sec-data-model)
   - [<span class="toc-section-number">3.1</span> Album de
     musique](#sec-nodeshape-musicalbumshape)
   - [<span class="toc-section-number">3.2</span> Enregistrement
@@ -29,26 +29,25 @@
   - [<span class="toc-section-number">3.7</span> Valeur
     quantitative](#sec-nodeshape-quantitativevalueshape)
 - [<span class="toc-section-number">4</span> Accès aux
-  données](#accès-aux-données)
+  données](#sec-data-retrieval)
 - [<span class="toc-section-number">5</span> Considérations de
-  sécurité](#considérations-de-sécurité)
+  sécurité](#sec-safety-consideration)
 - [<span class="toc-section-number">6</span> Clause de
-  non-responsabilité](#clause-de-non-responsabilité)
+  non-responsabilité](#sec-disclaimer)
 - [<span class="toc-section-number">7</span> Droits
-  d’auteur](#droits-dauteur)
+  d’auteur](#sec-copyrights)
 - [<span class="toc-section-number">8</span> Annexe A -
-  Références](#annexe-a---références)
+  Références](#sec-appendix-a)
 - [<span class="toc-section-number">9</span> Annexe B - Collaboration et
-  Vérification](#annexe-b---collaboration-et-vérification)
+  Vérification](#sec-appendix-b)
 - [<span class="toc-section-number">10</span> Annexe C - Abréviations et
-  glossaire](#annexe-c---abréviations-et-glossaire)
+  glossaire](#sec-appendix-c)
 - [<span class="toc-section-number">11</span> Annexe D - Modifications
-  par rapport à la version
-  précédente](#annexe-d---modifications-par-rapport-à-la-version-précédente)
+  par rapport à la version précédente](#sec-appendix-d)
 - [<span class="toc-section-number">12</span> Annexe E - Table des
-  illustrations](#annexe-e---table-des-illustrations)
+  illustrations](#sec-appendix-e)
 - [<span class="toc-section-number">13</span> Annexe F - Liste des
-  tableaux](#annexe-f---liste-des-tableaux)
+  tableaux](#sec-appendix-f)
 
 # Remarque
 

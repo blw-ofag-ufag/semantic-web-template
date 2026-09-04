@@ -2,7 +2,7 @@
 
 September 4, 2026
 
-- [Note](#note)
+- [Note](#sec-note)
 - [<span class="toc-section-number">1</span>
   Introduction](#sec-introduction)
   - [<span class="toc-section-number">1.1</span> Status](#sec-status)
@@ -37,18 +37,17 @@ September 4, 2026
 - [<span class="toc-section-number">7</span>
   Copyrights](#sec-copyrights)
 - [<span class="toc-section-number">8</span> Annex A -
-  References](#annex-a---references)
+  References](#sec-appendix-a)
 - [<span class="toc-section-number">9</span> Annex B - Cooperation and
-  Verification](#annex-b---cooperation-and-verification)
+  Verification](#sec-appendix-b)
 - [<span class="toc-section-number">10</span> Annex C - Abbreviations
-  and Glossary](#annex-c---abbreviations-and-glossary)
+  and Glossary](#sec-appendix-c)
 - [<span class="toc-section-number">11</span> Annex D - Changes in
-  comparison to previous
-  version](#annex-d---changes-in-comparison-to-previous-version)
+  comparison to previous version](#sec-appendix-d)
 - [<span class="toc-section-number">12</span> Annex E - Table of
-  figures](#annex-e---table-of-figures)
+  figures](#sec-appendix-e)
 - [<span class="toc-section-number">13</span> Annex F - Table of
-  tables](#annex-f---table-of-tables)
+  tables](#sec-appendix-f)
 
 # Note
 

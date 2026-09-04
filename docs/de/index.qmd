@@ -6,26 +6,26 @@ date-format: long
 lang: de
 ---
 
-# Hinweis {.unnumbered}
+# Hinweis {#sec-note .unnumbered}
 
 Im vorliegenden Dokument wird bei der Bezeichnung von Personen eine geschlechtsneutrale Formulierung verwendet. Basis bildet der Leitfaden der Bundeskanzlei. Je nach Situation kommen Paarformen (Bürgerinnen und Bürger), geschlechtsabstrakte Formen (versicherte Person), geschlechtsneutrale Formen (Versicherte) oder Umschreibungen ohne Personenbezug zum Einsatz. Das generische Maskulin (Bürger) ist nicht zulässig. Vollformen werden in fortlaufenden Texten verwendet, also in Texten, die aus ausformulierten Sätzen bestehen. In verknappten Textpassagen, namentlich in Tabellen, können Kurzformen verwendet werden. Dabei wird die Kurzform mit Schrägstrich, aber ohne Auslassungsstrich verwendet (Referent/in). Genderstern und ähnliche Schreibweisen werden nicht verwendet.
 
-# Einleitung
+# Einleitung {#sec-introduction}
 
-## Status
+## Status {#sec-status}
 
 Genehmigt: Dieses Dokument wurde vom Fach-Ausschuss verabschiedet. Es entfaltet normative Kraft für den definierten Anwendungsbereich im festgelegten Geltungsbereich.
 
-## Geltungsbereich
+## Geltungsbereich {#sec-scope-of-application}
 
 Die Angaben in diesem Kapitel sollen dem Leser einen raschen Überblick geben, wofür dieser Standard gedacht ist.
 Hinweise zu folgenden Sachverhalten können dabei hilfreich sein.
 
-## Wir können Untertitel haben
+## Wir können Untertitel haben {#sec-example-subheading}
 
 Und etwas Text schreiben.
 
-### Auch Unter-Unterüberschriften
+### Auch Unter-Unterüberschriften {#sec-example-subsubheading}
 
 Und noch mehr Text schreiben. Vielleicht sogar mit einem schönen Bild.
 
@@ -33,15 +33,15 @@ Und noch mehr Text schreiben. Vielleicht sogar mit einem schönen Bild.
 
 Bei der Darstellung von Diagrammen sollte versucht werden, diese direkt in Mermaid JS zu erstellen; dies macht zukünftige Änderungen oder Übersetzungen sehr einfach.
 
-# Technische Hinweise
+# Technische Hinweise {#sec-technical-notes}
 
 Wir verwenden die ROBOT CLI in unserem Projekt [@jackson2019robot], insbesondere wegen ihrer Fähigkeit, den HermiT Reasoner auszuführen [@glimm2014hermit].
 
-# Datenmodell
+# Datenmodell {#sec-data-model}
 
 {{< include entities.md >}}
 
-# Datenbezug
+# Datenbezug {#sec-data-retrieval}
 
 Die diesem Dokument zugrundeliegenden Master- und Referenzdaten sind als _Linked Data_ verfügbar.
 
@@ -65,11 +65,11 @@ Die zugrundeliegenden Daten selbst werden auf GitHub als Turtle-Files gepflegt.
 {{< include ../data/example.ttl >}}
 ```
 
-# Sicherheitsaspekte
+# Sicherheitsaspekte {#sec-safety-consideration}
 
 Informationen zu den ausdrücklich massgeblichen rechtlichen Grundlagen oder ein Hinweis darauf, dass bei der Umsetzung die entsprechenden rechtlichen Grundlagen zu beachten sind.
 
-# Haftungsausschluss
+# Haftungsausschluss {#sec-disclaimer}
 
 eCH-Standards, die der Verein eCH dem Anwender kostenlos zur Verfügung stellt oder die auf eCH verweisen, haben nur den Status von Empfehlungen. Der Verein eCH haftet in keinem Fall für Entscheidungen oder Massnahmen, die der Anwender auf der Grundlage dieser Dokumente trifft bzw. ergreift. Der Anwender ist dafür verantwortlich, die Dokumente vor ihrer Verwendung selbst zu überprüfen und gegebenenfalls fachlichen Rat einzuholen. eCH-Standards können und sollen die technische, organisatorische oder rechtliche Beratung im Einzelfall nicht ersetzen.
 
@@ -79,7 +79,7 @@ Obwohl der Verein eCH bei der Erstellung der eCH-Standards mit angemessener Sorg
 
 Jede Haftung für Schäden, die durch die Nutzung der eCH-Standards durch den Anwender entstehen, wird im gesetzlich zulässigen Rahmen ausgeschlossen.
 
-# Urheberrechte
+# Urheberrechte {#sec-copyrights}
 
 Personen, die eCH-Standards erarbeiten, bleiben Inhaber ihrer geistigen Eigentumsrechte. Diese Personen verpflichten sich jedoch, ihre geistigen Eigentumsrechte oder andere Rechte an geistigen Eigentumsrechten Dritter, soweit möglich, den jeweiligen Fachgruppen und dem Verein eCH kostenlos und zur uneingeschränkten Nutzung und Weiterentwicklung im Rahmen des Vereinszwecks zur Verfügung zu stellen.
 
@@ -88,19 +88,19 @@ Die von den Fachgruppen erarbeiteten Standards dürfen unter Nennung des jeweili
 eCH-Standards sind vollständig dokumentiert und frei von lizenz- und/oder patentrechtlichen Einschränkungen. Die dazugehörige Dokumentation kann kostenlos angefordert werden.
 Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, nicht aber für Standards oder Produkte Dritter, die auf eCH-Standards verweisen. Die Standards enthalten die entsprechenden Hinweise auf Rechte Dritter.
 
-# Anhang A - Referenzen {.appendix}
+# Anhang A - Referenzen {#sec-appendix-a .appendix}
 
 ::: {#refs}
 :::
 
-# Anhang B - Mitwirkung und Prüfung {.appendix}
+# Anhang B - Mitwirkung und Prüfung {#sec-appendix-b .appendix}
 
-# Anhang C - Abkürzungen und Glossar {.appendix}
+# Anhang C - Abkürzungen und Glossar {#sec-appendix-c .appendix}
 
 {{< include glossary.md >}}
 
-# Anhang D - Änderungen gegenüber der Vorversion {.appendix}
+# Anhang D - Änderungen gegenüber der Vorversion {#sec-appendix-d .appendix}
 
-# Anhang E - Abbildungsverzeichnis {.appendix}
+# Anhang E - Abbildungsverzeichnis {#sec-appendix-e .appendix}
 
-# Anhang F - Tabellenverzeichnis {.appendix}
+# Anhang F - Tabellenverzeichnis {#sec-appendix-f .appendix}

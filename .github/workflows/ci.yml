@@ -57,7 +57,7 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
           GRAPH: ${{ secrets.GRAPH }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
-        run: echo 'run `make publish` if you *really* want to publish --- not necessary for a template'
+        run: make publish
 
       - name: Build documentation page
         if: github.ref == 'refs/heads/main'

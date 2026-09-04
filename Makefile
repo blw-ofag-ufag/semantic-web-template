@@ -48,7 +48,7 @@ GREY             := \033[0;90m
 BOLD       := \033[1;37m
 NC               := \033[0m
 
-.PHONY: all robot test docs clean check-python venv install-dependencies setup build delete publish generate-shacl-docs
+.PHONY: all robot test docs clean check-python venv install-dependencies setup build delete publish generate-shacl-docs generate-glossary-docs
 
 # Default target
 all: test docs
@@ -175,7 +175,13 @@ generate-shacl-docs: $(SHAPES) $(PREFIXES) src/python/utils/generate_shacl_docs.
 	$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -d $(DOCS_DIR) -p $(PREFIXES) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
-docs: $(SHACL_REPORT) generate-shacl-docs
+generate-glossary-docs: src/rdf/data/glossary.skos.ttl $(PREFIXES) src/python/utils/generate_glossary_docs.py | $(VENV)/.requirements-installed.stamp
+	@printf "$(BOLD)[*] Generating glossary documentation...$(NC)\n"
+	@printf "$(GREY)"; \
+	$(VENV_PYTHON) src/python/utils/generate_glossary_docs.py -i src/rdf/data/glossary.skos.ttl -d $(DOCS_DIR) -p $(PREFIXES) || { printf "$(NC)"; exit 1; }; \
+	printf "$(NC)"
+
+docs: $(SHACL_REPORT) generate-shacl-docs generate-glossary-docs
 	@printf "$(BOLD)[*] Rendering documentation with Quarto...$(NC)\n"
 	@printf "$(GREY)"; \
 	quarto render docs > $(QUARTO_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: Quarto rendering failed. See log below:$(NC)\n$(GREY)"; cat $(QUARTO_LOG); printf "$(NC)\n"; exit 1; }; \
@@ -233,4 +239,4 @@ publish: test delete
 
 clean:
 	@printf "$(BOLD)[*] Cleaning build artifacts...$(NC)\n"
-	@rm -rf $(BUILD_DIR) $(VENV) .quarto docs/.quarto tests/__pycache__ docs/index_files docs/*/entities.md
+	@rm -rf $(BUILD_DIR) $(VENV) .quarto docs/.quarto tests/__pycache__ docs/index_files docs/*/entities.md docs/*/glossary.md

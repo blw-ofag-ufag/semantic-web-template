@@ -26,6 +26,13 @@ def get_qmd_files(lang_dir):
     """Returns a list of all .qmd files relative to the language directory."""
     return [p.relative_to(lang_dir) for p in lang_dir.rglob("*.qmd")]
 
+def get_all_qmd_files():
+    """Returns all .qmd files in the allowed language directories."""
+    files = []
+    for lang_dir in LANG_DIRS:
+        files.extend(lang_dir.rglob("*.qmd"))
+    return files
+
 def get_translation_file_pairs():
     """Generates tuples of (relative_file_path, target_lang_name) for parametrization."""
     cases = []
@@ -63,7 +70,8 @@ def analyze_qmd(path):
     # Compute structural statistics
     stats = {
         "total_lines": len(lines),
-        "headings": 0,
+        "headings": [],
+        "headings_missing_ref": [],
         "code_block_delimiters": 0,
         "images": 0,
         "tables": 0,
@@ -88,7 +96,12 @@ def analyze_qmd(path):
             stats["text_chars"] += len(stripped)
             
             if stripped.startswith("#"):
-                stats["headings"] += 1
+                # Find heading reference ID like {#sec-id} or {.class #sec-id}
+                match = re.search(r'\{[^}]*#([A-Za-z0-9_-]+)[^}]*\}\s*$', stripped)
+                if match:
+                    stats["headings"].append(match.group(1))
+                else:
+                    stats["headings_missing_ref"].append(stripped)
             elif "![" in stripped or "<img" in stripped:
                 stats["images"] += 1
             elif stripped.startswith("|"):
@@ -123,6 +136,15 @@ def test_translation_directories_exist():
     if not LANG_DIRS:
         pytest.skip(f"No allowed language directories {ALLOWED_LANGS} found in docs/")
     assert (DOCS_DIR / REF_LANG).exists(), f"Reference language directory '{REF_LANG}' missing."
+
+@pytest.mark.parametrize("qmd_file", get_all_qmd_files(), ids=lambda p: str(p.relative_to(DOCS_DIR)))
+def test_headings_have_references(qmd_file):
+    """Ensures every heading in every .qmd file has a reference ID (e.g., {#sec-example})."""
+    _, stats = analyze_qmd(qmd_file)
+    assert not stats["headings_missing_ref"], (
+        f"The following headings in {qmd_file} are missing a reference ID:\n" + 
+        "\n".join(stats["headings_missing_ref"])
+    )
 
 @pytest.mark.parametrize("lang_dir", [d for d in LANG_DIRS if d.name != REF_LANG], ids=lambda d: d.name)
 def test_file_structure_is_identical(lang_dir):
@@ -164,11 +186,11 @@ def test_translation_content_matches(rel_path, target_lang):
         f"{target_file}: {target_stats['total_lines']} lines"
     )
     
-    # 3. Check headings count
+    # 3. Check headings alignment (verifies both count AND perfect matching of reference IDs)
     assert target_stats["headings"] == ref_stats["headings"], (
-        f"Number of headings differs.\n"
-        f"{ref_file}: {ref_stats['headings']} headings\n"
-        f"{target_file}: {target_stats['headings']} headings"
+        f"Heading references differ or are out of order.\n"
+        f"{ref_file}: {ref_stats['headings']}\n"
+        f"{target_file}: {target_stats['headings']}"
     )
     
     # 4. Check code blocks

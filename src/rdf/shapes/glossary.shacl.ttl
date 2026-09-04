@@ -1,0 +1,59 @@
+# ==============================================================================
+# PREFIXES
+# ==============================================================================
+
+# Globally used namespaces/qnames
+@prefix schema:          <http://schema.org/> .
+@prefix sh:              <http://www.w3.org/ns/shacl#> .
+@prefix skos:            <http://www.w3.org/2004/02/skos/core#> .
+
+# ==============================================================================
+# SHAPES
+# ==============================================================================
+
+<ConceptSchemeShape> a sh:NodeShape ;
+    sh:targetClass skos:ConceptScheme ;
+    sh:property [
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:uniqueLang true ;
+        sh:languageIn ( "de" "en" "fr" "it" "rm" ) ;
+    ] .
+
+<ConceptShape> a sh:NodeShape ;
+    sh:targetClass skos:Concept ;    
+    sh:property [
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:uniqueLang true ;
+        sh:message "A concept must have exactly one schema:name per language."@en ;
+    ] ;
+    sh:property [
+        sh:path schema:alternateName ;
+        sh:nodeKind sh:Literal ;
+        sh:disjoint schema:name ;
+        sh:message "A schema:alternateName cannot perfectly match the schema:name of the same concept."@en ;
+    ] ;
+    sh:property [
+        sh:path schema:description ;
+        sh:nodeKind sh:Literal ;
+    ] ;
+    sh:property [
+        sh:path skos:inScheme ;
+        sh:minCount 1 ;
+        sh:class skos:ConceptScheme ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Every concept must belong to a skos:ConceptScheme."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:topConceptOf ;
+        sh:class skos:ConceptScheme ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path skos:broader ;
+        sh:class skos:Concept ;
+        sh:nodeKind sh:IRI ;
+    ] .

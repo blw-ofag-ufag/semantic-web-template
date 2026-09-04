@@ -15,7 +15,8 @@ PATTERNS = [
     ".gitattributes",
     "src/python/utils/*.py",
     "src/rdf/shapes/glossary.shacl.ttl",
-    ".github/workflows/ci.yml"
+    ".github/workflows/ci.yml",
+    ".github/CONTRIBUTING.md"
 ]
 
 def test_sync_with_template(pytestconfig):

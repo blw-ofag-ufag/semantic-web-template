@@ -3,19 +3,19 @@
 # ==============================================================================
 
 # Project-specific namespaces/qnames
-@prefix :                <http://example.org/> .
-@prefix address:         <http://example.org/address/> .
-@prefix album:           <http://example.org/album/> .
-@prefix artist:          <http://example.org/artist/> .
-@prefix customer:        <http://example.org/customer/> .
-@prefix employee:        <http://example.org/employee/> .
-@prefix genre:           <http://example.org/genre/> .
-@prefix invline:         <http://example.org/invoiceline/> .
-@prefix invoice:         <http://example.org/invoice/> .
-@prefix media:           <http://example.org/mediatype/> .
-@prefix playlist:        <http://example.org/playlist/> .
-@prefix track:           <http://example.org/tracks/> .
-@prefix person:          <http://example.org/person/> .
+@prefix :                <https://agriculture.ld.admin.ch/eCH-1234/2/> .
+@prefix address:         <https://agriculture.ld.admin.ch/eCH-1234/2/address/> .
+@prefix album:           <https://agriculture.ld.admin.ch/eCH-1234/2/album/> .
+@prefix artist:          <https://agriculture.ld.admin.ch/eCH-1234/2/artist/> .
+@prefix customer:        <https://agriculture.ld.admin.ch/eCH-1234/2/customer/> .
+@prefix employee:        <https://agriculture.ld.admin.ch/eCH-1234/2/employee/> .
+@prefix genre:           <https://agriculture.ld.admin.ch/eCH-1234/2/genre/> .
+@prefix invline:         <https://agriculture.ld.admin.ch/eCH-1234/2/invoiceline/> .
+@prefix invoice:         <https://agriculture.ld.admin.ch/eCH-1234/2/invoice/> .
+@prefix media:           <https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/> .
+@prefix playlist:        <https://agriculture.ld.admin.ch/eCH-1234/2/playlist/> .
+@prefix track:           <https://agriculture.ld.admin.ch/eCH-1234/2/tracks/> .
+@prefix person:          <https://agriculture.ld.admin.ch/eCH-1234/2/person/> .
 
 # LINDAS-specific namespaces/qnames
 @prefix org:             <https://register.ld.admin.ch/opendataswiss/org/> .
@@ -61,7 +61,7 @@
     ],
     [
         sh:prefix "" ;
-        sh:namespace "http://example.org/"^^xsd:anyURI ;
+        sh:namespace "https://agriculture.ld.admin.ch/eCH-1234/2/"^^xsd:anyURI ;
     ] .
 
 :PersonShape a sh:NodeShape ;

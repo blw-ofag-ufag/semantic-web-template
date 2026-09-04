@@ -1,4 +1,4 @@
-BASE <https://example.org/>
+BASE <https://agriculture.ld.admin.ch/eCH-1234/2/>
 PREFIX schema: <http://schema.org/>
 SELECT *
 WHERE {

@@ -1,4 +1,4 @@
-@prefix person: <http://example.org/person/> .
+@prefix person: <https://agriculture.ld.admin.ch/eCH-1234/2/person/> .
 @prefix schema: <http://schema.org/> .
 
 person:a_jamal a schema:Person ;

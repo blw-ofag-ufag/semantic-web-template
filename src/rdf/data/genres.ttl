@@ -1,5 +1,5 @@
-@prefix : <http://example.org/> .
-@prefix genre: <http://example.org/genre/> .
+@prefix : <https://agriculture.ld.admin.ch/eCH-1234/2/> .
+@prefix genre: <https://agriculture.ld.admin.ch/eCH-1234/2/genre/> .
 @prefix schema: <http://schema.org/> .
 
 genre:10 a :Genre ;

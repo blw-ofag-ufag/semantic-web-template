@@ -97,6 +97,8 @@ Ces dispositions ne s'appliquent toutefois qu'aux standards élaborés par eCH, 
 
 # Annexe C - Abréviations et glossaire {.appendix}
 
+{{< include glossary.md >}}
+
 # Annexe D - Modifications par rapport à la version précédente {.appendix}
 
 # Annexe E - Table des illustrations {.appendix}

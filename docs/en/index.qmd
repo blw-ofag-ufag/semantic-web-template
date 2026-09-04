@@ -97,6 +97,8 @@ These provisions shall apply to the standards prepared by eCH only, however, not
 
 # Annex C - Abbreviations and Glossary {.appendix}
 
+{{< include glossary.md >}}
+
 # Annex D - Changes in comparison to previous version {.appendix}
 
 # Annex E - Table of figures {.appendix}

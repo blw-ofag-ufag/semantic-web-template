@@ -97,6 +97,8 @@ Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, ni
 
 # Anhang C - Abkürzungen und Glossar {.appendix}
 
+{{< include glossary.md >}}
+
 # Anhang D - Änderungen gegenüber der Vorversion {.appendix}
 
 # Anhang E - Abbildungsverzeichnis {.appendix}

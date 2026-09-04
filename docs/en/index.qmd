@@ -6,7 +6,7 @@ date-format: long
 lang: en
 ---
 
-# Note {.unnumbered}
+# Note {#sec-note .unnumbered}
 
 This document uses a gender-neutral formulation when referring to persons. This is based on the guidelines (German) of the Federal Chancellery. Depending on the situation, paired forms (citizens), gender-abstract forms (insured person), gender-neutral forms (insured person) or paraphrases with-out personal reference are used. The generic masculine (citizen) is not permitted. Full forms are used in continuous texts, i.e. in texts consisting of formulated sentences. Short forms can be used in ab-breviated text passages, namely in tables. The short form is used with a slash but without an ellipsis (referent). Gender asterisks and similar spellings are not used.
 
@@ -88,19 +88,19 @@ The standards prepared by the technical units can be used, distributed and devel
 eCH-standards are fully documented and free of any restrictions of licence and/or patent law. The associated documentation can be requested for free.
 These provisions shall apply to the standards prepared by eCH only, however, not to any standards or products of third parties which include reference to eCH-standards. The standards include the relevant references to third party rights.
 
-# Annex A - References {.appendix}
+# Annex A - References {#sec-appendix-a .appendix}
 
 ::: {#refs}
 :::
 
-# Annex B - Cooperation and Verification {.appendix}
+# Annex B - Cooperation and Verification {#sec-appendix-b .appendix}
 
-# Annex C - Abbreviations and Glossary {.appendix}
+# Annex C - Abbreviations and Glossary {#sec-appendix-c .appendix}
 
 {{< include glossary.md >}}
 
-# Annex D - Changes in comparison to previous version {.appendix}
+# Annex D - Changes in comparison to previous version {#sec-appendix-d .appendix}
 
-# Annex E - Table of figures {.appendix}
+# Annex E - Table of figures {#sec-appendix-e .appendix}
 
-# Annex F - Table of tables {.appendix}
+# Annex F - Table of tables {#sec-appendix-f .appendix}

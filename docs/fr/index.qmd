@@ -6,26 +6,26 @@ date-format: long
 lang: fr
 ---
 
-# Remarque {.unnumbered}
+# Remarque {#sec-note .unnumbered}
 
 Dans le présent document, les désignations de personnes sont formulées de manière épicène (neutre du point de vue du genre). Le guide de la Chancellerie fédérale sert de base. Selon la situation, on utilise des formulations paires (citoyennes et citoyens), des formes abstraites (personne assurée), des formes neutres ou des périphrases sans référence à la personne. L'usage du masculin générique n'est pas autorisé. Les formes complètes sont employées dans le texte continu, c'est-à-dire dans les textes composés de phrases rédigées. Dans les passages de texte raccourcis, notamment dans les tableaux, des formes abrégées peuvent être utilisées. La forme abrégée s'utilise alors avec une barre oblique, mais sans trait d'omission (rapporteur/euse). L'astérisque de genre et les typographies similaires ne sont pas utilisés.
 
-# Introduction
+# Introduction {#sec-introduction}
 
-## Statut
+## Statut {#sec-status}
 
 Approuvé : Ce document a été approuvé par le comité d'experts. Il a force normative pour le domaine d'application défini et dans le champ d'application déterminé.
 
-## Champ d'application
+## Champ d'application {#sec-scope-of-application}
 
 Les informations de ce chapitre doivent donner au lecteur un aperçu rapide de ce à quoi ce standard est destiné.
 Des indications sur les éléments suivants peuvent s'avérer utiles.
 
-## Nous pouvons avoir des sous-titres
+## Nous pouvons avoir des sous-titres {#sec-example-subheading}
 
 Et écrire un peu de texte.
 
-### Et aussi des sous-sous-titres
+### Et aussi des sous-sous-titres {#sec-example-subsubheading}
 
 Et écrire encore plus de texte. Peut-être même avec une belle image.
 
@@ -33,15 +33,15 @@ Et écrire encore plus de texte. Peut-être même avec une belle image.
 
 Lors de la présentation de diagrammes, essayez de les créer directement dans Mermaid JS ; cela facilite grandement les modifications futures ou les traductions.
 
-# Notes techniques
+# Notes techniques {#sec-technical-notes}
 
 Nous utilisons l'interface en ligne de commande (CLI) ROBOT dans notre projet [@jackson2019robot], en particulier pour sa capacité à exécuter le raisonneur HermiT [@glimm2014hermit].
 
-# Modèle de données
+# Modèle de données {#sec-data-model}
 
 {{< include entities.md >}}
 
-# Accès aux données
+# Accès aux données {#sec-data-retrieval}
 
 Les données de base et de référence qui sous-tendent ce document sont disponibles sous forme de *Linked Data*.
 
@@ -65,11 +65,11 @@ Les données sous-jacentes elles-mêmes sont gérées sur GitHub sous forme de f
 {{< include ../data/example.ttl >}}
 ```
 
-# Considérations de sécurité
+# Considérations de sécurité {#sec-safety-consideration}
 
 Informations sur les bases légales expressément déterminantes ou remarque indiquant que les bases légales pertinentes doivent être respectées lors de la mise en œuvre.
 
-# Clause de non-responsabilité
+# Clause de non-responsabilité {#sec-disclaimer}
 
 Les standards eCH que l'association eCH met gratuitement à la disposition de l'utilisateur ou qui font référence à eCH n'ont que le statut de recommandations. L'association eCH décline toute responsabilité pour les décisions ou mesures prises par l'utilisateur sur la base de ces documents. Il incombe à l'utilisateur de vérifier lui-même les documents avant de les utiliser et, si nécessaire, de demander des conseils professionnels. Les standards eCH ne peuvent et ne doivent pas remplacer les conseils techniques, organisationnels ou juridiques dans un cas individuel.
 
@@ -79,7 +79,7 @@ Bien que l'association eCH ait apporté le soin nécessaire à l'élaboration de
 
 Toute responsabilité pour les dommages causés par l'utilisation des standards eCH par l'utilisateur est exclue dans les limites autorisées par la loi.
 
-# Droits d'auteur
+# Droits d'auteur {#sec-copyrights}
 
 Les personnes qui élaborent les standards eCH restent propriétaires de leurs droits de propriété intellectuelle. Ces personnes s'engagent toutefois à mettre leurs droits de propriété intellectuelle ou d'autres droits sur des droits de propriété intellectuelle de tiers, dans la mesure du possible, à la disposition des groupes d'experts concernés et de l'association eCH, et ce gratuitement et pour une utilisation ainsi qu'un développement ultérieur illimités dans le cadre du but de l'association.
 
@@ -88,19 +88,19 @@ Les standards élaborés par les groupes d'experts peuvent être utilisés, diff
 Les standards eCH sont entièrement documentés et libres de toute restriction de droit de licence et/ou de brevet. La documentation correspondante peut être demandée gratuitement.
 Ces dispositions ne s'appliquent toutefois qu'aux standards élaborés par eCH, et non aux standards ou produits de tiers qui font référence aux standards eCH. Les standards contiennent les références correspondantes aux droits de tiers.
 
-# Annexe A - Références {.appendix}
+# Annexe A - Références {#sec-appendix-a .appendix}
 
 ::: {#refs}
 :::
 
-# Annexe B - Collaboration et Vérification {.appendix}
+# Annexe B - Collaboration et Vérification {#sec-appendix-b .appendix}
 
-# Annexe C - Abréviations et glossaire {.appendix}
+# Annexe C - Abréviations et glossaire {#sec-appendix-c .appendix}
 
 {{< include glossary.md >}}
 
-# Annexe D - Modifications par rapport à la version précédente {.appendix}
+# Annexe D - Modifications par rapport à la version précédente {#sec-appendix-d .appendix}
 
-# Annexe E - Table des illustrations {.appendix}
+# Annexe E - Table des illustrations {#sec-appendix-e .appendix}
 
-# Annexe F - Liste des tableaux {.appendix}
+# Annexe F - Liste des tableaux {#sec-appendix-f .appendix}

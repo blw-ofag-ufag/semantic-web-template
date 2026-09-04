@@ -1,6 +1,6 @@
 # eCH-1234 Template Quarto Document
 
-September 3, 2026
+September 4, 2026
 
 - [Note](#note)
 - [<span class="toc-section-number">1</span>
@@ -374,6 +374,18 @@ Automating Ontology Workflows.” *BMC Bioinformatics* 20 (1): 407.
 # Annex B - Cooperation and Verification
 
 # Annex C - Abbreviations and Glossary
+
+<div id="tbl-glossary">
+
+Table 8: Glossary of the eCH-1234 standard
+
+| IRI | Term | Description | Relations |
+|:---|:---|:---|:---|
+| [`term:lindas`](http://example.org/term/lindas) | **Linked Data Service** (LINDAS) | The official Linked Data service of the Swiss Federal Administration, acting as a triple store. |  |
+| [`term:rdf`](http://example.org/term/rdf) | **Resource Description Framework** (RDF) | A central standard of the World Wide Web Consortium (W3C) for modeling data structures on the Web. Information is represented as networked graphs rather than in traditional tables. |  |
+| [`term:triple`](http://example.org/term/triple) | **Triple** | The basic structure of a statement in RDF, consisting of a subject, predicate, and object. | *broader*: [`term:rdf`](http://example.org/term/rdf) |
+
+</div>
 
 # Annex D - Changes in comparison to previous version
 

@@ -1,6 +1,6 @@
 # Modèle de document Quarto eCH-1234
 
-3 septembre 2026
+4 septembre 2026
 
 - [Remarque](#remarque)
 - [<span class="toc-section-number">1</span>
@@ -385,6 +385,18 @@ automating ontology workflows ». *BMC bioinformatics* 20 (1): 407.
 # Annexe B - Collaboration et Vérification
 
 # Annexe C - Abréviations et glossaire
+
+<div id="tbl-glossary">
+
+Table 8: Glossaire de la norme eCH-1234
+
+| IRI | Terme | Description | Relations |
+|:---|:---|:---|:---|
+| [`term:lindas`](http://example.org/term/lindas) | **Linked Data Service** (LINDAS) | Le service officiel de données liées de l’administration fédérale suisse, fonctionnant comme un triple store (magasin de triplets). |  |
+| [`term:rdf`](http://example.org/term/rdf) | **Resource Description Framework** (RDF) | Une norme centrale du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web. Les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés. |  |
+| [`term:triple`](http://example.org/term/triple) | **Triplet** | La structure de base d’une déclaration en RDF, composée d’un sujet, d’un prédicat et d’un objet. | *plus générique*: [`term:rdf`](http://example.org/term/rdf) |
+
+</div>
 
 # Annexe D - Modifications par rapport à la version précédente
 

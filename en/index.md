@@ -258,7 +258,7 @@ The following chapter provides minimal instructions on how the data can
 be queried and retrieved from LINDAS.
 
 ``` rq
-BASE <https://example.org/>
+BASE <https://agriculture.ld.admin.ch/eCH-1234/2/>
 PREFIX schema: <http://schema.org/>
 SELECT *
 WHERE {
@@ -271,8 +271,8 @@ LIMIT 10
 The underlying data itself is maintained on GitHub as Turtle files.
 
 ``` ttl
-@base <http://example.org/> .
-@prefix genre: <http://example.org/genre/> .
+@base <https://agriculture.ld.admin.ch/eCH-1234/2/> .
+@prefix genre: <https://agriculture.ld.admin.ch/eCH-1234/2/genre/> .
 @prefix schema: <http://schema.org/> .
 
 genre:1 a <Genre> ;
@@ -380,9 +380,9 @@ Table 8: Glossary of the eCH-1234 standard
 
 | IRI | Term | Description | Relations |
 |:---|:---|:---|:---|
-| [`term:lindas`](http://example.org/term/lindas) | **Linked Data Service** (LINDAS) | The official Linked Data service of the Swiss Federal Administration, acting as a triple store. |  |
-| [`term:rdf`](http://example.org/term/rdf) | **Resource Description Framework** (RDF) | A central standard of the World Wide Web Consortium (W3C) for modeling data structures on the Web. Information is represented as networked graphs rather than in traditional tables. |  |
-| [`term:triple`](http://example.org/term/triple) | **Triple** | The basic structure of a statement in RDF, consisting of a subject, predicate, and object. | *broader*: [`term:rdf`](http://example.org/term/rdf) |
+| [`term:lindas`](https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas) | **Linked Data Service** (LINDAS) | The official Linked Data service of the Swiss Federal Administration, acting as a triple store. |  |
+| [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) | **Resource Description Framework** (RDF) | A central standard of the World Wide Web Consortium (W3C) for modeling data structures on the Web. Information is represented as networked graphs rather than in traditional tables. |  |
+| [`term:triple`](https://agriculture.ld.admin.ch/eCH-1234/2/term/triple) | **Triple** | The basic structure of a statement in RDF, consisting of a subject, predicate, and object. | *broader*: [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) |
 
 </div>
 

@@ -685,7 +685,7 @@ Table&nbsp;7: propriétés Valeur quantitative
 <p>La base technologique de cette approche est le Resource Description Framework <span class="citation" data-cites="cyganiak2014rdf11">(RDF, <a href="#ref-cyganiak2014rdf11" role="doc-biblioref">Cyganiak et al. 2014</a>)</span>, un standard central du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web. En RDF, les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés. Chaque déclaration est constituée de ce que l’on appelle un triplet (sujet, prédicat, objet). Cette structure permet une description des ressources et de leurs relations mutuelles qui soit lisible par machine, interopérable et univoque à travers différents systèmes.</p>
 <p>Pour le stockage et la publication de ces données RDF, on utilise <a href="https://lindas.admin.ch/">LINDAS</a> (Linked Data Service), le service officiel de Linked Data de l’administration fédérale suisse. LINDAS fait office de <em>Triple Store</em>, une base de données orientée graphe spécialisée et optimisée pour le stockage et l’interrogation efficaces de triplets RDF, qui met les données publiquement à disposition via une interface standardisée.</p>
 <p>Le chapitre suivant fournit des instructions minimales sur la façon dont les données peuvent être interrogées et extraites de LINDAS.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rq code-with-copy"><code class="sourceCode sparql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">BASE</span> <span class="st">&lt;https://example.org/&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rq code-with-copy"><code class="sourceCode sparql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">BASE</span> <span class="st">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">PREFIX</span> schema: <span class="st">&lt;http://schema.org/&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
@@ -694,8 +694,8 @@ Table&nbsp;7: propriétés Valeur quantitative
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Les données sous-jacentes elles-mêmes sont gérées sur GitHub sous forme de fichiers Turtle.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ttl code-with-copy"><code class="sourceCode turtle"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@base</span> <span class="bu">&lt;http://example.org/&gt;</span> <span class="op">.</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">genre:</span> <span class="bu">&lt;http://example.org/genre/&gt;</span> <span class="op">.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ttl code-with-copy"><code class="sourceCode turtle"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@base</span> <span class="bu">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/&gt;</span> <span class="op">.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">genre:</span> <span class="bu">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/genre/&gt;</span> <span class="op">.</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">schema:</span> <span class="bu">&lt;http://schema.org/&gt;</span> <span class="op">.</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:1</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
@@ -772,22 +772,22 @@ Table&nbsp;8: Glossaire de la norme eCH-1234
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="http://example.org/term/lindas"><code>term:lindas</code></a></td>
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas"><code>term:lindas</code></a></td>
 <td style="text-align: left;"><strong>Linked Data Service</strong> (LINDAS)</td>
 <td style="text-align: left;">Le service officiel de données liées de l’administration fédérale suisse, fonctionnant comme un triple store (magasin de triplets).</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="http://example.org/term/rdf"><code>term:rdf</code></a></td>
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></td>
 <td style="text-align: left;"><strong>Resource Description Framework</strong> (RDF)</td>
 <td style="text-align: left;">Une norme centrale du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web. Les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés.</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="http://example.org/term/triple"><code>term:triple</code></a></td>
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/triple"><code>term:triple</code></a></td>
 <td style="text-align: left;"><strong>Triplet</strong></td>
 <td style="text-align: left;">La structure de base d’une déclaration en RDF, composée d’un sujet, d’un prédicat et d’un objet.</td>
-<td style="text-align: left;"><em>plus générique</em>: <a href="http://example.org/term/rdf"><code>term:rdf</code></a></td>
+<td style="text-align: left;"><em>plus générique</em>: <a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></td>
 </tr>
 </tbody>
 </table>

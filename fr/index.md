@@ -264,7 +264,7 @@ Le chapitre suivant fournit des instructions minimales sur la façon dont
 les données peuvent être interrogées et extraites de LINDAS.
 
 ``` rq
-BASE <https://example.org/>
+BASE <https://agriculture.ld.admin.ch/eCH-1234/2/>
 PREFIX schema: <http://schema.org/>
 SELECT *
 WHERE {
@@ -278,8 +278,8 @@ Les données sous-jacentes elles-mêmes sont gérées sur GitHub sous forme
 de fichiers Turtle.
 
 ``` ttl
-@base <http://example.org/> .
-@prefix genre: <http://example.org/genre/> .
+@base <https://agriculture.ld.admin.ch/eCH-1234/2/> .
+@prefix genre: <https://agriculture.ld.admin.ch/eCH-1234/2/genre/> .
 @prefix schema: <http://schema.org/> .
 
 genre:1 a <Genre> ;
@@ -391,9 +391,9 @@ Table 8: Glossaire de la norme eCH-1234
 
 | IRI | Terme | Description | Relations |
 |:---|:---|:---|:---|
-| [`term:lindas`](http://example.org/term/lindas) | **Linked Data Service** (LINDAS) | Le service officiel de données liées de l’administration fédérale suisse, fonctionnant comme un triple store (magasin de triplets). |  |
-| [`term:rdf`](http://example.org/term/rdf) | **Resource Description Framework** (RDF) | Une norme centrale du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web. Les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés. |  |
-| [`term:triple`](http://example.org/term/triple) | **Triplet** | La structure de base d’une déclaration en RDF, composée d’un sujet, d’un prédicat et d’un objet. | *plus générique*: [`term:rdf`](http://example.org/term/rdf) |
+| [`term:lindas`](https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas) | **Linked Data Service** (LINDAS) | Le service officiel de données liées de l’administration fédérale suisse, fonctionnant comme un triple store (magasin de triplets). |  |
+| [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) | **Resource Description Framework** (RDF) | Une norme centrale du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web. Les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés. |  |
+| [`term:triple`](https://agriculture.ld.admin.ch/eCH-1234/2/term/triple) | **Triplet** | La structure de base d’une déclaration en RDF, composée d’un sujet, d’un prédicat et d’un objet. | *plus générique*: [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) |
 
 </div>
 

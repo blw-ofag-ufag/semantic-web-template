@@ -264,7 +264,7 @@ Das folgende Kapitel gibt eine minimale Anleitung, wie die Daten von
 LINDAS abgefragt und bezogen werden können.
 
 ``` rq
-BASE <https://example.org/>
+BASE <https://agriculture.ld.admin.ch/eCH-1234/2/>
 PREFIX schema: <http://schema.org/>
 SELECT *
 WHERE {
@@ -278,8 +278,8 @@ Die zugrundeliegenden Daten selbst werden auf GitHub als Turtle-Files
 gepflegt.
 
 ``` ttl
-@base <http://example.org/> .
-@prefix genre: <http://example.org/genre/> .
+@base <https://agriculture.ld.admin.ch/eCH-1234/2/> .
+@prefix genre: <https://agriculture.ld.admin.ch/eCH-1234/2/genre/> .
 @prefix schema: <http://schema.org/> .
 
 genre:1 a <Genre> ;
@@ -389,9 +389,9 @@ Tabelle 8: Glossar des Standards eCH-1234
 
 | IRI | Begriff | Beschreibung | Beziehungen |
 |:---|:---|:---|:---|
-| [`term:lindas`](http://example.org/term/lindas) | **Linked Data Service** (LINDAS) | Der offizielle Linked-Data-Dienst der Schweizer Bundesverwaltung, der als Triple Store fungiert. |  |
-| [`term:rdf`](http://example.org/term/rdf) | **Resource Description Framework** (RDF) | Ein zentraler Standard des World Wide Web Consortiums (W3C) zur Modellierung von Datenstrukturen im Web. Informationen werden nicht in klassischen Tabellen, sondern als vernetzte Graphen abgebildet. |  |
-| [`term:triple`](http://example.org/term/triple) | **Tripel** | Die Grundstruktur einer Aussage in RDF, bestehend aus Subjekt, Prädikat und Objekt. | *Oberbegriff*: [`term:rdf`](http://example.org/term/rdf) |
+| [`term:lindas`](https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas) | **Linked Data Service** (LINDAS) | Der offizielle Linked-Data-Dienst der Schweizer Bundesverwaltung, der als Triple Store fungiert. |  |
+| [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) | **Resource Description Framework** (RDF) | Ein zentraler Standard des World Wide Web Consortiums (W3C) zur Modellierung von Datenstrukturen im Web. Informationen werden nicht in klassischen Tabellen, sondern als vernetzte Graphen abgebildet. |  |
+| [`term:triple`](https://agriculture.ld.admin.ch/eCH-1234/2/term/triple) | **Tripel** | Die Grundstruktur einer Aussage in RDF, bestehend aus Subjekt, Prädikat und Objekt. | *Oberbegriff*: [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) |
 
 </div>
 

@@ -686,7 +686,7 @@ Table&nbsp;7: properties Quantitative Value
 <p>The technological basis for this is the Resource Description Framework <span class="citation" data-cites="cyganiak2014rdf11">(RDF, <a href="#ref-cyganiak2014rdf11" role="doc-biblioref">Cyganiak et al. 2014</a>)</span>, a central standard of the World Wide Web Consortium (W3C) for modeling data structures on the web. In RDF, information is not represented in classic tables, but as interconnected graphs. Each statement consists of a so-called triple (subject, predicate, object). This structure enables a machine-readable, interoperable, and cross-system unambiguous description of resources and their relations to one another.</p>
 <p>For the storage and publication of this RDF data, <a href="https://lindas.admin.ch/">LINDAS</a> (Linked Data Service) is used, the official Linked Data service of the Swiss Federal Administration. LINDAS functions as a so-called <em>triple store</em>, a specialized graph database optimized for the efficient storage and querying of RDF triples, which makes the data publicly available via a standardized interface.</p>
 <p>The following chapter provides minimal instructions on how the data can be queried and retrieved from LINDAS.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rq code-with-copy"><code class="sourceCode sparql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">BASE</span> <span class="st">&lt;https://example.org/&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rq code-with-copy"><code class="sourceCode sparql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">BASE</span> <span class="st">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">PREFIX</span> schema: <span class="st">&lt;http://schema.org/&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
@@ -695,8 +695,8 @@ Table&nbsp;7: properties Quantitative Value
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The underlying data itself is maintained on GitHub as Turtle files.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ttl code-with-copy"><code class="sourceCode turtle"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@base</span> <span class="bu">&lt;http://example.org/&gt;</span> <span class="op">.</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">genre:</span> <span class="bu">&lt;http://example.org/genre/&gt;</span> <span class="op">.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ttl code-with-copy"><code class="sourceCode turtle"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@base</span> <span class="bu">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/&gt;</span> <span class="op">.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">genre:</span> <span class="bu">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/genre/&gt;</span> <span class="op">.</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">schema:</span> <span class="bu">&lt;http://schema.org/&gt;</span> <span class="op">.</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:1</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
@@ -773,22 +773,22 @@ Table&nbsp;8: Glossary of the eCH-1234 standard
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="http://example.org/term/lindas"><code>term:lindas</code></a></td>
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas"><code>term:lindas</code></a></td>
 <td style="text-align: left;"><strong>Linked Data Service</strong> (LINDAS)</td>
 <td style="text-align: left;">The official Linked Data service of the Swiss Federal Administration, acting as a triple store.</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="http://example.org/term/rdf"><code>term:rdf</code></a></td>
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></td>
 <td style="text-align: left;"><strong>Resource Description Framework</strong> (RDF)</td>
 <td style="text-align: left;">A central standard of the World Wide Web Consortium (W3C) for modeling data structures on the Web. Information is represented as networked graphs rather than in traditional tables.</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="http://example.org/term/triple"><code>term:triple</code></a></td>
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/triple"><code>term:triple</code></a></td>
 <td style="text-align: left;"><strong>Triple</strong></td>
 <td style="text-align: left;">The basic structure of a statement in RDF, consisting of a subject, predicate, and object.</td>
-<td style="text-align: left;"><em>broader</em>: <a href="http://example.org/term/rdf"><code>term:rdf</code></a></td>
+<td style="text-align: left;"><em>broader</em>: <a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></td>
 </tr>
 </tbody>
 </table>

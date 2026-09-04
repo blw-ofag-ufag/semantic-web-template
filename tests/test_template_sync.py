@@ -14,7 +14,8 @@ PATTERNS = [
     "LICENSE.md",
     ".gitattributes",
     "src/python/utils/*.py",
-    "src/rdf/shapes/glossary.shacl.ttl"
+    "src/rdf/shapes/glossary.shacl.ttl",
+    ".github/workflows/ci.yml"
 ]
 
 def test_sync_with_template(pytestconfig):

@@ -1,0 +1,42 @@
+# ==============================================================================
+# PREFIXES
+# ==============================================================================
+
+# Project-specific namespaces/qnames
+@prefix :                <http://example.org/> .
+@prefix term:            <http://example.org/term/> .
+
+# Globally used namespaces/qnames
+@prefix schema:          <http://schema.org/> .
+@prefix skos:            <http://www.w3.org/2004/02/skos/core#> .
+
+# ==============================================================================
+# GLOSSARY METADATA
+# ==============================================================================
+
+:glossary a skos:ConceptScheme ;
+    schema:name "Glossar des Standards eCH-1234"@de .
+
+# ==============================================================================
+# GLOSSARY TERMS
+# ==============================================================================
+
+term:lindas a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    schema:name "Linked Data Service"@de ;
+    schema:alternateName "LINDAS"@de ;
+    schema:description "Der offizielle Linked-Data-Dienst der Schweizer Bundesverwaltung, der als Triple Store fungiert."@de .
+
+term:rdf a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    schema:name "Resource Description Framework"@de ;
+    schema:alternateName "RDF"@de ;
+    schema:description "Ein zentraler Standard des World Wide Web Consortiums (W3C) zur Modellierung von Datenstrukturen im Web. Informationen werden nicht in klassischen Tabellen, sondern als vernetzte Graphen abgebildet."@de .
+
+term:triple a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:broader term:rdf ;
+    schema:name "Tripel"@de ;
+    schema:alternateName "Die Grundstruktur einer Aussage in RDF, bestehend aus Subjekt, Prädikat und Objekt."@de .

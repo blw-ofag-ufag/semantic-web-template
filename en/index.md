@@ -378,11 +378,48 @@ Automating Ontology Workflows.” *BMC Bioinformatics* 20 (1): 407.
 
 Table 8: Glossary of the eCH-1234 standard
 
-| IRI | Term | Description | Relations |
-|:---|:---|:---|:---|
-| [`term:lindas`](https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas) | **Linked Data Service** (LINDAS) | The official Linked Data service of the Swiss Federal Administration, acting as a triple store. |  |
-| [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) | **Resource Description Framework** (RDF) | A central standard of the World Wide Web Consortium (W3C) for modeling data structures on the Web. Information is represented as networked graphs rather than in traditional tables. |  |
-| [`term:triple`](https://agriculture.ld.admin.ch/eCH-1234/2/term/triple) | **Triple** | The basic structure of a statement in RDF, consisting of a subject, predicate, and object. | *broader*: [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) |
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 25%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">IRI</th>
+<th style="text-align: left;">Term</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas"><code>term:lindas</code></a></td>
+<td style="text-align: left;"><strong>Linked Data Service</strong>
+(LINDAS)</td>
+<td style="text-align: left;">The official Linked Data service of the
+Swiss Federal Administration, acting as a triple store.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></td>
+<td style="text-align: left;"><strong>Resource Description
+Framework</strong> (RDF)</td>
+<td style="text-align: left;">A central standard of the World Wide Web
+Consortium (W3C) for modeling data structures on the Web. Information is
+represented as networked graphs rather than in traditional tables.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/triple"><code>term:triple</code></a></td>
+<td style="text-align: left;"><strong>Triple</strong></td>
+<td style="text-align: left;"><p>The basic structure of a statement in
+RDF, consisting of a subject, predicate, and object.</p>
+<p><em>broader</em>: <a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></p></td>
+</tr>
+</tbody>
+</table>
 
 </div>
 

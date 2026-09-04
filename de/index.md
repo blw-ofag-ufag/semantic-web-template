@@ -387,11 +387,49 @@ automating ontology workflows“. *BMC bioinformatics* 20 (1): 407.
 
 Tabelle 8: Glossar des Standards eCH-1234
 
-| IRI | Begriff | Beschreibung | Beziehungen |
-|:---|:---|:---|:---|
-| [`term:lindas`](https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas) | **Linked Data Service** (LINDAS) | Der offizielle Linked-Data-Dienst der Schweizer Bundesverwaltung, der als Triple Store fungiert. |  |
-| [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) | **Resource Description Framework** (RDF) | Ein zentraler Standard des World Wide Web Consortiums (W3C) zur Modellierung von Datenstrukturen im Web. Informationen werden nicht in klassischen Tabellen, sondern als vernetzte Graphen abgebildet. |  |
-| [`term:triple`](https://agriculture.ld.admin.ch/eCH-1234/2/term/triple) | **Tripel** | Die Grundstruktur einer Aussage in RDF, bestehend aus Subjekt, Prädikat und Objekt. | *Oberbegriff*: [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) |
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 25%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">IRI</th>
+<th style="text-align: left;">Begriff</th>
+<th style="text-align: left;">Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas"><code>term:lindas</code></a></td>
+<td style="text-align: left;"><strong>Linked Data Service</strong>
+(LINDAS)</td>
+<td style="text-align: left;">Der offizielle Linked-Data-Dienst der
+Schweizer Bundesverwaltung, der als Triple Store fungiert.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></td>
+<td style="text-align: left;"><strong>Resource Description
+Framework</strong> (RDF)</td>
+<td style="text-align: left;">Ein zentraler Standard des World Wide Web
+Consortiums (W3C) zur Modellierung von Datenstrukturen im Web.
+Informationen werden nicht in klassischen Tabellen, sondern als
+vernetzte Graphen abgebildet.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/triple"><code>term:triple</code></a></td>
+<td style="text-align: left;"><strong>Tripel</strong></td>
+<td style="text-align: left;"><p>Die Grundstruktur einer Aussage in RDF,
+bestehend aus Subjekt, Prädikat und Objekt.</p>
+<p><em>Oberbegriff</em>: <a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></p></td>
+</tr>
+</tbody>
+</table>
 
 </div>
 

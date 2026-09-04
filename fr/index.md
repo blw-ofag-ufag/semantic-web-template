@@ -389,11 +389,50 @@ automating ontology workflows ». *BMC bioinformatics* 20 (1): 407.
 
 Table 8: Glossaire de la norme eCH-1234
 
-| IRI | Terme | Description | Relations |
-|:---|:---|:---|:---|
-| [`term:lindas`](https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas) | **Linked Data Service** (LINDAS) | Le service officiel de données liées de l’administration fédérale suisse, fonctionnant comme un triple store (magasin de triplets). |  |
-| [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) | **Resource Description Framework** (RDF) | Une norme centrale du World Wide Web Consortium (W3C) pour la modélisation des structures de données sur le Web. Les informations ne sont pas représentées dans des tableaux classiques, mais sous forme de graphes interconnectés. |  |
-| [`term:triple`](https://agriculture.ld.admin.ch/eCH-1234/2/term/triple) | **Triplet** | La structure de base d’une déclaration en RDF, composée d’un sujet, d’un prédicat et d’un objet. | *plus générique*: [`term:rdf`](https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf) |
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 25%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">IRI</th>
+<th style="text-align: left;">Terme</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas"><code>term:lindas</code></a></td>
+<td style="text-align: left;"><strong>Linked Data Service</strong>
+(LINDAS)</td>
+<td style="text-align: left;">Le service officiel de données liées de
+l’administration fédérale suisse, fonctionnant comme un triple store
+(magasin de triplets).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></td>
+<td style="text-align: left;"><strong>Resource Description
+Framework</strong> (RDF)</td>
+<td style="text-align: left;">Une norme centrale du World Wide Web
+Consortium (W3C) pour la modélisation des structures de données sur le
+Web. Les informations ne sont pas représentées dans des tableaux
+classiques, mais sous forme de graphes interconnectés.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/triple"><code>term:triple</code></a></td>
+<td style="text-align: left;"><strong>Triplet</strong></td>
+<td style="text-align: left;"><p>La structure de base d’une déclaration
+en RDF, composée d’un sujet, d’un prédicat et d’un objet.</p>
+<p><em>plus générique</em>: <a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></p></td>
+</tr>
+</tbody>
+</table>
 
 </div>
 

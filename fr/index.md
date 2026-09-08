@@ -1,6 +1,6 @@
 # Modèle de document Quarto eCH-1234
 
-4 septembre 2026
+8 septembre 2026
 
 - [Remarque](#sec-note)
 - [<span class="toc-section-number">1</span>
@@ -116,7 +116,7 @@ Une collection de pistes dans le jeu de données Chinook.
 
 Table 1: propriétés Album de musique
 
-| Description | Chemin | Type | Cardinalité |
+| Description | Chemin | Type | Card. |
 |:---|:---|:---|---:|
 | **Nom**: Chaque album doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
 | **Artiste**: Personne ou groupe de musique ayant créé l’album. | `schema:byArtist` | [`schema:Person`](#sec-nodeshape-personshape) ou `schema:MusicGroup` | 0..\* |
@@ -133,7 +133,7 @@ Une piste musicale unique dans le jeu de données Chinook.
 
 Table 2: propriétés Enregistrement musical
 
-| Description | Chemin | Type | Cardinalité |
+| Description | Chemin | Type | Card. |
 |:---|:---|:---|---:|
 | **Nom**: Chaque piste doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
 | **Dans l’album**: Une piste ne peut appartenir qu’à un schema:MusicAlbum valide. | `schema:inAlbum` | [`schema:MusicAlbum`](#sec-nodeshape-musicalbumshape) | 0..\* |
@@ -154,7 +154,7 @@ Un reçu d’achat dans le jeu de données Chinook.
 
 Table 3: propriétés Facture
 
-| Description | Chemin | Type | Cardinalité |
+| Description | Chemin | Type | Card. |
 |:---|:---|:---|---:|
 | **Client**: Une facture doit être liée à exactement un client. | `schema:customer` | [`schema:Person`](#sec-nodeshape-personshape) | 1..1 |
 | **Paiement total dû**: Une facture doit définir un paiement total dû en tant que schema:QuantitativeValue. | `schema:totalPaymentDue` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 1..1 |
@@ -173,7 +173,7 @@ Une catégorie musicale dans le jeu de données Chinook.
 
 Table 4: propriétés Genre
 
-| Description | Chemin | Type | Cardinalité |
+| Description | Chemin | Type | Card. |
 |:---|:---|:---|---:|
 | **Nom** | `schema:name` |  | 1..1 |
 | **Partie de** | `schema:partOf` | [`:Genre`](#sec-nodeshape-genreshape) ou `sh:IRI` | 0..\* |
@@ -190,7 +190,7 @@ Une entreprise ou organisation dans le jeu de données Chinook.
 
 Table 5: propriétés Organisation
 
-| Description | Chemin | Type | Cardinalité |
+| Description | Chemin | Type | Card. |
 |:---|:---|:---|---:|
 | **Nom**: Chaque organisation doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
 
@@ -207,7 +207,7 @@ le jeu de données.
 
 Table 6: propriétés Personne
 
-| Description | Chemin | Type | Cardinalité |
+| Description | Chemin | Type | Card. |
 |:---|:---|:---|---:|
 | **Prénom**: Chaque personne doit avoir un prénom. | `schema:givenName` | `xsd:string` | 1..1 |
 | **Nom de famille**: Chaque personne doit avoir un nom de famille. | `schema:familyName` | `xsd:string` | 1..1 |
@@ -230,7 +230,7 @@ Une valeur numérique avec une unité associée.
 
 Table 7: propriétés Valeur quantitative
 
-| Description | Chemin | Type | Cardinalité |
+| Description | Chemin | Type | Card. |
 |:---|:---|:---|---:|
 | **Valeur**: Une valeur quantitative doit avoir exactement une valeur numérique. | `schema:value` |  | 1..1 |
 | **Code d’unité**: Une valeur quantitative doit spécifier son unité via une URI unitCode. | `schema:unitCode` | `sh:IRI` | 1..1 |

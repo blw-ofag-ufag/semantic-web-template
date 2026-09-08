@@ -1,6 +1,6 @@
 # eCH-1234 Quarto-Dokument als Vorlage
 
-4. September 2026
+8. September 2026
 
 - [Hinweis](#sec-note)
 - [<span class="toc-section-number">1</span>
@@ -117,7 +117,7 @@ Eine musikalische Kategorie im Chinook-Datensatz.
 
 Tabelle 1: Eigenschaften Genre
 
-| Beschreibung | Pfad | Typ | Kardinalität |
+| Beschreibung | Pfad | Typ | Kard. |
 |:---|:---|:---|---:|
 | **Name** | `schema:name` |  | 1..1 |
 | **Teil von** | `schema:partOf` | [`:Genre`](#sec-nodeshape-genreshape) oder `sh:IRI` | 0..\* |
@@ -134,7 +134,7 @@ Eine Sammlung von Titeln im Chinook-Datensatz.
 
 Tabelle 2: Eigenschaften Musikalbum
 
-| Beschreibung | Pfad | Typ | Kardinalität |
+| Beschreibung | Pfad | Typ | Kard. |
 |:---|:---|:---|---:|
 | **Name**: Jedes Album muss einen Namen haben. | `schema:name` | `xsd:string` | 1..1 |
 | **Künstler**: Person oder Musikgruppe, die das Album erstellt hat. | `schema:byArtist` | [`schema:Person`](#sec-nodeshape-personshape) oder `schema:MusicGroup` | 0..\* |
@@ -151,7 +151,7 @@ Ein einzelner Musiktitel im Chinook-Datensatz.
 
 Tabelle 3: Eigenschaften Musikaufnahme
 
-| Beschreibung | Pfad | Typ | Kardinalität |
+| Beschreibung | Pfad | Typ | Kard. |
 |:---|:---|:---|---:|
 | **Name**: Jeder Titel muss einen Namen haben. | `schema:name` | `xsd:string` | 1..1 |
 | **In Album**: Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören. | `schema:inAlbum` | [`schema:MusicAlbum`](#sec-nodeshape-musicalbumshape) | 0..\* |
@@ -172,7 +172,7 @@ Ein Unternehmen oder eine Organisation im Chinook-Datensatz.
 
 Tabelle 4: Eigenschaften Organisation
 
-| Beschreibung | Pfad | Typ | Kardinalität |
+| Beschreibung | Pfad | Typ | Kard. |
 |:---|:---|:---|---:|
 | **Name**: Jede Organisation muss einen Namen haben. | `schema:name` | `xsd:string` | 1..1 |
 
@@ -189,7 +189,7 @@ Datensatz.
 
 Tabelle 5: Eigenschaften Person
 
-| Beschreibung | Pfad | Typ | Kardinalität |
+| Beschreibung | Pfad | Typ | Kard. |
 |:---|:---|:---|---:|
 | **Vorname**: Jede Person muss einen Vornamen haben. | `schema:givenName` | `xsd:string` | 1..1 |
 | **Nachname**: Jede Person muss einen Nachnamen haben. | `schema:familyName` | `xsd:string` | 1..1 |
@@ -212,7 +212,7 @@ Ein numerischer Wert mit einer dazugehörigen Einheit.
 
 Tabelle 6: Eigenschaften Quantitativer Wert
 
-| Beschreibung | Pfad | Typ | Kardinalität |
+| Beschreibung | Pfad | Typ | Kard. |
 |:---|:---|:---|---:|
 | **Wert**: Ein quantitativer Wert muss genau einen numerischen Wert haben. | `schema:value` |  | 1..1 |
 | **Einheitencode**: Ein quantitativer Wert muss seine Einheit über eine unitCode-URI angeben. | `schema:unitCode` | `sh:IRI` | 1..1 |
@@ -229,7 +229,7 @@ Ein Kaufbeleg im Chinook-Datensatz.
 
 Tabelle 7: Eigenschaften Rechnung
 
-| Beschreibung | Pfad | Typ | Kardinalität |
+| Beschreibung | Pfad | Typ | Kard. |
 |:---|:---|:---|---:|
 | **Kunde**: Eine Rechnung muss genau einem Kunden zugeordnet sein. | `schema:customer` | [`schema:Person`](#sec-nodeshape-personshape) | 1..1 |
 | **Fälliger Gesamtbetrag**: Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren. | `schema:totalPaymentDue` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 1..1 |

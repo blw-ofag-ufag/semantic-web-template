@@ -1,6 +1,6 @@
 # eCH-1234 Template Quarto Document
 
-September 4, 2026
+September 8, 2026
 
 - [Note](#sec-note)
 - [<span class="toc-section-number">1</span>
@@ -112,7 +112,7 @@ A musical category in the Chinook dataset.
 
 Table 1: properties Genre
 
-| Description | Path | Type | Cardinality |
+| Description | Path | Type | Card. |
 |:---|:---|:---|---:|
 | **Name** | `schema:name` |  | 1..1 |
 | **Part of** | `schema:partOf` | [`:Genre`](#sec-nodeshape-genreshape) or `sh:IRI` | 0..\* |
@@ -129,7 +129,7 @@ A purchase receipt in the Chinook dataset.
 
 Table 2: properties Invoice
 
-| Description | Path | Type | Cardinality |
+| Description | Path | Type | Card. |
 |:---|:---|:---|---:|
 | **Customer**: An invoice must be linked to exactly one customer. | `schema:customer` | [`schema:Person`](#sec-nodeshape-personshape) | 1..1 |
 | **Total payment due**: An invoice must define a total payment due as a schema:QuantitativeValue. | `schema:totalPaymentDue` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 1..1 |
@@ -148,7 +148,7 @@ A collection of tracks in the Chinook dataset.
 
 Table 3: properties Music album
 
-| Description | Path | Type | Cardinality |
+| Description | Path | Type | Card. |
 |:---|:---|:---|---:|
 | **Name**: Every album must have a name. | `schema:name` | `xsd:string` | 1..1 |
 | **Artist**: Person or music group who created the album. | `schema:byArtist` | [`schema:Person`](#sec-nodeshape-personshape) or `schema:MusicGroup` | 0..\* |
@@ -165,7 +165,7 @@ A single music track in the Chinook dataset.
 
 Table 4: properties Music Recording
 
-| Description | Path | Type | Cardinality |
+| Description | Path | Type | Card. |
 |:---|:---|:---|---:|
 | **Name**: Every track must have a name. | `schema:name` | `xsd:string` | 1..1 |
 | **In Album**: A track can only belong to a valid schema:MusicAlbum. | `schema:inAlbum` | [`schema:MusicAlbum`](#sec-nodeshape-musicalbumshape) | 0..\* |
@@ -186,7 +186,7 @@ A company or organization in the Chinook dataset.
 
 Table 5: properties Organisation
 
-| Description | Path | Type | Cardinality |
+| Description | Path | Type | Card. |
 |:---|:---|:---|---:|
 | **Name**: Every organisation must have a name. | `schema:name` | `xsd:string` | 1..1 |
 
@@ -203,7 +203,7 @@ dataset.
 
 Table 6: properties Person
 
-| Description | Path | Type | Cardinality |
+| Description | Path | Type | Card. |
 |:---|:---|:---|---:|
 | **Given Name**: Every person must have a given name. | `schema:givenName` | `xsd:string` | 1..1 |
 | **Family Name**: Every person must have a family name. | `schema:familyName` | `xsd:string` | 1..1 |
@@ -226,7 +226,7 @@ A numerical value with an associated unit.
 
 Table 7: properties Quantitative Value
 
-| Description | Path | Type | Cardinality |
+| Description | Path | Type | Card. |
 |:---|:---|:---|---:|
 | **Value**: A quantitative value must have exactly one numeric value. | `schema:value` |  | 1..1 |
 | **Unit Code**: A quantitative value must specify its unit via a unitCode URI. | `schema:unitCode` | `sh:IRI` | 1..1 |

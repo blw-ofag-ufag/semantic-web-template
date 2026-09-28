@@ -105,8 +105,6 @@ The translations are checked by the test suite: every heading needs a reference 
 
 ### Languages
 
-### Languages
-
 The template is set up for German (`de`), English (`en`) and French (`fr`). Each language requires a folder in `docs/` and matching language tags in the SHACL shapes.
 
 For a German-only project, delete the other language folders and remove them from `render:` in `_quarto.yml`:

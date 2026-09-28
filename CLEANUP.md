@@ -107,10 +107,23 @@ The translations are checked by the test suite: every heading needs a reference 
 
 The template is set up for German (`de`), English (`en`) and French (`fr`). Each language requires a folder in `docs/` and matching language tags in the SHACL shapes.
 
-For a German-only project, delete the other language folders and remove them from `render:` in `_quarto.yml`:
+For a single-language project, delete the folders of the other languages. For example, for a German-only project:
 
 ```bash
 rm -rf docs/en docs/fr
+```
+
+Then remove these languages from `render:` in `docs/_quarto.yml`:
+
+```diff
+ project:
+   output-dir: ../build/docs/
+   type: website
+   render:
+     - de/index.qmd
+-    - fr/index.qmd
+-    - en/index.qmd
+```
 ```
 
 ## Running the pipeline locally

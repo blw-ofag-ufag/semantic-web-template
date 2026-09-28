@@ -1,340 +1,146 @@
-# Schritt-für-Schritt-Anleitung: Template bereinigen und Fachprojekt einrichten
+# Setting up a project from this template
 
-Dieses Repository dient als Vorlage (*Template*) für Semantic-Web-Pipelines. Es enthält eine funktionale Demo-Pipeline auf Basis der Chinook-Musikdatenbank (ca. 120'000 Tripel) inklusive ETL, OWL-Reasoning, SPARQL-Regeln, SHACL-Validierung, Quarto-Dokumentation und LINDAS-Deployment.
+This template ships with a working demo pipeline based on the Chinook music database, which integrates data with Python, reasons with ROBOT and HermiT, post-processes the graph with SPARQL, validates it with SHACL and Pytest, builds the documentation with Quarto and publishes the graph on LINDAS.
 
-Folge dieser Anleitung, um die Demo-Komponenten schrittweise zu entfernen und durch dein eigenes Fachmodell zu ersetzen.
+This guide describes how to remove the demo components and replace them with a custom domain model.
 
----
+## Setting up the local development environment
 
-## 1. Lokale Entwicklungsumgebung initialisieren
+The following tools must be installed:
 
-### 1.1 Systemvoraussetzungen prüfen
-Stelle sicher, dass folgende Werkzeuge auf deinem System installiert sind:
+* Python 3 (>= 3.10)
+* Java (>= 11, required for ROBOT and HermiT; the CI pipeline uses Java 17)
+* Quarto CLI (for the documentation)
+* curl (for the deployment to LINDAS)
 
-* **Python 3** (>= 3.10)
-* **Java JRE/JDK** (>= 11, erforderlich für ROBOT und HermiT-Reasoning)
-* **Quarto CLI** (für das Rendern der Dokumentation)
-* **curl** (für das LINDAS-Deployment)
-
-Prüfung im Terminal:
-```bash
-python3 --version
-java -version
-quarto --version
-```
-
-### 1.2 Automatisches Setup via Makefile
-Das Repository verwaltet seine Python-Umgebung und externe Binärdateien autonom. Es wird keine manuelle `requirements.txt` auf Root-Ebene gepflegt. Führe im Projektverzeichnis aus:
+Then run in the project directory:
 
 ```bash
 make setup
 ```
 
-**Was dieser Befehl automatisch ausführt:**
-* Erstellt eine isolierte virtuelle Python-Umgebung im Verzeichnis `venv/`.
-* Aktualisiert pip und installiert alle benötigten Pakete (rdflib, pyshacl, pytest etc.) aus `src/python/requirements.txt`.
-* Lädt das Werkzeug `robot.jar` (v1.9.5) für OWL-Reasoning und Merging direkt nach `venv/bin/robot.jar` herunter.
+This creates a virtual environment in `venv/`, installs the Python packages and downloads ROBOT.
 
-> **Hinweis für Posit Workbench / Pfade mit Sonderzeichen (`@`):**  
-> Sollte VS Code `Unable to handle .../.venv` melden, setze den Python-Interpreter manuell über die Befehlspalette:  
-> `Ctrl + Shift + P` -> `Python: Select Interpreter` -> `Enter interpreter path...` -> `venv/bin/python` eingeben.
+> [!NOTE]
+> On Posit Workbench or in paths containing @, VS Code may report Unable to handle .../.venv.
+> In this case, select the interpreter manually: `Ctrl + Shift + P` -> Python: Select Interpreter -> Enter interpreter path... -> `venv/bin/python`.
 
----
+## Removing demo data and building the domain model
 
-## 2. Demo-Daten entfernen und Fachmodell aufbauen
+### Prefixes (`src/rdf/prefixes.ttl`)
 
-Passe die Dateien in `src/` schrittweise an dein Projekt an:
+> [!IMPORTANT]
+> All prefixes used in the project must be declared in this file. The build uses only these prefixes, and the test suite checks that they are used consistently across the repository.
 
-### 2.1 Vokabular & Basis-Namensräume (src/rdf/prefixes.ttl)
+The file consists of three blocks:
 
-Die Datei (src/rdf/prefixes.ttl) dient für alle im Projekt verwendeten Namensräume und QNames. 
+* **Project-specific:** replace the demo prefixes (album, artist, track, etc.) with the project namespace and its sub-namespaces.
+* **LINDAS-specific:** optional, can remain in the file.
+* **Globally used:** W3C and other standards, keep them.
 
-> **Wichtig:** Halte nach Möglichkeit  alle Präfixe des Projekts in dieser Datei fest. 
+### Data integration (`src/python/pipeline/`)
 
----
+The Makefile runs all Python scripts in this folder in alphabetical order. It calls each script with `--output build/rdf/00-integrated.ttl`, and the script must write its triples as Turtle to exactly this file. The build then merges this file into the graph. If there are several scripts, only the first one may overwrite the file; every further script must add its triples to the existing file, otherwise the triples of the previous scripts are lost. 
 
-#### Die 3 Blöcke der Datei verstehen und anpassen
+**Option A: with data integration** (e.g. from a database, an API or CSV files)
 
-Die Datei ist in drei klar abgegrenzte Zonen unterteilt:
+1. Delete the demo script: `rm src/python/pipeline/01_integrate_example_data.py`
+2. Add a custom script to this folder, e.g. `01_import_data.py`, that reads the target file from the `--output` argument (e.g. with argparse).
 
- **Block 1 (`# Project-specific`):** / Ersetzen. 
+**Option B: static Turtle files only**
 
-Lösche die Demo-Präfixe (`album:`, `artist:`, `track:` etc.)und trage dort deine eigene Projekt-Basis-URI sowie die Sub-Namensräume für Instanzen ein.
+Delete all scripts with `rm -f src/python/pipeline/*.py`. The Makefile then creates an empty file instead.
 
- **Block 2 (`# LINDAS-specific`):** / Optional stehen lassen.
+### Static data and glossary (`src/rdf/data/`)
 
-Diese Präfixe (`cube:`, `org:`, `meta:` etc.) werden eingesetzt, wenn du Daten speziell für LINDAS strukturierst (z. B. für multidimensionale Datenwürfel/Cubes). 
-
- **Block 3 (`# Globally used`):** / Beibehalten.
-
-Enthält W3C- und QUDT-Standards (`rdf:`, `owl:`, `sh:`, `skos:`, `xsd:` etc.), die das Build-System und die Validierung zwingend voraussetzen.
-
-**Schreibweisen (Casing):**
-
-  - Klassen und Individuen: Werden in `PascalCase` geschrieben 
-  (z. B. `ex:LandwirtschaftlicherBetrieb`).
-  - Properties: Werden in `camelCase` ohne vorangestellte Verben geschrieben 
-  (z. B. `ex:betriebsNummer`, nicht `ex:hasBetriebsNummer`).
-
----
-
-### 2.2 Ontologie (`src/rdf/ontology/model.owl.ttl`)
-1. Entferne die Klassen und Eigenschaften der Chinook-Demo.
-2. Definiere dein eigenes OWL-Modell unter Einhaltung der Namenskonventionen:
-   - **Klassen (`owl:Class`):** Verwende `PascalCase` (z. B. `ex:Betrieb`).
-   - **Properties (`owl:ObjectProperty`, `owl:DatatypeProperty`):** Verwende `camelCase` ohne vorangestelltes Verb (z. B. `ex:betriebsNummer`, nicht `ex:hasBetriebsNummer`).
-
----
-
-### 2.3 SKOS-Glossar (`src/rdf/data/glossary.skos.ttl`)
-- **Wichtig:** Diese Datei darf **nicht gelöscht** werden, da der Quarto-Generator `src/python/utils/generate_glossary_docs.py` zwingend darauf zugreift.
-- Ersetze die Demo-Konzepte durch deine fachspezifischen SKOS-Konzepte (`skos:ConceptScheme`, `skos:Concept`).
-
----
-
-### 2.4 SHACL-Validierungsregeln (`src/rdf/shapes/model.shacl.ttl`)
-1. Entferne die Demo-Shapes (Artist, Album, Track, Invoice).
-2. Definiere `sh:NodeShape` und Property-Constraints für deine neuen Ontologie-Klassen, um Pflichtfelder, Datentypen und Kardinalitäten abzusichern.
-
----
-
-### 2.5 Statische Instanzdaten (`src/rdf/data/*.ttl`)
-- Lösche alle Demo-Dateien in `src/rdf/data/` (ausser `glossary.skos.ttl`).
-- Hinterlege hier statische Turtle-Dateien mit Stammdaten oder festen Vokabularen.
-
----
-
-### 2.6 Datenintegration & ETL-Pipeline (`src/python/pipeline/`)
-
-Das Template ermöglicht es, externe Datenquellen wie relationale Datenbanken, APIs oder CSV-Dateien über Python abzufragen und als RDF-Tripel in den Build einzuspeisen.
-
-Alle Python-Skripte im Verzeichnis `src/python/pipeline/` werden vom Makefile alphabetisch sortiert ausgeführt. Jedes Skript erhält dabei den CLI-Parameter `--output build/rdf/00-integrated.ttl`.
-
-Wähle je nach Anwendungsfall eine der beiden Varianten:
-
-#### Option A: Mit ETL-Pipeline (Dynamische Datenquellen)
-1. Lösche das Chinook-Demo-Skript:
-   ```bash
-   rm src/python/pipeline/01_integrate_example_data.py
-   ```
-2. Hinterlege dein eigenes Import-Skript im selben Ordner (z. B. `src/python/pipeline/01_import_daten.py`).
-3. Dein Skript muss das Argument `--output <zielpfad>` akzeptieren (z. B. via `argparse`) und die serialisierten Tripel als Turtle an diesen Pfad schreiben.
-
-#### Option B: Ohne ETL-Pipeline (Reine statische Turtle-Dateien)
-1. Lösche alle Python-Dateien im Verzeichnis:
-   ```bash
-   rm -f src/python/pipeline/*.py
-   ```
-2. Das Makefile erkennt automatisch, dass keine Skripte vorhanden sind, und erzeugt eine leere Datei.
-
----
-
-### 2.7 SPARQL-Post-Processing (`src/sparql/processing/`)
-
-In diesem Schritt können nach dem Reasoning (HermiT) gezielte Graph-Transformationen, Datenbereinigungen oder Berechnungen durchgeführt werden. 
-
-Das Makefile übergibt alle .rq -Dateien in `src/sparql/processing/` an das Werkzeug ROBOT 
-Das Ergebnis wird als `build/rdf/03-processed.ttl` serialisiert und bildet die Grundlage für die anschliessende SHACL-Validierung.
-
-#### Demo-Dateien bereinigen
-Lösche bestehende Demo-Abfragen:
-```bash
-rm -f src/sparql/processing/*.rq
-```
-
-#### Auswahl: Mit oder ohne SPARQL-Updates
-
-* **Option A: Ohne SPARQL-Updates (Standard)**  
-  Wenn dein Modell keine nachgelagerten Graph-Updates benötigt, bleibt der Ordner `src/sparql/processing/` einfach leer. Das Makefile erkennt dies automatisch und kopiert die Daten ohne Transformation weiter (`02-inferred.ttl` zu `03-processed.ttl`).
-
-* **Option B: Mit SPARQL-Updates (Eigene Regeln anhängen)**  
-  Wenn du eigene Graph-Modifikationen benötigst, gehst du wie folgt vor:
-
-  1. Datei anlegen: Erstelle eine Datei im Ordner `src/sparql/processing/` mit der Endung `.rq` (z. B. `src/sparql/processing/01_berechne_status.rq`).
-  2. Update-Syntax verwenden: Verwende ausschliesslich SPARQL 1.1 Update Befehle (`INSERT`, `DELETE` oder `DELETE/INSERT`). Reine Lese-Abfragen (`SELECT`) führen zu einem Build-Abbruch.
-  3. Präfixe deklarieren: Definiere alle benötigten Präfixe direkt am Anfang der `.rq`-Datei.
-
-  Sobald die Datei gespeichert ist, wendet `make test` dieses Update bei jedem Build automatisch auf den Wissensgraphen an.
-
----
-
-## 3. Projektdokumentation anpassen (`docs/`)
-
-Das Template generiert mit Quarto eine mehrsprachige Dokumentations-Website unter `build/docs/`. 
-
-Damit die Dokumentation vollständig zum eigenen Projekt passt und fehlerfrei baut, muss verstanden werden, welche Teile automatisch entstehen und welche zwingend von Hand bearbeitet werden müssen:
-
-* **Automatisch generiert:** Die Seiten `entities.qmd` (aus `model.shacl.ttl`) und `glossary.qmd` (aus `glossary.skos.ttl`) werden bei jedem Aufruf von `make docs` neu aus deinen RDF-Modelldateien erzeugt. Hier muss nichts manuell editiert werden.
-* **Manuell zu pflegen:** Die globale Konfiguration (`_quarto.yml`) und die Startseiten (`index.qmd`) in den Sprachordnern müssen zwingend selbst angepasst werden. Werden sie nicht bearbeitet, zeigt die fertige Website weiterhin alte Vorlagentexte an.
-
----
-
-### 3.1 Website-Gerüst konfigurieren (`docs/_quarto.yml`)
-
-Die Datei `docs/_quarto.yml` steuert das Design, die Menüleiste und die Exportformate.
-
-Passe die Metadaten an dein Projekt an:
-* **`website.title`:** Titel deines Projekts.
-* **`website.repo-url`:** Link zu deinem GitHub-Repository.
-* **`website.announcement`:** Text des oberen Hinweises anpassen oder den Block entfernen, falls kein Banner gewünscht ist.
-* **`navbar`:** Links zu GitHub, E-Mail-Adresse und die Sprachumschalter prüfen.
-
-> **Wichtiger Bugfix für `make docs`:**  
-> In der Vorlage ist unter dem Format `docx:` ein Verweis auf ein externes Word-Template hinterlegt (`reference-doc: https://s.zazuko.com/MHXTkQ`). Diese URL liefert einen HTTP-404-Fehler und bricht den Build ab.  
-> Kommentiere diese Zeile in `docs/_quarto.yml` zwingend aus:
-> ```yaml
->   docx:
->     toc: true
->     toc-depth: 2
->     number-sections: true
->     # reference-doc: [https://s.zazuko.com/MHXTkQ](https://s.zazuko.com/MHXTkQ)
->     link-citations: true
-> ```
-
----
-
-### 3.2 Startseiten austauschen (`docs/{de,en,fr}/index.qmd`)
-
-In den Sprachordnern liegt jeweils eine manuell gepflegte Einstiegsseite:
-* `docs/de/index.qmd` (Deutsch)
-* `docs/en/index.qmd` (Englisch)
-* `docs/fr/index.qmd` (Französisch)
-
-Ersetze die Vorlagentexte durch deine eigene Projektbeschreibung (Einleitung, Modellübersicht, Fachkontext).
-
-#### Vorgaben der Testsuite für `index.qmd`
-Damit `tests/test_translations.py` fehlerfrei durchläuft, gelten zwei feste Regeln:
-
-1. **Überschriften-Referenzen:** Jede Überschrift muss eine feste ID besitzen.
-2. **Strukturgleichheit:** Die Überschriften-IDs müssen in allen gepflegten Sprachdateien (`de`, `en`, `fr`) synchron vorhanden sein.
-
----
-
-### 3.3 Sprachumfang festlegen (Mehrsprachig vs. Einsprachig)
-
-Standardmässig ist das Template auf Dreisprachigkeit ausgelegt (`de`, `en`, `fr`):
-
-* **Projekt bleibt mehrsprachig:**  
-  Pflege alle drei Startseiten (`docs/de/`, `docs/en/`, `docs/fr/`) und stelle sicher, dass alle Labels und Fehlermeldungen in `model.shacl.ttl` mit Sprach-Tags (`@de`, `@en`, `@fr`) versehen sind.
-* **Projekt wird rein deutsch geführt:**  
-  1. Lösche die nicht benötigten Sprachverzeichnisse:
-     ```bash
-     rm -rf docs/en docs/fr
-     ```
-  2. Entferne die gelöschten Pfade (`- fr/index.qmd`, `- en/index.qmd`) unter `render:` in der Datei `docs/_quarto.yml`.  
-  Die Testsuite und Quarto erkennen die verbleibende Sprache automatisch.
-
----
-
-### 3.4 Dokumentation lokal bauen und prüfen
-
-Führe den Build-Befehl im Terminal aus:
+All Turtle files in this folder are merged into the graph. Delete the demo files and add custom master data or vocabularies:
 
 ```bash
-make docs
+rm src/rdf/data/genres.ttl src/rdf/data/people.ttl
 ```
 
-Das Makefile führt automatisch die Skripte `generate-shacl-docs` und `generate-glossary-docs` aus und kompiliert die Website mit Quarto.
+> [!IMPORTANT]
+> Do not delete `glossary.skos.ttl`: the documentation requires it. Replace its demo concepts and the demo namespace with the project's own terms and namespace instead.
 
+### Ontology (`src/rdf/ontology/model.owl.ttl`)
 
----
+Replace the demo classes and properties with the custom OWL model, following the [naming conventions](.github/CONTRIBUTING.md#rdf-resource-naming-convention).
 
-## 4. Lokale Pipeline ausführen und validieren
+### SHACL shapes (`src/rdf/shapes/model.shacl.ttl`)
 
-Nachdem alle Modelldateien, Daten und Texte hinterlegt sind, wird der gesamte Build über das Makefile getestet.
+Replace the demo shapes with shapes for the custom classes. Provide all labels and messages in every documentation language. Do not change `glossary.shacl.ttl`; it is maintained by the template.
 
-### 4.1 Build-Schritte im Terminal
+### SPARQL post-processing (`src/sparql/processing/`)
 
-Führe die Schritte der Reihe nach aus:
+After reasoning, the build applies all SPARQL updates in this folder to the graph. Delete the demo updates:
 
-1. Vorherige Build-Artefakte entfernen:
-   Löscht alte Zwischenstände, temporäre Dateien und Log-Protokolle restlos aus dem Arbeitsverzeichnis:
-   ```bash
-   make clean
-   ```
+```bash
+rm src/sparql/processing/02_author_linking.rq src/sparql/processing/03_create_companies.rq
+```
 
-2. Pipeline ausführen und validieren: 
-   Startet die Datenintegration, führt die Syntax-Prüfung aus, mergt alle RDF-Dateien mit ROBOT, berechnet Inferenzen mit HermiT, wendet SPARQL-Regeln an und prüft den Graphen via pySHACL und Pytest:
-   ```bash
-   make test
-   ```
+> [!IMPORTANT]
+> Keep `01_hermit_cleanup.rq`. It is not part of the demo but removes auxiliary triples that HermiT adds during reasoning.
 
-3. Dokumentation generieren: 
-   Erzeugt automatisch die Tabellen aus den SHACL-Shapes, baut den SKOS-Katalog auf und rendert die Quarto-Website nach `build/docs/`:
-   ```bash
-   make docs
-   ```
+Custom updates can be added as further `.rq` files. They must use SPARQL Update (INSERT/DELETE) and declare their prefixes; SELECT queries abort the build.
 
-4. Vollständigen Standard-Build ausführen:
-   Führt als Standard-Ziel `make test` gefolgt von `make docs` am Stück aus:
-   ```bash
-   make
-   ```
+### Example queries (`src/sparql/queries/`)
 
----
+The test suite runs every query in this folder against LINDAS. Replace the demo query `test.rq` with queries on the project's published data. Each query must start with a descriptive `#` comment and return at least one result.
 
-### 4.2 Log-Dateien zur gezielten Fehlersuche
+## Adapting the documentation (`docs/`)
 
-Das Makefile leitet Zwischenausgaben in Log-Dateien um, damit das Terminal übersichtlich bleibt. Schlägt ein Schritt fehl, enthält das Verzeichnis `build/log/` die detaillierten Fehlermeldungen:
+The pages `entities.md` and `glossary.md` are generated from the SHACL shapes and the glossary on every `make docs`. Everything else is maintained manually.
 
-* **`build/log/01-merge.log`:** Fehler beim ROBOT-Merge (z. B. ungebundene Präfixe oder Syntaxfehler in einzelnen.Dateien).
-* **`build/log/02-infer.log`:** Logische Inkonsistenzen beim HermiT-Reasoning (z. B. widersprüchliche.OWL-Disjointness-Axiome).
-* **`build/log/03-query.log`:** Syntax- oder Laufzeitfehler in deinen SPARQL-Update-Queries (`src/sparql/processing/*.rq`).
-* **`build/log/04-shacl.log`:** Detaillierter pySHACL-Bericht über Validierungsverstösse mit betroffenen Subjekten. und Pfaden.
-* **`build/log/05-quarto.log`:** Pandoc- und Quarto-Fehler beim Kompilieren der Markdown- und HTML-Seiten.
+### Website configuration (`docs/_quarto.yml`)
 
-## 5. Deployment auf LINDAS
+Adapt `website.title`, `repo-url`, the `announcement` banner and the links in the `navbar` to the project.
 
-Das Repository unterstützt sowohl das automatische Release über GitHub Actions als auch manuelle Uploads von der lokalen Workstation.
+If `make docs` fails because the Word template referenced under `reference-doc` cannot be downloaded, delete or comment out this line.
 
-### 5.1 Zugangsdaten & Konfiguration
+### Landing pages (`docs/{de,en,fr}/index.qmd`)
 
-Für den Zugriff auf LINDAS werden vier zentrale Verbindungsparameter benötigt:
+Replace the template texts with the project description, and replace the Chinook examples in `docs/data/` that the pages include.
 
-| Parameter | Beschreibung | Beispielwert |
-| :--- | :--- | :--- |
-| `ENDPOINT` | SPARQL-Update-Endpunkt von LINDAS | `https://test.lindas.admin.ch/sparql` |
-| `USER` | Technischer Service-Benutzer | `blw-service-account` |
-| `PASSWORD` | Passwort des Service-Benutzers | `mein-sicheres-passwort` |
-| `GRAPH` | Vollständige URI des Ziel-Named-Graphs | `https://agriculture.ld.admin.ch/foag/mein-projekt` |
+The translations are checked by the test suite: every heading needs a reference ID, and all language versions must have the same headings, the same number of lines, code blocks, images and table rows, and a similar text length.
 
-* **Für automatisches Deployment (Standard):**  
-  Hinterlege die vier Variablen in deinem GitHub-Repository unter:  
-  `Settings > Secrets and variables > Actions > New repository secret`.
-* **Für manuelle Direkt-Uploads (Optional):**  
-  Erstelle im Root-Verzeichnis eine Datei `.env` (wird von Git ignoriert) und trage die Werte dort ein:
-  ```dotenv
-  ENDPOINT="[https://test.lindas.admin.ch/sparql](https://test.lindas.admin.ch/sparql)"
-  USER="blw-service-account"
-  PASSWORD="mein-sicheres-passwort"
-  GRAPH="[https://agriculture.ld.admin.ch/foag/mein-projekt](https://agriculture.ld.admin.ch/foag/mein-projekt)"
-  ```
+### Languages
 
----
+### Languages
 
-### 5.2 Automatisches Deployment (GitHub Actions)
+The template is set up for German (`de`), English (`en`) and French (`fr`). Each language requires a folder in `docs/` and matching language tags in the SHACL shapes.
 
-Das Repository enthält eine CI/CD-Pipeline, die bei jedem Push oder Pull-Request-Merge auf den Branch `main` automatisch aktiv wird. Sobald die GitHub Secrets hinterlegt sind, führt der GitHub-Runner die Testsuite aus und publiziert den Wissensgraphen bei Erfolg automatisch auf LINDAS.
+For a German-only project, delete the other language folders and remove them from `render:` in `_quarto.yml`:
 
----
+```bash
+rm -rf docs/en docs/fr
+```
 
-### 5.3 Manuelle Publikation
+## Running the pipeline locally
 
-Sobald `make test` lokal fehlerfrei durchläuft und die Datei `.env` gepflegt ist, stehen folgende Befehle zur Verfügung:
+```bash
+make test   # build the graph (integration, reasoning, SPARQL, SHACL) and run the test suite
+make docs   # generate the documentation in build/docs/
+make        # both of the above
+```
 
-1. **Graphen auf LINDAS publizieren:**  
-   Führt automatisch `make test` aus, leert den Ziel-Named-Graph auf LINDAS und lädt `build/rdf/03-processed.ttl` hoch:
-   ```bash
-   make publish
-   ```
+If a step fails, `build/log/` contains a log file for each step. `make clean` removes all build artifacts.
 
-2. **Bestehenden Remote-Graphen leeren:**  
-   Löscht ausschliesslich die Daten im angegebenen Named Graph auf LINDAS, ohne neue Tripel hochzuladen:
-   ```bash
-   make delete
-   ```
+## Deployment to LINDAS
 
----
+The CI pipeline tests every pull request. On `main`, it also publishes the graph to LINDAS and the documentation to GitHub Pages. For this, add `ENDPOINT`, `USER`, `PASSWORD` and `GRAPH` as repository secrets under Settings > Secrets and variables > Actions.
 
-Damit ist die Bereinigung und Ersteinrichtung des Repositories abgeschlossen. Das Template ist nun vollständig auf dein eigenes Datenmodell umgestellt, lokal validiert und bereit für die produktive Weiterentwicklung sowie automatische Releases auf LINDAS.
+For a manual deployment, create a `.env` file in the root directory (it is ignored by Git). Do not use quotes, as the Makefile reads the values literally:
 
+```dotenv
+ENDPOINT=https://test.lindas.admin.ch/sparql
+USER=blw-service-account
+PASSWORD=my-secure-password
+GRAPH=https://agriculture.ld.admin.ch/foag/my-project
+```
+
+```bash
+make publish   # run the tests, clear the named graph on LINDAS and upload the new graph
+make delete    # only clear the named graph on LINDAS
+```
+
+After these steps, the repository contains only the project's own model, data and documentation, and the pipeline is ready for development and deployment.

@@ -124,7 +124,6 @@ Then remove these languages from `render:` in `docs/_quarto.yml`:
 -    - fr/index.qmd
 -    - en/index.qmd
 ```
-```
 
 ## Running the pipeline locally
 

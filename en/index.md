@@ -1,6 +1,6 @@
 # eCH-1234 Template Quarto Document
 
-September 8, 2026
+September 30, 2026
 
 - [Note](#sec-note)
 - [<span class="toc-section-number">1</span>

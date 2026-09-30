@@ -1,6 +1,6 @@
 # eCH-1234 Quarto-Dokument als Vorlage
 
-8. September 2026
+30. September 2026
 
 - [Hinweis](#sec-note)
 - [<span class="toc-section-number">1</span>

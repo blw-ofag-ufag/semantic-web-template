@@ -1,6 +1,6 @@
 # Modèle de document Quarto eCH-1234
 
-8 septembre 2026
+30 septembre 2026
 
 - [Remarque](#sec-note)
 - [<span class="toc-section-number">1</span>

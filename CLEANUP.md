@@ -93,7 +93,7 @@ The pages `entities.md` and `glossary.md` are generated from the SHACL shapes an
 
 ### Website configuration (`docs/_quarto.yml`)
 
-Adapt `website.title`, `repo-url`, the `announcement` banner and the links in the `navbar` to the project. The PDF icon in the navbar always opens the PDF of the current language; `docs/assets/ech-navbar.html` takes care of that.
+Adapt `website.title`, `repo-url`, the `announcement` banner and the links in the `navbar` to the project.
 
 If `make docs` fails because the Word template referenced under `reference-doc` cannot be downloaded, delete or comment out this line.
 

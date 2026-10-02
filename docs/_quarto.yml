@@ -16,12 +16,6 @@ website:
     logo: assets/ech.svg
     logo-alt: eCH
     right:
-      - icon: file-earmark-pdf
-        href: index.pdf
-        aria-label: PDF
-      - icon: code-slash
-        href: https://github.com/blw-ofag-ufag/semantic-web-template/tree/main/docs
-        aria-label: Source
       - icon: github
         href: https://github.com/blw-ofag-ufag/semantic-web-template
         aria-label: GitHub
@@ -64,10 +58,18 @@ format:
       dark: [cosmo, assets/ech.scss, assets/ech-dark.scss]
     template-partials:
       - assets/title-metadata.html
-    include-after-body: assets/ech-navbar.html
     toc: true
     toc-depth: 2
-    format-links: false
+    # "Other formats" under the table of contents. The plain `html` entry
+    # adds no link but stops Quarto from appending its default entries.
+    format-links:
+      - html
+      - format: typst
+        text: PDF
+        icon: file-earmark-pdf
+      - format: gfm
+        text: Markdown
+        icon: markdown
     number-sections: true
 
     syntax-definitions:

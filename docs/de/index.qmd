@@ -1,19 +1,7 @@
 ---
 title: Quarto-Dokument als Vorlage
 abstract: Kurze Zusammenfassung des Zwecks dieses Dokuments
-date: today
-date-format: iso
 lang: de
-ech:
-  number: eCH-1234
-  category: Standard
-  maturity: Definiert
-  version: 2.4.1
-  status: Genehmigt
-  decision-date: 2026-09-15
-  replaces: 2.4.0 – Minor Change
-  languages: Deutsch (Original), Französisch (Übersetzung), Englisch (Übersetzung)
-  group: Fachgruppe Beispiel
 ---
 
 # Hinweis {#sec-note .unnumbered .unlisted}
@@ -24,7 +12,7 @@ Im vorliegenden Dokument wird bei der Bezeichnung von Personen eine geschlechtsn
 
 ## Status {#sec-status}
 
-Genehmigt: Dieses Dokument wurde vom Fach-Ausschuss verabschiedet. Es entfaltet normative Kraft für den definierten Anwendungsbereich im festgelegten Geltungsbereich.
+{{< ech status >}}
 
 ## Geltungsbereich {#sec-scope-of-application}
 

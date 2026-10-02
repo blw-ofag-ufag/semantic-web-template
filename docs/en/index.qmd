@@ -1,19 +1,7 @@
 ---
 title: Template Quarto Document
 abstract: Brief summary of the purpose of the document.
-date: today
-date-format: iso
 lang: en
-ech:
-  number: eCH-1234
-  category: Standard
-  maturity: Defined
-  version: 2.4.1
-  status: Approved
-  decision-date: 2026-09-15
-  replaces: 2.4.0 – Minor Change
-  languages: German (original), French (translation), English (translation)
-  group: Technical Unit Example
 ---
 
 # Note {#sec-note .unnumbered .unlisted}
@@ -24,7 +12,7 @@ This document uses a gender-neutral formulation when referring to persons. This 
 
 ## Status {#sec-status}
 
-Approved: This document was approved by the Experts’ Committee. It has normative power for the defined field of application in the determined scope of application.
+{{< ech status >}}
 
 ## Scope of application {#sec-scope-of-application}
 

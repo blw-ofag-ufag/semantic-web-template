@@ -1,19 +1,7 @@
 ---
 title: Modèle de document Quarto
 abstract: Bref résumé de l'objectif de ce document
-date: today
-date-format: iso
 lang: fr
-ech:
-  number: eCH-1234
-  category: Norme
-  maturity: Défini
-  version: 2.4.1
-  status: Approuvé
-  decision-date: 2026-09-15
-  replaces: 2.4.0 – Minor Change
-  languages: Allemand (original), français (traduction), anglais (traduction)
-  group: Groupe spécialisé Exemple
 ---
 
 # Remarque {#sec-note .unnumbered .unlisted}
@@ -24,7 +12,7 @@ Dans le présent document, les désignations de personnes sont formulées de man
 
 ## Statut {#sec-status}
 
-Approuvé : Ce document a été approuvé par le comité d'experts. Il a force normative pour le domaine d'application défini et dans le champ d'application déterminé.
+{{< ech status >}}
 
 ## Champ d'application {#sec-scope-of-application}
 

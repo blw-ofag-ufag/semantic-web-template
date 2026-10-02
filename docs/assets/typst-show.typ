@@ -30,43 +30,32 @@ $if(toc-title)$
   toc_title: [$toc-title$],
 $endif$
   toc_depth: $toc-depth$,
+$if(ech-display)$
   ech: (
-$if(ech.number)$
-    number: [$ech.number$],
+$if(ech-display.number)$
+    number: [$ech-display.number$],
 $endif$
-$if(ech.category)$
-    category: [$ech.category$],
+$if(ech-display.version)$
+    version: [$ech-display.version$],
 $endif$
-$if(ech.maturity)$
-    maturity: [$ech.maturity$],
+$if(ech-display.status)$
+    status: [$ech-display.status$],
 $endif$
-$if(ech.version)$
-    version: [$ech.version$],
-$endif$
-$if(ech.status)$
-    status: [$ech.status$],
-$endif$
-$if(ech.decision-date)$
-    decision-date: [$ech.decision-date$],
-$endif$
-$if(ech.replaces)$
-    replaces: [$ech.replaces$],
-$endif$
-$if(ech.prerequisites)$
-    prerequisites: ($for(ech.prerequisites)$[$ech.prerequisites$],$endfor$),
-$endif$
-$if(ech.attachments)$
-    attachments: ($for(ech.attachments)$[$ech.attachments$],$endfor$),
-$endif$
-$if(ech.languages)$
-    languages: ($for(ech.languages)$[$ech.languages$],$endfor$),
-$endif$
-$if(ech.group)$
-    group: [$ech.group$],
-$endif$
-$if(ech.publisher)$
-    publisher: [$ech.publisher$],
-$endif$
+    tagline: [$ech-display.tagline$],
+    page-prefix: [$ech-display.page-prefix$],
+    page-infix: [$ech-display.page-infix$],
+    organisation: [$ech-display.organisation$],
+    summary: [$ech-display.summary$],
+    rows: (
+$for(ech-rows)$
+      (
+        label: [$it.label$],
+        bullets: $if(it.bullets)$true$else$false$endif$,
+        values: ($for(it.values)$[$it$], $endfor$),
+      ),
+$endfor$
+    ),
   ),
+$endif$
   doc,
 )

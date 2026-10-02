@@ -101,25 +101,27 @@ If `make docs` fails because the Word template referenced under `reference-doc` 
 
 Replace the template texts with the project description, and replace the Chinook examples in `docs/data/` that the pages include.
 
-The front matter carries the metadata of the eCH title page. `title` is the name of the standard without the eCH number; `date` is the date of issue, formatted as ISO date. The remaining fields of the eCH metadata table live under `ech:` and are written in the language of the respective page, for example in `docs/en/index.qmd`:
+The metadata of the eCH title page lives in `docs/_ech.yml` and is shared by all languages. It uses language-neutral codes:
 
 ```yaml
+date: 2026-10-01          # date of issue
 ech:
-  number: eCH-1234                      # eCH number
-  category: Standard                    # category
-  maturity: Defined                     # quality stage
-  version: 2.4.1                        # version
-  status: Approved                      # status, printed in bold in the footer
-  decision-date: 2026-09-15             # date of decision
-  replaces: 2.4.0 – Minor Change        # replaced version
-  prerequisites: eCH-0200               # requirements, string or list (optional)
-  attachments: [schema.xsd, model.ttl]  # annexes, string or list (optional)
-  languages: German (original), French (translation), English (translation)
-  group: Technical Unit AgriFood        # technical unit
-  publisher: ...                        # editor / distribution, defaults to Verein eCH (optional)
+  number: eCH-1234
+  category: standard      # standard | best-practice | auxiliary | white-paper | addendum
+  maturity: defined       # experimental | defined | established
+  version: 2.4.1
+  status: approved        # in-progress | draft | proposal | approved | replaced | repealed | suspended
+  decision-date: 2026-09-15
+  replaces: { version: 2.4.0, change: minor }   # minor | major | new
+  prerequisites: [eCH-0200]                     # optional, printed as "---" if empty
+  attachments: [model.ttl, shapes.ttl]          # optional, printed as "---" if empty
+  languages: { original: de, translations: [fr, en] }
+  group: AgriFood         # the "Fachgruppe" prefix is added per language
 ```
 
-Fields that are left out are printed as `---`. The PDF layout itself (header, footer, title page, table of contents) is defined in `docs/assets/typst-template.typ`; the labels of the metadata table are translated there for `de`, `fr` and `en`.
+The Lua filter `docs/assets/ech-metadata.lua` translates these codes with `docs/assets/ech-vocabulary.yml` into the labels of the PDF title page, header and footer (`typst-template.typ`) and of the HTML title block (`title-metadata.html`). The vocabulary lists the allowed codes; an unknown code aborts the render. Only `title`, `abstract` and `lang` remain in the front matter of each language version, and the eCH number is prefixed to the title automatically.
+
+The status sentence of chapter "Status" is inserted with the shortcode `{{< ech status >}}`, which prints the status with its definition from eCH-0003 in the language of the page.
 
 The translations are checked by the test suite: every heading needs a reference ID, and all language versions must have the same headings, the same number of lines, code blocks, images and table rows, and a similar text length.
 

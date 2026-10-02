@@ -35,9 +35,19 @@ website:
 
 bibliography: references.bib
 
+# eCH metadata shared by all languages, translated by the Lua filter
+metadata-files:
+  - _ech.yml
+filters:
+  - assets/ech-metadata.lua
+shortcodes:
+  - assets/ech-shortcodes.lua
+
 format:
   html:
     theme: cosmo
+    template-partials:
+      - assets/title-metadata.html
     toc: true
     toc-depth: 2
     number-sections: true

@@ -6,115 +6,20 @@
 // of contents on a new page, a header with the eCH logo, the tagline and the
 // page count, and a two-line footer with the document identification.
 //
-// Metadata is passed from the document front matter via typst-show.typ:
+// All eCH texts arrive translated from the Lua filter docs/assets/ech-metadata.lua
+// via typst-show.typ, in the `ech` dictionary:
 //
-//   title, date, abstract, lang    standard Quarto fields
-//   ech.number                     eCH-0000
-//   ech.category                   Standard, Best Practice, Hilfsmittel, ...
-//   ech.maturity                   Reifegrad
-//   ech.version                    x.y.z
-//   ech.status                     In Arbeit, Entwurf, Vorschlag, Genehmigt, ...
-//   ech.decision-date              Beschluss am (date is used as Ausgabedatum)
-//   ech.replaces                   Ersetzt Version
-//   ech.prerequisites              Voraussetzungen (string or list)
-//   ech.attachments                Beilagen (string or list)
-//   ech.languages                  Sprachen (string or list)
-//   ech.group                      Fachgruppe
-//   ech.publisher                  Herausgeber / Vertrieb (defaults to Verein eCH)
-//
-// Missing fields are shown as "---", as in published eCH documents.
+//   number, version, status          Inlines for the footer
+//   tagline, page-prefix, page-infix, organisation, summary
+//   rows: ((label, values, bullets), ...)   the metadata table
 
-// Labels of the eCH template in its three languages, selected by `lang`.
-#let ech-labels = (
-  de: (
-    tagline: "E-Government Standards",
-    page: (current, total) => [Seite #current von #total],
-    organisation: "Verein eCH",
-    publisher: [
-      Verein eCH, Affolternstrasse 52, 8050 Zürich \
-      T 044 388 74 64 / #link("mailto:info@ech.ch", "info@ech.ch") / #link("https://www.ech.ch", "www.ech.ch")
-    ],
-    summary: "Zusammenfassung",
-    fields: (
-      name: "Name",
-      number: "eCH-Nummer",
-      category: "Kategorie",
-      maturity: "Reifegrad",
-      version: "Version",
-      status: "Status",
-      decision-date: "Beschluss am",
-      issue-date: "Ausgabedatum",
-      replaces: "Ersetzt Version",
-      prerequisites: "Voraussetzungen",
-      attachments: "Beilagen",
-      languages: "Sprachen",
-      group: "Fachgruppe",
-      publisher: "Herausgeber / Vertrieb",
-    ),
-  ),
-  fr: (
-    tagline: "Normes en cyberadministration",
-    page: (current, total) => [page #current sur #total],
-    organisation: "Association eCH",
-    publisher: [
-      Association eCH, Affolternstrasse 52, 8050 Zurich \
-      T 044 388 74 64 / #link("mailto:info@ech.ch", "info@ech.ch") / #link("https://www.ech.ch", "www.ech.ch")
-    ],
-    summary: "Résumé",
-    fields: (
-      name: "Nom",
-      number: "Numéro eCH",
-      category: "Catégorie",
-      maturity: "Degré de maturité",
-      version: "Version",
-      status: "Statut",
-      decision-date: "Date de décision",
-      issue-date: "Date de publication",
-      replaces: "Remplace la version",
-      prerequisites: "Conditions préalables",
-      attachments: "Annexes",
-      languages: "Langues",
-      group: "Groupe spécialisé",
-      publisher: "Éditeur / distribution",
-    ),
-  ),
-  en: (
-    tagline: "E-Government Standards",
-    page: (current, total) => [Page #current of #total],
-    organisation: "eCH registered association",
-    publisher: [
-      eCH registered association, Affolternstrasse 52, 8050 Zurich \
-      T 044 388 74 64 / #link("mailto:info@ech.ch", "info@ech.ch") / #link("https://www.ech.ch", "www.ech.ch")
-    ],
-    summary: "Summary",
-    fields: (
-      name: "Name",
-      number: "eCH-number",
-      category: "Category",
-      maturity: "Quality stage",
-      version: "Version",
-      status: "Status",
-      decision-date: "Decision on",
-      issue-date: "Date of issue",
-      replaces: "Replaces version",
-      prerequisites: "Requirements",
-      attachments: "Annexes",
-      languages: "Languages",
-      group: "Technical Unit",
-      publisher: "Editor / Distribution",
-    ),
-  ),
-)
-
-// Renders a metadata value: "---" when missing, a bullet list when several.
-#let ech-value(value) = {
-  if value == none { return "---" }
-  if type(value) == array {
-    if value.len() == 0 { return "---" }
-    if value.len() == 1 { return value.first() }
-    return list(..value)
-  }
-  value
+// Renders the values of a metadata row: "---" when missing, a bullet list or
+// one value per line when several.
+#let ech-values(values, bullets) = {
+  if values.len() == 0 { return "---" }
+  if values.len() == 1 { return values.first() }
+  if bullets { return list(..values) }
+  values.join(linebreak())
 }
 
 #let ech-document(
@@ -129,17 +34,16 @@
   toc: true,
   toc_title: none,
   toc_depth: 3,
-  ech: (:),
+  ech: none,
   doc,
 ) = {
-  let labels = ech-labels.at(lang, default: ech-labels.en)
-  let ech = if type(ech) == dictionary { ech } else { (:) }
-  let meta(key) = ech.at(key, default: none)
+  let ech = if ech == none { (:) } else { ech }
+  let meta(key, default: none) = ech.at(key, default: default)
 
   let number = meta("number")
   let full-title = if number == none { title } else [#number – #title]
   let identification = [
-    #full-title / #ech-value(meta("version")) / *#ech-value(meta("status"))* / #ech-value(date)
+    #full-title / #meta("version", default: "---") / *#meta("status", default: "---")* / #if date == none { "---" } else { date }
   ]
 
   // Document ----------------------------------------------------------------
@@ -163,8 +67,8 @@
         column-gutter: 0.45cm,
         align: bottom,
         image("../assets/ech.svg", height: 1.14cm),
-        labels.tagline,
-        (labels.page)(counter(page).display(), counter(page).final().first()),
+        meta("tagline", default: "E-Government Standards"),
+        [#meta("page-prefix", default: "Page") #counter(page).display() #meta("page-infix", default: "of") #counter(page).final().first()],
       )
       v(0.3cm)
       line(length: 100%, stroke: 0.5pt)
@@ -178,7 +82,7 @@
       grid(
         columns: (1fr, auto),
         row-gutter: 0.6em,
-        labels.organisation,
+        meta("organisation", default: "Verein eCH"),
         [#link("https://www.ech.ch", "www.ech.ch") / #link("mailto:info@ech.ch", "info@ech.ch")],
         grid.cell(colspan: 2, identification),
       )
@@ -254,37 +158,21 @@
     block(below: 1cm, full-title)
   }
 
-  {
+  let rows = meta("rows", default: ())
+  if rows.len() > 0 {
     set par(justify: false)
     show link: underline
-    let publisher = if meta("publisher") == none { labels.publisher } else { meta("publisher") }
-    let rows = (
-      (labels.fields.name, title),
-      (labels.fields.number, number),
-      (labels.fields.category, meta("category")),
-      (labels.fields.maturity, meta("maturity")),
-      (labels.fields.version, meta("version")),
-      (labels.fields.status, meta("status")),
-      (labels.fields.decision-date, meta("decision-date")),
-      (labels.fields.issue-date, date),
-      (labels.fields.replaces, meta("replaces")),
-      (labels.fields.prerequisites, meta("prerequisites")),
-      (labels.fields.attachments, meta("attachments")),
-      (labels.fields.languages, meta("languages")),
-      (labels.fields.group, meta("group")),
-      (labels.fields.publisher, publisher),
-    )
     grid(
       columns: (4.6cm, 1fr),
       stroke: 0.5pt,
       inset: (x: 4pt, y: 7pt),
       align: (x, y) => if x == 0 { horizon } else { top },
-      ..rows.map(((label, value)) => (strong(label), ech-value(value))).flatten(),
+      ..rows.map(row => (strong(row.label), ech-values(row.values, row.bullets))).flatten(),
     )
   }
 
   if abstract != none {
-    block(above: 1.1cm, below: 0.6cm, text(size: 16pt, weight: "bold", labels.summary))
+    block(above: 1.1cm, below: 0.6cm, text(size: 16pt, weight: "bold", meta("summary", default: "Summary")))
     abstract
   }
 

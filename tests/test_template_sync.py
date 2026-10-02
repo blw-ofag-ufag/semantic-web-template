@@ -16,6 +16,7 @@ PATTERNS = [
     "docs/assets/*.html",
     "docs/assets/*.scss",
     "docs/assets/*.svg",
+    "docs/assets/*.csl",
     "LICENSE.md",
     ".gitattributes",
     "src/python/utils/*.py",

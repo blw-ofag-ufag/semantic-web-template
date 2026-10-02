@@ -160,6 +160,33 @@
       text(font: codefont, spacing: 0%, spaced),
     )
   }
+  // Bibliography with alphanumeric labels: the "[label]" that starts every
+  // entry sits in a box as wide as the widest label, the entry text hangs
+  // beside it.
+  show <refs>: it => context {
+    let pattern = regex("^\\[[^\\]]+\\]")
+    let entries = if it.body.has("children") { it.body.children } else { (it.body,) }
+    let labels = ()
+    for entry in entries {
+      if entry.func() != block { continue }
+      // The label is split into pieces: the escaped brackets are symbols,
+      // the words text and spaces.
+      let parts = if entry.body.has("children") { entry.body.children } else { (entry.body,) }
+      let lead = ""
+      for part in parts {
+        let kind = repr(part.func())
+        if kind == "text" or kind == "symbol" { lead += part.text } else if kind == "space" { lead += " " } else { break }
+      }
+      lead = lead.trim()
+      let found = lead.match(pattern)
+      if found != none { labels.push(found.text) }
+    }
+    let width = calc.max(0pt, ..labels.map(label => measure(label).width)) + 0.3cm
+    set par(hanging-indent: width, justify: false)
+    show regex("^\\[[^\\]]+\\]\\s*"): m => box(width: width, m.text.trim())
+    it
+  }
+
   // Code blocks (Quarto's Skylighting output) consist of inline raw tokens;
   // render them as plain monospaced text so the inline-code styling above
   // does not apply to them.

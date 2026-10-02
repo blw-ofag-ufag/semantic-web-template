@@ -166,6 +166,21 @@ $grid-margin-width: 375px;
   font-size: 0.9rem;
 }
 
+// Bibliography with alphanumeric labels: labels in one column, aligned to
+// the longest label, entry texts in the second column.
+#quarto-content #refs.csl-bib-body {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 0.75rem;
+  row-gap: 0.6rem;
+  .csl-entry {
+    display: contents;
+  }
+  .csl-left-margin {
+    white-space: nowrap;
+  }
+}
+
 // Lists of figures and tables in the appendices: plain linked lines.
 #quarto-content .ech-float-list ul {
   list-style: none;

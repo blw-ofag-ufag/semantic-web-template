@@ -125,6 +125,8 @@ The status sentence of chapter "Status" is inserted with the shortcode `{{< ech 
 
 The website follows the eCH look (Noto Sans, eCH red links, borderless metadata list, PDF-like tables) through `docs/assets/ech.scss`; `docs/assets/ech-dark.scss` overrides its colour variables for the dark theme, which readers switch to with the toggle in the header. `docs/assets/ech-captions.lua` sets the "Tabelle 3:" prefix of captions in bold on the website, as the PDF does.
 
+References live in `docs/references.yaml` (CSL YAML, shared by all languages). Every entry has an explicit `citation-label`, which the alphanumeric style `docs/assets/din-1505-2-alphanumeric.csl` prints in the text and in the bibliography; other eCH standards are cited by number and version, e.g. `[@eCH-0265:1.0.0]` renders as "[eCH-0265 1.0.0]".
+
 The translations are checked by the test suite: every heading needs a reference ID, and all language versions must have the same headings, the same number of lines, code blocks, images and table rows, and a similar text length.
 
 ### Languages

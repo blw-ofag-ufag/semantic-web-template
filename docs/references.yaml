@@ -1,0 +1,268 @@
+# Bibliography in CSL YAML (one file for all citations and languages).
+#
+# Each entry carries an explicit `citation-label`, which the alphanumeric
+# citation style (docs/assets/din-1505-2-alphanumeric.csl) prints in the text
+# and in front of the entry in the bibliography. Other eCH standards are cited
+# by number and version, e.g. [@eCH-0265:1.0.0] renders as "[eCH-0265 1.0.0]".
+references:
+
+# --- eCH standards -----------------------------------------------------------
+
+- id: eCH-0003:11.1.0
+  citation-label: eCH-0003 11.1.0
+  type: report
+  author:
+  - literal: Verein eCH
+  title: "eCH-0003 Leitfaden zur Genehmigung von Anträgen"
+  genre: eCH-Standard
+  version: 11.1.0
+  publisher: Verein eCH
+  issued: 2022-07
+  URL: https://www.ech.ch/de/ech/ech-0003/11.1.0
+
+- id: eCH-0010:8.1.0
+  citation-label: eCH-0010 8.1.0
+  type: report
+  author:
+  - literal: Verein eCH
+  title: "eCH-0010 Datenstandard Postadresse für natürliche Personen, Firmen, Organisationen und Behörden"
+  genre: eCH-Standard
+  version: 8.1.0
+  publisher: Verein eCH
+  issued: 2021-06
+  URL: https://www.ech.ch/de/ech/ech-0010/8.1.0
+
+- id: eCH-0200:3.0.1
+  citation-label: eCH-0200 3.0.1
+  type: report
+  author:
+  - literal: eCH-Fachgruppe Open Government Data
+  title: "eCH-0200 DCAT-Anwendungsprofil für Datenportale in der Schweiz (DCAT-AP CH)"
+  genre: eCH-Standard
+  version: 3.0.1
+  publisher: Verein eCH
+  issued: 2025-12
+  URL: https://www.ech.ch/de/ech/ech-0200/3.0.1
+
+- id: eCH-0205:1.0
+  citation-label: eCH-0205 1.0
+  type: report
+  author:
+  - literal: eCH-Fachgruppe Open Government Data
+  title: "eCH-0205 Linked Open Data"
+  genre: eCH-Hilfsmittel
+  version: "1.0"
+  publisher: Verein eCH
+  issued: 2018-03
+  URL: https://www.ech.ch/de/ech/ech-0205/1.0
+
+- id: eCH-0265:1.0.0
+  citation-label: eCH-0265 1.0.0
+  type: report
+  author:
+  - literal: eCH-Fachgruppe AgriFood
+  title: "eCH-0265 Datenstandard Agrardaten – Flächen und Kulturen"
+  genre: eCH-Standard
+  version: 1.0.0
+  publisher: Verein eCH
+  issued: 2024-04
+  URL: https://www.ech.ch/de/ech/ech-0265/1.0.0
+
+# --- W3C recommendations -------------------------------------------------------
+
+- id: cyganiak2014rdf11
+  citation-label: RDF
+  type: report
+  author:
+  - family: Cyganiak
+    given: Richard
+  - family: Wood
+    given: David
+  - family: Lanthaler
+    given: Markus
+  title: "RDF 1.1 Concepts and Abstract Syntax"
+  genre: W3C Recommendation
+  publisher: World Wide Web Consortium (W3C)
+  issued: 2014-02
+  URL: https://www.w3.org/TR/rdf11-concepts/
+
+- id: Turtle
+  citation-label: Turtle
+  type: report
+  author:
+  - family: Beckett
+    given: David
+  - family: Berners-Lee
+    given: Tim
+  - family: Prud'hommeaux
+    given: Eric
+  - family: Carothers
+    given: Gavin
+  title: "RDF 1.1 Turtle – Terse RDF Triple Language"
+  genre: W3C Recommendation
+  publisher: World Wide Web Consortium (W3C)
+  issued: 2014-02
+  URL: https://www.w3.org/TR/turtle/
+
+- id: JSON-LD
+  citation-label: JSON-LD
+  type: report
+  author:
+  - family: Sporny
+    given: Manu
+  - family: Longley
+    given: Dave
+  - family: Kellogg
+    given: Gregg
+  - family: Lanthaler
+    given: Markus
+  - family: Champin
+    given: Pierre-Antoine
+  - family: Lindström
+    given: Niklas
+  title: "JSON-LD 1.1 – A JSON-based Serialization for Linked Data"
+  genre: W3C Recommendation
+  publisher: World Wide Web Consortium (W3C)
+  issued: 2020-07
+  URL: https://www.w3.org/TR/json-ld11/
+
+- id: SPARQL
+  citation-label: SPARQL
+  type: report
+  author:
+  - family: Harris
+    given: Steve
+  - family: Seaborne
+    given: Andy
+  title: "SPARQL 1.1 Query Language"
+  genre: W3C Recommendation
+  publisher: World Wide Web Consortium (W3C)
+  issued: 2013-03
+  URL: https://www.w3.org/TR/sparql11-query/
+
+- id: SHACL
+  citation-label: SHACL
+  type: report
+  author:
+  - family: Knublauch
+    given: Holger
+  - family: Kontokostas
+    given: Dimitris
+  title: "Shapes Constraint Language (SHACL)"
+  genre: W3C Recommendation
+  publisher: World Wide Web Consortium (W3C)
+  issued: 2017-07
+  URL: https://www.w3.org/TR/shacl/
+
+- id: OWL2
+  citation-label: OWL 2
+  type: report
+  author:
+  - literal: W3C OWL Working Group
+  title: "OWL 2 Web Ontology Language Document Overview (Second Edition)"
+  genre: W3C Recommendation
+  publisher: World Wide Web Consortium (W3C)
+  issued: 2012-12
+  URL: https://www.w3.org/TR/owl2-overview/
+
+- id: SKOS
+  citation-label: SKOS
+  type: report
+  author:
+  - family: Miles
+    given: Alistair
+  - family: Bechhofer
+    given: Sean
+  title: "SKOS Simple Knowledge Organization System Reference"
+  genre: W3C Recommendation
+  publisher: World Wide Web Consortium (W3C)
+  issued: 2009-08
+  URL: https://www.w3.org/TR/skos-reference/
+
+- id: DCAT
+  citation-label: DCAT
+  type: report
+  author:
+  - family: Albertoni
+    given: Riccardo
+  - family: Browning
+    given: David
+  - family: Cox
+    given: Simon
+  - family: Gonzalez Beltran
+    given: Alejandra
+  - family: Perego
+    given: Andrea
+  - family: Winstanley
+    given: Peter
+  title: "Data Catalog Vocabulary (DCAT) – Version 3"
+  genre: W3C Recommendation
+  publisher: World Wide Web Consortium (W3C)
+  issued: 2024-08
+  URL: https://www.w3.org/TR/vocab-dcat-3/
+
+# --- Literature ----------------------------------------------------------------
+
+- id: berners2023semantic
+  citation-label: Berners-Lee 2023
+  type: chapter
+  author:
+  - family: Berners-Lee
+    given: Tim
+  - family: Hendler
+    given: James
+  - family: Lassila
+    given: Ora
+  title: "The Semantic Web: A new form of Web content that is meaningful to computers will unleash a revolution of new possibilities"
+  title-short: The Semantic Web
+  container-title: "Linking the World's Information: Essays on Tim Berners-Lee's Invention of the World Wide Web"
+  publisher: Association for Computing Machinery
+  page: 91-103
+  issued: 2023
+  DOI: 10.1145/3591366.3591376
+
+- id: glimm2014hermit
+  citation-label: HermiT
+  type: article-journal
+  author:
+  - family: Glimm
+    given: Birte
+  - family: Horrocks
+    given: Ian
+  - family: Motik
+    given: Boris
+  - family: Stoilos
+    given: Giorgos
+  - family: Wang
+    given: Zhe
+  title: "HermiT: An OWL 2 Reasoner"
+  container-title: Journal of Automated Reasoning
+  volume: 53
+  issue: 3
+  page: 245-269
+  issued: 2014
+  DOI: 10.1007/s10817-014-9305-1
+
+- id: jackson2019robot
+  citation-label: ROBOT
+  type: article-journal
+  author:
+  - family: Jackson
+    given: Rebecca C.
+  - family: Balhoff
+    given: James P.
+  - family: Douglass
+    given: Eric
+  - family: Harris
+    given: Nomi L.
+  - family: Mungall
+    given: Christopher J.
+  - family: Overton
+    given: James A.
+  title: "ROBOT: A tool for automating ontology workflows"
+  container-title: BMC Bioinformatics
+  volume: 20
+  issue: 1
+  page: 407
+  issued: 2019
+  DOI: 10.1186/s12859-019-3002-3

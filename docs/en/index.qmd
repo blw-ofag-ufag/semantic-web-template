@@ -99,6 +99,15 @@ These provisions shall apply to the standards prepared by eCH only, however, not
 
 # Annex D – Changes in comparison to previous version {#sec-appendix-d .appendix .unnumbered}
 
+The most important changes of version 2.0.0 compared to the previous version 1.4.6:
+
+- **Document template:** the PDF output now follows the eCH document template (title page with metadata table, header and footer, table of contents, annexes); the website adopts the same style in a light and a dark variant.
+- **Metadata:** number, category, quality stage, version, status and further details of the standard are recorded once and inserted automatically into all language versions, the title page, the footer and @sec-status.
+- **Lists:** the table of figures and the table of tables (Annexes E and F) are generated automatically and linked to the figures and tables.
+- **Presentation:** uniform styling of tables, captions and code in the PDF and on the website.
+
+A complete list of all changes per version can be found in the [releases on GitHub](https://github.com/blw-ofag-ufag/semantic-web-template/releases).
+
 # Annex E – Table of figures {#sec-appendix-e .appendix .unnumbered}
 
 {{< ech figures >}}

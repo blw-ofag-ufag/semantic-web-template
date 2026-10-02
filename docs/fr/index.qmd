@@ -99,6 +99,15 @@ Ces dispositions ne s'appliquent toutefois qu'aux standards élaborés par eCH, 
 
 # Annexe D – Modifications par rapport à la version précédente {#sec-appendix-d .appendix .unnumbered}
 
+Les principales modifications de la version 2.0.0 par rapport à la version précédente 1.4.6:
+
+- **Modèle de document:** la sortie PDF suit désormais le modèle de document eCH (page de titre avec tableau des métadonnées, en-tête et pied de page, table des matières, annexes); le site web reprend le même style dans une variante claire et une variante sombre.
+- **Métadonnées:** le numéro, la catégorie, le degré de maturité, la version, le statut et les autres indications de la norme sont saisis une seule fois et repris automatiquement dans toutes les versions linguistiques, dans la page de titre, dans le pied de page et dans @sec-status.
+- **Listes:** la table des illustrations et la liste des tableaux (annexes E et F) sont générées automatiquement et reliées aux illustrations et aux tableaux.
+- **Présentation:** mise en forme uniforme des tableaux, des légendes et du code dans le PDF et sur le site web.
+
+La liste complète de toutes les modifications par version se trouve dans les [releases sur GitHub](https://github.com/blw-ofag-ufag/semantic-web-template/releases).
+
 # Annexe E – Table des illustrations {#sec-appendix-e .appendix .unnumbered}
 
 {{< ech figures >}}

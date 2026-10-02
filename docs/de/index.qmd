@@ -99,6 +99,15 @@ Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, ni
 
 # Anhang D – Änderungen gegenüber der Vorversion {#sec-appendix-d .appendix .unnumbered}
 
+Die wichtigsten Änderungen der Version 2.0.0 gegenüber der Vorversion 1.4.6:
+
+- **Dokumentvorlage:** Die PDF-Ausgabe folgt neu der eCH-Dokumentvorlage (Titelseite mit Metadatentabelle, Kopf- und Fusszeile, Inhaltsverzeichnis, Anhänge); die Website übernimmt denselben Stil in einer hellen und einer dunklen Variante.
+- **Metadaten:** Nummer, Kategorie, Reifegrad, Version, Status und weitere Angaben des Standards werden einmal zentral erfasst und automatisch in alle Sprachversionen, in die Titelseite, in die Fusszeile und in @sec-status übernommen.
+- **Verzeichnisse:** Abbildungs- und Tabellenverzeichnis (Anhang E und F) werden automatisch erzeugt und sind mit den Abbildungen und Tabellen verlinkt.
+- **Darstellung:** Einheitliche Gestaltung von Tabellen, Beschriftungen und Code in PDF und Website.
+
+Eine vollständige Liste aller Änderungen je Version findet sich in den [Releases auf GitHub](https://github.com/blw-ofag-ufag/semantic-web-template/releases).
+
 # Anhang E – Abbildungsverzeichnis {#sec-appendix-e .appendix .unnumbered}
 
 {{< ech figures >}}

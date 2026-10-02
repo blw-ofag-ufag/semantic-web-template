@@ -93,6 +93,12 @@ These provisions shall apply to the standards prepared by eCH only, however, not
 
 # Annex B – Cooperation and Verification {#sec-appendix-b .appendix .unnumbered}
 
+| Name                           | Organisation                      |
+|:-------------------------------|:----------------------------------|
+| Damian Oswald                  | Federal Office for Agriculture    |
+| Michael Schüpbach              | Federal Office for Agriculture    |
+| Lea Stauber                    | Federal Office for Agriculture    |
+
 # Annex C – Abbreviations and Glossary {#sec-appendix-c .appendix .unnumbered}
 
 {{< include glossary.md >}}

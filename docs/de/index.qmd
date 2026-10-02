@@ -93,6 +93,12 @@ Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, ni
 
 # Anhang B – Mitwirkung und Prüfung {#sec-appendix-b .appendix .unnumbered}
 
+| Name                           | Organisation                      |
+|:-------------------------------|:----------------------------------|
+| Damian Oswald                  | Bundesamt für Landwirtschaft      |
+| Michael Schüpbach              | Bundesamt für Landwirtschaft      |
+| Lea Stauber                    | Bundesamt für Landwirtschaft      |
+
 # Anhang C – Abkürzungen und Glossar {#sec-appendix-c .appendix .unnumbered}
 
 {{< include glossary.md >}}

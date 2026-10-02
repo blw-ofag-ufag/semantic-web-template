@@ -17,6 +17,9 @@ $endif$
 $if(mainfont)$
   font: ("$mainfont$",),
 $endif$
+$if(monofont)$
+  codefont: ("$monofont$",),
+$endif$
 $if(fontsize)$
   fontsize: $fontsize$,
 $endif$

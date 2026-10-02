@@ -1,0 +1,8 @@
+<!-- Points the PDF link of the navbar at the PDF of the current page. Quarto
+     resolves navbar links against the project root, but every language has
+     its own index.pdf next to its index.html. -->
+<script>
+  document.querySelectorAll('.navbar a.nav-link[href$="index.pdf"]').forEach(function (link) {
+    link.setAttribute('href', 'index.pdf');
+  });
+</script>

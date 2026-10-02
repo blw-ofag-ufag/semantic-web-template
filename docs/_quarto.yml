@@ -9,16 +9,28 @@ project:
 website:
   title: eCH-1234 Version 2.4.1 (Working Draft)
   repo-url: https://github.com/blw-ofag-ufag/semantic-web-template
-  repo-subdir: docs
-  repo-actions: [source, issue]
   favicon: assets/favicon.svg
   navbar:
     background: dark
+    title: false
+    logo: assets/ech.svg
+    logo-alt: eCH
     right:
+      - icon: file-earmark-pdf
+        href: index.pdf
+        aria-label: PDF
+      - icon: code-slash
+        href: https://github.com/blw-ofag-ufag/semantic-web-template/tree/main/docs
+        aria-label: Source
       - icon: github
         href: https://github.com/blw-ofag-ufag/semantic-web-template
+        aria-label: GitHub
+      - icon: bug
+        href: https://github.com/blw-ofag-ufag/semantic-web-template/issues/new
+        aria-label: Issue
       - icon: envelope
         href: mailto:agridata.ch@blw.admin.ch
+        aria-label: Contact
       - icon: translate
         menu:
           - text: English
@@ -40,17 +52,24 @@ metadata-files:
   - _ech.yml
 filters:
   - assets/ech-metadata.lua
+  - quarto
+  - assets/ech-captions.lua
 shortcodes:
   - assets/ech-shortcodes.lua
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light: [cosmo, assets/ech.scss]
+      dark: [cosmo, assets/ech.scss, assets/ech-dark.scss]
     template-partials:
       - assets/title-metadata.html
+    include-after-body: assets/ech-navbar.html
     toc: true
     toc-depth: 2
+    format-links: false
     number-sections: true
+
     syntax-definitions:
      - assets/sparql.xml
      - assets/turtle.xml

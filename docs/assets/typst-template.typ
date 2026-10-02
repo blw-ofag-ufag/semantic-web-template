@@ -29,6 +29,7 @@
   lang: "de",
   region: none,
   font: ("Nimbus Sans",),
+  codefont: ("DejaVu Sans Mono",),
   fontsize: 11pt,
   sectionnumbering: "1.1.1",
   toc: true,
@@ -122,26 +123,53 @@
   // Links, code, figures, footnotes.
   show link: set text(fill: rgb("#D00D28"))
   show link: it => {
-    show raw: underline.with(stroke: 0.75pt, offset: 1.25pt)
+    show raw: underline.with(stroke: 0.6pt, offset: 0.9pt)
     it
   }
+  // Inline code: text colour on a rounded grey background that is darker
+  // than the table stripes. The code stays one text run so background and
+  // underline are continuous; zero-width spaces (regular spaces with
+  // `spacing: 0%`) between the clusters let long URIs break across lines.
+  // Real spaces in the code become figure spaces so they keep their width.
   show raw.where(block: false): it => {
-    // Allow line breaks inside long inline code such as URIs.
-    show text: t => {
-      let clean = t.text.replace("\u{200b}", "")
-      let spaced = clean.clusters().join("\u{200b}")
-      if t.text == spaced { t } else { spaced }
+    set text(fill: black)
+    let spaced = it.text.replace(" ", "\u{2007}").clusters().join(" ")
+    // `extent` pads horizontally only; the edges set the vertical padding.
+    highlight(
+      fill: rgb("dcdcdc"),
+      radius: 2.5pt,
+      extent: 2.2pt,
+      top-edge: 0.95em,
+      bottom-edge: -0.42em,
+      text(font: codefont, spacing: 0%, spaced),
+    )
+  }
+  // Code blocks (Quarto's Skylighting output) consist of inline raw tokens;
+  // render them as plain monospaced text so the inline-code styling above
+  // does not apply to them.
+  show block.where(fill: rgb("#f1f3f5")): it => {
+    show raw.where(block: false): token => if token.text == "\n" {
+      linebreak()
+    } else {
+      text(font: codefont, token.text.replace(" ", "\u{2007}"))
     }
     it
   }
+
   show figure.caption: set text(size: 10pt)
+  show figure.caption: it => context [
+    *#it.supplement #it.counter.display(it.numbering):* #it.body
+  ]
   show footnote.entry: set text(size: 10pt)
 
   // Tables: bold header row, zebra stripes, rules above and below.
   show table.cell: set text(size: 10pt)
   show table.cell: set par(justify: false)
   show table.cell.where(y: 0): set text(weight: "bold")
-  set table(fill: (col, row) => if calc.even(row) { rgb("f2f2f2") } else { white })
+  set table(
+    fill: (col, row) => if calc.even(row) { rgb("f2f2f2") } else { white },
+    stroke: none,
+  )
   show table: it => block(
     stroke: (top: 1pt + black, bottom: 1pt + black),
     inset: (top: 0.5pt, bottom: 0.5pt),

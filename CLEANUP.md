@@ -93,7 +93,7 @@ The pages `entities.md` and `glossary.md` are generated from the SHACL shapes an
 
 ### Website configuration (`docs/_quarto.yml`)
 
-Adapt `website.title`, `repo-url`, the `announcement` banner and the links in the `navbar` to the project.
+Adapt `website.title`, `repo-url`, the `announcement` banner and the links in the `navbar` to the project. The PDF icon in the navbar always opens the PDF of the current language; `docs/assets/ech-navbar.html` takes care of that.
 
 If `make docs` fails because the Word template referenced under `reference-doc` cannot be downloaded, delete or comment out this line.
 
@@ -122,6 +122,8 @@ ech:
 The Lua filter `docs/assets/ech-metadata.lua` translates these codes with `docs/assets/ech-vocabulary.yml` into the labels of the PDF title page, header and footer (`typst-template.typ`) and of the HTML title block (`title-metadata.html`). The vocabulary lists the allowed codes; an unknown code aborts the render. Only `title`, `abstract` and `lang` remain in the front matter of each language version, and the eCH number is prefixed to the title automatically.
 
 The status sentence of chapter "Status" is inserted with the shortcode `{{< ech status >}}`, which prints the status with its definition from eCH-0003 in the language of the page.
+
+The website follows the eCH look (Noto Sans, eCH red links, borderless metadata list, PDF-like tables) through `docs/assets/ech.scss`; `docs/assets/ech-dark.scss` overrides its colour variables for the dark theme, which readers switch to with the toggle in the header. `docs/assets/ech-captions.lua` sets the "Tabelle 3:" prefix of captions in bold on the website, as the PDF does.
 
 The translations are checked by the test suite: every heading needs a reference ID, and all language versions must have the same headings, the same number of lines, code blocks, images and table rows, and a similar text length.
 

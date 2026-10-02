@@ -1,5 +1,6 @@
 $-- Quarto HTML title block partial: shows the eCH metadata (ech-rows, set by
-$-- docs/assets/ech-metadata.lua) in the same grid as authors and date.
+$-- docs/assets/ech-metadata.lua) as a key-value list below the title, styled
+$-- in docs/assets/ech.scss.
 $if(by-affiliation/first)$
 <div class="quarto-title-meta-author">
   <div class="quarto-title-meta-heading">$labels.authors$</div>
@@ -41,28 +42,6 @@ $endif$
   $endif$
 
   $if(ech-rows)$
-  $for(ech-rows)$
-  <div>
-    <div class="quarto-title-meta-heading">$it.label$</div>
-    <div class="quarto-title-meta-contents">
-      $if(it.values)$
-      $if(it.bullets)$
-      <ul>
-        $for(it.values)$
-        <li>$it$</li>
-        $endfor$
-      </ul>
-      $else$
-      $for(it.values)$
-      <p>$it$</p>
-      $endfor$
-      $endif$
-      $else$
-      <p>---</p>
-      $endif$
-    </div>
-  </div>
-  $endfor$
   $elseif(date)$
   <div>
     <div class="quarto-title-meta-heading">$labels.published$</div>
@@ -92,6 +71,33 @@ $endif$
   </div>
   $endif$
 </div>
+
+$if(ech-rows)$
+<dl class="ech-metadata">
+  $for(ech-rows)$
+  <div>
+    <dt>$it.label$</dt>
+    <dd>
+      $if(it.values)$
+      $if(it.bullets)$
+      <ul>
+        $for(it.values)$
+        <li>$it$</li>
+        $endfor$
+      </ul>
+      $else$
+      $for(it.values)$
+      <p>$it$</p>
+      $endfor$
+      $endif$
+      $else$
+      <p>---</p>
+      $endif$
+    </dd>
+  </div>
+  $endfor$
+</dl>
+$endif$
 
 $if(abstract)$
 <div>

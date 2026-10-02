@@ -69,10 +69,26 @@
         "Person"@en,
         "Personne"@fr,
         "Persona"@it ;
-    rdfs:comment "Jede Person (Mitarbeiter, Kunde oder benutzerdefinierte Person) im Datensatz."@de,
-        "Any person (employee, customer, or custom person) present in the dataset."@en,
-        "Toute personne (employé, client ou personne personnalisée) présente dans le jeu de données."@fr,
-        "Qualsiasi persona (dipendente, cliente o persona personalizzata) presente nel set di dati."@it ;
+    rdfs:comment """Jede Person (Mitarbeiter, Kunde oder benutzerdefinierte Person) im Datensatz.
+
+Personen werden unabhängig von ihrer Rolle einheitlich beschrieben: Angestellte des Musikhandels, Kundinnen und Kunden sowie manuell erfasste Personen teilen dieselben Eigenschaften. Die Rolle ergibt sich aus den Beziehungen, etwa `schema:worksFor` für Angestellte oder `schema:customer` auf einer Rechnung für Kundschaft.
+
+Namen werden so erfasst, wie sie die Person selbst verwendet; akademische Titel gehören nicht in den Vornamen. E-Mail-Adressen und Geburtsdaten sind freiwillige Angaben und werden bei Verstössen gegen die Regeln lediglich als Warnung gemeldet."""@de,
+        """Any person (employee, customer, or custom person) present in the dataset.
+
+Persons are described uniformly regardless of their role: employees of the music store, customers and manually recorded persons share the same properties. The role follows from the relationships, for example `schema:worksFor` for employees or `schema:customer` on an invoice for customers.
+
+Names are recorded as the person uses them; academic titles do not belong in the given name. Email addresses and birth dates are optional and rule violations are reported as warnings only."""@en,
+        """Toute personne (employé, client ou personne personnalisée) présente dans le jeu de données.
+
+Les personnes sont décrites de manière uniforme, quel que soit leur rôle: le personnel du magasin de musique, la clientèle et les personnes saisies manuellement partagent les mêmes propriétés. Le rôle découle des relations, par exemple `schema:worksFor` pour le personnel ou `schema:customer` sur une facture pour la clientèle.
+
+Les noms sont saisis tels que la personne les utilise; les titres académiques ne font pas partie du prénom. Les adresses e-mail et les dates de naissance sont facultatives et les infractions aux règles ne sont signalées que comme avertissements."""@fr,
+        """Qualsiasi persona (dipendente, cliente o persona personalizzata) presente nel set di dati.
+
+Le persone sono descritte in modo uniforme indipendentemente dal loro ruolo: il personale del negozio di musica, la clientela e le persone registrate manualmente condividono le stesse proprietà. Il ruolo deriva dalle relazioni, ad esempio `schema:worksFor` per il personale o `schema:customer` su una fattura per la clientela.
+
+I nomi sono registrati come li usa la persona stessa; i titoli accademici non fanno parte del nome. Gli indirizzi e-mail e le date di nascita sono facoltativi e le violazioni delle regole sono segnalate solo come avvertimenti."""@it ;
     sh:targetClass schema:Person ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
@@ -115,6 +131,8 @@
         sh:path schema:email ;
         sh:datatype xsd:string ;
         sh:pattern "^.+@.+\\..+$" ;
+        sh:flags "i" ;
+        sh:maxLength 254 ;
         sh:severity sh:Warning ;
         sh:message "Falls angegeben, muss die E-Mail-Adresse einem Standardformat entsprechen."@de,
             "If an email is provided, it must follow a standard email format."@en,
@@ -129,6 +147,8 @@
             "Data di nascita"@it ;
         sh:path schema:birthDate ;
         sh:datatype xsd:date ;
+        sh:minInclusive "1900-01-01"^^xsd:date ;
+        sh:maxInclusive "2025-12-31"^^xsd:date ;
         sh:severity sh:Warning ;
         sh:message "Eine Person sollte ein gültiges Geburtsdatum haben."@de,
             "A person should have a valid birth date."@en,
@@ -167,6 +187,9 @@
             "Titolo di lavoro"@it ;
         sh:order 7 ;
         sh:path schema:jobTitle ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:maxLength 100 ;
         sh:maxCount 1 ;
     ],
     [
@@ -211,6 +234,8 @@
             "Nome"@it ;
         sh:path schema:name ;
         sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:maxLength 200 ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "Jeder Titel muss einen Namen haben."@de,
@@ -295,6 +320,7 @@
             "Nome"@it ;
         sh:path schema:name ;
         sh:datatype xsd:string ;
+        sh:maxLength 200 ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "Jedes Album muss einen Namen haben."@de,
@@ -337,6 +363,8 @@
             "Nome"@it ;
         sh:path schema:name ;
         sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:maxLength 100 ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "Jede Organisation muss einen Namen haben."@de,
@@ -350,10 +378,10 @@
         "Invoice"@en,
         "Facture"@fr,
         "Fattura"@it ;
-    rdfs:comment "Ein Kaufbeleg im Chinook-Datensatz."@de,
-        "A purchase receipt in the Chinook dataset."@en,
-        "Un reçu d'achat dans le jeu de données Chinook."@fr,
-        "Una ricevuta di acquisto nel set di dati Chinook."@it ;
+    rdfs:comment """Ein Kaufbeleg im Chinook-Datensatz. Eine Rechnung fasst die Positionen eines Kaufs zusammen. Der Rechnungsbetrag wird nicht nur als Wert erfasst, sondern auch gegen die Summe der Positionen geprüft; Abweichungen von mehr als fünf Rappen gelten als Fehler. Rechnungen vor dem Jahr 2000 stammen aus einem Altsystem und sind in diesem Datensatz nicht zulässig."""@de,
+        """A purchase receipt in the Chinook dataset. An invoice groups the items of one purchase. The invoice total is not only recorded as a value but also checked against the sum of its items; differences of more than five cents count as errors. Invoices dated before the year 2000 stem from a legacy system and are not permitted in this dataset."""@en,
+        """Un reçu d'achat dans le jeu de données Chinook. Une facture regroupe les positions d'un achat. Le montant de la facture n'est pas seulement saisi comme valeur, il est aussi vérifié par rapport à la somme des positions; des écarts de plus de cinq centimes sont considérés comme des erreurs. Les factures antérieures à l'an 2000 proviennent d'un ancien système et ne sont pas admises dans ce jeu de données."""@fr,
+        """Una ricevuta di acquisto nel set di dati Chinook. Una fattura raggruppa le posizioni di un acquisto. L'importo della fattura non viene solo registrato come valore, ma anche verificato rispetto alla somma delle posizioni; differenze superiori a cinque centesimi sono considerate errori. Le fatture antecedenti all'anno 2000 provengono da un sistema precedente e non sono ammesse in questo set di dati."""@it ;
     sh:targetClass schema:Invoice ;
     sh:property [
         sh:order 1 ;
@@ -407,6 +435,7 @@
             "Data di creazione"@it ;
         sh:path schema:dateCreated ;
         sh:datatype xsd:date ;
+        sh:minInclusive "2000-01-01"^^xsd:date ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
@@ -453,10 +482,18 @@
         "Quantitative Value"@en,
         "Valeur quantitative"@fr,
         "Valore quantitativo"@it ;
-    rdfs:comment "Ein numerischer Wert mit einer dazugehörigen Einheit."@de,
-        "A numerical value with an associated unit."@en,
-        "Une valeur numérique avec une unité associée."@fr,
-        "Un valore numerico con un'unità associata."@it ;
+    rdfs:comment """Ein numerischer Wert mit einer dazugehörigen Einheit.
+
+Quantitative Werte werden nie als blosse Zahl erfasst, sondern immer zusammen mit einer Einheit aus dem QUDT-Vokabular. So bleibt eindeutig, ob eine Dauer in Millisekunden oder eine Dateigrösse in Bytes gemeint ist. Negative Werte sind in diesem Datensatz nicht vorgesehen."""@de,
+        """A numerical value with an associated unit.
+
+Quantitative values are never recorded as a bare number but always together with a unit from the QUDT vocabulary. This keeps it unambiguous whether a duration is meant in milliseconds or a file size in bytes. Negative values are not foreseen in this dataset."""@en,
+        """Une valeur numérique avec une unité associée.
+
+Les valeurs quantitatives ne sont jamais saisies comme un simple nombre, mais toujours avec une unité du vocabulaire QUDT. Il reste ainsi clair si une durée est exprimée en millisecondes ou une taille de fichier en octets. Les valeurs négatives ne sont pas prévues dans ce jeu de données."""@fr,
+        """Un valore numerico con un'unità associata.
+
+I valori quantitativi non vengono mai registrati come semplice numero, ma sempre insieme a un'unità del vocabolario QUDT. Resta così chiaro se una durata è espressa in millisecondi o una dimensione di file in byte. I valori negativi non sono previsti in questo set di dati."""@it ;
     sh:targetClass schema:QuantitativeValue ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
@@ -467,6 +504,11 @@
             "Valeur"@fr,
             "Valore"@it ;
         sh:path schema:value ;
+        sh:or (
+            [ sh:datatype xsd:decimal ]
+            [ sh:datatype xsd:integer ]
+        ) ;
+        sh:minInclusive 0 ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "Ein quantitativer Wert muss genau einen numerischen Wert haben."@de,
@@ -482,6 +524,7 @@
             "Codice unità"@it ;
         sh:path schema:unitCode ;
         sh:nodeKind sh:IRI ;
+        sh:in ( unit:USD unit:EA unit:BYTE unit:MilliSEC ) ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "Ein quantitativer Wert muss seine Einheit über eine unitCode-URI angeben."@de,
@@ -509,6 +552,10 @@
             "Nom"@fr,
             "Nome"@it ;
         sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:maxLength 50 ;
+        sh:pattern "^[A-Z]" ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
     ],
@@ -521,6 +568,26 @@
         sh:path schema:partOf ;
         sh:nodeKind sh:IRI ;
         sh:class :Genre ;
+    ],
+    [
+        sh:order 3 ;
+        sh:name "Alternative Bezeichnung"@de,
+            "Alternate name"@en,
+            "Dénomination alternative"@fr,
+            "Denominazione alternativa"@it ;
+        sh:description "Übersetzte oder umgangssprachliche Bezeichnung des Genres, höchstens eine pro Sprache."@de,
+            "Translated or colloquial name of the genre, at most one per language."@en,
+            "Dénomination traduite ou familière du genre, au plus une par langue."@fr,
+            "Denominazione tradotta o colloquiale del genere, al massimo una per lingua."@it ;
+        sh:path schema:alternateName ;
+        sh:datatype rdf:langString ;
+        sh:languageIn ( "de" "fr" "it" "en" ) ;
+        sh:uniqueLang true ;
+        sh:maxLength 50 ;
+        sh:message "Alternative Bezeichnungen müssen eine der Landessprachen oder Englisch als Sprache tragen, je Sprache höchstens eine."@de,
+            "Alternate names must carry a national language or English as language tag, at most one per language."@en,
+            "Les dénominations alternatives doivent porter une langue nationale ou l'anglais, au plus une par langue."@fr,
+            "Le denominazioni alternative devono avere una lingua nazionale o l'inglese come lingua, al massimo una per lingua."@it ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
@@ -535,4 +602,110 @@
                 $this schema:partOf+ $this .
             }
         """
+    ] .
+
+:PostalAddressShape a sh:NodeShape ;
+    rdfs:label "Postadresse"@de,
+        "Postal address"@en,
+        "Adresse postale"@fr,
+        "Indirizzo postale"@it ;
+    rdfs:comment """Die Postadresse einer Person.
+
+Adressen folgen dem Aufbau von schema.org und nicht dem Schweizer Adressstandard eCH-0010, da der Datensatz überwiegend ausländische Adressen enthält. Postleitzahlen werden deshalb nur auf ein plausibles Format geprüft, nicht gegen ein Verzeichnis."""@de,
+        """The postal address of a person.
+
+Addresses follow the structure of schema.org rather than the Swiss address standard eCH-0010, since the dataset contains mostly foreign addresses. Postal codes are therefore only checked for a plausible format, not against a directory."""@en,
+        """L'adresse postale d'une personne.
+
+Les adresses suivent la structure de schema.org et non la norme suisse d'adresse eCH-0010, car le jeu de données contient surtout des adresses étrangères. Les codes postaux ne sont donc vérifiés que quant à leur format plausible, et non par rapport à un répertoire."""@fr,
+        """L'indirizzo postale di una persona.
+
+Gli indirizzi seguono la struttura di schema.org e non lo standard svizzero eCH-0010, poiché il set di dati contiene soprattutto indirizzi esteri. I codici postali vengono quindi verificati solo per un formato plausibile, non rispetto a un elenco."""@it ;
+    sh:targetClass schema:PostalAddress ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:order 1 ;
+        sh:name "Strasse und Hausnummer"@de,
+            "Street address"@en,
+            "Rue et numéro"@fr,
+            "Via e numero civico"@it ;
+        sh:path schema:streetAddress ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 3 ;
+        sh:maxLength 100 ;
+        sh:message "Jede Adresse braucht genau eine Strassenangabe."@de,
+            "Every address needs exactly one street address."@en,
+            "Chaque adresse requiert exactement une indication de rue."@fr,
+            "Ogni indirizzo richiede esattamente una via."@it ;
+    ],
+    [
+        sh:order 2 ;
+        sh:name "Postleitzahl"@de,
+            "Postal code"@en,
+            "Code postal"@fr,
+            "Codice postale"@it ;
+        sh:description "Buchstaben, Ziffern, Leerzeichen und Bindestriche, zwei bis zehn Zeichen."@de,
+            "Letters, digits, spaces and hyphens, two to ten characters."@en,
+            "Lettres, chiffres, espaces et traits d'union, de deux à dix caractères."@fr,
+            "Lettere, cifre, spazi e trattini, da due a dieci caratteri."@it ;
+        sh:path schema:postalCode ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^[A-Za-z0-9][A-Za-z0-9 -]{1,9}$" ;
+        sh:severity sh:Warning ;
+        sh:message "Die Postleitzahl hat kein plausibles Format."@de,
+            "The postal code does not have a plausible format."@en,
+            "Le code postal n'a pas un format plausible."@fr,
+            "Il codice postale non ha un formato plausibile."@it ;
+    ],
+    [
+        sh:order 3 ;
+        sh:name "Ort"@de,
+            "Locality"@en,
+            "Localité"@fr,
+            "Località"@it ;
+        sh:path schema:addressLocality ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:maxLength 100 ;
+        sh:message "Jede Adresse braucht genau einen Ort."@de,
+            "Every address needs exactly one locality."@en,
+            "Chaque adresse requiert exactement une localité."@fr,
+            "Ogni indirizzo richiede esattamente una località."@it ;
+    ],
+    [
+        sh:order 4 ;
+        sh:name "Region"@de,
+            "Region"@en,
+            "Région"@fr,
+            "Regione"@it ;
+        sh:description "Kanton, Bundesstaat oder Provinz, sofern im Land üblich."@de,
+            "Canton, state or province where customary in the country."@en,
+            "Canton, État ou province, lorsque c'est l'usage dans le pays."@fr,
+            "Cantone, stato o provincia, se consuetudinario nel paese."@it ;
+        sh:path schema:addressRegion ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:maxLength 100 ;
+    ],
+    [
+        sh:order 5 ;
+        sh:name "Land"@de,
+            "Country"@en,
+            "Pays"@fr,
+            "Paese"@it ;
+        sh:path schema:addressCountry ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:maxLength 60 ;
+        sh:message "Jede Adresse braucht genau ein Land."@de,
+            "Every address needs exactly one country."@en,
+            "Chaque adresse requiert exactement un pays."@fr,
+            "Ogni indirizzo richiede esattamente un paese."@it ;
     ] .

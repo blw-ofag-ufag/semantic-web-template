@@ -132,6 +132,14 @@ $grid-margin-width: 375px;
     border-top: none;
     padding: 0.45rem 0.6rem;
   }
+  // lists inside cells (e.g. the details of a property) stay compact
+  td ul {
+    margin-bottom: 0;
+    padding-left: 1.1rem;
+  }
+  td p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 // Inline code: text colour, rounded semi-transparent grey background that
@@ -141,6 +149,7 @@ $grid-margin-width: 375px;
   background-color: $ech-code-bg;
   border-radius: 3px;
   padding: 0.1rem 0.3rem;
+  white-space: nowrap; // a code span moves to the next line as a whole
 }
 // The underline belongs to the code, not to the surrounding link, so that
 // hovering does not add a second underline at another height.
@@ -199,6 +208,27 @@ $grid-margin-width: 375px;
   text-indent: 0;
   .csl-left-margin {
     white-space: nowrap;
+  }
+}
+
+// Fact sheets of the data model (definition lists): the same borderless
+// key-value layout as the eCH metadata on the title page.
+#quarto-content .ech-facts dl {
+  display: grid;
+  grid-template-columns: 15rem 1fr; // fixed, so all fact sheets align
+  column-gap: 2rem;
+  row-gap: 0.3rem;
+  margin: 0 0 1.25rem;
+  font-size: 0.95rem;
+  dt {
+    font-weight: 700;
+    margin: 0;
+  }
+  dd {
+    margin: 0;
+    p {
+      margin: 0;
+    }
   }
 }
 

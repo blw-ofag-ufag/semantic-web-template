@@ -2,9 +2,10 @@
 
 import argparse
 import re
+import textwrap
 from pathlib import Path
 from rdflib import Graph, Namespace
-from rdflib.namespace import RDFS
+from rdflib.namespace import RDF, RDFS
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
 
@@ -13,39 +14,208 @@ TRANSLATIONS = {
         "name": "Description",
         "path": "Path",
         "type": "Type",
-        "cardinality": "Card.",
+        "details": "Details",
+        "facts_shape": "IRI",
+        "facts_target": "Target class",
+        "facts_closed": "Closed",
+        "facts_closed_yes": "yes, only the listed properties are allowed",
+        "facts_closed_no": "no, further properties are allowed",
+        "facts_rules": "Additional rules (SPARQL)",
+        "facts_figures": "Key figures",
+        "facts_figures_value": "{instances} instances, on average {avg} triples each ({min}–{max})",
+        "facts_open_data": "Open data",
+        "facts_open_yes": "yes, reference data,",
+        "facts_open_link": "published on LINDAS",
+        "facts_open_no": "no, transactional data that is not part of the published graph",
+        "cardinality": "Cardinality",
         "target_class": "Target Class",
         "properties": "properties",
-        "or": "or"
+        "or": "or",
+        "pattern": "Pattern",
+        "range": "Range",
+        "length": "Length",
+        "languages": "Languages",
+        "unique_lang": "one per language",
+        "values": "Values",
+        "has_value": "Required value",
+        "severity": "Severity",
+        "Warning": "Warning",
+        "Info": "Info",
     },
     "de": {
         "name": "Beschreibung",
         "path": "Pfad",
         "type": "Typ",
-        "cardinality": "Kard.",
+        "details": "Details",
+        "facts_shape": "IRI",
+        "facts_target": "Zielklasse",
+        "facts_closed": "Geschlossen",
+        "facts_closed_yes": "ja, nur die aufgeführten Eigenschaften sind zulässig",
+        "facts_closed_no": "nein, weitere Eigenschaften sind zulässig",
+        "facts_rules": "Zusätzliche Regeln (SPARQL)",
+        "facts_figures": "Kennzahlen",
+        "facts_figures_value": "{instances} Instanzen mit durchschnittlich {avg} Tripeln ({min}–{max})",
+        "facts_open_data": "Open Data",
+        "facts_open_yes": "ja, Referenzdaten,",
+        "facts_open_link": "auf LINDAS publiziert",
+        "facts_open_no": "nein, Transaktionsdaten, nicht Teil des publizierten Graphen",
+        "cardinality": "Kardinalität",
         "target_class": "Zielklasse",
         "properties": "Eigenschaften",
-        "or": "oder"
+        "or": "oder",
+        "pattern": "Muster",
+        "range": "Wertebereich",
+        "length": "Länge",
+        "languages": "Sprachen",
+        "unique_lang": "eine pro Sprache",
+        "values": "Werte",
+        "has_value": "Pflichtwert",
+        "severity": "Schweregrad",
+        "Warning": "Warnung",
+        "Info": "Hinweis",
     },
     "fr": {
         "name": "Description",
         "path": "Chemin",
         "type": "Type",
-        "cardinality": "Card.",
+        "details": "Détails",
+        "facts_shape": "IRI",
+        "facts_target": "Classe cible",
+        "facts_closed": "Fermée",
+        "facts_closed_yes": "oui, seules les propriétés énumérées sont admises",
+        "facts_closed_no": "non, d'autres propriétés sont admises",
+        "facts_rules": "Règles supplémentaires (SPARQL)",
+        "facts_figures": "Chiffres clés",
+        "facts_figures_value": "{instances} instances avec en moyenne {avg} triplets ({min}–{max})",
+        "facts_open_data": "Open data",
+        "facts_open_yes": "oui, données de référence,",
+        "facts_open_link": "publiées sur LINDAS",
+        "facts_open_no": "non, données transactionnelles ne faisant pas partie du graphe publié",
+        "cardinality": "Cardinalité",
         "target_class": "Classe cible",
         "properties": "propriétés",
-        "or": "ou"
+        "or": "ou",
+        "pattern": "Motif",
+        "range": "Plage de valeurs",
+        "length": "Longueur",
+        "languages": "Langues",
+        "unique_lang": "une par langue",
+        "values": "Valeurs",
+        "has_value": "Valeur obligatoire",
+        "severity": "Gravité",
+        "Warning": "Avertissement",
+        "Info": "Information",
     },
     "it": {
         "name": "Nome",
         "path": "Percorso",
         "type": "Tipo",
-        "cardinality": "Card.",
+        "details": "Dettagli",
+        "facts_shape": "IRI",
+        "facts_target": "Classe di destinazione",
+        "facts_closed": "Chiusa",
+        "facts_closed_yes": "sì, sono ammesse solo le proprietà elencate",
+        "facts_closed_no": "no, sono ammesse altre proprietà",
+        "facts_rules": "Regole supplementari (SPARQL)",
+        "facts_figures": "Indicatori",
+        "facts_figures_value": "{instances} istanze con in media {avg} triple ({min}–{max})",
+        "facts_open_data": "Open data",
+        "facts_open_yes": "sì, dati di riferimento,",
+        "facts_open_link": "pubblicati su LINDAS",
+        "facts_open_no": "no, dati transazionali non inclusi nel grafo pubblicato",
+        "cardinality": "Cardinalità",
         "target_class": "Classe di destinazione",
         "properties": "proprietà",
-        "or": "o"
+        "or": "o",
+        "pattern": "Modello",
+        "range": "Intervallo",
+        "length": "Lunghezza",
+        "languages": "Lingue",
+        "unique_lang": "una per lingua",
+        "values": "Valori",
+        "has_value": "Valore obbligatorio",
+        "severity": "Gravità",
+        "Warning": "Avvertimento",
+        "Info": "Informazione",
     }
 }
+
+# Constraint components rendered after the description of a property.
+RANGE_PREDICATES = [
+    (SH.minInclusive, "≥"), (SH.minExclusive, ">"),
+    (SH.maxInclusive, "≤"), (SH.maxExclusive, "<"),
+]
+
+
+def code(text):
+    """Inline code for a table cell; pipes must be escaped inside pipe tables."""
+    return "`" + str(text).replace("|", "\\|") + "`"
+
+
+def format_literal(value):
+    """Short textual form of a literal (dates and numbers without datatype noise)."""
+    return str(value.toPython()) if hasattr(value, "toPython") else str(value)
+
+
+def rdf_list(g, head):
+    items = []
+    while head and head != RDF.nil:
+        items.append(g.value(head, RDF.first))
+        head = g.value(head, RDF.rest)
+    return items
+
+
+def describe_constraints(g, prop, trans):
+    """Returns the value constraints of a property shape as (label, value) pairs."""
+    parts = []
+
+    pattern = g.value(prop, SH.pattern)
+    if pattern is not None:
+        flags = g.value(prop, SH.flags)
+        text = code(pattern) + (f" ({code(flags)})" if flags is not None else "")
+        parts.append((trans['pattern'], text))
+
+    bounds = [f"{symbol} {format_literal(g.value(prop, pred))}"
+              for pred, symbol in RANGE_PREDICATES if g.value(prop, pred) is not None]
+    if bounds:
+        parts.append((trans['range'], ', '.join(bounds)))
+
+    min_len, max_len = g.value(prop, SH.minLength), g.value(prop, SH.maxLength)
+    if min_len is not None or max_len is not None:
+        if min_len is not None and max_len is not None:
+            text = f"{min_len}–{max_len}"
+        elif min_len is not None:
+            text = f"≥ {min_len}"
+        else:
+            text = f"≤ {max_len}"
+        parts.append((trans['length'], text))
+
+    languages = g.value(prop, SH.languageIn)
+    if languages is not None:
+        text = ", ".join(code(lang) for lang in rdf_list(g, languages))
+        if g.value(prop, SH.uniqueLang) is not None and bool(g.value(prop, SH.uniqueLang).toPython()):
+            text += f" ({trans['unique_lang']})"
+        parts.append((trans['languages'], text))
+    elif g.value(prop, SH.uniqueLang) is not None and bool(g.value(prop, SH.uniqueLang).toPython()):
+        parts.append((trans['languages'], trans['unique_lang']))
+
+    allowed = g.value(prop, SH["in"])
+    if allowed is not None:
+        values = [code(format_uri(g, v)) if not hasattr(v, "language") and str(v).startswith("http") else code(format_literal(v))
+                  for v in rdf_list(g, allowed)]
+        parts.append((trans['values'], ', '.join(values)))
+
+    required = g.value(prop, SH.hasValue)
+    if required is not None:
+        text = code(format_uri(g, required)) if str(required).startswith("http") else code(format_literal(required))
+        parts.append((trans['has_value'], text))
+
+    severity = g.value(prop, SH.severity)
+    if severity is not None and severity != SH.Violation:
+        level = str(severity).split("#")[-1]
+        parts.append((trans['severity'], trans.get(level, level)))
+
+    return parts
 
 def format_uri(g, uri):
     if not uri:
@@ -62,6 +232,57 @@ def slugify(text):
 def sanitize_cell(text):
     """Removes newlines and escapes pipe characters to prevent markdown table breaks."""
     return str(text).replace("\n", " ").replace("\r", "").replace("|", "&#124;").strip()
+
+def build_grid_table(headers, rows, min_col_widths, align=None):
+    """Builds a Pandoc grid table; cells may contain several lines and lists.
+    `align` lists "left" or "right" per column (default left)."""
+    align = align or ["left"] * len(headers)
+    col_widths = list(min_col_widths)
+    for row in [headers] + rows:
+        for i, cell in enumerate(row):
+            for paragraph in str(cell).split('\n'):
+                for word in paragraph.split():
+                    if len(word) > col_widths[i] - 2:
+                        col_widths[i] = len(word) + 2
+
+    def wrap_cell(text, width):
+        lines = []
+        for paragraph in str(text).split('\n'):
+            if paragraph.strip() == '':
+                lines.append('')
+            else:
+                lines.extend(textwrap.wrap(paragraph, width, break_long_words=False, break_on_hyphens=False))
+        return lines or ['']
+
+    def format_row(row_data, separator_char='-', header=False):
+        wrapped = [wrap_cell(cell, w - 2) for cell, w in zip(row_data, col_widths)]
+        max_lines = max((len(c) for c in wrapped), default=1)
+        lines = []
+        for i in range(max_lines):
+            parts = []
+            for col_idx, c in enumerate(wrapped):
+                val = c[i] if i < len(c) else ""
+                parts.append(f" {val.ljust(col_widths[col_idx] - 2)} ")
+            lines.append("|" + "|".join(parts) + "|")
+        sep_parts = []
+        for w, a in zip(col_widths, align):
+            if header:
+                # the colon in the header separator sets the column alignment
+                sep_parts.append(("=" * (w - 1) + ":") if a == "right" else (":" + "=" * (w - 1)))
+            else:
+                sep_parts.append(separator_char * w)
+        return lines, "+" + "+".join(sep_parts) + "+"
+
+    output = ["+" + "+".join("-" * w for w in col_widths) + "+"]
+    h_lines, h_sep = format_row(headers, header=True)
+    output.extend(h_lines)
+    output.append(h_sep)
+    for row in rows:
+        r_lines, r_sep = format_row(row)
+        output.extend(r_lines)
+        output.append(r_sep)
+    return output
+
 
 def get_localized_value(g, subject, predicates, lang):
     """Finds the best matching localized value for a given subject and list of predicates."""
@@ -81,12 +302,114 @@ def get_localized_value(g, subject, predicates, lang):
             
     return None
 
+def class_statistics(data, target_class):
+    """Instances of a class in the data graph and the number of triples per
+    instance (average, minimum, maximum); None without a data graph."""
+    if data is None or target_class is None:
+        return None
+    query = """
+        SELECT ?s (COUNT(*) AS ?n)
+        WHERE { ?s a ?cls . ?s ?p ?o . }
+        GROUP BY ?s
+    """
+    counts = [int(row.n) for row in data.query(query, initBindings={'cls': target_class})]
+    if not counts:
+        return {"instances": 0}
+    return {"instances": len(counts), "avg": sum(counts) / len(counts), "min": min(counts), "max": max(counts)}
+
+
+LINDAS_YASGUI = "https://lindas.admin.ch/sparql/#"
+LINDAS_ENDPOINT = "https://lindas.admin.ch/query"
+
+
+def yasgui_link(g, target_class, paths, title):
+    """Link to LINDAS' Yasgui with a prepared query that lists the instances
+    of the class with the properties of the property table."""
+    from urllib.parse import quote, urlencode
+
+    used_prefixes = {}
+    def qname(uri):
+        try:
+            prefix, namespace, local = g.namespace_manager.compute_qname(str(uri), generate=False)
+        except Exception:
+            return f"<{uri}>"
+        used_prefixes[prefix] = str(namespace)
+        return f"{prefix}:{local}"
+
+    variables, seen = [], set()
+    for path in paths:
+        local = re.sub(r'[^A-Za-z0-9_]', '_', str(path).rstrip('/').split('#')[-1].split('/')[-1])
+        while local in seen:
+            local += "_"
+        seen.add(local)
+        variables.append((local, qname(path)))
+
+    class_qname = qname(target_class)  # collects its prefix before the PREFIX lines are built
+    lines = [f"PREFIX {pfx}: <{ns}>" for pfx, ns in sorted(used_prefixes.items())]
+    lines.append("SELECT ?iri " + " ".join(f"?{v}" for v, _ in variables))
+    lines.append("WHERE {")
+    lines.append(f"  ?iri a {class_qname} .")
+    for v, path in variables:
+        lines.append(f"  OPTIONAL {{ ?iri {path} ?{v} . }}")
+    lines.append("}")
+    lines.append("LIMIT 100")
+    query = "\n".join(lines)
+
+    params = {
+        "query": query,
+        "endpoint": LINDAS_ENDPOINT,
+        "requestMethod": "POST",
+        "tabTitle": title,
+        "headers": "{}",
+        "contentTypeConstruct": "application/n-triples,*/*;q=0.9",
+        "contentTypeSelect": "application/sparql-results+json,*/*;q=0.9",
+        "outputFormat": "table",
+    }
+    return LINDAS_YASGUI + urlencode(params, quote_via=quote, safe="")
+
+
+def fact_sheet(g, data, shape, target_class, paths, label, trans):
+    """Key-value lines (Pandoc definition list) summarising a node shape."""
+    facts = [(trans['facts_shape'], f"`{format_uri(g, shape)}`")]
+    if target_class is not None:
+        facts.append((trans['facts_target'], f"`{format_uri(g, target_class)}`"))
+    closed = g.value(shape, SH.closed)
+    facts.append((trans['facts_closed'], trans['facts_closed_yes'] if closed is not None and bool(closed.toPython()) else trans['facts_closed_no']))
+    n_rules = len(list(g.objects(shape, SH.sparql)))
+    if n_rules:
+        facts.append((trans['facts_rules'], str(n_rules)))
+    stats = class_statistics(data, target_class)
+    if stats is not None:
+        if stats['instances']:
+            figures = trans['facts_figures_value'].format(
+                instances=f"{stats['instances']:,}".replace(",", "\u202f"),
+                avg=f"{stats['avg']:.1f}", min=stats['min'], max=stats['max'])
+            facts.append((trans['facts_figures'], figures))
+            link = yasgui_link(g, target_class, paths, label)
+            facts.append((trans['facts_open_data'], f"{trans['facts_open_yes']} [{trans['facts_open_link']}]({link})"))
+        else:
+            facts.append((trans['facts_open_data'], trans['facts_open_no']))
+    lines = ["::: {.ech-facts}"]
+    for key, value in facts:
+        lines.append(f"{key}")
+        lines.append(f":   {value}")
+        lines.append("")
+    lines.append(":::")
+    return lines
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate Markdown documentation from a SHACL model.")
     parser.add_argument("-i", "--input", required=True, help="Input SHACL file (.ttl)")
     parser.add_argument("-d", "--docs_dir", required=True, help="Docs directory containing language subdirectories")
     parser.add_argument("-p", "--prefixes", required=False, help="Prefix file (.ttl) to override QNames")
+    parser.add_argument("-g", "--graph", required=False, help="Processed data graph (.ttl) for instance statistics")
     args = parser.parse_args()
+
+    data = None
+    if args.graph and Path(args.graph).is_file():
+        data = Graph(bind_namespaces="none")
+        data.parse(args.graph, format="turtle")
 
     g = Graph(bind_namespaces="none")
     g.parse(args.input, format="turtle")
@@ -129,6 +452,7 @@ def main():
         
         shapes_data = []
         uri_to_slug = {}
+        uri_to_label = {}
         
         for s_info in shapes_list:
             shape_uri = s_info['uri']
@@ -146,8 +470,10 @@ def main():
             slug = f"nodeshape-{slugify(local_name)}"
             
             uri_to_slug[shape_uri] = slug
+            uri_to_label[shape_uri] = label
             if target_class:
                 uri_to_slug[target_class] = slug
+                uri_to_label[target_class] = label
                 
             shapes_data.append({
                 'uri': shape_uri,
@@ -173,11 +499,6 @@ def main():
                 md_lines.append(f"{comment}")
                 md_lines.append("")
                 
-            if target_class:
-                target_qname = format_uri(g, target_class)
-                md_lines.append(f"**{trans['target_class']}:** `{target_qname}`")
-                md_lines.append("")
-
             q_props = """
                 PREFIX sh: <http://www.w3.org/ns/shacl#>
                 
@@ -220,59 +541,64 @@ def main():
                 
             enriched_props.sort(key=lambda x: (x['order'], x['name'].lower(), x['path_qname'].lower()))
 
+            paths = [p['path'] for p in enriched_props if p['path'] is not None]
+            md_lines.extend(fact_sheet(g, data, shape, target_class, paths, label, trans))
+            md_lines.append("")
+
             if enriched_props:
-                md_lines.append(f"| {trans['name']} | {trans['path']} | {trans['type']} | {trans['cardinality']} |")
-                md_lines.append("|:--|:--|:--|--:|")
-                
+                headers = [trans['name'], trans['details'], trans['cardinality']]
+                rows = []
+
                 for p in enriched_props:
                     sh_name = sanitize_cell(p["name"])
                     sh_desc = sanitize_cell(p["desc"])
 
-                    if sh_name and sh_desc:
-                        display_name = f"**{sh_name}**: {sh_desc}"
-                    elif sh_desc:
-                        display_name = sh_desc
-                    elif sh_name:
-                        display_name = f"**{sh_name}**"
-                    else:
-                        display_name = ""
-
+                    # "**Name** (`path`): description"
                     p_path_str = f"`{p['path_qname']}`" if p["path_qname"] else ""
-                    
-                    types = []
-                    for t_uri in [p["datatype"], p["class"], p["nodeKind"]]:
-                        if t_uri:
-                            t_qname = format_uri(g, t_uri)
-                            if t_uri in uri_to_slug:
-                                types.append(f"[`{t_qname}`](#sec-{uri_to_slug[t_uri]})")
-                            else:
-                                types.append(f"`{t_qname}`")
-                    
+                    heading_parts = []
+                    if sh_name:
+                        heading_parts.append(f"**{sh_name}**")
+                    if p_path_str:
+                        heading_parts.append(f"({p_path_str})")
+                    display_name = " ".join(heading_parts)
+                    if sh_desc:
+                        display_name = f"{display_name}: {sh_desc}" if display_name else sh_desc
+
+                    # Expected type: a class or datatype. Classes described by a
+                    # node shape in this document are shown by the shape's label
+                    # and linked; sh:nodeKind alone carries no type information.
+                    def format_type(t_uri):
+                        if t_uri in uri_to_slug:
+                            return f"[{uri_to_label[t_uri]}](#sec-{uri_to_slug[t_uri]})"
+                        return f"`{format_uri(g, t_uri)}`"
+
+                    types = [format_type(t_uri) for t_uri in [p["datatype"], p["class"]] if t_uri]
+
                     if not types and p["prop"]:
                         q_or = """
                             PREFIX sh: <http://www.w3.org/ns/shacl#>
                             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                             SELECT ?cls WHERE {
-                                ?prop sh:or/rdf:rest*/rdf:first/sh:class ?cls .
+                                ?prop sh:or/rdf:rest*/rdf:first ?alt .
+                                ?alt sh:class|sh:datatype ?cls .
                             }
                         """
-                        for oc in g.query(q_or, initBindings={'prop': p['prop']}):
-                            t_uri = oc.cls
-                            t_qname = format_uri(g, t_uri)
-                            if t_uri in uri_to_slug:
-                                types.append(f"[`{t_qname}`](#sec-{uri_to_slug[t_uri]})")
-                            else:
-                                types.append(f"`{t_qname}`")
+                        types = [format_type(oc.cls) for oc in g.query(q_or, initBindings={'prop': p['prop']})]
 
-                    p_type_str = f" {trans['or']} ".join(types)
+                    details = []
+                    if types:
+                        details.append((trans['type'], f" {trans['or']} ".join(types)))
+                    details.extend(describe_constraints(g, p["prop"], trans))
+                    details_cell = "\n".join(f"- {label}: {value}" for label, value in details)
 
                     min_c = str(p["minCount"]) if p["minCount"] else "0"
                     max_c = str(p["maxCount"]) if p["maxCount"] else "*"
                     cardinality = f"{min_c}..{max_c}"
 
-                    md_lines.append(f"| {display_name} | {p_path_str} | {p_type_str} | {cardinality} |")
-                
-                md_lines.append(f": {trans['properties']} {label} {{#tbl-{slug} tbl-colwidths=\"[40,25,25,10]\"}}")
+                    rows.append([display_name, details_cell, cardinality])
+
+                md_lines.extend(build_grid_table(headers, rows, [46, 48, 14], align=["left", "left", "right"]))
+                md_lines.append(f"\n: {trans['properties']} {label} {{#tbl-{slug} tbl-colwidths=\"[42,44,14]\"}}")
                 md_lines.append("")
 
         output_path = docs_dir / lang / "entities.md"

@@ -132,59 +132,39 @@
     it
   }
   // Inline code: text colour on a rounded grey background that is darker
-  // than the table stripes. The code stays one text run so background and
-  // underline are continuous; zero-width spaces (regular spaces with
-  // `spacing: 0%`) between the clusters let long URIs break across lines.
-  // Real spaces in the code become figure spaces so they keep their width.
+  // than the table stripes. A code span is never split: if it does not fit
+  // on the current line, it moves to the next one as a whole. Real spaces
+  // in the code become figure spaces so they keep their width.
   show raw.where(block: false): it => {
     set text(fill: black)
-    // Break opportunities after separators, and inside long runs without
-    // separators every twelve characters.
-    let spaced = ""
-    let run = 0
-    for cluster in it.text.replace(" ", "\u{2007}").clusters() {
-      spaced += cluster
-      run += 1
-      if cluster in (":", "/", "#", ".", "_", "-", "?", "=", "&") or run >= 12 {
-        spaced += " "
-        run = 0
-      }
-    }
-    // `extent` pads horizontally only; the edges set the vertical padding.
-    highlight(
+    // The horizontal padding is part of the box (`inset`), so neighbouring
+    // text is pushed away; the vertical padding is painted only (`outset`)
+    // and does not change the line height.
+    box(
       fill: rgb("dcdcdc"),
       radius: 2.5pt,
-      extent: 2.2pt,
-      top-edge: 0.95em,
-      bottom-edge: -0.42em,
-      text(font: codefont, spacing: 0%, spaced),
+      inset: (x: 2.5pt, y: 0pt),
+      outset: (y: 1.2pt),
+      text(font: codefont, it.text.replace(" ", "\u{2007}")),
     )
   }
-  // Bibliography with alphanumeric labels: the "[label]" that starts every
-  // entry sits in a box as wide as the widest label, the entry text hangs
-  // beside it.
-  show <refs>: it => context {
-    let pattern = regex("^\\[[^\\]]+\\]")
-    let entries = if it.body.has("children") { it.body.children } else { (it.body,) }
-    let labels = ()
-    for entry in entries {
-      if entry.func() != block { continue }
-      // The label is split into pieces: the escaped brackets are symbols,
-      // the words text and spaces.
-      let parts = if entry.body.has("children") { entry.body.children } else { (entry.body,) }
-      let lead = ""
-      for part in parts {
-        let kind = repr(part.func())
-        if kind == "text" or kind == "symbol" { lead += part.text } else if kind == "space" { lead += " " } else { break }
-      }
-      lead = lead.trim()
-      let found = lead.match(pattern)
-      if found != none { labels.push(found.text) }
-    }
-    let width = calc.max(0pt, ..labels.map(label => measure(label).width)) + 0.3cm
-    set par(hanging-indent: width, justify: false)
-    show regex("^\\[[^\\]]+\\]\\s*"): m => box(width: width, m.text.trim())
-    it
+
+  // Definition lists (e.g. the fact sheets of the data model) as key-value
+  // rows, like the metadata table of the title page.
+  // (Items must be styled individually: Quarto's own rule on terms.item
+  // means that no `terms` element ever exists at realization time.)
+  show terms.item: it => {
+    set par(justify: false)
+    block(
+      above: 0.55em,
+      below: 0.55em,
+      grid(
+        columns: (5.8cm, 1fr),
+        column-gutter: 0.5em,
+        text(hyphenate: false, strong(it.term)),
+        it.description,
+      ),
+    )
   }
 
   // Code blocks (Quarto's Skylighting output) consist of inline raw tokens;
@@ -212,7 +192,7 @@
   show table.cell: it => block(breakable: false, width: 100%, it)
   show table.cell: set text(size: 10pt)
   show table.cell: set par(justify: false)
-  show table.cell.where(y: 0): set text(weight: "bold")
+  show table.cell.where(y: 0): set text(weight: "bold", hyphenate: false)
   set table(
     fill: (col, row) => if calc.even(row) { rgb("f2f2f2") } else { white },
     stroke: none,

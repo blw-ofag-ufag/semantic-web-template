@@ -107,15 +107,20 @@
   // Table of contents: levels 1 and 2 bold, numbers in a fixed column,
   // unnumbered chapters (appendices) across the full width.
   show outline.entry: it => {
-    set text(size: if it.level == 1 { 12pt } else { 11pt })
-    set text(weight: "bold") if it.level <= 2
     show link: set text(fill: black)
-    let cells = if it.prefix() == none {
-      (grid.cell(colspan: 2, it.inner()),)
+    if it.element.func() == figure {
+      // Lists of figures and tables (appendices): "Abbildung 1: caption ... 5".
+      block(width: 100%, link(it.element.location(), [*#it.prefix():* #it.inner()]))
     } else {
-      (it.prefix(), it.inner())
+      set text(size: if it.level == 1 { 12pt } else { 11pt })
+      set text(weight: "bold") if it.level <= 2
+      let cells = if it.prefix() == none {
+        (grid.cell(colspan: 2, it.inner()),)
+      } else {
+        (it.prefix(), it.inner())
+      }
+      link(it.element.location(), grid(columns: (1.5cm, 1fr), ..cells))
     }
-    link(it.element.location(), grid(columns: (1.5cm, 1fr), ..cells))
   }
   show outline.entry.where(level: 1): set block(above: 1.2em)
   show outline: set par(spacing: 0.7em)

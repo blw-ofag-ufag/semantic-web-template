@@ -166,6 +166,21 @@ $grid-margin-width: 375px;
   font-size: 0.9rem;
 }
 
+// Lists of figures and tables in the appendices: plain linked lines.
+#quarto-content .ech-float-list ul {
+  list-style: none;
+  padding-left: 0;
+  li {
+    margin-bottom: 0.3rem;
+  }
+  a {
+    color: $body-color;
+  }
+  a:hover {
+    color: $link-color;
+  }
+}
+
 // Appendices keep Quarto's quieter style: smaller grey headings below a rule.
 #quarto-content #quarto-appendix.default .quarto-appendix-heading {
   font-size: 1.05rem;

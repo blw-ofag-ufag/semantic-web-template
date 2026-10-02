@@ -101,4 +101,8 @@ These provisions shall apply to the standards prepared by eCH only, however, not
 
 # Annex E – Table of figures {#sec-appendix-e .appendix .unnumbered}
 
+{{< ech figures >}}
+
 # Annex F – Table of tables {#sec-appendix-f .appendix .unnumbered}
+
+{{< ech tables >}}

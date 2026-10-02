@@ -101,4 +101,8 @@ Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, ni
 
 # Anhang E – Abbildungsverzeichnis {#sec-appendix-e .appendix .unnumbered}
 
+{{< ech figures >}}
+
 # Anhang F – Tabellenverzeichnis {#sec-appendix-f .appendix .unnumbered}
+
+{{< ech tables >}}

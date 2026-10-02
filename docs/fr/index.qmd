@@ -101,4 +101,8 @@ Ces dispositions ne s'appliquent toutefois qu'aux standards élaborés par eCH, 
 
 # Annexe E – Table des illustrations {#sec-appendix-e .appendix .unnumbered}
 
+{{< ech figures >}}
+
 # Annexe F – Liste des tableaux {#sec-appendix-f .appendix .unnumbered}
+
+{{< ech tables >}}

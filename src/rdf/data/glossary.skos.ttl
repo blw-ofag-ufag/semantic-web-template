@@ -58,3 +58,229 @@ term:triple a skos:Concept ;
     schema:description "Die Grundstruktur einer Aussage in RDF, bestehend aus Subjekt, Prädikat und Objekt."@de,
         "The basic structure of a statement in RDF, consisting of a subject, predicate, and object."@en,
         "La structure de base d'une déclaration en RDF, composée d'un sujet, d'un prédicat et d'un objet."@fr .
+
+term:linkeddata a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    skos:related term:rdf, term:lindas ;
+    schema:name "Linked Data"@de,
+        "Linked Data"@en,
+        "Données liées"@fr ;
+    schema:alternateName "Verknüpfte Daten"@de,
+        "Linked Open Data"@en,
+        "Linked Data"@fr ;
+    schema:description "Daten, die nach den Prinzipien des Semantic Web mit IRIs identifiziert, in RDF beschrieben und untereinander verknüpft publiziert werden."@de,
+        "Data published according to the principles of the Semantic Web: identified by IRIs, described in RDF and linked to one another."@en,
+        "Données publiées selon les principes du Web sémantique: identifiées par des IRI, décrites en RDF et reliées entre elles."@fr .
+
+term:iri a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:broader term:rdf ;
+    schema:name "Internationalized Resource Identifier"@de,
+        "Internationalized Resource Identifier"@en,
+        "Internationalized Resource Identifier"@fr ;
+    schema:alternateName "IRI"@de,
+        "IRI"@en,
+        "IRI"@fr ;
+    schema:description "Weltweit eindeutiger Bezeichner einer Ressource. In RDF werden Subjekte, Prädikate und die meisten Objekte durch IRIs identifiziert."@de,
+        "Globally unique identifier of a resource. In RDF, subjects, predicates and most objects are identified by IRIs."@en,
+        "Identifiant unique au niveau mondial d'une ressource. En RDF, les sujets, les prédicats et la plupart des objets sont identifiés par des IRI."@fr .
+
+term:literal a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:broader term:rdf ;
+    schema:name "Literal"@de,
+        "Literal"@en,
+        "Littéral"@fr ;
+    schema:description "Ein konkreter Wert in RDF, etwa eine Zeichenkette, eine Zahl oder ein Datum, optional mit Datentyp oder Sprachangabe."@de,
+        "A concrete value in RDF, such as a string, a number or a date, optionally with a datatype or a language tag."@en,
+        "Une valeur concrète en RDF, par exemple une chaîne de caractères, un nombre ou une date, avec en option un type de données ou une indication de langue."@fr .
+
+term:graph a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:broader term:rdf ;
+    schema:name "Graph"@de,
+        "Graph"@en,
+        "Graphe"@fr ;
+    schema:alternateName "Named Graph"@de,
+        "Named graph"@en,
+        "Graphe nommé"@fr ;
+    schema:description "Eine Menge von Tripeln. Ein benannter Graph wird selbst durch eine IRI identifiziert und erlaubt es, Daten in einem Triple Store zu gruppieren."@de,
+        "A set of triples. A named graph is itself identified by an IRI and allows data in a triple store to be grouped."@en,
+        "Un ensemble de triplets. Un graphe nommé est lui-même identifié par une IRI et permet de regrouper les données dans un triple store."@fr .
+
+term:namespace a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    skos:related term:iri ;
+    schema:name "Namensraum"@de,
+        "Namespace"@en,
+        "Espace de noms"@fr ;
+    schema:alternateName "Präfix"@de,
+        "Prefix"@en,
+        "Préfixe"@fr ;
+    schema:description "Gemeinsamer Anfang einer Gruppe von IRIs. In Turtle und SPARQL wird ein Namensraum durch ein Präfix abgekürzt, zum Beispiel `schema:` für `http://schema.org/`."@de,
+        "Common beginning of a group of IRIs. In Turtle and SPARQL, a namespace is abbreviated by a prefix, for example `schema:` for `http://schema.org/`."@en,
+        "Début commun d'un groupe d'IRI. En Turtle et en SPARQL, un espace de noms est abrégé par un préfixe, par exemple `schema:` pour `http://schema.org/`."@fr .
+
+term:serialization a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    skos:narrower term:turtle, term:jsonld ;
+    schema:name "Serialisierung"@de,
+        "Serialization"@en,
+        "Sérialisation"@fr ;
+    schema:description "Textuelle Darstellung eines RDF-Graphen in einem definierten Format, um ihn zu speichern oder auszutauschen."@de,
+        "Textual representation of an RDF graph in a defined format, used to store or exchange it."@en,
+        "Représentation textuelle d'un graphe RDF dans un format défini, afin de le stocker ou de l'échanger."@fr .
+
+term:turtle a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:broader term:serialization ;
+    schema:name "Terse RDF Triple Language"@de,
+        "Terse RDF Triple Language"@en,
+        "Terse RDF Triple Language"@fr ;
+    schema:alternateName "Turtle"@de,
+        "Turtle"@en,
+        "Turtle"@fr ;
+    schema:description "Eine kompakte, gut lesbare Serialisierung für RDF. Alle RDF-Dateien dieses Standards sind in Turtle verfasst."@de,
+        "A compact, human-readable serialization for RDF. All RDF files of this standard are written in Turtle."@en,
+        "Une sérialisation compacte et lisible pour RDF. Tous les fichiers RDF de cette norme sont rédigés en Turtle."@fr .
+
+term:jsonld a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:broader term:serialization ;
+    schema:name "JSON for Linking Data"@de,
+        "JSON for Linking Data"@en,
+        "JSON for Linking Data"@fr ;
+    schema:alternateName "JSON-LD"@de,
+        "JSON-LD"@en,
+        "JSON-LD"@fr ;
+    schema:description "Eine Serialisierung von RDF auf der Basis von JSON, die sich besonders für Web-Schnittstellen eignet."@de,
+        "A serialization of RDF based on JSON, particularly suited to web interfaces."@en,
+        "Une sérialisation de RDF basée sur JSON, particulièrement adaptée aux interfaces web."@fr .
+
+term:sparql a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    skos:related term:rdf ;
+    schema:name "SPARQL Protocol and RDF Query Language"@de,
+        "SPARQL Protocol and RDF Query Language"@en,
+        "SPARQL Protocol and RDF Query Language"@fr ;
+    schema:alternateName "SPARQL"@de,
+        "SPARQL"@en,
+        "SPARQL"@fr ;
+    schema:description "Die Abfragesprache des W3C für RDF-Daten. Mit SPARQL werden Daten aus Graphen gelesen, verändert und zwischen Systemen ausgetauscht."@de,
+        "The W3C query language for RDF data. SPARQL is used to read data from graphs, modify them and exchange them between systems."@en,
+        "Le langage de requête du W3C pour les données RDF. SPARQL permet de lire des données dans des graphes, de les modifier et de les échanger entre systèmes."@fr .
+
+term:endpoint a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:broader term:sparql ;
+    schema:name "SPARQL-Endpunkt"@de,
+        "SPARQL endpoint"@en,
+        "Point d'accès SPARQL"@fr ;
+    schema:description "Eine Web-Schnittstelle, über die SPARQL-Abfragen an einen Triple Store gesendet werden können."@de,
+        "A web interface through which SPARQL queries can be sent to a triple store."@en,
+        "Une interface web par laquelle des requêtes SPARQL peuvent être envoyées à un triple store."@fr .
+
+term:triplestore a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    skos:related term:lindas ;
+    schema:name "Triple Store"@de,
+        "Triple store"@en,
+        "Triple store"@fr ;
+    schema:alternateName "Graphdatenbank"@de,
+        "Graph database"@en,
+        "Base de données orientée graphe"@fr ;
+    schema:description "Eine Datenbank, die auf das Speichern und Abfragen von RDF-Tripeln spezialisiert ist."@de,
+        "A database specialised in storing and querying RDF triples."@en,
+        "Une base de données spécialisée dans le stockage et l'interrogation de triplets RDF."@fr .
+
+term:vocabulary a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    skos:narrower term:ontology ;
+    schema:name "Vokabular"@de,
+        "Vocabulary"@en,
+        "Vocabulaire"@fr ;
+    schema:description "Eine Sammlung von Klassen und Eigenschaften mit festgelegter Bedeutung, die zur Beschreibung von Daten wiederverwendet wird, zum Beispiel schema.org."@de,
+        "A collection of classes and properties with defined meaning that is reused to describe data, for example schema.org."@en,
+        "Un ensemble de classes et de propriétés à la signification définie, réutilisé pour décrire des données, par exemple schema.org."@fr .
+
+term:ontology a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:broader term:vocabulary ;
+    skos:related term:owl ;
+    schema:name "Ontologie"@de,
+        "Ontology"@en,
+        "Ontologie"@fr ;
+    schema:description "Ein formales Modell eines Fachgebiets, das Klassen, Eigenschaften und deren logische Beziehungen so beschreibt, dass Maschinen daraus Schlüsse ziehen können."@de,
+        "A formal model of a domain that describes classes, properties and their logical relationships in a way that allows machines to draw conclusions."@en,
+        "Un modèle formel d'un domaine qui décrit les classes, les propriétés et leurs relations logiques de manière à permettre aux machines d'en tirer des conclusions."@fr .
+
+term:owl a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    skos:related term:reasoning ;
+    schema:name "Web Ontology Language"@de,
+        "Web Ontology Language"@en,
+        "Web Ontology Language"@fr ;
+    schema:alternateName "OWL"@de,
+        "OWL"@en,
+        "OWL"@fr ;
+    schema:description "Die Sprache des W3C zur Formulierung von Ontologien. Sie erlaubt es, Klassen und Eigenschaften mit logischen Axiomen zu definieren."@de,
+        "The W3C language for formulating ontologies. It allows classes and properties to be defined with logical axioms."@en,
+        "Le langage du W3C pour formuler des ontologies. Il permet de définir des classes et des propriétés au moyen d'axiomes logiques."@fr .
+
+term:reasoning a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    schema:name "Inferenz"@de,
+        "Reasoning"@en,
+        "Inférence"@fr ;
+    schema:alternateName "Reasoning"@de,
+        "Inference"@en,
+        "Raisonnement"@fr ;
+    schema:description "Das automatische Ableiten neuer Aussagen aus den vorhandenen Daten und den Axiomen einer Ontologie, zum Beispiel durch den Reasoner HermiT."@de,
+        "The automatic derivation of new statements from the existing data and the axioms of an ontology, for example by the HermiT reasoner."@en,
+        "La déduction automatique de nouvelles déclarations à partir des données existantes et des axiomes d'une ontologie, par exemple au moyen du raisonneur HermiT."@fr .
+
+term:shacl a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    skos:narrower term:shape ;
+    schema:name "Shapes Constraint Language"@de,
+        "Shapes Constraint Language"@en,
+        "Shapes Constraint Language"@fr ;
+    schema:alternateName "SHACL"@de,
+        "SHACL"@en,
+        "SHACL"@fr ;
+    schema:description "Die Sprache des W3C zur Beschreibung und Prüfung der Struktur von RDF-Daten. Das Datenmodell dieses Standards ist in SHACL formuliert."@de,
+        "The W3C language for describing and validating the structure of RDF data. The data model of this standard is formulated in SHACL."@en,
+        "Le langage du W3C pour décrire et valider la structure des données RDF. Le modèle de données de cette norme est formulé en SHACL."@fr .
+
+term:shape a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:broader term:shacl ;
+    schema:name "Shape"@de,
+        "Shape"@en,
+        "Shape"@fr ;
+    schema:description "Eine Menge von Bedingungen, die eine Klasse von Ressourcen oder eine Eigenschaft erfüllen muss, etwa Pflichtfelder, Datentypen und Kardinalitäten."@de,
+        "A set of conditions that a class of resources or a property must fulfil, such as mandatory fields, datatypes and cardinalities."@en,
+        "Un ensemble de conditions qu'une classe de ressources ou une propriété doit remplir, par exemple des champs obligatoires, des types de données et des cardinalités."@fr .
+
+term:skos a skos:Concept ;
+    skos:inScheme :glossary ;
+    skos:topConceptOf :glossary ;
+    skos:related term:vocabulary ;
+    schema:name "Simple Knowledge Organization System"@de,
+        "Simple Knowledge Organization System"@en,
+        "Simple Knowledge Organization System"@fr ;
+    schema:alternateName "SKOS"@de,
+        "SKOS"@en,
+        "SKOS"@fr ;
+    schema:description "Ein Vokabular des W3C für Thesauri, Klassifikationen und Glossare. Dieses Glossar ist selbst in SKOS erfasst."@de,
+        "A W3C vocabulary for thesauri, classifications and glossaries. This glossary is itself recorded in SKOS."@en,
+        "Un vocabulaire du W3C pour les thésaurus, les classifications et les glossaires. Ce glossaire est lui-même rédigé en SKOS."@fr .

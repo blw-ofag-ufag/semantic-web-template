@@ -10,7 +10,7 @@ date-format: iso
 ech:
   number: eCH-1234
   category: auxiliary     # standard | best-practice | auxiliary | white-paper | addendum
-  maturity: defined       # experimental | defined | established
+  maturity: experimental  # experimental | defined | established
   version: 2.4.1
   status: in-progress     # in-progress | draft | proposal | approved | replaced | repealed | suspended
   decision-date: null

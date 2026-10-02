@@ -138,7 +138,18 @@
   // Real spaces in the code become figure spaces so they keep their width.
   show raw.where(block: false): it => {
     set text(fill: black)
-    let spaced = it.text.replace(" ", "\u{2007}").clusters().join(" ")
+    // Break opportunities after separators, and inside long runs without
+    // separators every twelve characters.
+    let spaced = ""
+    let run = 0
+    for cluster in it.text.replace(" ", "\u{2007}").clusters() {
+      spaced += cluster
+      run += 1
+      if cluster in (":", "/", "#", ".", "_", "-", "?", "=", "&") or run >= 12 {
+        spaced += " "
+        run = 0
+      }
+    }
     // `extent` pads horizontally only; the edges set the vertical padding.
     highlight(
       fill: rgb("dcdcdc"),
@@ -167,7 +178,11 @@
   ]
   show footnote.entry: set text(size: 10pt)
 
-  // Tables: bold header row, zebra stripes, rules above and below.
+  // Tables: bold header row, zebra stripes, rules above and below. Quarto
+  // wraps tables in figures, which must be made breakable for long tables.
+  show figure.where(kind: "quarto-float-tbl"): set block(breakable: true)
+  // Rows stay together: a page break never splits a cell.
+  show table.cell: it => block(breakable: false, width: 100%, it)
   show table.cell: set text(size: 10pt)
   show table.cell: set par(justify: false)
   show table.cell.where(y: 0): set text(weight: "bold")

@@ -101,6 +101,8 @@ These provisions shall apply to the standards prepared by eCH only, however, not
 
 # Annex C – Abbreviations and Glossary {#sec-appendix-c .appendix .unnumbered}
 
+This glossary is also available in machine-readable form as a SKOS glossary [@SKOS], on [LINDAS](https://lindas.admin.ch/) and in the [GitHub repository](https://github.com/blw-ofag-ufag/semantic-web-template/blob/main/src/rdf/data/glossary.skos.ttl).
+
 {{< include glossary.md >}}
 
 # Annex D – Changes in comparison to previous version {#sec-appendix-d .appendix .unnumbered}

@@ -167,15 +167,36 @@ $grid-margin-width: 375px;
 }
 
 // Bibliography with alphanumeric labels: labels in one column, aligned to
-// the longest label, entry texts in the second column.
+// the longest label, entry texts in the second column (table layout, so
+// every entry keeps a box that citation links can scroll to).
 #quarto-content #refs.csl-bib-body {
+  display: table;
+  width: 100%;
+  border-spacing: 0 0.6rem;
+  margin-top: -0.6rem;
+  .csl-entry {
+    display: table-row;
+    scroll-margin-top: 7rem; // keep the entry clear of the fixed header
+  }
+  .csl-left-margin,
+  .csl-right-inline {
+    display: table-cell;
+    vertical-align: top;
+  }
+  .csl-left-margin {
+    white-space: nowrap;
+    padding-right: 0.75rem;
+    width: 1%;
+  }
+}
+
+// Citation hover popups show a single entry: label and text side by side.
+.tippy-content .csl-entry {
   display: grid;
   grid-template-columns: max-content 1fr;
-  column-gap: 0.75rem;
-  row-gap: 0.6rem;
-  .csl-entry {
-    display: contents;
-  }
+  column-gap: 0.6rem;
+  margin-left: 0;
+  text-indent: 0;
   .csl-left-margin {
     white-space: nowrap;
   }

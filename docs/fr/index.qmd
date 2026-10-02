@@ -1,12 +1,22 @@
 ---
-title: Modèle de document Quarto eCH-1234
+title: Modèle de document Quarto
 abstract: Bref résumé de l'objectif de ce document
 date: today
-date-format: long
+date-format: iso
 lang: fr
+ech:
+  number: eCH-1234
+  category: Norme
+  maturity: Défini
+  version: 2.4.1
+  status: Approuvé
+  decision-date: 2026-09-15
+  replaces: 2.4.0 – Minor Change
+  languages: Allemand (original), français (traduction), anglais (traduction)
+  group: Groupe spécialisé Exemple
 ---
 
-# Remarque {#sec-note .unnumbered}
+# Remarque {#sec-note .unnumbered .unlisted}
 
 Dans le présent document, les désignations de personnes sont formulées de manière épicène (neutre du point de vue du genre). Le guide de la Chancellerie fédérale sert de base. Selon la situation, on utilise des formulations paires (citoyennes et citoyens), des formes abstraites (personne assurée), des formes neutres ou des périphrases sans référence à la personne. L'usage du masculin générique n'est pas autorisé. Les formes complètes sont employées dans le texte continu, c'est-à-dire dans les textes composés de phrases rédigées. Dans les passages de texte raccourcis, notamment dans les tableaux, des formes abrégées peuvent être utilisées. La forme abrégée s'utilise alors avec une barre oblique, mais sans trait d'omission (rapporteur/euse). L'astérisque de genre et les typographies similaires ne sont pas utilisés.
 
@@ -88,19 +98,19 @@ Les standards élaborés par les groupes d'experts peuvent être utilisés, diff
 Les standards eCH sont entièrement documentés et libres de toute restriction de droit de licence et/ou de brevet. La documentation correspondante peut être demandée gratuitement.
 Ces dispositions ne s'appliquent toutefois qu'aux standards élaborés par eCH, et non aux standards ou produits de tiers qui font référence aux standards eCH. Les standards contiennent les références correspondantes aux droits de tiers.
 
-# Annexe A - Références {#sec-appendix-a .appendix}
+# Annexe A – Références {#sec-appendix-a .appendix .unnumbered}
 
 ::: {#refs}
 :::
 
-# Annexe B - Collaboration et Vérification {#sec-appendix-b .appendix}
+# Annexe B – Collaboration et Vérification {#sec-appendix-b .appendix .unnumbered}
 
-# Annexe C - Abréviations et glossaire {#sec-appendix-c .appendix}
+# Annexe C – Abréviations et glossaire {#sec-appendix-c .appendix .unnumbered}
 
 {{< include glossary.md >}}
 
-# Annexe D - Modifications par rapport à la version précédente {#sec-appendix-d .appendix}
+# Annexe D – Modifications par rapport à la version précédente {#sec-appendix-d .appendix .unnumbered}
 
-# Annexe E - Table des illustrations {#sec-appendix-e .appendix}
+# Annexe E – Table des illustrations {#sec-appendix-e .appendix .unnumbered}
 
-# Annexe F - Liste des tableaux {#sec-appendix-f .appendix}
+# Annexe F – Liste des tableaux {#sec-appendix-f .appendix .unnumbered}

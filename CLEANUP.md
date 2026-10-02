@@ -101,6 +101,26 @@ If `make docs` fails because the Word template referenced under `reference-doc` 
 
 Replace the template texts with the project description, and replace the Chinook examples in `docs/data/` that the pages include.
 
+The front matter carries the metadata of the eCH title page. `title` is the name of the standard without the eCH number; `date` is the date of issue, formatted as ISO date. The remaining fields of the eCH metadata table live under `ech:` and are written in the language of the respective page, for example in `docs/en/index.qmd`:
+
+```yaml
+ech:
+  number: eCH-1234                      # eCH number
+  category: Standard                    # category
+  maturity: Defined                     # quality stage
+  version: 2.4.1                        # version
+  status: Approved                      # status, printed in bold in the footer
+  decision-date: 2026-09-15             # date of decision
+  replaces: 2.4.0 – Minor Change        # replaced version
+  prerequisites: eCH-0200               # requirements, string or list (optional)
+  attachments: [schema.xsd, model.ttl]  # annexes, string or list (optional)
+  languages: German (original), French (translation), English (translation)
+  group: Technical Unit AgriFood        # technical unit
+  publisher: ...                        # editor / distribution, defaults to Verein eCH (optional)
+```
+
+Fields that are left out are printed as `---`. The PDF layout itself (header, footer, title page, table of contents) is defined in `docs/assets/typst-template.typ`; the labels of the metadata table are translated there for `de`, `fr` and `en`.
+
 The translations are checked by the test suite: every heading needs a reference ID, and all language versions must have the same headings, the same number of lines, code blocks, images and table rows, and a similar text length.
 
 ### Languages

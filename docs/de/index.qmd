@@ -1,12 +1,22 @@
 ---
-title: eCH-1234 Quarto-Dokument als Vorlage
+title: Quarto-Dokument als Vorlage
 abstract: Kurze Zusammenfassung des Zwecks dieses Dokuments
 date: today
-date-format: long
+date-format: iso
 lang: de
+ech:
+  number: eCH-1234
+  category: Standard
+  maturity: Definiert
+  version: 2.4.1
+  status: Genehmigt
+  decision-date: 2026-09-15
+  replaces: 2.4.0 – Minor Change
+  languages: Deutsch (Original), Französisch (Übersetzung), Englisch (Übersetzung)
+  group: Fachgruppe Beispiel
 ---
 
-# Hinweis {#sec-note .unnumbered}
+# Hinweis {#sec-note .unnumbered .unlisted}
 
 Im vorliegenden Dokument wird bei der Bezeichnung von Personen eine geschlechtsneutrale Formulierung verwendet. Basis bildet der Leitfaden der Bundeskanzlei. Je nach Situation kommen Paarformen (Bürgerinnen und Bürger), geschlechtsabstrakte Formen (versicherte Person), geschlechtsneutrale Formen (Versicherte) oder Umschreibungen ohne Personenbezug zum Einsatz. Das generische Maskulin (Bürger) ist nicht zulässig. Vollformen werden in fortlaufenden Texten verwendet, also in Texten, die aus ausformulierten Sätzen bestehen. In verknappten Textpassagen, namentlich in Tabellen, können Kurzformen verwendet werden. Dabei wird die Kurzform mit Schrägstrich, aber ohne Auslassungsstrich verwendet (Referent/in). Genderstern und ähnliche Schreibweisen werden nicht verwendet.
 
@@ -88,19 +98,19 @@ Die von den Fachgruppen erarbeiteten Standards dürfen unter Nennung des jeweili
 eCH-Standards sind vollständig dokumentiert und frei von lizenz- und/oder patentrechtlichen Einschränkungen. Die dazugehörige Dokumentation kann kostenlos angefordert werden.
 Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, nicht aber für Standards oder Produkte Dritter, die auf eCH-Standards verweisen. Die Standards enthalten die entsprechenden Hinweise auf Rechte Dritter.
 
-# Anhang A - Referenzen {#sec-appendix-a .appendix}
+# Anhang A – Referenzen {#sec-appendix-a .appendix .unnumbered}
 
 ::: {#refs}
 :::
 
-# Anhang B - Mitwirkung und Prüfung {#sec-appendix-b .appendix}
+# Anhang B – Mitwirkung und Prüfung {#sec-appendix-b .appendix .unnumbered}
 
-# Anhang C - Abkürzungen und Glossar {#sec-appendix-c .appendix}
+# Anhang C – Abkürzungen und Glossar {#sec-appendix-c .appendix .unnumbered}
 
 {{< include glossary.md >}}
 
-# Anhang D - Änderungen gegenüber der Vorversion {#sec-appendix-d .appendix}
+# Anhang D – Änderungen gegenüber der Vorversion {#sec-appendix-d .appendix .unnumbered}
 
-# Anhang E - Abbildungsverzeichnis {#sec-appendix-e .appendix}
+# Anhang E – Abbildungsverzeichnis {#sec-appendix-e .appendix .unnumbered}
 
-# Anhang F - Tabellenverzeichnis {#sec-appendix-f .appendix}
+# Anhang F – Tabellenverzeichnis {#sec-appendix-f .appendix .unnumbered}

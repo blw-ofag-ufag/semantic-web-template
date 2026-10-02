@@ -1,12 +1,22 @@
 ---
-title: eCH-1234 Template Quarto Document
+title: Template Quarto Document
 abstract: Brief summary of the purpose of the document.
 date: today
-date-format: long
+date-format: iso
 lang: en
+ech:
+  number: eCH-1234
+  category: Standard
+  maturity: Defined
+  version: 2.4.1
+  status: Approved
+  decision-date: 2026-09-15
+  replaces: 2.4.0 – Minor Change
+  languages: German (original), French (translation), English (translation)
+  group: Technical Unit Example
 ---
 
-# Note {#sec-note .unnumbered}
+# Note {#sec-note .unnumbered .unlisted}
 
 This document uses a gender-neutral formulation when referring to persons. This is based on the guidelines (German) of the Federal Chancellery. Depending on the situation, paired forms (citizens), gender-abstract forms (insured person), gender-neutral forms (insured person) or paraphrases with-out personal reference are used. The generic masculine (citizen) is not permitted. Full forms are used in continuous texts, i.e. in texts consisting of formulated sentences. Short forms can be used in ab-breviated text passages, namely in tables. The short form is used with a slash but without an ellipsis (referent). Gender asterisks and similar spellings are not used.
 
@@ -88,19 +98,19 @@ The standards prepared by the technical units can be used, distributed and devel
 eCH-standards are fully documented and free of any restrictions of licence and/or patent law. The associated documentation can be requested for free.
 These provisions shall apply to the standards prepared by eCH only, however, not to any standards or products of third parties which include reference to eCH-standards. The standards include the relevant references to third party rights.
 
-# Annex A - References {#sec-appendix-a .appendix}
+# Annex A – References {#sec-appendix-a .appendix .unnumbered}
 
 ::: {#refs}
 :::
 
-# Annex B - Cooperation and Verification {#sec-appendix-b .appendix}
+# Annex B – Cooperation and Verification {#sec-appendix-b .appendix .unnumbered}
 
-# Annex C - Abbreviations and Glossary {#sec-appendix-c .appendix}
+# Annex C – Abbreviations and Glossary {#sec-appendix-c .appendix .unnumbered}
 
 {{< include glossary.md >}}
 
-# Annex D - Changes in comparison to previous version {#sec-appendix-d .appendix}
+# Annex D – Changes in comparison to previous version {#sec-appendix-d .appendix .unnumbered}
 
-# Annex E - Table of figures {#sec-appendix-e .appendix}
+# Annex E – Table of figures {#sec-appendix-e .appendix .unnumbered}
 
-# Annex F - Table of tables {#sec-appendix-f .appendix}
+# Annex F – Table of tables {#sec-appendix-f .appendix .unnumbered}

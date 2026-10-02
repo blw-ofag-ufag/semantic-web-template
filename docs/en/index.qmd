@@ -1,12 +1,10 @@
 ---
-title: eCH-1234 Template Quarto Document
+title: Template Quarto Document
 abstract: Brief summary of the purpose of the document.
-date: today
-date-format: long
 lang: en
 ---
 
-# Note {#sec-note .unnumbered}
+# Note {#sec-note .unnumbered .unlisted}
 
 This document uses a gender-neutral formulation when referring to persons. This is based on the guidelines (German) of the Federal Chancellery. Depending on the situation, paired forms (citizens), gender-abstract forms (insured person), gender-neutral forms (insured person) or paraphrases with-out personal reference are used. The generic masculine (citizen) is not permitted. Full forms are used in continuous texts, i.e. in texts consisting of formulated sentences. Short forms can be used in ab-breviated text passages, namely in tables. The short form is used with a slash but without an ellipsis (referent). Gender asterisks and similar spellings are not used.
 
@@ -14,7 +12,7 @@ This document uses a gender-neutral formulation when referring to persons. This 
 
 ## Status {#sec-status}
 
-Approved: This document was approved by the Experts’ Committee. It has normative power for the defined field of application in the determined scope of application.
+{{< ech status >}}
 
 ## Scope of application {#sec-scope-of-application}
 
@@ -36,6 +34,8 @@ When displaying diagrams, try to write them in Mermaid JS straight away; this ma
 # Technical notes {#sec-technical-notes}
 
 We use the ROBOT CLI in our project [@jackson2019robot], especially for it's ability to run the HermiT reasoner [@glimm2014hermit].
+
+The following paragraph is deliberately nonsense and only tests the citation style: according to the approval guideline [@eCH-0003:11.1.0], all postal addresses [@eCH-0010:8.1.0] must be serialised in Turtle [@Turtle], validated as a DCAT catalogue [@DCAT; @eCH-0200:3.0.1] with SHACL [@SHACL] and published via SPARQL [@SPARQL] as Linked Open Data [@eCH-0205:1.0] on agricultural crops [@eCH-0265:1.0.0] in JSON-LD [@JSON-LD] and OWL [@OWL2], as the Semantic Web [@berners2023semantic] intends.
 
 # Data Model {#sec-data-model}
 
@@ -88,19 +88,40 @@ The standards prepared by the technical units can be used, distributed and devel
 eCH-standards are fully documented and free of any restrictions of licence and/or patent law. The associated documentation can be requested for free.
 These provisions shall apply to the standards prepared by eCH only, however, not to any standards or products of third parties which include reference to eCH-standards. The standards include the relevant references to third party rights.
 
-# Annex A - References {#sec-appendix-a .appendix}
+# Annex A – References {#sec-appendix-a .appendix .unnumbered}
 
 ::: {#refs}
 :::
 
-# Annex B - Cooperation and Verification {#sec-appendix-b .appendix}
+# Annex B – Cooperation and Verification {#sec-appendix-b .appendix .unnumbered}
 
-# Annex C - Abbreviations and Glossary {#sec-appendix-c .appendix}
+| Name                           | Organisation                      |
+|:-------------------------------|:----------------------------------|
+| Damian Oswald                  | Federal Office for Agriculture    |
+| Michael Schüpbach              | Federal Office for Agriculture    |
+| Lea Stauber                    | Federal Office for Agriculture    |
+
+# Annex C – Abbreviations and Glossary {#sec-appendix-c .appendix .unnumbered}
+
+This glossary is also available in machine-readable form as a SKOS glossary [@SKOS], on [LINDAS](https://lindas.admin.ch/) and in the [GitHub repository](https://github.com/blw-ofag-ufag/semantic-web-template/blob/main/src/rdf/data/glossary.skos.ttl).
 
 {{< include glossary.md >}}
 
-# Annex D - Changes in comparison to previous version {#sec-appendix-d .appendix}
+# Annex D – Changes in comparison to previous version {#sec-appendix-d .appendix .unnumbered}
 
-# Annex E - Table of figures {#sec-appendix-e .appendix}
+The most important changes of version 2.0.0 compared to the previous version 1.4.6:
 
-# Annex F - Table of tables {#sec-appendix-f .appendix}
+- **Document template:** the PDF output now follows the eCH document template (title page with metadata table, header and footer, table of contents, annexes); the website adopts the same style in a light and a dark variant.
+- **Metadata:** number, category, quality stage, version, status and further details of the standard are recorded once and inserted automatically into all language versions, the title page, the footer and @sec-status.
+- **Lists:** the table of figures and the table of tables (Annexes E and F) are generated automatically and linked to the figures and tables.
+- **Presentation:** uniform styling of tables, captions and code in the PDF and on the website.
+
+A complete list of all changes per version can be found in the [releases on GitHub](https://github.com/blw-ofag-ufag/semantic-web-template/releases).
+
+# Annex E – Table of figures {#sec-appendix-e .appendix .unnumbered}
+
+{{< ech figures >}}
+
+# Annex F – Table of tables {#sec-appendix-f .appendix .unnumbered}
+
+{{< ech tables >}}

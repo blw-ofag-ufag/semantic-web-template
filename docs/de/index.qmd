@@ -1,12 +1,10 @@
 ---
-title: eCH-1234 Quarto-Dokument als Vorlage
+title: Quarto-Dokument als Vorlage
 abstract: Kurze Zusammenfassung des Zwecks dieses Dokuments
-date: today
-date-format: long
 lang: de
 ---
 
-# Hinweis {#sec-note .unnumbered}
+# Hinweis {#sec-note .unnumbered .unlisted}
 
 Im vorliegenden Dokument wird bei der Bezeichnung von Personen eine geschlechtsneutrale Formulierung verwendet. Basis bildet der Leitfaden der Bundeskanzlei. Je nach Situation kommen Paarformen (Bürgerinnen und Bürger), geschlechtsabstrakte Formen (versicherte Person), geschlechtsneutrale Formen (Versicherte) oder Umschreibungen ohne Personenbezug zum Einsatz. Das generische Maskulin (Bürger) ist nicht zulässig. Vollformen werden in fortlaufenden Texten verwendet, also in Texten, die aus ausformulierten Sätzen bestehen. In verknappten Textpassagen, namentlich in Tabellen, können Kurzformen verwendet werden. Dabei wird die Kurzform mit Schrägstrich, aber ohne Auslassungsstrich verwendet (Referent/in). Genderstern und ähnliche Schreibweisen werden nicht verwendet.
 
@@ -14,7 +12,7 @@ Im vorliegenden Dokument wird bei der Bezeichnung von Personen eine geschlechtsn
 
 ## Status {#sec-status}
 
-Genehmigt: Dieses Dokument wurde vom Fach-Ausschuss verabschiedet. Es entfaltet normative Kraft für den definierten Anwendungsbereich im festgelegten Geltungsbereich.
+{{< ech status >}}
 
 ## Geltungsbereich {#sec-scope-of-application}
 
@@ -36,6 +34,8 @@ Bei der Darstellung von Diagrammen sollte versucht werden, diese direkt in Merma
 # Technische Hinweise {#sec-technical-notes}
 
 Wir verwenden die ROBOT CLI in unserem Projekt [@jackson2019robot], insbesondere wegen ihrer Fähigkeit, den HermiT Reasoner auszuführen [@glimm2014hermit].
+
+Der folgende Absatz ist bewusst Unsinn und dient nur dem Test der Zitierweise: Gemäss dem Genehmigungsleitfaden [@eCH-0003:11.1.0] müssen alle Postadressen [@eCH-0010:8.1.0] in Turtle [@Turtle] serialisiert, als DCAT-Katalog [@DCAT; @eCH-0200:3.0.1] mit SHACL [@SHACL] geprüft und per SPARQL [@SPARQL] als Linked Open Data [@eCH-0205:1.0] über landwirtschaftliche Kulturen [@eCH-0265:1.0.0] in JSON-LD [@JSON-LD] und OWL [@OWL2] veröffentlicht werden, wie es das Semantic Web [@berners2023semantic] vorsieht.
 
 # Datenmodell {#sec-data-model}
 
@@ -88,19 +88,40 @@ Die von den Fachgruppen erarbeiteten Standards dürfen unter Nennung des jeweili
 eCH-Standards sind vollständig dokumentiert und frei von lizenz- und/oder patentrechtlichen Einschränkungen. Die dazugehörige Dokumentation kann kostenlos angefordert werden.
 Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, nicht aber für Standards oder Produkte Dritter, die auf eCH-Standards verweisen. Die Standards enthalten die entsprechenden Hinweise auf Rechte Dritter.
 
-# Anhang A - Referenzen {#sec-appendix-a .appendix}
+# Anhang A – Referenzen {#sec-appendix-a .appendix .unnumbered}
 
 ::: {#refs}
 :::
 
-# Anhang B - Mitwirkung und Prüfung {#sec-appendix-b .appendix}
+# Anhang B – Mitwirkung und Prüfung {#sec-appendix-b .appendix .unnumbered}
 
-# Anhang C - Abkürzungen und Glossar {#sec-appendix-c .appendix}
+| Name                           | Organisation                      |
+|:-------------------------------|:----------------------------------|
+| Damian Oswald                  | Bundesamt für Landwirtschaft      |
+| Michael Schüpbach              | Bundesamt für Landwirtschaft      |
+| Lea Stauber                    | Bundesamt für Landwirtschaft      |
+
+# Anhang C – Abkürzungen und Glossar {#sec-appendix-c .appendix .unnumbered}
+
+Dieses Glossar ist als SKOS-Glossar [@SKOS] auch maschinenlesbar verfügbar, auf [LINDAS](https://lindas.admin.ch/) und im [GitHub-Repository](https://github.com/blw-ofag-ufag/semantic-web-template/blob/main/src/rdf/data/glossary.skos.ttl).
 
 {{< include glossary.md >}}
 
-# Anhang D - Änderungen gegenüber der Vorversion {#sec-appendix-d .appendix}
+# Anhang D – Änderungen gegenüber der Vorversion {#sec-appendix-d .appendix .unnumbered}
 
-# Anhang E - Abbildungsverzeichnis {#sec-appendix-e .appendix}
+Die wichtigsten Änderungen der Version 2.0.0 gegenüber der Vorversion 1.4.6:
 
-# Anhang F - Tabellenverzeichnis {#sec-appendix-f .appendix}
+- **Dokumentvorlage:** Die PDF-Ausgabe folgt neu der eCH-Dokumentvorlage (Titelseite mit Metadatentabelle, Kopf- und Fusszeile, Inhaltsverzeichnis, Anhänge); die Website übernimmt denselben Stil in einer hellen und einer dunklen Variante.
+- **Metadaten:** Nummer, Kategorie, Reifegrad, Version, Status und weitere Angaben des Standards werden einmal zentral erfasst und automatisch in alle Sprachversionen, in die Titelseite, in die Fusszeile und in @sec-status übernommen.
+- **Verzeichnisse:** Abbildungs- und Tabellenverzeichnis (Anhang E und F) werden automatisch erzeugt und sind mit den Abbildungen und Tabellen verlinkt.
+- **Darstellung:** Einheitliche Gestaltung von Tabellen, Beschriftungen und Code in PDF und Website.
+
+Eine vollständige Liste aller Änderungen je Version findet sich in den [Releases auf GitHub](https://github.com/blw-ofag-ufag/semantic-web-template/releases).
+
+# Anhang E – Abbildungsverzeichnis {#sec-appendix-e .appendix .unnumbered}
+
+{{< ech figures >}}
+
+# Anhang F – Tabellenverzeichnis {#sec-appendix-f .appendix .unnumbered}
+
+{{< ech tables >}}

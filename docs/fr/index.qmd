@@ -1,12 +1,10 @@
 ---
-title: Modèle de document Quarto eCH-1234
+title: Modèle de document Quarto
 abstract: Bref résumé de l'objectif de ce document
-date: today
-date-format: long
 lang: fr
 ---
 
-# Remarque {#sec-note .unnumbered}
+# Remarque {#sec-note .unnumbered .unlisted}
 
 Dans le présent document, les désignations de personnes sont formulées de manière épicène (neutre du point de vue du genre). Le guide de la Chancellerie fédérale sert de base. Selon la situation, on utilise des formulations paires (citoyennes et citoyens), des formes abstraites (personne assurée), des formes neutres ou des périphrases sans référence à la personne. L'usage du masculin générique n'est pas autorisé. Les formes complètes sont employées dans le texte continu, c'est-à-dire dans les textes composés de phrases rédigées. Dans les passages de texte raccourcis, notamment dans les tableaux, des formes abrégées peuvent être utilisées. La forme abrégée s'utilise alors avec une barre oblique, mais sans trait d'omission (rapporteur/euse). L'astérisque de genre et les typographies similaires ne sont pas utilisés.
 
@@ -14,7 +12,7 @@ Dans le présent document, les désignations de personnes sont formulées de man
 
 ## Statut {#sec-status}
 
-Approuvé : Ce document a été approuvé par le comité d'experts. Il a force normative pour le domaine d'application défini et dans le champ d'application déterminé.
+{{< ech status >}}
 
 ## Champ d'application {#sec-scope-of-application}
 
@@ -36,6 +34,8 @@ Lors de la présentation de diagrammes, essayez de les créer directement dans M
 # Notes techniques {#sec-technical-notes}
 
 Nous utilisons l'interface en ligne de commande (CLI) ROBOT dans notre projet [@jackson2019robot], en particulier pour sa capacité à exécuter le raisonneur HermiT [@glimm2014hermit].
+
+Le paragraphe suivant est volontairement absurde et ne sert qu'à tester le style de citation: selon le guide d'approbation [@eCH-0003:11.1.0], toutes les adresses postales [@eCH-0010:8.1.0] doivent être sérialisées en Turtle [@Turtle], vérifiées comme catalogue DCAT [@DCAT; @eCH-0200:3.0.1] avec SHACL [@SHACL] et publiées via SPARQL [@SPARQL] comme Linked Open Data [@eCH-0205:1.0] sur les cultures agricoles [@eCH-0265:1.0.0] en JSON-LD [@JSON-LD] et OWL [@OWL2], comme le prévoit le Web sémantique [@berners2023semantic].
 
 # Modèle de données {#sec-data-model}
 
@@ -88,19 +88,40 @@ Les standards élaborés par les groupes d'experts peuvent être utilisés, diff
 Les standards eCH sont entièrement documentés et libres de toute restriction de droit de licence et/ou de brevet. La documentation correspondante peut être demandée gratuitement.
 Ces dispositions ne s'appliquent toutefois qu'aux standards élaborés par eCH, et non aux standards ou produits de tiers qui font référence aux standards eCH. Les standards contiennent les références correspondantes aux droits de tiers.
 
-# Annexe A - Références {#sec-appendix-a .appendix}
+# Annexe A – Références {#sec-appendix-a .appendix .unnumbered}
 
 ::: {#refs}
 :::
 
-# Annexe B - Collaboration et Vérification {#sec-appendix-b .appendix}
+# Annexe B – Collaboration et Vérification {#sec-appendix-b .appendix .unnumbered}
 
-# Annexe C - Abréviations et glossaire {#sec-appendix-c .appendix}
+| Nom                            | Organisation                      |
+|:-------------------------------|:----------------------------------|
+| Damian Oswald                  | Office fédéral de l'agriculture   |
+| Michael Schüpbach              | Office fédéral de l'agriculture   |
+| Lea Stauber                    | Office fédéral de l'agriculture   |
+
+# Annexe C – Abréviations et glossaire {#sec-appendix-c .appendix .unnumbered}
+
+Ce glossaire est également disponible sous forme lisible par machine comme glossaire SKOS [@SKOS], sur [LINDAS](https://lindas.admin.ch/) et dans le [dépôt GitHub](https://github.com/blw-ofag-ufag/semantic-web-template/blob/main/src/rdf/data/glossary.skos.ttl).
 
 {{< include glossary.md >}}
 
-# Annexe D - Modifications par rapport à la version précédente {#sec-appendix-d .appendix}
+# Annexe D – Modifications par rapport à la version précédente {#sec-appendix-d .appendix .unnumbered}
 
-# Annexe E - Table des illustrations {#sec-appendix-e .appendix}
+Les principales modifications de la version 2.0.0 par rapport à la version précédente 1.4.6:
 
-# Annexe F - Liste des tableaux {#sec-appendix-f .appendix}
+- **Modèle de document:** la sortie PDF suit désormais le modèle de document eCH (page de titre avec tableau des métadonnées, en-tête et pied de page, table des matières, annexes); le site web reprend le même style dans une variante claire et une variante sombre.
+- **Métadonnées:** le numéro, la catégorie, le degré de maturité, la version, le statut et les autres indications de la norme sont saisis une seule fois et repris automatiquement dans toutes les versions linguistiques, dans la page de titre, dans le pied de page et dans @sec-status.
+- **Listes:** la table des illustrations et la liste des tableaux (annexes E et F) sont générées automatiquement et reliées aux illustrations et aux tableaux.
+- **Présentation:** mise en forme uniforme des tableaux, des légendes et du code dans le PDF et sur le site web.
+
+La liste complète de toutes les modifications par version se trouve dans les [releases sur GitHub](https://github.com/blw-ofag-ufag/semantic-web-template/releases).
+
+# Annexe E – Table des illustrations {#sec-appendix-e .appendix .unnumbered}
+
+{{< ech figures >}}
+
+# Annexe F – Liste des tableaux {#sec-appendix-f .appendix .unnumbered}
+
+{{< ech tables >}}

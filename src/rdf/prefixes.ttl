@@ -20,6 +20,7 @@
 @prefix person:          <https://agriculture.ld.admin.ch/eCH-1234/2/person/> .
 
 # LINDAS-specific namespaces/qnames
+@prefix country:         <https://ld.admin.ch/country/> .
 @prefix org:             <https://register.ld.admin.ch/opendataswiss/org/> .
 @prefix cube:            <https://cube.link/> .
 @prefix meta:            <https://cube.link/meta/> .

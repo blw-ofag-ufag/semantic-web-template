@@ -1,0 +1,45 @@
+# Replace the country names of postal addresses (strings from the Chinook
+# database) with the country IRIs of the Swiss Federal Archives on LINDAS
+# (https://ld.admin.ch/country/, ISO 3166-1 alpha-3).
+
+PREFIX schema:  <http://schema.org/>
+PREFIX country: <https://ld.admin.ch/country/>
+
+DELETE {
+    ?address schema:addressCountry ?name .
+}
+INSERT {
+    ?address schema:addressCountry ?country .
+}
+WHERE {
+    ?address a schema:PostalAddress ;
+             schema:addressCountry ?name .
+    FILTER(isLiteral(?name))
+    VALUES (?label ?country) {
+        ("Argentina"      country:ARG)
+        ("Australia"      country:AUS)
+        ("Austria"        country:AUT)
+        ("Belgium"        country:BEL)
+        ("Brazil"         country:BRA)
+        ("Canada"         country:CAN)
+        ("Chile"          country:CHL)
+        ("Czech Republic" country:CZE)
+        ("Denmark"        country:DNK)
+        ("Finland"        country:FIN)
+        ("France"         country:FRA)
+        ("Germany"        country:DEU)
+        ("Hungary"        country:HUN)
+        ("India"          country:IND)
+        ("Ireland"        country:IRL)
+        ("Italy"          country:ITA)
+        ("Netherlands"    country:NLD)
+        ("Norway"         country:NOR)
+        ("Poland"         country:POL)
+        ("Portugal"       country:PRT)
+        ("Spain"          country:ESP)
+        ("Sweden"         country:SWE)
+        ("USA"            country:USA)
+        ("United Kingdom" country:GBR)
+    }
+    FILTER(STR(?name) = ?label)
+}

@@ -5,7 +5,7 @@ import re
 import textwrap
 from pathlib import Path
 from rdflib import Graph, Namespace
-from rdflib.namespace import RDF, RDFS
+from rdflib.namespace import DCTERMS, RDF, RDFS
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
 
@@ -20,13 +20,16 @@ TRANSLATIONS = {
         "facts_closed": "Closed",
         "facts_closed_yes": "yes, only the listed properties are allowed",
         "facts_closed_no": "no, further properties are allowed",
-        "facts_rules": "Additional rules (SPARQL)",
         "facts_figures": "Key figures",
         "facts_figures_value": "{instances} instances, on average {avg} triples each ({min}–{max})",
         "facts_open_data": "Open data",
         "facts_open_yes": "yes, reference data,",
         "facts_open_link": "published on LINDAS",
         "facts_open_no": "no, transactional data that is not part of the published graph",
+        "section_overview": "Overview",
+        "section_properties": "Properties",
+        "section_rules": "Rules (SPARQL)",
+        "datatypes": {"string": "Text", "langString": "Language-tagged text", "date": "Date", "dateTime": "Date and time", "time": "Time", "gYear": "Year", "integer": "Integer", "int": "Integer", "long": "Integer", "nonNegativeInteger": "Non-negative integer", "positiveInteger": "Positive integer", "decimal": "Decimal number", "double": "Floating-point number", "float": "Floating-point number", "boolean": "Boolean", "anyURI": "URI", "duration": "Duration"},
         "cardinality": "Cardinality",
         "target_class": "Target Class",
         "properties": "properties",
@@ -52,13 +55,16 @@ TRANSLATIONS = {
         "facts_closed": "Geschlossen",
         "facts_closed_yes": "ja, nur die aufgeführten Eigenschaften sind zulässig",
         "facts_closed_no": "nein, weitere Eigenschaften sind zulässig",
-        "facts_rules": "Zusätzliche Regeln (SPARQL)",
         "facts_figures": "Kennzahlen",
         "facts_figures_value": "{instances} Instanzen mit durchschnittlich {avg} Tripeln ({min}–{max})",
         "facts_open_data": "Open Data",
         "facts_open_yes": "ja, Referenzdaten,",
         "facts_open_link": "auf LINDAS publiziert",
         "facts_open_no": "nein, Transaktionsdaten, nicht Teil des publizierten Graphen",
+        "section_overview": "Übersicht",
+        "section_properties": "Eigenschaften",
+        "section_rules": "Regeln (SPARQL)",
+        "datatypes": {"string": "Zeichenkette", "langString": "Sprachabhängiger Text", "date": "Datum", "dateTime": "Zeitpunkt", "time": "Uhrzeit", "gYear": "Jahr", "integer": "Ganzzahl", "int": "Ganzzahl", "long": "Ganzzahl", "nonNegativeInteger": "Nicht negative Ganzzahl", "positiveInteger": "Positive Ganzzahl", "decimal": "Dezimalzahl", "double": "Gleitkommazahl", "float": "Gleitkommazahl", "boolean": "Wahrheitswert", "anyURI": "URI", "duration": "Zeitdauer"},
         "cardinality": "Kardinalität",
         "target_class": "Zielklasse",
         "properties": "Eigenschaften",
@@ -84,13 +90,16 @@ TRANSLATIONS = {
         "facts_closed": "Fermée",
         "facts_closed_yes": "oui, seules les propriétés énumérées sont admises",
         "facts_closed_no": "non, d'autres propriétés sont admises",
-        "facts_rules": "Règles supplémentaires (SPARQL)",
         "facts_figures": "Chiffres clés",
         "facts_figures_value": "{instances} instances avec en moyenne {avg} triplets ({min}–{max})",
         "facts_open_data": "Open data",
         "facts_open_yes": "oui, données de référence,",
         "facts_open_link": "publiées sur LINDAS",
         "facts_open_no": "non, données transactionnelles ne faisant pas partie du graphe publié",
+        "section_overview": "Aperçu",
+        "section_properties": "Propriétés",
+        "section_rules": "Règles (SPARQL)",
+        "datatypes": {"string": "Chaîne de caractères", "langString": "Texte avec indication de langue", "date": "Date", "dateTime": "Date et heure", "time": "Heure", "gYear": "Année", "integer": "Nombre entier", "int": "Nombre entier", "long": "Nombre entier", "nonNegativeInteger": "Nombre entier non négatif", "positiveInteger": "Nombre entier positif", "decimal": "Nombre décimal", "double": "Nombre à virgule flottante", "float": "Nombre à virgule flottante", "boolean": "Booléen", "anyURI": "URI", "duration": "Durée"},
         "cardinality": "Cardinalité",
         "target_class": "Classe cible",
         "properties": "propriétés",
@@ -116,13 +125,16 @@ TRANSLATIONS = {
         "facts_closed": "Chiusa",
         "facts_closed_yes": "sì, sono ammesse solo le proprietà elencate",
         "facts_closed_no": "no, sono ammesse altre proprietà",
-        "facts_rules": "Regole supplementari (SPARQL)",
         "facts_figures": "Indicatori",
         "facts_figures_value": "{instances} istanze con in media {avg} triple ({min}–{max})",
         "facts_open_data": "Open data",
         "facts_open_yes": "sì, dati di riferimento,",
         "facts_open_link": "pubblicati su LINDAS",
         "facts_open_no": "no, dati transazionali non inclusi nel grafo pubblicato",
+        "section_overview": "Panoramica",
+        "section_properties": "Proprietà",
+        "section_rules": "Regole (SPARQL)",
+        "datatypes": {"string": "Stringa", "langString": "Testo con indicazione della lingua", "date": "Data", "dateTime": "Data e ora", "time": "Ora", "gYear": "Anno", "integer": "Numero intero", "int": "Numero intero", "long": "Numero intero", "nonNegativeInteger": "Numero intero non negativo", "positiveInteger": "Numero intero positivo", "decimal": "Numero decimale", "double": "Numero a virgola mobile", "float": "Numero a virgola mobile", "boolean": "Booleano", "anyURI": "URI", "duration": "Durata"},
         "cardinality": "Cardinalità",
         "target_class": "Classe di destinazione",
         "properties": "proprietà",
@@ -370,14 +382,11 @@ def yasgui_link(g, target_class, paths, title):
 
 def fact_sheet(g, data, shape, target_class, paths, label, trans):
     """Key-value lines (Pandoc definition list) summarising a node shape."""
-    facts = [(trans['facts_shape'], f"`{format_uri(g, shape)}`")]
+    facts = [(trans['facts_shape'], f"[{shape}]({shape})")]
     if target_class is not None:
         facts.append((trans['facts_target'], f"`{format_uri(g, target_class)}`"))
     closed = g.value(shape, SH.closed)
     facts.append((trans['facts_closed'], trans['facts_closed_yes'] if closed is not None and bool(closed.toPython()) else trans['facts_closed_no']))
-    n_rules = len(list(g.objects(shape, SH.sparql)))
-    if n_rules:
-        facts.append((trans['facts_rules'], str(n_rules)))
     stats = class_statistics(data, target_class)
     if stats is not None:
         if stats['instances']:
@@ -502,12 +511,13 @@ def main():
             q_props = """
                 PREFIX sh: <http://www.w3.org/ns/shacl#>
                 
-                SELECT ?prop ?path ?datatype ?class ?minCount ?maxCount ?nodeKind ?order
+                SELECT ?prop ?path ?datatype ?class ?node ?minCount ?maxCount ?nodeKind ?order
                 WHERE {
                     ?shape sh:property ?prop .
                     OPTIONAL { ?prop sh:path ?path . }
                     OPTIONAL { ?prop sh:datatype ?datatype . }
                     OPTIONAL { ?prop sh:class ?class . }
+                    OPTIONAL { ?prop sh:node ?node . }
                     OPTIONAL { ?prop sh:minCount ?minCount . }
                     OPTIONAL { ?prop sh:maxCount ?maxCount . }
                     OPTIONAL { ?prop sh:nodeKind ?nodeKind . }
@@ -533,6 +543,7 @@ def main():
                     'path_qname': p_path_qname,
                     'datatype': p['datatype'],
                     'class': p['class'],
+                    'node': p['node'],
                     'minCount': p['minCount'],
                     'maxCount': p['maxCount'],
                     'nodeKind': p['nodeKind'],
@@ -542,10 +553,14 @@ def main():
             enriched_props.sort(key=lambda x: (x['order'], x['name'].lower(), x['path_qname'].lower()))
 
             paths = [p['path'] for p in enriched_props if p['path'] is not None]
+            md_lines.append(f"### {trans['section_overview']} {{#sec-{slug}-overview .unlisted}}")
+            md_lines.append("")
             md_lines.extend(fact_sheet(g, data, shape, target_class, paths, label, trans))
             md_lines.append("")
 
             if enriched_props:
+                md_lines.append(f"### {trans['section_properties']} {{#sec-{slug}-properties .unlisted}}")
+                md_lines.append("")
                 headers = [trans['name'], trans['details'], trans['cardinality']]
                 rows = []
 
@@ -564,26 +579,38 @@ def main():
                     if sh_desc:
                         display_name = f"{display_name}: {sh_desc}" if display_name else sh_desc
 
-                    # Expected type: a class or datatype. Classes described by a
-                    # node shape in this document are shown by the shape's label
-                    # and linked; sh:nodeKind alone carries no type information.
+                    # Expected type, in order of preference: the node shape
+                    # (sh:node), the class (sh:class), the datatype. Shapes and
+                    # classes described in this document are shown by the shape's
+                    # label and linked; common datatypes get a readable name with
+                    # the QName in parentheses. sh:nodeKind alone carries no type.
                     def format_type(t_uri):
                         if t_uri in uri_to_slug:
                             return f"[{uri_to_label[t_uri]}](#sec-{uri_to_slug[t_uri]})"
-                        return f"`{format_uri(g, t_uri)}`"
+                        qname = format_uri(g, t_uri)
+                        local = str(t_uri).split('#')[-1].split('/')[-1]
+                        if local in trans['datatypes']:
+                            return f"{trans['datatypes'][local]} (`{qname}`)"
+                        return f"`{qname}`"
 
-                    types = [format_type(t_uri) for t_uri in [p["datatype"], p["class"]] if t_uri]
+                    primary = next((t for t in [p["node"], p["class"], p["datatype"]] if t), None)
+                    types = [format_type(primary)] if primary else []
 
                     if not types and p["prop"]:
                         q_or = """
                             PREFIX sh: <http://www.w3.org/ns/shacl#>
                             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                            SELECT ?cls WHERE {
+                            SELECT ?alt ?node ?cls ?datatype WHERE {
                                 ?prop sh:or/rdf:rest*/rdf:first ?alt .
-                                ?alt sh:class|sh:datatype ?cls .
+                                OPTIONAL { ?alt sh:node ?node . }
+                                OPTIONAL { ?alt sh:class ?cls . }
+                                OPTIONAL { ?alt sh:datatype ?datatype . }
                             }
                         """
-                        types = [format_type(oc.cls) for oc in g.query(q_or, initBindings={'prop': p['prop']})]
+                        for alt in g.query(q_or, initBindings={'prop': p['prop']}):
+                            t_uri = next((t for t in [alt.node, alt.cls, alt.datatype] if t), None)
+                            if t_uri:
+                                types.append(format_type(t_uri))
 
                     details = []
                     if types:
@@ -597,9 +624,32 @@ def main():
 
                     rows.append([display_name, details_cell, cardinality])
 
-                md_lines.extend(build_grid_table(headers, rows, [46, 48, 14], align=["left", "left", "right"]))
-                md_lines.append(f"\n: {trans['properties']} {label} {{#tbl-{slug} tbl-colwidths=\"[42,44,14]\"}}")
+                # Grid table without caption; the relative column widths of
+                # the ASCII grid (42 / 44 / 14) become the rendered widths.
+                md_lines.extend(build_grid_table(headers, rows, [42, 44, 14], align=["left", "left", "right"]))
                 md_lines.append("")
+
+            # SPARQL rules: one subsection per rule with its description and query
+            rules = []
+            for constraint in g.objects(shape, SH.sparql):
+                r_name = get_localized_value(g, constraint, [SH.name, RDFS.label], lang)
+                r_desc = get_localized_value(g, constraint, [DCTERMS.description, SH.description, SH.message], lang)
+                r_query = g.value(constraint, SH.select)
+                rules.append((r_name or r_desc or "", r_desc if r_name else None, str(r_query).strip("\n") if r_query else None))
+            if rules:
+                md_lines.append(f"### {trans['section_rules']} {{#sec-{slug}-rules .unlisted}}")
+                md_lines.append("")
+                for index, (r_name, r_desc, r_query) in enumerate(sorted(rules, key=lambda r: r[0].lower()), start=1):
+                    md_lines.append(f"#### {sanitize_cell(r_name)} {{#sec-{slug}-rule-{index} .unlisted}}")
+                    md_lines.append("")
+                    if r_desc:
+                        md_lines.append(sanitize_cell(r_desc))
+                        md_lines.append("")
+                    if r_query:
+                        md_lines.append("```sparql")
+                        md_lines.append(textwrap.dedent(r_query).strip())
+                        md_lines.append("```")
+                        md_lines.append("")
 
         output_path = docs_dir / lang / "entities.md"
         with open(output_path, "w", encoding="utf-8") as f:

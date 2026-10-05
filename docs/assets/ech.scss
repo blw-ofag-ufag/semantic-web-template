@@ -107,6 +107,12 @@ $grid-margin-width: 375px;
     font-size: 1.05rem;
     margin-top: 1.5rem;
   }
+  h4 {
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: italic;
+    margin-top: 1.25rem;
+  }
   .header-section-number {
     color: inherit;
   }
@@ -215,7 +221,7 @@ $grid-margin-width: 375px;
 // key-value layout as the eCH metadata on the title page.
 #quarto-content .ech-facts dl {
   display: grid;
-  grid-template-columns: 15rem 1fr; // fixed, so all fact sheets align
+  grid-template-columns: 9rem 1fr; // fixed, so all fact sheets align
   column-gap: 2rem;
   row-gap: 0.3rem;
   margin: 0 0 1.25rem;

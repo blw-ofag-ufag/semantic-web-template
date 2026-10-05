@@ -101,6 +101,7 @@
   show heading.where(level: 1): set text(size: 16pt)
   show heading.where(level: 2): set text(size: 12pt)
   show heading.where(level: 3): set text(size: 11pt)
+  show heading.where(level: 4): set text(size: 11pt, weight: "regular", style: "italic")
   show heading: set block(above: 1.8em, below: 1em)
   show heading.where(level: 1): set block(below: 1.4em)
 
@@ -159,7 +160,7 @@
       above: 0.55em,
       below: 0.55em,
       grid(
-        columns: (5.8cm, 1fr),
+        columns: (3.4cm, 1fr),
         column-gutter: 0.5em,
         text(hyphenate: false, strong(it.term)),
         it.description,

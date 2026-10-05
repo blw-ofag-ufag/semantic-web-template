@@ -61,6 +61,9 @@ format:
       - assets/title-metadata.html
     toc: true
     toc-depth: 2
+    highlight-style: github   # muted colours in both the light and the dark theme
+    code-line-numbers: true
+    tbl-colwidths: true       # keep the column widths of the generated grid tables
     # "Other formats" under the table of contents. The plain `html` entry
     # adds no link but stops Quarto from appending its default entries.
     format-links:
@@ -97,6 +100,7 @@ format:
     template-partials:
       - assets/typst-template.typ
       - assets/typst-show.typ
+    code-line-numbers: true
     syntax-definitions:
      - assets/sparql.xml
      - assets/turtle.xml

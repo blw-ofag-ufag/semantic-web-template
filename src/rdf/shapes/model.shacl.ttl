@@ -163,6 +163,7 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
             "Indirizzo"@it ;
         sh:path schema:address ;
         sh:class schema:PostalAddress ;
+        sh:node :PostalAddressShape ;
     ],
     [
         sh:order 6 ;
@@ -203,6 +204,10 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
+        sh:name "Keine Selbstunterstellung"@de,
+            "No self-reporting"@en,
+            "Pas d'auto-subordination"@fr,
+            "Nessuna auto-subordinazione"@it ;
         dcterms:description "Ein Mitarbeiter kann nicht sich selbst unterstellt sein."@de,
             "An employee cannot report to themselves."@en,
             "Un employé ne peut pas relever de lui-même."@fr,
@@ -439,6 +444,10 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
+        sh:name "Rechnungssumme"@de,
+            "Invoice total"@en,
+            "Total de la facture"@fr,
+            "Totale della fattura"@it ;
         dcterms:description "Die Rechnungssumme muss exakt mit der Summe ihrer Positionen übereinstimmen (Toleranz 0.05)."@de,
             "Invoice total payment due must exactly match the sum of its lines (within 0.05 tolerance)."@en,
             "Le total de la facture doit correspondre exactement à la somme de ses lignes (tolérance de 0.05)."@fr,
@@ -463,6 +472,10 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
     ],
     [
         a sh:SPARQLConstraint ;
+        sh:name "Rechnungsdatum"@de,
+            "Invoice date"@en,
+            "Date de la facture"@fr,
+            "Data della fattura"@it ;
         dcterms:description "Eine Rechnung darf nicht vor dem Jahr 2000 datiert sein."@de,
             "An invoice cannot be dated before the year 2000."@en,
             "Une facture ne peut pas être datée d'avant l'année 2000."@fr,
@@ -591,6 +604,10 @@ I valori quantitativi non vengono mai registrati come semplice numero, ma sempre
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;
+        sh:name "Keine zyklische Hierarchie"@de,
+            "No cyclic hierarchy"@en,
+            "Pas de hiérarchie cyclique"@fr,
+            "Nessuna gerarchia ciclica"@it ;
         dcterms:description "Ein Genre darf weder direkt noch transitiv ein Teil von sich selbst sein."@de,
             "A genre cannot be a part of itself, either directly or transitively."@en,
             "Un genre ne peut pas faire partie de lui-même, ni directement ni transitivement."@fr,

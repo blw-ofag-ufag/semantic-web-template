@@ -117,6 +117,7 @@ ech:
   attachments: [model.ttl, shapes.ttl]          # optional, printed as "---" if empty
   languages: { original: de, translations: [fr, en] }
   group: AgriFood         # the "Fachgruppe" prefix is added per language
+  graph: https://lindas.admin.ch/foag/ogd   # named graph on LINDAS; used in the prepared queries of the data model
 ```
 
 The Lua filter `docs/assets/ech-metadata.lua` translates these codes with `docs/assets/ech-vocabulary.yml` into the labels of the PDF title page, header and footer (`typst-template.typ`) and of the HTML title block (`title-metadata.html`). The vocabulary lists the allowed codes; an unknown code aborts the render. Only `title`, `abstract` and `lang` remain in the front matter of each language version, and the eCH number is prefixed to the title automatically.

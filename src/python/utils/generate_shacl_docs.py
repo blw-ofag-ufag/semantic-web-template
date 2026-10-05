@@ -18,14 +18,14 @@ TRANSLATIONS = {
         "facts_shape": "IRI",
         "facts_target": "Target class",
         "facts_closed": "Closed",
-        "facts_closed_yes": "yes, only the listed properties are allowed",
-        "facts_closed_no": "no, further properties are allowed",
+        "facts_closed_yes": "Yes (only the listed properties are allowed)",
+        "facts_closed_no": "No (further properties are allowed)",
         "facts_figures": "Key figures",
-        "facts_figures_value": "{instances} instances, on average {avg} triples each ({min}–{max})",
+        "facts_figures_range": "{instances} instances with {min} to {max} triples each ({avg} on average)",
+        "facts_figures_fixed": "{instances} instances with {min} triples each",
         "facts_open_data": "Open data",
-        "facts_open_yes": "yes, reference data,",
-        "facts_open_link": "published on LINDAS",
-        "facts_open_no": "no, transactional data that is not part of the published graph",
+        "facts_open_yes": "Yes ([published on LINDAS]({link}))",
+        "facts_open_no": "No (transactional data, not part of the published graph)",
         "section_overview": "Overview",
         "section_properties": "Properties",
         "section_rules": "Rules (SPARQL)",
@@ -34,6 +34,7 @@ TRANSLATIONS = {
         "ns_caption": "Namespaces used in {{< ech title >}}.",
         "ns_namespace": "Namespace",
         "examples": "Examples",
+        "length_unit": "characters",
         "cardinality": "Cardinality",
         "target_class": "Target Class",
         "properties": "properties",
@@ -57,14 +58,14 @@ TRANSLATIONS = {
         "facts_shape": "IRI",
         "facts_target": "Zielklasse",
         "facts_closed": "Geschlossen",
-        "facts_closed_yes": "ja, nur die aufgeführten Eigenschaften sind zulässig",
-        "facts_closed_no": "nein, weitere Eigenschaften sind zulässig",
+        "facts_closed_yes": "Ja (nur die aufgeführten Eigenschaften zulässig)",
+        "facts_closed_no": "Nein (weitere Eigenschaften zulässig)",
         "facts_figures": "Kennzahlen",
-        "facts_figures_value": "{instances} Instanzen mit durchschnittlich {avg} Tripeln ({min}–{max})",
+        "facts_figures_range": "{instances} Instanzen mit je {min} bis {max} Tripeln (im Mittel {avg})",
+        "facts_figures_fixed": "{instances} Instanzen mit je {min} Tripeln",
         "facts_open_data": "Open Data",
-        "facts_open_yes": "ja, Referenzdaten,",
-        "facts_open_link": "auf LINDAS publiziert",
-        "facts_open_no": "nein, Transaktionsdaten, nicht Teil des publizierten Graphen",
+        "facts_open_yes": "Ja ([auf LINDAS publiziert]({link}))",
+        "facts_open_no": "Nein (Transaktionsdaten, nicht Teil des publizierten Graphen)",
         "section_overview": "Übersicht",
         "section_properties": "Eigenschaften",
         "section_rules": "Regeln (SPARQL)",
@@ -73,6 +74,7 @@ TRANSLATIONS = {
         "ns_caption": "In {{< ech title >}} verwendete Namespaces.",
         "ns_namespace": "Namespace",
         "examples": "Beispiele",
+        "length_unit": "Zeichen",
         "cardinality": "Kardinalität",
         "target_class": "Zielklasse",
         "properties": "Eigenschaften",
@@ -96,14 +98,14 @@ TRANSLATIONS = {
         "facts_shape": "IRI",
         "facts_target": "Classe cible",
         "facts_closed": "Fermée",
-        "facts_closed_yes": "oui, seules les propriétés énumérées sont admises",
-        "facts_closed_no": "non, d'autres propriétés sont admises",
+        "facts_closed_yes": "Oui (seules les propriétés énumérées sont admises)",
+        "facts_closed_no": "Non (d'autres propriétés sont admises)",
         "facts_figures": "Chiffres clés",
-        "facts_figures_value": "{instances} instances avec en moyenne {avg} triplets ({min}–{max})",
+        "facts_figures_range": "{instances} instances avec chacune {min} à {max} triplets ({avg} en moyenne)",
+        "facts_figures_fixed": "{instances} instances avec chacune {min} triplets",
         "facts_open_data": "Open data",
-        "facts_open_yes": "oui, données de référence,",
-        "facts_open_link": "publiées sur LINDAS",
-        "facts_open_no": "non, données transactionnelles ne faisant pas partie du graphe publié",
+        "facts_open_yes": "Oui ([publiées sur LINDAS]({link}))",
+        "facts_open_no": "Non (données transactionnelles, ne faisant pas partie du graphe publié)",
         "section_overview": "Aperçu",
         "section_properties": "Propriétés",
         "section_rules": "Règles (SPARQL)",
@@ -112,6 +114,7 @@ TRANSLATIONS = {
         "ns_caption": "Espaces de noms utilisés dans {{< ech title >}}.",
         "ns_namespace": "Espace de noms",
         "examples": "Exemples",
+        "length_unit": "caractères",
         "cardinality": "Cardinalité",
         "target_class": "Classe cible",
         "properties": "propriétés",
@@ -135,14 +138,14 @@ TRANSLATIONS = {
         "facts_shape": "IRI",
         "facts_target": "Classe di destinazione",
         "facts_closed": "Chiusa",
-        "facts_closed_yes": "sì, sono ammesse solo le proprietà elencate",
-        "facts_closed_no": "no, sono ammesse altre proprietà",
+        "facts_closed_yes": "Sì (solo le proprietà elencate sono ammesse)",
+        "facts_closed_no": "No (altre proprietà sono ammesse)",
         "facts_figures": "Indicatori",
-        "facts_figures_value": "{instances} istanze con in media {avg} triple ({min}–{max})",
+        "facts_figures_range": "{instances} istanze con {min}–{max} triple ciascuna ({avg} in media)",
+        "facts_figures_fixed": "{instances} istanze con {min} triple ciascuna",
         "facts_open_data": "Open data",
-        "facts_open_yes": "sì, dati di riferimento,",
-        "facts_open_link": "pubblicati su LINDAS",
-        "facts_open_no": "no, dati transazionali non inclusi nel grafo pubblicato",
+        "facts_open_yes": "Sì ([pubblicate su LINDAS]({link}))",
+        "facts_open_no": "No (dati transazionali, non inclusi nel grafo pubblicato)",
         "section_overview": "Panoramica",
         "section_properties": "Proprietà",
         "section_rules": "Regole (SPARQL)",
@@ -151,6 +154,7 @@ TRANSLATIONS = {
         "ns_caption": "Spazi dei nomi utilizzati in {{< ech title >}}.",
         "ns_namespace": "Spazio dei nomi",
         "examples": "Esempi",
+        "length_unit": "caratteri",
         "cardinality": "Cardinalità",
         "target_class": "Classe di destinazione",
         "properties": "proprietà",
@@ -216,7 +220,7 @@ def describe_constraints(g, prop, trans):
             text = f"≥ {min_len}"
         else:
             text = f"≤ {max_len}"
-        parts.append((trans['length'], text))
+        parts.append((trans['length'], f"{text} {trans['length_unit']}"))
 
     languages = g.value(prop, SH.languageIn)
     if languages is not None:
@@ -352,13 +356,14 @@ def class_statistics(data, target_class):
 
 
 LINDAS_YASGUI = "https://lindas.admin.ch/sparql/#"
-LINDAS_ENDPOINT = "https://lindas.admin.ch/query"
 
 
-def yasgui_link(g, target_class, paths, title):
+def yasgui_link(g, target_class, properties, graph_iri):
     """Link to LINDAS' Yasgui with a prepared query that lists the instances
-    of the class with the properties of the property table."""
-    from urllib.parse import quote, urlencode
+    of the class with the properties of the property table. `properties` is a
+    list of (path, required) pairs; required properties are matched directly,
+    the others optionally."""
+    from urllib.parse import quote
 
     used_prefixes = {}
     def qname(uri):
@@ -370,40 +375,33 @@ def yasgui_link(g, target_class, paths, title):
         return f"{prefix}:{local}"
 
     variables, seen = [], set()
-    for path in paths:
+    for path, required in properties:
         local = re.sub(r'[^A-Za-z0-9_]', '_', str(path).rstrip('/').split('#')[-1].split('/')[-1])
         while local in seen:
             local += "_"
         seen.add(local)
-        variables.append((local, qname(path)))
+        variables.append((local, qname(path), required))
 
     class_qname = qname(target_class)  # collects its prefix before the PREFIX lines are built
     lines = [f"PREFIX {pfx}: <{ns}>" for pfx, ns in sorted(used_prefixes.items())]
-    lines.append("SELECT ?iri " + " ".join(f"?{v}" for v, _ in variables))
+    lines.append("SELECT ?iri " + " ".join(f"?{v}" for v, _, _ in variables))
+    if graph_iri:
+        lines.append(f"FROM <{graph_iri}>")
     lines.append("WHERE {")
     lines.append(f"  ?iri a {class_qname} .")
-    for v, path in variables:
-        lines.append(f"  OPTIONAL {{ ?iri {path} ?{v} . }}")
+    for v, path, required in variables:
+        if required:
+            lines.append(f"  ?iri {path} ?{v} .")
+        else:
+            lines.append(f"  OPTIONAL {{ ?iri {path} ?{v} . }}")
     lines.append("}")
-    lines.append("LIMIT 100")
-    query = "\n".join(lines)
-
-    params = {
-        "query": query,
-        "endpoint": LINDAS_ENDPOINT,
-        "requestMethod": "POST",
-        "tabTitle": title,
-        "headers": "{}",
-        "contentTypeConstruct": "application/n-triples,*/*;q=0.9",
-        "contentTypeSelect": "application/sparql-results+json,*/*;q=0.9",
-        "outputFormat": "table",
-    }
-    return LINDAS_YASGUI + urlencode(params, quote_via=quote, safe="")
+    lines.append("LIMIT 1000")
+    return LINDAS_YASGUI + "query=" + quote("\n".join(lines), safe="")
 
 
-def fact_sheet(g, data, shape, target_class, paths, label, trans):
+def fact_sheet(g, data, shape, target_class, properties, graph_iri, trans):
     """Key-value lines (Pandoc definition list) summarising a node shape."""
-    facts = [(trans['facts_shape'], f"[{shape}]({shape})")]
+    facts = [(trans['facts_shape'], f"<{shape}>")]
     if target_class is not None:
         facts.append((trans['facts_target'], f"`{format_uri(g, target_class)}`"))
     closed = g.value(shape, SH.closed)
@@ -411,12 +409,11 @@ def fact_sheet(g, data, shape, target_class, paths, label, trans):
     stats = class_statistics(data, target_class)
     if stats is not None:
         if stats['instances']:
-            figures = trans['facts_figures_value'].format(
-                instances=f"{stats['instances']:,}".replace(",", "\u202f"),
-                avg=f"{stats['avg']:.1f}", min=stats['min'], max=stats['max'])
-            facts.append((trans['facts_figures'], figures))
-            link = yasgui_link(g, target_class, paths, label)
-            facts.append((trans['facts_open_data'], f"{trans['facts_open_yes']} [{trans['facts_open_link']}]({link})"))
+            template = trans['facts_figures_fixed'] if stats['min'] == stats['max'] else trans['facts_figures_range']
+            facts.append((trans['facts_figures'], template.format(
+                instances=stats['instances'], min=stats['min'], max=stats['max'], avg=f"{stats['avg']:.1f}")))
+            link = yasgui_link(g, target_class, properties, graph_iri)
+            facts.append((trans['facts_open_data'], trans['facts_open_yes'].format(link=link)))
         else:
             facts.append((trans['facts_open_data'], trans['facts_open_no']))
     lines = ["::: {.ech-facts}"]
@@ -459,7 +456,14 @@ def main():
     parser.add_argument("-d", "--docs_dir", required=True, help="Docs directory containing language subdirectories")
     parser.add_argument("-p", "--prefixes", required=False, help="Prefix file (.ttl) to override QNames")
     parser.add_argument("-g", "--graph", required=False, help="Processed data graph (.ttl) for instance statistics")
+    parser.add_argument("-c", "--config", required=False, help="eCH metadata (.yml) with the named graph on LINDAS (ech.graph)")
     args = parser.parse_args()
+
+    graph_iri = None
+    if args.config and Path(args.config).is_file():
+        import yaml
+        with open(args.config, encoding="utf-8") as f:
+            graph_iri = (yaml.safe_load(f) or {}).get("ech", {}).get("graph")
 
     data = None
     if args.graph and Path(args.graph).is_file():
@@ -598,10 +602,10 @@ def main():
                 
             enriched_props.sort(key=lambda x: (x['order'], x['name'].lower(), x['path_qname'].lower()))
 
-            paths = [p['path'] for p in enriched_props if p['path'] is not None]
+            properties = [(p['path'], p['minCount'] is not None and int(p['minCount']) > 0) for p in enriched_props if p['path'] is not None]
             md_lines.append(f"### {trans['section_overview']} {{#sec-{slug}-overview .unlisted}}")
             md_lines.append("")
-            md_lines.extend(fact_sheet(g, data, shape, target_class, paths, label, trans))
+            md_lines.extend(fact_sheet(g, data, shape, target_class, properties, graph_iri, trans))
             md_lines.append("")
 
             if enriched_props:

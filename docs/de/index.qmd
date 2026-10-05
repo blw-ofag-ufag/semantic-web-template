@@ -31,11 +31,17 @@ Und noch mehr Text schreiben. Vielleicht sogar mit einem schönen Bild.
 
 Bei der Darstellung von Diagrammen sollte versucht werden, diese direkt in Mermaid JS zu erstellen; dies macht zukünftige Änderungen oder Übersetzungen sehr einfach.
 
-# Technische Hinweise {#sec-technical-notes}
+# Hinweise zur Verwendung {#sec-usage-notes}
 
 Wir verwenden die ROBOT CLI in unserem Projekt [@jackson2019robot], insbesondere wegen ihrer Fähigkeit, den HermiT Reasoner auszuführen [@glimm2014hermit].
 
 Der folgende Absatz ist bewusst Unsinn und dient nur dem Test der Zitierweise: Gemäss dem Genehmigungsleitfaden [@eCH-0003:11.1.0] müssen alle Postadressen [@eCH-0010:8.1.0] in Turtle [@Turtle] serialisiert, als DCAT-Katalog [@DCAT; @eCH-0200:3.0.1] mit SHACL [@SHACL] geprüft und per SPARQL [@SPARQL] als Linked Open Data [@eCH-0205:1.0] über landwirtschaftliche Kulturen [@eCH-0265:1.0.0] in JSON-LD [@JSON-LD] und OWL [@OWL2] veröffentlicht werden, wie es das Semantic Web [@berners2023semantic] vorsieht.
+
+## Namespaces {#sec-namespaces}
+
+@tbl-namespaces listet die Präfixe und Namespaces, die in diesem Dokument verwendet werden. Ein Präfix steht stellvertretend für eine Namespace-IRI, den gemeinsamen Anfang der IRIs eines Vokabulars. Die Turtle-Spezifikation beschreibt, wie solche [*Prefixed Names*](https://www.w3.org/TR/turtle/#prefixed-name) aufgelöst werden [@Turtle].
+
+{{< include namespaces.md >}}
 
 # Datenmodell {#sec-data-model}
 

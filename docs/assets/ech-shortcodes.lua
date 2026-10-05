@@ -1,5 +1,6 @@
 -- Quarto shortcodes for the eCH metadata (docs/_ech.yml).
 --
+--   {{< ech title >}}    the full title of the standard, "eCH-0000 – Name"
 --   {{< ech status >}}   the status of the document with its eCH definition,
 --                        e.g. "Genehmigt: Das Dokument wurde ..."
 --   {{< ech figures >}}  list of all figures with their captions, linked
@@ -17,6 +18,19 @@ return {
     if display == nil then
       error("{{< ech >}}: the document has no `ech` metadata (see docs/_ech.yml)")
     end
+    if what == "title" then
+      -- On the website, ech-metadata.lua has already prefixed the title.
+      local name = meta.title
+      if pandoc.utils.type(name) ~= "Inlines" then name = pandoc.Inlines(pandoc.Str(pandoc.utils.stringify(name or ""))) end
+      local title = pandoc.Inlines({})
+      local number = display.number and pandoc.utils.stringify(display.number) or nil
+      if number and pandoc.utils.stringify(name):sub(1, #number) ~= number then
+        title:extend(display.number)
+        title:extend(pandoc.Inlines(pandoc.Str(" – ")))
+      end
+      title:extend(name)
+      return title
+    end
     if what == "status" then
       return display["status-text"] or pandoc.Inlines(pandoc.Str("---"))
     end
@@ -31,6 +45,6 @@ return {
       end
       return pandoc.Blocks({})
     end
-    error("{{< ech >}}: unknown argument '" .. what .. "' (expected: status, figures, tables)")
+    error("{{< ech >}}: unknown argument '" .. what .. "' (expected: title, status, figures, tables)")
   end,
 }

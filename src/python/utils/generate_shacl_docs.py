@@ -4,7 +4,7 @@ import argparse
 import re
 import textwrap
 from pathlib import Path
-from rdflib import Graph, Namespace
+from rdflib import Graph, Namespace, URIRef
 from rdflib.namespace import DCTERMS, RDF, RDFS
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
@@ -30,6 +30,9 @@ TRANSLATIONS = {
         "section_properties": "Properties",
         "section_rules": "Rules (SPARQL)",
         "datatypes": {"string": "Text", "langString": "Language-tagged text", "date": "Date", "dateTime": "Date and time", "time": "Time", "gYear": "Year", "integer": "Integer", "int": "Integer", "long": "Integer", "nonNegativeInteger": "Non-negative integer", "positiveInteger": "Positive integer", "decimal": "Decimal number", "double": "Floating-point number", "float": "Floating-point number", "boolean": "Boolean", "anyURI": "URI", "duration": "Duration"},
+        "ns_prefix": "Prefix",
+        "ns_caption": "Namespaces used in {{< ech title >}}.",
+        "ns_namespace": "Namespace",
         "cardinality": "Cardinality",
         "target_class": "Target Class",
         "properties": "properties",
@@ -65,6 +68,9 @@ TRANSLATIONS = {
         "section_properties": "Eigenschaften",
         "section_rules": "Regeln (SPARQL)",
         "datatypes": {"string": "Zeichenkette", "langString": "Sprachabhängiger Text", "date": "Datum", "dateTime": "Zeitpunkt", "time": "Uhrzeit", "gYear": "Jahr", "integer": "Ganzzahl", "int": "Ganzzahl", "long": "Ganzzahl", "nonNegativeInteger": "Nicht negative Ganzzahl", "positiveInteger": "Positive Ganzzahl", "decimal": "Dezimalzahl", "double": "Gleitkommazahl", "float": "Gleitkommazahl", "boolean": "Wahrheitswert", "anyURI": "URI", "duration": "Zeitdauer"},
+        "ns_prefix": "Präfix",
+        "ns_caption": "In {{< ech title >}} verwendete Namespaces.",
+        "ns_namespace": "Namespace",
         "cardinality": "Kardinalität",
         "target_class": "Zielklasse",
         "properties": "Eigenschaften",
@@ -100,6 +106,9 @@ TRANSLATIONS = {
         "section_properties": "Propriétés",
         "section_rules": "Règles (SPARQL)",
         "datatypes": {"string": "Chaîne de caractères", "langString": "Texte avec indication de langue", "date": "Date", "dateTime": "Date et heure", "time": "Heure", "gYear": "Année", "integer": "Nombre entier", "int": "Nombre entier", "long": "Nombre entier", "nonNegativeInteger": "Nombre entier non négatif", "positiveInteger": "Nombre entier positif", "decimal": "Nombre décimal", "double": "Nombre à virgule flottante", "float": "Nombre à virgule flottante", "boolean": "Booléen", "anyURI": "URI", "duration": "Durée"},
+        "ns_prefix": "Préfixe",
+        "ns_caption": "Espaces de noms utilisés dans {{< ech title >}}.",
+        "ns_namespace": "Espace de noms",
         "cardinality": "Cardinalité",
         "target_class": "Classe cible",
         "properties": "propriétés",
@@ -135,6 +144,9 @@ TRANSLATIONS = {
         "section_properties": "Proprietà",
         "section_rules": "Regole (SPARQL)",
         "datatypes": {"string": "Stringa", "langString": "Testo con indicazione della lingua", "date": "Data", "dateTime": "Data e ora", "time": "Ora", "gYear": "Anno", "integer": "Numero intero", "int": "Numero intero", "long": "Numero intero", "nonNegativeInteger": "Numero intero non negativo", "positiveInteger": "Numero intero positivo", "decimal": "Numero decimale", "double": "Numero a virgola mobile", "float": "Numero a virgola mobile", "boolean": "Booleano", "anyURI": "URI", "duration": "Durata"},
+        "ns_prefix": "Prefisso",
+        "ns_caption": "Spazi dei nomi utilizzati in {{< ech title >}}.",
+        "ns_namespace": "Spazio dei nomi",
         "cardinality": "Cardinalità",
         "target_class": "Classe di destinazione",
         "properties": "proprietà",
@@ -407,6 +419,30 @@ def fact_sheet(g, data, shape, target_class, paths, label, trans):
     return lines
 
 
+# Positions in a shape graph whose IRIs belong to the described data, as
+# opposed to the SHACL vocabulary that merely structures the shapes.
+DATA_POSITIONS = [SH.path, SH.targetClass, SH["class"], SH.datatype, SH.node, SH.hasValue]
+
+
+def used_namespaces(g, shapes):
+    """Prefixes and namespaces of all IRIs that the data model refers to:
+    the node shapes themselves, property paths, target classes, classes,
+    datatypes, referenced shapes and the members of sh:in lists."""
+    iris = set(shapes)
+    for predicate in DATA_POSITIONS:
+        iris.update(o for o in g.objects(None, predicate) if isinstance(o, URIRef))
+    for head in g.objects(None, SH["in"]):
+        iris.update(v for v in rdf_list(g, head) if isinstance(v, URIRef))
+    namespaces = {}
+    for iri in iris:
+        try:
+            prefix, namespace, _ = g.namespace_manager.compute_qname(str(iri), generate=False)
+        except Exception:
+            continue
+        namespaces[prefix] = str(namespace)
+    return sorted(namespaces.items(), key=lambda item: (item[0] != "", item[0]))
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate Markdown documentation from a SHACL model.")
     parser.add_argument("-i", "--input", required=True, help="Input SHACL file (.ttl)")
@@ -654,6 +690,13 @@ def main():
         output_path = docs_dir / lang / "entities.md"
         with open(output_path, "w", encoding="utf-8") as f:
             f.write("\n".join(md_lines))
+
+        # Prefixes and namespaces used by the data model
+        ns_rows = [[f"`{prefix}:`", f"<{namespace}>"] for prefix, namespace in used_namespaces(g, [s['uri'] for s in shapes_list])]
+        ns_lines = build_grid_table([trans['ns_prefix'], trans['ns_namespace']], ns_rows, [20, 80])
+        ns_lines.append(f"\n: {trans['ns_caption']} {{#tbl-namespaces}}")
+        with open(docs_dir / lang / "namespaces.md", "w", encoding="utf-8") as f:
+            f.write("\n".join(ns_lines) + "\n")
 
 if __name__ == "__main__":
     main()

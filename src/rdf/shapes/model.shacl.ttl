@@ -443,6 +443,8 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
         sh:path schema:dateCreated ;
         sh:datatype xsd:date ;
         sh:minInclusive "2000-01-01"^^xsd:date ;
+        skos:example "2024-05-21"^^xsd:date,
+            "2001-01-01"^^xsd:date ;
     ] ;
     sh:sparql [
         a sh:SPARQLConstraint ;

@@ -240,7 +240,7 @@ def describe_constraints(g, prop, trans):
 
     examples = sorted(g.objects(prop, SKOS.example), key=str)
     if examples:
-        rendered = [code(format_uri(g, e)) if isinstance(e, URIRef) else code(format_literal(e)) for e in examples]
+        rendered = [code(format_uri(g, e)) if isinstance(e, URIRef) else format_literal(e) for e in examples]
         parts.append((trans['examples'], ", ".join(rendered)))
 
     severity = g.value(prop, SH.severity)

@@ -299,7 +299,7 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
     ],
     [
         sh:order 6 ;
-        sh:name "Dateigröße"@de,
+        sh:name "Dateigrösse"@de,
             "Content Size"@en,
             "Taille du contenu"@fr,
             "Dimensione del contenuto"@it ;

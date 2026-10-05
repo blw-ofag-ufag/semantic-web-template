@@ -27,9 +27,75 @@ Et écrire un peu de texte.
 
 Et écrire encore plus de texte. Peut-être même avec une belle image.
 
-![Ajoutez toujours du texte pour décrire ce que montre l'image.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
+![Ajoutez toujours du texte pour décrire ce que montre l'image. Si une illustration a une légende, elle figure dans la table des illustrations.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
 
 Lors de la présentation de diagrammes, essayez de les créer directement dans Mermaid JS ; cela facilite grandement les modifications futures ou les traductions.
+
+## Mises en forme {#sec-formatting}
+
+Ce chapitre est un test de charge: il contient les éléments Markdown et Quarto courants, afin de vérifier leur rendu dans le PDF et sur le site web.
+
+### Mise en évidence du texte {#sec-formatting-text}
+
+Le texte peut être en **gras**, en *italique*, [souligné]{.underline}, [surligné]{.mark}, [en petites capitales]{.smallcaps} ou ~~barré~~. Les raccourcis clavier comme {{< kbd Ctrl-C >}} + {{< kbd Ctrl-V >}} et le code en ligne comme `schema:name` sont mis en évidence.[^1]
+
+#### Un titre de quatrième niveau {#sec-formatting-h4}
+
+Les titres jusqu'au quatrième niveau sont possibles; ils sont numérotés, mais n'apparaissent pas dans la table des matières.[^2]
+
+### Listes et encadrés {#sec-formatting-lists}
+
+Liste non ordonnée:
+
+- Premier point
+- Deuxième point
+  - Sous-point
+- Troisième point
+
+Liste ordonnée:
+
+1. Première étape
+2. Deuxième étape
+3. Troisième étape
+
+::: {.callout-note}
+Une remarque attire l'attention sur des liens faciles à négliger.
+:::
+
+::: {.callout-warning}
+Un avertissement signale des sources d'erreur, par exemple des données d'entrée non vérifiées.
+:::
+
+### Code, tableaux et formules {#sec-formatting-code}
+
+Le bloc de code suivant montre une requête SPARQL:
+
+```sparql
+SELECT ?s ?p ?o
+WHERE {
+  ?s ?p ?o .
+}
+LIMIT 10
+```
+
++----------------+--------------------+--------------------------------+
+| Colonne        | Type               | Remarque                       |
++:===============+:===================+:===============================+
+| Nom            | Chaîne             | Champ obligatoire              |
++----------------+--------------------+--------------------------------+
+| Quantité       | Nombre décimal     | avec unité                     |
++----------------+--------------------+--------------------------------+
+
+: Tableau d'exemple. Si un tableau a une légende, il figure dans la liste des tableaux. {#tbl-example}
+
+Une formule peut figurer dans le texte, par exemple $E = m c^2$, ou comme équation à part entière telle que @eq-example:
+
+$$
+\sum_{i=1}^{n} x_i = n \bar{x}
+$$ {#eq-example}
+
+[^1]: Sur le site web, les notes de bas de page apparaissent dans la marge de droite; dans le PDF, en bas de page.
+[^2]: Une seconde note de bas de page avec un lien vers [ech.ch](https://www.ech.ch/).
 
 # Indications d'utilisation {#sec-usage-notes}
 

@@ -262,6 +262,15 @@ $grid-margin-width: 375px;
   margin-bottom: 0.6rem;
 }
 
+// Footnotes in the right margin (reference-location: margin).
+#quarto-content .column-margin .footnote {
+  font-size: 0.8rem;
+  color: $ech-muted;
+  p {
+    margin-bottom: 0.4rem;
+  }
+}
+
 // Sidebar table of contents: larger title, entries in the text colour,
 // appendices not listed.
 #TOC #toc-title,

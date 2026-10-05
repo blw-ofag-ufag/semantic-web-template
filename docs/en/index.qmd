@@ -27,9 +27,75 @@ And write some text.
 
 And write some more text. Maybe even with a pretty image.
 
-![Always add some text to describe what the image shows.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
+![Always add some text to describe what the image shows. If a figure has a caption, it appears in the list of figures.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
 
 When displaying diagrams, try to write them in Mermaid JS straight away; this makes changes in the future or translations straightforward.
+
+## Formatting {#sec-formatting}
+
+This chapter is a stress test: it contains the common Markdown and Quarto elements so that their rendering in the PDF and on the website can be checked.
+
+### Text styling {#sec-formatting-text}
+
+Text can be **bold**, *italic*, [underlined]{.underline}, [highlighted]{.mark}, [in small caps]{.smallcaps} or ~~struck through~~. Keyboard shortcuts such as {{< kbd Ctrl-C >}} + {{< kbd Ctrl-V >}} and inline code such as `schema:name` are set off visually.[^1]
+
+#### A fourth-level heading {#sec-formatting-h4}
+
+Headings down to the fourth level are possible; they are numbered but do not appear in the table of contents.[^2]
+
+### Lists and callouts {#sec-formatting-lists}
+
+Unordered list:
+
+- First item
+- Second item
+  - Sub-item
+- Third item
+
+Ordered list:
+
+1. First step
+2. Second step
+3. Third step
+
+::: {.callout-note}
+A note draws attention to connections that are easily overlooked.
+:::
+
+::: {.callout-warning}
+A warning points out sources of error, for example unchecked input data.
+:::
+
+### Code, tables and formulas {#sec-formatting-code}
+
+The following code block shows a SPARQL query:
+
+```sparql
+SELECT ?s ?p ?o
+WHERE {
+  ?s ?p ?o .
+}
+LIMIT 10
+```
+
++----------------+--------------------+--------------------------------+
+| Column         | Type               | Remark                         |
++:===============+:===================+:===============================+
+| Name           | String             | Mandatory field                |
++----------------+--------------------+--------------------------------+
+| Quantity       | Decimal number     | with unit                      |
++----------------+--------------------+--------------------------------+
+
+: Example table. If a table has a caption, it appears in the list of tables. {#tbl-example}
+
+A formula can appear in the text, for example $E = m c^2$, or as a standalone equation such as @eq-example:
+
+$$
+\sum_{i=1}^{n} x_i = n \bar{x}
+$$ {#eq-example}
+
+[^1]: On the website, footnotes appear in the right margin; in the PDF, at the bottom of the page.
+[^2]: A second footnote with a link to [ech.ch](https://www.ech.ch/).
 
 # Usage notes {#sec-usage-notes}
 

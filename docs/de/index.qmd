@@ -27,9 +27,75 @@ Und etwas Text schreiben.
 
 Und noch mehr Text schreiben. Vielleicht sogar mit einem schönen Bild.
 
-![Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
+![Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt. Hat eine Abbildung eine Beschriftung, erscheint sie im Abbildungsverzeichnis.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
 
 Bei der Darstellung von Diagrammen sollte versucht werden, diese direkt in Mermaid JS zu erstellen; dies macht zukünftige Änderungen oder Übersetzungen sehr einfach.
+
+## Formatierungen {#sec-formatting}
+
+Dieses Kapitel ist ein Stresstest: Es enthält die gängigen Markdown- und Quarto-Elemente, damit ihre Darstellung in PDF und Website geprüft werden kann.
+
+### Textauszeichnungen {#sec-formatting-text}
+
+Text kann **fett**, *kursiv*, [unterstrichen]{.underline}, [markiert]{.mark}, [in Kapitälchen]{.smallcaps} oder ~~durchgestrichen~~ gesetzt werden. Tastenkürzel wie {{< kbd Ctrl-C >}} + {{< kbd Ctrl-V >}} und Inline-Code wie `schema:name` werden speziell hervorgehoben.[^1]
+
+#### Eine Überschrift vierter Stufe {#sec-formatting-h4}
+
+Überschriften bis zur vierten Stufe sind möglich; sie werden nummeriert, erscheinen aber nicht im Inhaltsverzeichnis.[^2]
+
+### Listen und Hinweise {#sec-formatting-lists}
+
+Ungeordnete Liste:
+
+- Erster Punkt
+- Zweiter Punkt
+  - Unterpunkt
+- Dritter Punkt
+
+Geordnete Liste:
+
+1. Erster Schritt
+2. Zweiter Schritt
+3. Dritter Schritt
+
+::: {.callout-note}
+Ein Hinweis macht auf Zusammenhänge aufmerksam, die leicht übersehen werden.
+:::
+
+::: {.callout-warning}
+Eine Warnung weist auf Fehlerquellen hin, zum Beispiel auf ungeprüfte Eingabedaten.
+:::
+
+### Code, Tabellen und Formeln {#sec-formatting-code}
+
+Der folgende Codeblock zeigt eine SPARQL-Abfrage:
+
+```sparql
+SELECT ?s ?p ?o
+WHERE {
+  ?s ?p ?o .
+}
+LIMIT 10
+```
+
++----------------+--------------------+--------------------------------+
+| Spalte         | Typ                | Bemerkung                      |
++:===============+:===================+:===============================+
+| Name           | Zeichenkette       | Pflichtfeld                    |
++----------------+--------------------+--------------------------------+
+| Menge          | Dezimalzahl        | mit Einheit                    |
++----------------+--------------------+--------------------------------+
+
+: Beispieltabelle. Hat eine Tabelle eine Beschriftung, erscheint sie im Tabellenverzeichnis. {#tbl-example}
+
+Eine Formel kann im Text stehen, etwa $E = m c^2$, oder als eigene Gleichung wie @eq-example:
+
+$$
+\sum_{i=1}^{n} x_i = n \bar{x}
+$$ {#eq-example}
+
+[^1]: Fussnoten erscheinen auf der Website am rechten Rand, im PDF am Seitenende.
+[^2]: Eine zweite Fussnote mit einem Link auf [ech.ch](https://www.ech.ch/).
 
 # Hinweise zur Verwendung {#sec-usage-notes}
 

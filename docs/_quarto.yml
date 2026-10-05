@@ -64,8 +64,7 @@ format:
     highlight-style: github   # muted colours in both the light and the dark theme
     code-line-numbers: true
     tbl-colwidths: true       # keep the column widths of the generated grid tables
-    # "Other formats" under the table of contents. The plain `html` entry
-    # adds no link but stops Quarto from appending its default entries.
+    reference-location: margin   # footnotes in the right margin, beside the text
     format-links:
       - html
       - format: typst
@@ -105,3 +104,4 @@ format:
      - assets/sparql.xml
      - assets/turtle.xml
     citeproc: true
+    link-citations: true

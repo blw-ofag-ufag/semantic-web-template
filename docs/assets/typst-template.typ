@@ -126,8 +126,14 @@
   show outline.entry.where(level: 1): set block(above: 1.2em)
   show outline: set par(spacing: 0.7em)
 
+  // Marked text in a soft yellow (like the website); small caps synthesized
+  // from capitals, since Nimbus Sans has no small-caps glyphs.
+  show highlight: set highlight(fill: rgb("fff3cd"))
+  show smallcaps: it => text(size: 0.8em, upper(it.body))
+
   // Links, code, figures, footnotes.
   show link: set text(fill: rgb("#D00D28"))
+  show ref: set text(fill: rgb("#D00D28"))   // cross-references to equations etc.
   show link: it => {
     show raw: underline.with(stroke: 0.6pt, offset: 0.9pt)
     it

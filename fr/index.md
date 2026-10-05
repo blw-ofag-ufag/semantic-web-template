@@ -1,8 +1,7 @@
-# Modèle de document Quarto eCH-1234
+# Modèle de document Quarto
 
-30 septembre 2026
+2026-10-01
 
-- [Remarque](#sec-note)
 - [<span class="toc-section-number">1</span>
   Introduction](#sec-introduction)
   - [<span class="toc-section-number">1.1</span> Statut](#sec-status)
@@ -10,23 +9,29 @@
     d’application](#sec-scope-of-application)
   - [<span class="toc-section-number">1.3</span> Nous pouvons avoir des
     sous-titres](#sec-example-subheading)
-- [<span class="toc-section-number">2</span> Notes
-  techniques](#sec-technical-notes)
+  - [<span class="toc-section-number">1.4</span> Mises en
+    forme](#sec-formatting)
+- [<span class="toc-section-number">2</span> Indications
+  d’utilisation](#sec-usage-notes)
+  - [<span class="toc-section-number">2.1</span> Espaces de
+    noms](#sec-namespaces)
 - [<span class="toc-section-number">3</span> Modèle de
   données](#sec-data-model)
-  - [<span class="toc-section-number">3.1</span> Album de
+  - [<span class="toc-section-number">3.1</span> Adresse
+    postale](#sec-nodeshape-postaladdressshape)
+  - [<span class="toc-section-number">3.2</span> Album de
     musique](#sec-nodeshape-musicalbumshape)
-  - [<span class="toc-section-number">3.2</span> Enregistrement
+  - [<span class="toc-section-number">3.3</span> Enregistrement
     musical](#sec-nodeshape-trackshape)
-  - [<span class="toc-section-number">3.3</span>
-    Facture](#sec-nodeshape-invoiceshape)
   - [<span class="toc-section-number">3.4</span>
-    Genre](#sec-nodeshape-genreshape)
+    Facture](#sec-nodeshape-invoiceshape)
   - [<span class="toc-section-number">3.5</span>
-    Organisation](#sec-nodeshape-organisationshape)
+    Genre](#sec-nodeshape-genreshape)
   - [<span class="toc-section-number">3.6</span>
+    Organisation](#sec-nodeshape-organisationshape)
+  - [<span class="toc-section-number">3.7</span>
     Personne](#sec-nodeshape-personshape)
-  - [<span class="toc-section-number">3.7</span> Valeur
+  - [<span class="toc-section-number">3.8</span> Valeur
     quantitative](#sec-nodeshape-quantitativevalueshape)
 - [<span class="toc-section-number">4</span> Accès aux
   données](#sec-data-retrieval)
@@ -36,18 +41,13 @@
   non-responsabilité](#sec-disclaimer)
 - [<span class="toc-section-number">7</span> Droits
   d’auteur](#sec-copyrights)
-- [<span class="toc-section-number">8</span> Annexe A -
-  Références](#sec-appendix-a)
-- [<span class="toc-section-number">9</span> Annexe B - Collaboration et
-  Vérification](#sec-appendix-b)
-- [<span class="toc-section-number">10</span> Annexe C - Abréviations et
-  glossaire](#sec-appendix-c)
-- [<span class="toc-section-number">11</span> Annexe D - Modifications
-  par rapport à la version précédente](#sec-appendix-d)
-- [<span class="toc-section-number">12</span> Annexe E - Table des
-  illustrations](#sec-appendix-e)
-- [<span class="toc-section-number">13</span> Annexe F - Liste des
-  tableaux](#sec-appendix-f)
+- [Annexe A – Références](#sec-appendix-a)
+- [Annexe B – Collaboration et Vérification](#sec-appendix-b)
+- [Annexe C – Abréviations et glossaire](#sec-appendix-c)
+- [Annexe D – Modifications par rapport à la version
+  précédente](#sec-appendix-d)
+- [Annexe E – Table des illustrations](#sec-appendix-e)
+- [Annexe F – Liste des tableaux](#sec-appendix-f)
 
 # Remarque
 
@@ -68,9 +68,8 @@ les typographies similaires ne sont pas utilisés.
 
 ## Statut
 
-Approuvé : Ce document a été approuvé par le comité d’experts. Il a
-force normative pour le domaine d’application défini et dans le champ
-d’application déterminé.
+En cours: L’utilisation est autorisée uniquement au sein du groupe
+spécialisé et/ou du Comité des experts.
 
 ## Champ d’application
 
@@ -91,6 +90,8 @@ Et écrire encore plus de texte. Peut-être même avec une belle image.
 ![](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY)
 
 Figure 1: Ajoutez toujours du texte pour décrire ce que montre l’image.
+Si une illustration a une légende, elle figure dans la table des
+illustrations.
 
 </div>
 
@@ -98,144 +99,866 @@ Lors de la présentation de diagrammes, essayez de les créer directement
 dans Mermaid JS ; cela facilite grandement les modifications futures ou
 les traductions.
 
-# Notes techniques
+## Mises en forme
 
-Nous utilisons l’interface en ligne de commande (CLI) ROBOT dans notre
-projet (Jackson et al. 2019), en particulier pour sa capacité à exécuter
-le raisonneur HermiT (Glimm et al. 2014).
+Ce chapitre est un test de charge: il contient les éléments Markdown et
+Quarto courants, afin de vérifier leur rendu dans le PDF et sur le site
+web.
+
+### Mise en évidence du texte
+
+Le texte peut être en **gras**, en *italique*, <u>souligné</u>,
+<span class="mark">surligné</span>, <span class="smallcaps">en petites
+capitales</span> ou ~~barré~~. Les raccourcis clavier comme `Ctrl-C` +
+`Ctrl-V` et le code en ligne comme `schema:name` sont mis en
+évidence.[^1]
+
+#### Un titre de quatrième niveau
+
+Les titres jusqu’au quatrième niveau sont possibles; ils sont numérotés,
+mais n’apparaissent pas dans la table des matières.[^2]
+
+### Listes et encadrés
+
+Liste non ordonnée:
+
+- Premier point
+- Deuxième point
+  - Sous-point
+- Troisième point
+
+Liste ordonnée:
+
+1.  Première étape
+2.  Deuxième étape
+3.  Troisième étape
+
+> [!NOTE]
+>
+> Une remarque attire l’attention sur des liens faciles à négliger.
+
+> [!WARNING]
+>
+> Un avertissement signale des sources d’erreur, par exemple des données
+> d’entrée non vérifiées.
+
+### Code, tableaux et formules
+
+Le bloc de code suivant montre une requête SPARQL:
+
+``` sparql
+SELECT ?s ?p ?o
+WHERE {
+  ?s ?p ?o .
+}
+LIMIT 10
+```
+
+<div id="tbl-example">
+
+Table 1: Tableau d’exemple. Si un tableau a une légende, il figure dans
+la liste des tableaux.
+
+| Colonne  | Type           | Remarque          |
+|:---------|:---------------|:------------------|
+| Nom      | Chaîne         | Champ obligatoire |
+| Quantité | Nombre décimal | avec unité        |
+
+</div>
+
+Une formule peut figurer dans le texte, par exemple $E = m c^2$, ou
+comme équation à part entière telle que
+<a href="#eq-example" class="quarto-xref">Équation 1</a>:
+
+<span id="eq-example">$$
+\sum_{i=1}^{n} x_i = n \bar{x}
+ \qquad(1)$$</span>
+
+# Indications d’utilisation
+
+Le paragraphe suivant est volontairement absurde et ne sert qu’à tester
+le style de citation: selon le guide d’approbation \[eCH-0003 11.1.0\],
+toutes les adresses postales \[eCH-0010 8.1.0\] doivent être sérialisées
+en Turtle \[Turtle\], vérifiées comme catalogue DCAT \[DCAT; eCH-0200
+3.0.1\] avec SHACL \[SHACL\] et publiées via SPARQL \[SPARQL\] comme
+Linked Open Data \[eCH-0205 1.0\] sur les cultures agricoles \[eCH-0265
+1.0.0\] en JSON-LD \[JSON-LD\] et OWL \[OWL 2\], comme le prévoit le Web
+sémantique \[Berners-Lee 2023\].
+
+## Espaces de noms
+
+Le <a href="#tbl-namespaces" class="quarto-xref">Table 2</a> énumère les
+préfixes et les espaces de noms utilisés dans ce document. Un préfixe
+tient lieu d’une IRI d’espace de noms, le début commun des IRI d’un
+vocabulaire. La spécification Turtle décrit comment ces [*prefixed
+names*](https://www.w3.org/TR/turtle/#prefixed-name) sont résolus
+\[Turtle\].
+
+<div id="tbl-namespaces">
+
+Table 2: Espaces de noms utilisés dans eCH-1234 – Modèle de document
+Quarto.
+
+| Préfixe    | Espace de noms                                |
+|:-----------|:----------------------------------------------|
+| `:`        | <https://agriculture.ld.admin.ch/eCH-1234/2/> |
+| `country:` | <https://ld.admin.ch/country/>                |
+| `rdf:`     | <http://www.w3.org/1999/02/22-rdf-syntax-ns#> |
+| `schema:`  | <http://schema.org/>                          |
+| `unit:`    | <http://qudt.org/vocab/unit/>                 |
+| `xsd:`     | <http://www.w3.org/2001/XMLSchema#>           |
+
+</div>
 
 # Modèle de données
+
+## Adresse postale
+
+L’adresse postale d’une personne.
+
+Les adresses suivent la structure de schema.org et non la norme suisse
+d’adresse eCH-0010, car le jeu de données contient surtout des adresses
+étrangères. Les codes postaux ne sont donc vérifiés que quant à leur
+format plausible, et non par rapport à un répertoire.
+
+### Aperçu
+
+<div class="ech-facts">
+
+IRI  
+<https://agriculture.ld.admin.ch/eCH-1234/2/PostalAddressShape>
+
+Classe cible  
+`schema:PostalAddress`
+
+Fermée  
+Oui (seules les propriétés énumérées sont admises)
+
+Chiffres clés  
+67 instances avec chacune 6 à 8 triplets (7.5 en moyenne)
+
+Open data  
+Oui ([publiées sur
+LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3FstreetAddress%20%3FpostalCode%20%3FaddressLocality%20%3FaddressRegion%20%3FaddressCountry%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3APostalAddress%20.%0A%20%20%3Firi%20schema%3AstreetAddress%20%3FstreetAddress%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3ApostalCode%20%3FpostalCode%20.%20%7D%0A%20%20%3Firi%20schema%3AaddressLocality%20%3FaddressLocality%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AaddressRegion%20%3FaddressRegion%20.%20%7D%0A%20%20%3Firi%20schema%3AaddressCountry%20%3FaddressCountry%20.%0A%7D%0ALIMIT%201000))
+
+</div>
+
+### Propriétés
+
+<table style="width:99%;">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 43%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Détails</th>
+<th style="text-align: right;">Cardinalité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Rue et numéro</strong>
+(<code>schema:streetAddress</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+<li>Longueur: 3–100 caractères</li>
+<li>Exemples: Schwarzenburgstrasse 165</li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Code postal</strong>
+(<code>schema:postalCode</code>): Lettres, chiffres, espaces et traits
+d’union, de deux à dix caractères.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+<li>Motif: <code>^[A-Za-z0-9][A-Za-z0-9 -]{1,9}$</code></li>
+<li>Gravité: Avertissement</li>
+</ul></td>
+<td style="text-align: right;">0..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Localité</strong>
+(<code>schema:addressLocality</code>): Chaque adresse requiert
+exactement une localité.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+<li>Longueur: ≤ 100 caractères</li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Région</strong>
+(<code>schema:addressRegion</code>): Canton, État ou province, lorsque
+c’est l’usage dans le pays.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+<li>Longueur: ≤ 100 caractères</li>
+</ul></td>
+<td style="text-align: right;">0..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pays</strong>
+(<code>schema:addressCountry</code>): Pays sous forme d’IRI tirée de la
+liste des pays des Archives fédérales sur LINDAS (ISO 3166-1
+alpha-3).</td>
+<td style="text-align: left;"><ul>
+<li>Motif: <code>^https://ld\.admin\.ch/country/[A-Z]{3}$</code></li>
+<li>Exemples: <code>country:CHE</code>, <code>country:FRA</code>,
+<code>country:ITA</code></li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+</tbody>
+</table>
 
 ## Album de musique
 
 Une collection de pistes dans le jeu de données Chinook.
 
-**Classe cible:** `schema:MusicAlbum`
+### Aperçu
 
-<div id="tbl-nodeshape-musicalbumshape">
+<div class="ech-facts">
 
-Table 1: propriétés Album de musique
+IRI  
+<https://agriculture.ld.admin.ch/eCH-1234/2/MusicAlbumShape>
 
-| Description | Chemin | Type | Card. |
-|:---|:---|:---|---:|
-| **Nom**: Chaque album doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
-| **Artiste**: Personne ou groupe de musique ayant créé l’album. | `schema:byArtist` | [`schema:Person`](#sec-nodeshape-personshape) ou `schema:MusicGroup` | 0..\* |
+Classe cible  
+`schema:MusicAlbum`
+
+Fermée  
+Non (d’autres propriétés sont admises)
+
+Chiffres clés  
+347 instances avec chacune 5 triplets
+
+Open data  
+Oui ([publiées sur
+LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FbyArtist%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicAlbum%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AbyArtist%20%3FbyArtist%20.%20%7D%0A%7D%0ALIMIT%201000))
 
 </div>
+
+### Propriétés
+
+<table style="width:99%;">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 43%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Détails</th>
+<th style="text-align: right;">Cardinalité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nom</strong>
+(<code>schema:name</code>): Chaque album doit avoir un nom.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+<li>Longueur: ≤ 200 caractères</li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Artiste</strong>
+(<code>schema:byArtist</code>): Personne ou groupe de musique ayant créé
+l’album.</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-personshape">Personne</a> ou
+<code>schema:MusicGroup</code></li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+</tbody>
+</table>
 
 ## Enregistrement musical
 
 Une piste musicale unique dans le jeu de données Chinook.
 
-**Classe cible:** `schema:MusicRecording`
+### Aperçu
 
-<div id="tbl-nodeshape-trackshape">
+<div class="ech-facts">
 
-Table 2: propriétés Enregistrement musical
+IRI  
+<https://agriculture.ld.admin.ch/eCH-1234/2/TrackShape>
 
-| Description | Chemin | Type | Card. |
-|:---|:---|:---|---:|
-| **Nom**: Chaque piste doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
-| **Dans l’album**: Une piste ne peut appartenir qu’à un schema:MusicAlbum valide. | `schema:inAlbum` | [`schema:MusicAlbum`](#sec-nodeshape-musicalbumshape) | 0..\* |
-| **Auteur**: La personne ou le groupe qui a écrit la piste. | `schema:author` |  | 0..\* |
-| **Genre** | `schema:genre` | [`:Genre`](#sec-nodeshape-genreshape) | 1..1 |
-| **Durée**: La durée doit être exprimée en tant que schema:QuantitativeValue. | `schema:duration` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 0..\* |
-| **Taille du contenu** | `schema:contentSize` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 0..\* |
+Classe cible  
+`schema:MusicRecording`
+
+Fermée  
+Non (d’autres propriétés sont admises)
+
+Chiffres clés  
+3503 instances avec chacune 10 à 15 triplets (11.1 en moyenne)
+
+Open data  
+Oui ([publiées sur
+LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FinAlbum%20%3Fauthor%20%3Fgenre%20%3Fduration%20%3FcontentSize%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicRecording%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AinAlbum%20%3FinAlbum%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aauthor%20%3Fauthor%20.%20%7D%0A%20%20%3Firi%20schema%3Agenre%20%3Fgenre%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aduration%20%3Fduration%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AcontentSize%20%3FcontentSize%20.%20%7D%0A%7D%0ALIMIT%201000))
 
 </div>
+
+### Propriétés
+
+<table style="width:99%;">
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 48%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Détails</th>
+<th style="text-align: right;">Cardinalité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nom</strong>
+(<code>schema:name</code>): Chaque piste doit avoir un nom.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+<li>Longueur: 1–200 caractères</li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dans l’album</strong>
+(<code>schema:inAlbum</code>): Une piste ne peut appartenir qu’à un
+schema:MusicAlbum valide.</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-musicalbumshape">Album de
+musique</a></li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Auteur</strong>
+(<code>schema:author</code>): La personne ou le groupe qui a écrit la
+piste.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Genre</strong>
+(<code>schema:genre</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-genreshape">Genre</a></li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Durée</strong>
+(<code>schema:duration</code>): La durée doit être exprimée en tant que
+schema:QuantitativeValue.</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-quantitativevalueshape">Valeur
+quantitative</a></li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Taille du contenu</strong>
+(<code>schema:contentSize</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-quantitativevalueshape">Valeur
+quantitative</a></li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+</tbody>
+</table>
 
 ## Facture
 
-Un reçu d’achat dans le jeu de données Chinook.
+Un reçu d’achat dans le jeu de données Chinook. Une facture regroupe les
+positions d’un achat. Le montant de la facture n’est pas seulement saisi
+comme valeur, il est aussi vérifié par rapport à la somme des positions;
+des écarts de plus de cinq centimes sont considérés comme des erreurs.
+Les factures antérieures à l’an 2000 proviennent d’un ancien système et
+ne sont pas admises dans ce jeu de données.
 
-**Classe cible:** `schema:Invoice`
+### Aperçu
 
-<div id="tbl-nodeshape-invoiceshape">
+<div class="ech-facts">
 
-Table 3: propriétés Facture
+IRI  
+<https://agriculture.ld.admin.ch/eCH-1234/2/InvoiceShape>
 
-| Description | Chemin | Type | Card. |
-|:---|:---|:---|---:|
-| **Client**: Une facture doit être liée à exactement un client. | `schema:customer` | [`schema:Person`](#sec-nodeshape-personshape) | 1..1 |
-| **Paiement total dû**: Une facture doit définir un paiement total dû en tant que schema:QuantitativeValue. | `schema:totalPaymentDue` | [`schema:QuantitativeValue`](#sec-nodeshape-quantitativevalueshape) | 1..1 |
-| **Contient**: Une facture doit avoir au moins un article (OrderItem). | `schema:hasPart` | `schema:OrderItem` | 1..\* |
-| **Date de création** | `schema:dateCreated` | `xsd:date` | 0..\* |
+Classe cible  
+`schema:Invoice`
+
+Fermée  
+Non (d’autres propriétés sont admises)
+
+Chiffres clés  
+412 instances avec chacune 8 à 21 triplets (12.4 en moyenne)
+
+Open data  
+Oui ([publiées sur
+LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fcustomer%20%3FtotalPaymentDue%20%3FhasPart%20%3FdateCreated%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AInvoice%20.%0A%20%20%3Firi%20schema%3Acustomer%20%3Fcustomer%20.%0A%20%20%3Firi%20schema%3AtotalPaymentDue%20%3FtotalPaymentDue%20.%0A%20%20%3Firi%20schema%3AhasPart%20%3FhasPart%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AdateCreated%20%3FdateCreated%20.%20%7D%0A%7D%0ALIMIT%201000))
 
 </div>
+
+### Propriétés
+
+<table style="width:99%;">
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 48%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Détails</th>
+<th style="text-align: right;">Cardinalité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Client</strong>
+(<code>schema:customer</code>): Une facture doit être liée à exactement
+un client.</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-personshape">Personne</a></li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Paiement total dû</strong>
+(<code>schema:totalPaymentDue</code>): Une facture doit définir un
+paiement total dû en tant que schema:QuantitativeValue.</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-quantitativevalueshape">Valeur
+quantitative</a></li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Contient</strong>
+(<code>schema:hasPart</code>): Une facture doit avoir au moins un
+article (OrderItem).</td>
+<td style="text-align: left;"><ul>
+<li>Type: <code>schema:OrderItem</code></li>
+</ul></td>
+<td style="text-align: right;">1..*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Date de création</strong>
+(<code>schema:dateCreated</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Type: Date (<code>xsd:date</code>)</li>
+<li>Plage de valeurs: ≥ 2000-01-01</li>
+<li>Exemples: 2001-01-01, 2024-05-21</li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+</tbody>
+</table>
+
+### Règles (SPARQL)
+
+#### Date de la facture
+
+Une facture ne peut pas être datée d’avant l’année 2000.
+
+``` sparql
+SELECT $this
+WHERE {
+    $this schema:dateCreated ?date .
+    FILTER(?date < "2000-01-01"^^xsd:date)
+}
+```
+
+#### Total de la facture
+
+Le total de la facture doit correspondre exactement à la somme de ses
+lignes (tolérance de 0.05).
+
+``` sparql
+SELECT $this
+WHERE {
+    $this schema:totalPaymentDue/schema:value ?invoiceTotal .
+    {
+        SELECT $this (SUM(?price * ?qty) AS ?calculatedTotal)
+        WHERE {
+            $this schema:hasPart ?line .
+            ?line schema:price/schema:value ?price .
+            ?line schema:orderQuantity/schema:value ?qty .
+        }
+        GROUP BY $this
+    }
+    FILTER(ABS(?invoiceTotal - ?calculatedTotal) > 0.05)
+}
+```
 
 ## Genre
 
 Une catégorie musicale dans le jeu de données Chinook.
 
-**Classe cible:** `:Genre`
+### Aperçu
 
-<div id="tbl-nodeshape-genreshape">
+<div class="ech-facts">
 
-Table 4: propriétés Genre
+IRI  
+<https://agriculture.ld.admin.ch/eCH-1234/2/GenreShape>
 
-| Description | Chemin | Type | Card. |
-|:---|:---|:---|---:|
-| **Nom** | `schema:name` |  | 1..1 |
-| **Partie de** | `schema:partOf` | [`:Genre`](#sec-nodeshape-genreshape) ou `sh:IRI` | 0..\* |
+Classe cible  
+`:Genre`
+
+Fermée  
+Oui (seules les propriétés énumérées sont admises)
+
+Chiffres clés  
+25 instances avec chacune 5 à 7 triplets (5.4 en moyenne)
+
+Open data  
+Oui ([publiées sur
+LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20%3A%20%3Chttps%3A%2F%2Fagriculture.ld.admin.ch%2FeCH-1234%2F2%2F%3E%0APREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FpartOf%20%3FalternateName%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20%3AGenre%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3ApartOf%20%3FpartOf%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AalternateName%20%3FalternateName%20.%20%7D%0A%7D%0ALIMIT%201000))
 
 </div>
+
+### Propriétés
+
+<table style="width:99%;">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 43%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Détails</th>
+<th style="text-align: right;">Cardinalité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nom</strong>
+(<code>schema:name</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+<li>Motif: <code>^[A-Z]</code></li>
+<li>Longueur: 2–50 caractères</li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Partie de</strong>
+(<code>schema:partOf</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-genreshape">Genre</a></li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dénomination alternative</strong>
+(<code>schema:alternateName</code>): Dénomination traduite ou familière
+du genre, au plus une par langue.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Texte avec indication de langue
+(<code>rdf:langString</code>)</li>
+<li>Longueur: ≤ 50 caractères</li>
+<li>Langues: <code>de</code>, <code>fr</code>, <code>it</code>,
+<code>en</code> (une par langue)</li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+</tbody>
+</table>
+
+### Règles (SPARQL)
+
+#### Pas de hiérarchie cyclique
+
+Un genre ne peut pas faire partie de lui-même, ni directement ni
+transitivement.
+
+``` sparql
+SELECT $this
+WHERE {
+    $this schema:partOf+ $this .
+}
+```
 
 ## Organisation
 
 Une entreprise ou organisation dans le jeu de données Chinook.
 
-**Classe cible:** `schema:Organisation`
+### Aperçu
 
-<div id="tbl-nodeshape-organisationshape">
+<div class="ech-facts">
 
-Table 5: propriétés Organisation
+IRI  
+<https://agriculture.ld.admin.ch/eCH-1234/2/OrganisationShape>
 
-| Description | Chemin | Type | Card. |
-|:---|:---|:---|---:|
-| **Nom**: Chaque organisation doit avoir un nom. | `schema:name` | `xsd:string` | 1..1 |
+Classe cible  
+`schema:Organisation`
+
+Fermée  
+Non (d’autres propriétés sont admises)
+
+Open data  
+Non (données transactionnelles, ne faisant pas partie du graphe publié)
 
 </div>
+
+### Propriétés
+
+<table style="width:99%;">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 43%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Détails</th>
+<th style="text-align: right;">Cardinalité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nom</strong>
+(<code>schema:name</code>): Chaque organisation doit avoir un nom.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+<li>Longueur: 2–100 caractères</li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+</tbody>
+</table>
 
 ## Personne
 
 Toute personne (employé, client ou personne personnalisée) présente dans
 le jeu de données.
 
-**Classe cible:** `schema:Person`
+Les personnes sont décrites de manière uniforme, quel que soit leur
+rôle: le personnel du magasin de musique, la clientèle et les personnes
+saisies manuellement partagent les mêmes propriétés. Le rôle découle des
+relations, par exemple `schema:worksFor` pour le personnel ou
+`schema:customer` sur une facture pour la clientèle.
 
-<div id="tbl-nodeshape-personshape">
+Les noms sont saisis tels que la personne les utilise; les titres
+académiques ne font pas partie du prénom. Les adresses e-mail et les
+dates de naissance sont facultatives et les infractions aux règles ne
+sont signalées que comme avertissements.
 
-Table 6: propriétés Personne
+### Aperçu
 
-| Description | Chemin | Type | Card. |
-|:---|:---|:---|---:|
-| **Prénom**: Chaque personne doit avoir un prénom. | `schema:givenName` | `xsd:string` | 1..1 |
-| **Nom de famille**: Chaque personne doit avoir un nom de famille. | `schema:familyName` | `xsd:string` | 1..1 |
-| **Adresse e-mail**: Si une adresse e-mail est fournie, elle doit respecter un format standard. | `schema:email` | `xsd:string` | 0..\* |
-| **Date de naissance**: Une personne doit avoir une date de naissance valide. | `schema:birthDate` | `xsd:date` | 0..\* |
-| **Adresse** | `schema:address` | `schema:PostalAddress` | 0..\* |
-| **Travaille pour**: Un employé peut relever d’une autre personne. | `schema:worksFor` | [`schema:Person`](#sec-nodeshape-personshape) ou `schema:Organization` | 0..\* |
-| **Titre du poste** | `schema:jobTitle` |  | 0..1 |
-| **Connaît** | `schema:knows` | [`schema:Person`](#sec-nodeshape-personshape) | 0..\* |
+<div class="ech-facts">
+
+IRI  
+<https://agriculture.ld.admin.ch/eCH-1234/2/PersonShape>
+
+Classe cible  
+`schema:Person`
+
+Fermée  
+Oui (seules les propriétés énumérées sont admises)
+
+Chiffres clés  
+383 instances avec chacune 5 à 10 triplets (5.6 en moyenne)
+
+Open data  
+Oui ([publiées sur
+LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3FgivenName%20%3FfamilyName%20%3Femail%20%3FbirthDate%20%3Faddress%20%3FworksFor%20%3FjobTitle%20%3Fknows%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3APerson%20.%0A%20%20%3Firi%20schema%3AgivenName%20%3FgivenName%20.%0A%20%20%3Firi%20schema%3AfamilyName%20%3FfamilyName%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aemail%20%3Femail%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AbirthDate%20%3FbirthDate%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aaddress%20%3Faddress%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AworksFor%20%3FworksFor%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AjobTitle%20%3FjobTitle%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aknows%20%3Fknows%20.%20%7D%0A%7D%0ALIMIT%201000))
 
 </div>
+
+### Propriétés
+
+<table style="width:99%;">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 43%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Détails</th>
+<th style="text-align: right;">Cardinalité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Prénom</strong>
+(<code>schema:givenName</code>): Chaque personne doit avoir un
+prénom.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nom de famille</strong>
+(<code>schema:familyName</code>): Chaque personne doit avoir un nom de
+famille.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Adresse e-mail</strong>
+(<code>schema:email</code>): Si une adresse e-mail est fournie, elle
+doit respecter un format standard.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+<li>Motif: <code>^.+@.+\..+$</code> (<code>i</code>)</li>
+<li>Longueur: ≤ 254 caractères</li>
+<li>Gravité: Avertissement</li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Date de naissance</strong>
+(<code>schema:birthDate</code>): Une personne doit avoir une date de
+naissance valide.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Date (<code>xsd:date</code>)</li>
+<li>Plage de valeurs: ≥ 1900-01-01, ≤ 2025-12-31</li>
+<li>Gravité: Avertissement</li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Adresse</strong>
+(<code>schema:address</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-postaladdressshape">Adresse
+postale</a></li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Travaille pour</strong>
+(<code>schema:worksFor</code>): Un employé peut relever d’une autre
+personne.</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-personshape">Personne</a> ou
+<code>schema:Organization</code></li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Titre du poste</strong>
+(<code>schema:jobTitle</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Type: Chaîne de caractères (<code>xsd:string</code>)</li>
+<li>Longueur: 2–100 caractères</li>
+</ul></td>
+<td style="text-align: right;">0..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Connaît</strong>
+(<code>schema:knows</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Type: <a href="#sec-nodeshape-personshape">Personne</a></li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+</tbody>
+</table>
+
+### Règles (SPARQL)
+
+#### Pas d’auto-subordination
+
+Un employé ne peut pas relever de lui-même.
+
+``` sparql
+SELECT $this
+WHERE {
+    $this schema:worksFor $this .
+}
+```
 
 ## Valeur quantitative
 
 Une valeur numérique avec une unité associée.
 
-**Classe cible:** `schema:QuantitativeValue`
+Les valeurs quantitatives ne sont jamais saisies comme un simple nombre,
+mais toujours avec une unité du vocabulaire QUDT. Il reste ainsi clair
+si une durée est exprimée en millisecondes ou une taille de fichier en
+octets. Les valeurs négatives ne sont pas prévues dans ce jeu de
+données.
 
-<div id="tbl-nodeshape-quantitativevalueshape">
+### Aperçu
 
-Table 7: propriétés Valeur quantitative
+<div class="ech-facts">
 
-| Description | Chemin | Type | Card. |
-|:---|:---|:---|---:|
-| **Valeur**: Une valeur quantitative doit avoir exactement une valeur numérique. | `schema:value` |  | 1..1 |
-| **Code d’unité**: Une valeur quantitative doit spécifier son unité via une URI unitCode. | `schema:unitCode` | `sh:IRI` | 1..1 |
+IRI  
+<https://agriculture.ld.admin.ch/eCH-1234/2/QuantitativeValueShape>
+
+Classe cible  
+`schema:QuantitativeValue`
+
+Fermée  
+Oui (seules les propriétés énumérées sont admises)
+
+Chiffres clés  
+15401 instances avec chacune 3 triplets
+
+Open data  
+Oui ([publiées sur
+LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fvalue%20%3FunitCode%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AQuantitativeValue%20.%0A%20%20%3Firi%20schema%3Avalue%20%3Fvalue%20.%0A%20%20%3Firi%20schema%3AunitCode%20%3FunitCode%20.%0A%7D%0ALIMIT%201000))
 
 </div>
+
+### Propriétés
+
+<table style="width:99%;">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 43%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Détails</th>
+<th style="text-align: right;">Cardinalité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Valeur</strong>
+(<code>schema:value</code>): Une valeur quantitative doit avoir
+exactement une valeur numérique.</td>
+<td style="text-align: left;"><ul>
+<li>Type: Nombre décimal (<code>xsd:decimal</code>) ou Nombre entier
+(<code>xsd:integer</code>)</li>
+<li>Plage de valeurs: ≥ 0</li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Code d’unité</strong>
+(<code>schema:unitCode</code>): Une valeur quantitative doit spécifier
+son unité via une URI unitCode.</td>
+<td style="text-align: left;"><ul>
+<li>Valeurs: <code>unit:USD</code>, <code>unit:EA</code>,
+<code>unit:BYTE</code>, <code>unit:MilliSEC</code></li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+</tbody>
+</table>
 
 # Accès aux données
 
@@ -243,14 +966,14 @@ Les données de base et de référence qui sous-tendent ce document sont
 disponibles sous forme de *Linked Data*.
 
 La base technologique de cette approche est le Resource Description
-Framework (RDF, Cyganiak et al. 2014), un standard central du World Wide
-Web Consortium (W3C) pour la modélisation des structures de données sur
-le Web. En RDF, les informations ne sont pas représentées dans des
-tableaux classiques, mais sous forme de graphes interconnectés. Chaque
-déclaration est constituée de ce que l’on appelle un triplet (sujet,
-prédicat, objet). Cette structure permet une description des ressources
-et de leurs relations mutuelles qui soit lisible par machine,
-interopérable et univoque à travers différents systèmes.
+Framework \[RDF, RDF\], un standard central du World Wide Web Consortium
+(W3C) pour la modélisation des structures de données sur le Web. En RDF,
+les informations ne sont pas représentées dans des tableaux classiques,
+mais sous forme de graphes interconnectés. Chaque déclaration est
+constituée de ce que l’on appelle un triplet (sujet, prédicat, objet).
+Cette structure permet une description des ressources et de leurs
+relations mutuelles qui soit lisible par machine, interopérable et
+univoque à travers différents systèmes.
 
 Pour le stockage et la publication de ces données RDF, on utilise
 [LINDAS](https://lindas.admin.ch/) (Linked Data Service), le service
@@ -350,62 +1073,237 @@ standards ou produits de tiers qui font référence aux standards eCH. Les
 standards contiennent les références correspondantes aux droits de
 tiers.
 
-# Annexe A - Références
+# Annexe A – Références
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body">
+
+<div id="ref-berners2023semantic" class="csl-entry">
+
+<span class="csl-left-margin">\[Berners-Lee 2023\]
+</span><span class="csl-right-inline">Berners-Lee, Tim ; Hendler,
+James ; Lassila, Ora: [The Semantic Web: A new form of Web content that
+is meaningful to computers will unleash a revolution of new
+possibilities](https://doi.org/10.1145/3591366.3591376). In: *Linking
+the World’s Information: Essays on Tim Berners-Lee’s Invention of the
+World Wide Web* : Association for Computing Machinery, 2023,
+p. 91‑103</span>
+
+</div>
+
+<div id="ref-DCAT" class="csl-entry">
+
+<span class="csl-left-margin">\[DCAT\]
+</span><span class="csl-right-inline">Albertoni, Riccardo ; Browning,
+David ; Cox, Simon ; Gonzalez Beltran, Alejandra ; Perego, Andrea ;
+Winstanley, Peter: *[Data Catalog Vocabulary (DCAT) – Version
+3](https://www.w3.org/TR/vocab-dcat-3/)* (W3C Recommendation) : World
+Wide Web Consortium (W3C), 2024</span>
+
+</div>
+
+<div id="ref-eCH-0003:11.1.0" class="csl-entry">
+
+<span class="csl-left-margin">\[eCH-0003 11.1.0\]
+</span><span class="csl-right-inline">Verein eCH: *[eCH-0003 Leitfaden
+zur Genehmigung von
+Anträgen](https://www.ech.ch/de/ech/ech-0003/11.1.0)* (eCH-Standard) :
+Verein eCH, 2022</span>
+
+</div>
+
+<div id="ref-eCH-0010:8.1.0" class="csl-entry">
+
+<span class="csl-left-margin">\[eCH-0010 8.1.0\]
+</span><span class="csl-right-inline">Verein eCH: *[eCH-0010
+Datenstandard Postadresse für natürliche Personen, Firmen,
+Organisationen und Behörden](https://www.ech.ch/de/ech/ech-0010/8.1.0)*
+(eCH-Standard) : Verein eCH, 2021</span>
+
+</div>
+
+<div id="ref-eCH-0200:3.0.1" class="csl-entry">
+
+<span class="csl-left-margin">\[eCH-0200 3.0.1\]
+</span><span class="csl-right-inline"><span class="nocase">eCH-Fachgruppe
+Open Government Data</span>: *[eCH-0200 DCAT-Anwendungsprofil für
+Datenportale in der Schweiz (DCAT-AP
+CH)](https://www.ech.ch/de/ech/ech-0200/3.0.1)* (eCH-Standard) : Verein
+eCH, 2025</span>
+
+</div>
+
+<div id="ref-eCH-0205:1.0" class="csl-entry">
+
+<span class="csl-left-margin">\[eCH-0205 1.0\]
+</span><span class="csl-right-inline"><span class="nocase">eCH-Fachgruppe
+Open Government Data</span>: *[eCH-0205 Linked Open
+Data](https://www.ech.ch/de/ech/ech-0205/1.0)* (eCH-Hilfsmittel) :
+Verein eCH, 2018</span>
+
+</div>
+
+<div id="ref-eCH-0265:1.0.0" class="csl-entry">
+
+<span class="csl-left-margin">\[eCH-0265 1.0.0\]
+</span><span class="csl-right-inline"><span class="nocase">eCH-Fachgruppe
+AgriFood</span>: *[eCH-0265 Datenstandard Agrardaten – Flächen und
+Kulturen](https://www.ech.ch/de/ech/ech-0265/1.0.0)* (eCH-Standard) :
+Verein eCH, 2024</span>
+
+</div>
+
+<div id="ref-JSON-LD" class="csl-entry">
+
+<span class="csl-left-margin">\[JSON-LD\]
+</span><span class="csl-right-inline">Sporny, Manu ; Longley, Dave ;
+Kellogg, Gregg ; Lanthaler, Markus ; Champin, Pierre-Antoine ;
+Lindström, Niklas: *[JSON-LD 1.1 – A JSON-based Serialization for Linked
+Data](https://www.w3.org/TR/json-ld11/)* (W3C Recommendation) : World
+Wide Web Consortium (W3C), 2020</span>
+
+</div>
+
+<div id="ref-OWL2" class="csl-entry">
+
+<span class="csl-left-margin">\[OWL 2\]
+</span><span class="csl-right-inline">W3C OWL Working Group: *[OWL 2 Web
+Ontology Language Document Overview (Second
+Edition)](https://www.w3.org/TR/owl2-overview/)* (W3C Recommendation) :
+World Wide Web Consortium (W3C), 2012</span>
+
+</div>
 
 <div id="ref-cyganiak2014rdf11" class="csl-entry">
 
-Cyganiak, Richard, David Wood, et Markus Lanthaler. 2014. *RDF 1.1
-Concepts and Abstract Syntax*. W3C Recommendation. World Wide Web
-Consortium (W3C). <https://www.w3.org/TR/rdf11-concepts/>.
+<span class="csl-left-margin">\[RDF\]
+</span><span class="csl-right-inline">Cyganiak, Richard ; Wood, David ;
+Lanthaler, Markus: *[RDF 1.1 Concepts and Abstract
+Syntax](https://www.w3.org/TR/rdf11-concepts/)* (W3C Recommendation) :
+World Wide Web Consortium (W3C), 2014</span>
 
 </div>
 
-<div id="ref-glimm2014hermit" class="csl-entry">
+<div id="ref-SHACL" class="csl-entry">
 
-Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, et Zhe Wang.
-2014. « HermiT: an OWL 2 reasoner ». *Journal of automated reasoning* 53
-(3): 245‑69.
-
-</div>
-
-<div id="ref-jackson2019robot" class="csl-entry">
-
-Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris,
-Christopher J Mungall, et James A Overton. 2019. « ROBOT: a tool for
-automating ontology workflows ». *BMC bioinformatics* 20 (1): 407.
-<https://doi.org/10.1186/s12859-019-3002-3>.
+<span class="csl-left-margin">\[SHACL\]
+</span><span class="csl-right-inline">Knublauch, Holger ; Kontokostas,
+Dimitris: *[Shapes Constraint Language
+(SHACL)](https://www.w3.org/TR/shacl/)* (W3C Recommendation) : World
+Wide Web Consortium (W3C), 2017</span>
 
 </div>
 
+<div id="ref-SKOS" class="csl-entry">
+
+<span class="csl-left-margin">\[SKOS\]
+</span><span class="csl-right-inline">Miles, Alistair ; Bechhofer, Sean:
+*[SKOS Simple Knowledge Organization System
+Reference](https://www.w3.org/TR/skos-reference/)* (W3C
+Recommendation) : World Wide Web Consortium (W3C), 2009</span>
+
 </div>
 
-# Annexe B - Collaboration et Vérification
+<div id="ref-SPARQL" class="csl-entry">
 
-# Annexe C - Abréviations et glossaire
+<span class="csl-left-margin">\[SPARQL\]
+</span><span class="csl-right-inline">Harris, Steve ; Seaborne, Andy:
+*[SPARQL 1.1 Query Language](https://www.w3.org/TR/sparql11-query/)*
+(W3C Recommendation) : World Wide Web Consortium (W3C), 2013</span>
+
+</div>
+
+<div id="ref-Turtle" class="csl-entry">
+
+<span class="csl-left-margin">\[Turtle\]
+</span><span class="csl-right-inline">Beckett, David ; Berners-Lee,
+Tim ; Prud’hommeaux, Eric ; Carothers, Gavin: *[RDF 1.1 Turtle – Terse
+RDF Triple Language](https://www.w3.org/TR/turtle/)* (W3C
+Recommendation) : World Wide Web Consortium (W3C), 2014</span>
+
+</div>
+
+</div>
+
+# Annexe B – Collaboration et Vérification
+
+| Nom               | Organisation                    |
+|:------------------|:--------------------------------|
+| Damian Oswald     | Office fédéral de l’agriculture |
+| Michael Schüpbach | Office fédéral de l’agriculture |
+| Lea Stauber       | Office fédéral de l’agriculture |
+
+# Annexe C – Abréviations et glossaire
+
+Ce glossaire est également disponible sous forme lisible par machine
+comme glossaire SKOS \[SKOS\], sur [LINDAS](https://lindas.admin.ch/) et
+dans le [dépôt
+GitHub](https://github.com/blw-ofag-ufag/semantic-web-template/blob/main/src/rdf/data/glossary.skos.ttl).
 
 <div id="tbl-glossary">
 
-Table 8: Glossaire de la norme eCH-1234
+Table 3: Glossaire de la norme eCH-1234
 
 <table>
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 25%" />
-<col style="width: 55%" />
+<col style="width: 35%" />
+<col style="width: 65%" />
 </colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">IRI</th>
 <th style="text-align: left;">Terme</th>
 <th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><a
-href="https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas"><code>term:lindas</code></a></td>
+<td style="text-align: left;"><strong>Données liées</strong> (Linked
+Data)</td>
+<td style="text-align: left;"><p>Données publiées selon les principes du
+Web sémantique: identifiées par des IRI, décrites en RDF et reliées
+entre elles.</p>
+<p><em>Terme associé</em>: Linked Data Service, Resource Description
+Framework</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Espace de noms</strong>
+(Préfixe)</td>
+<td style="text-align: left;"><p>Début commun d’un groupe d’IRI. En
+Turtle et en SPARQL, un espace de noms est abrégé par un préfixe, par
+exemple <code>schema:</code> pour <code>http://schema.org/</code>.</p>
+<p><em>Terme associé</em>: Internationalized Resource
+Identifier</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Graphe</strong> (Graphe
+nommé)</td>
+<td style="text-align: left;"><p>Un ensemble de triplets. Un graphe
+nommé est lui-même identifié par une IRI et permet de regrouper les
+données dans un triple store.</p>
+<p><em>Terme générique</em>: Resource Description Framework</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inférence</strong>
+(Raisonnement)</td>
+<td style="text-align: left;">La déduction automatique de nouvelles
+déclarations à partir des données existantes et des axiomes d’une
+ontologie, par exemple au moyen du raisonneur HermiT.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Internationalized Resource
+Identifier</strong> (IRI)</td>
+<td style="text-align: left;"><p>Identifiant unique au niveau mondial
+d’une ressource. En RDF, les sujets, les prédicats et la plupart des
+objets sont identifiés par des IRI.</p>
+<p><em>Terme générique</em>: Resource Description Framework</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>JSON for Linking Data</strong>
+(JSON-LD)</td>
+<td style="text-align: left;"><p>Une sérialisation de RDF basée sur
+JSON, particulièrement adaptée aux interfaces web.</p>
+<p><em>Terme générique</em>: Sérialisation</p></td>
+</tr>
+<tr>
 <td style="text-align: left;"><strong>Linked Data Service</strong>
 (LINDAS)</td>
 <td style="text-align: left;">Le service officiel de données liées de
@@ -413,8 +1311,28 @@ l’administration fédérale suisse, fonctionnant comme un triple store
 (magasin de triplets).</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a
-href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></td>
+<td style="text-align: left;"><strong>Littéral</strong></td>
+<td style="text-align: left;"><p>Une valeur concrète en RDF, par exemple
+une chaîne de caractères, un nombre ou une date, avec en option un type
+de données ou une indication de langue.</p>
+<p><em>Terme générique</em>: Resource Description Framework</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ontologie</strong></td>
+<td style="text-align: left;"><p>Un modèle formel d’un domaine qui
+décrit les classes, les propriétés et leurs relations logiques de
+manière à permettre aux machines d’en tirer des conclusions.</p>
+<p><em>Terme générique</em>: Vocabulaire</p>
+<p><em>Terme associé</em>: Web Ontology Language</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Point d’accès SPARQL</strong></td>
+<td style="text-align: left;"><p>Une interface web par laquelle des
+requêtes SPARQL peuvent être envoyées à un triple store.</p>
+<p><em>Terme générique</em>: SPARQL Protocol and RDF Query
+Language</p></td>
+</tr>
+<tr>
 <td style="text-align: left;"><strong>Resource Description
 Framework</strong> (RDF)</td>
 <td style="text-align: left;">Une norme centrale du World Wide Web
@@ -423,21 +1341,114 @@ Web. Les informations ne sont pas représentées dans des tableaux
 classiques, mais sous forme de graphes interconnectés.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a
-href="https://agriculture.ld.admin.ch/eCH-1234/2/term/triple"><code>term:triple</code></a></td>
+<td style="text-align: left;"><strong>Shape</strong></td>
+<td style="text-align: left;"><p>Un ensemble de conditions qu’une classe
+de ressources ou une propriété doit remplir, par exemple des champs
+obligatoires, des types de données et des cardinalités.</p>
+<p><em>Terme générique</em>: Shapes Constraint Language</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Shapes Constraint
+Language</strong> (SHACL)</td>
+<td style="text-align: left;"><p>Le langage du W3C pour décrire et
+valider la structure des données RDF. Le modèle de données de cette
+norme est formulé en SHACL.</p>
+<p><em>Terme spécifique</em>: Shape</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Simple Knowledge Organization
+System</strong> (SKOS)</td>
+<td style="text-align: left;"><p>Un vocabulaire du W3C pour les
+thésaurus, les classifications et les glossaires. Ce glossaire est
+lui-même rédigé en SKOS.</p>
+<p><em>Terme associé</em>: Vocabulaire</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SPARQL Protocol and RDF Query
+Language</strong> (SPARQL)</td>
+<td style="text-align: left;"><p>Le langage de requête du W3C pour les
+données RDF. SPARQL permet de lire des données dans des graphes, de les
+modifier et de les échanger entre systèmes.</p>
+<p><em>Terme associé</em>: Resource Description Framework</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sérialisation</strong></td>
+<td style="text-align: left;"><p>Représentation textuelle d’un graphe
+RDF dans un format défini, afin de le stocker ou de l’échanger.</p>
+<p><em>Terme spécifique</em>: JSON for Linking Data, Terse RDF Triple
+Language</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Terse RDF Triple Language</strong>
+(Turtle)</td>
+<td style="text-align: left;"><p>Une sérialisation compacte et lisible
+pour RDF. Tous les fichiers RDF de cette norme sont rédigés en
+Turtle.</p>
+<p><em>Terme générique</em>: Sérialisation</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Triple store</strong> (Base de
+données orientée graphe)</td>
+<td style="text-align: left;"><p>Une base de données spécialisée dans le
+stockage et l’interrogation de triplets RDF.</p>
+<p><em>Terme associé</em>: Linked Data Service</p></td>
+</tr>
+<tr>
 <td style="text-align: left;"><strong>Triplet</strong></td>
 <td style="text-align: left;"><p>La structure de base d’une déclaration
 en RDF, composée d’un sujet, d’un prédicat et d’un objet.</p>
-<p><em>plus générique</em>: <a
-href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></p></td>
+<p><em>Terme générique</em>: Resource Description Framework</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vocabulaire</strong></td>
+<td style="text-align: left;"><p>Un ensemble de classes et de propriétés
+à la signification définie, réutilisé pour décrire des données, par
+exemple schema.org.</p>
+<p><em>Terme spécifique</em>: Ontologie</p></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Web Ontology Language</strong>
+(OWL)</td>
+<td style="text-align: left;"><p>Le langage du W3C pour formuler des
+ontologies. Il permet de définir des classes et des propriétés au moyen
+d’axiomes logiques.</p>
+<p><em>Terme associé</em>: Inférence</p></td>
 </tr>
 </tbody>
 </table>
 
 </div>
 
-# Annexe D - Modifications par rapport à la version précédente
+# Annexe D – Modifications par rapport à la version précédente
 
-# Annexe E - Table des illustrations
+Les principales modifications de la version 2.0.0 par rapport à la
+version précédente 1.4.6:
 
-# Annexe F - Liste des tableaux
+- **Modèle de document:** la sortie PDF suit désormais le modèle de
+  document eCH (page de titre avec tableau des métadonnées, en-tête et
+  pied de page, table des matières, annexes); le site web reprend le
+  même style dans une variante claire et une variante sombre.
+- **Métadonnées:** le numéro, la catégorie, le degré de maturité, la
+  version, le statut et les autres indications de la norme sont saisis
+  une seule fois et repris automatiquement dans toutes les versions
+  linguistiques, dans la page de titre, dans le pied de page et dans
+  <a href="#sec-status" class="quarto-xref">Section 1.1</a>.
+- **Listes:** la table des illustrations et la liste des tableaux
+  (annexes E et F) sont générées automatiquement et reliées aux
+  illustrations et aux tableaux.
+- **Présentation:** mise en forme uniforme des tableaux, des légendes et
+  du code dans le PDF et sur le site web.
+
+La liste complète de toutes les modifications par version se trouve dans
+les [releases sur
+GitHub](https://github.com/blw-ofag-ufag/semantic-web-template/releases).
+
+# Annexe E – Table des illustrations
+
+# Annexe F – Liste des tableaux
+
+[^1]: Sur le site web, les notes de bas de page apparaissent dans la
+    marge de droite; dans le PDF, en bas de page.
+
+[^2]: Une seconde note de bas de page avec un lien vers
+    [ech.ch](https://www.ech.ch/).

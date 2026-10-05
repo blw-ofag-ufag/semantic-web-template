@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-10-01">
 
-<title>eCH-1234 Quarto-Dokument als Vorlage – eCH-1234 Version 2.4.1 (Working Draft)</title>
+<title>eCH-1234 – Quarto-Dokument als Vorlage – eCH-1234 Version 2.4.1 (Working Draft)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -97,10 +98,16 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1f8d4a1018e3d80cd5e6419dd02652f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-ef5e43740907796af889a0e9bdf1c3de.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c18306259a7399907da2df5d7ca8529d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-ef5e43740907796af889a0e9bdf1c3de.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -129,10 +136,201 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -142,8 +340,9 @@ div.csl-indent {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">eCH-1234 Version 2.4.1 (Working Draft)</span>
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/ech.svg" alt="eCH" class="navbar-logo light-content">
+    <img src="../assets/ech.svg" alt="eCH" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Suchen"></div>
@@ -153,12 +352,17 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/blw-ofag-ufag/semantic-web-template"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/blw-ofag-ufag/semantic-web-template"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="mailto:agridata.ch@blw.admin.ch"> <i class="bi bi-envelope" role="img">
+    <a class="nav-link" href="https://github.com/blw-ofag-ufag/semantic-web-template/issues/new"> <i class="bi bi-bug" role="img" aria-label="Issue">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:agridata.ch@blw.admin.ch"> <i class="bi bi-envelope" role="img" aria-label="Contact">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -186,6 +390,7 @@ div.csl-indent {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -199,14 +404,17 @@ div.csl-indent {
     <h2 id="toc-title">Auf dieser Seite</h2>
    
   <ul class="collapse">
-  <li><a href="#sec-note" id="toc-sec-note" class="nav-link active" data-scroll-target="#sec-note">Hinweis</a></li>
-  <li><a href="#sec-introduction" id="toc-sec-introduction" class="nav-link" data-scroll-target="#sec-introduction"><span class="header-section-number">1</span> Einleitung</a>
+  <li><a href="#sec-introduction" id="toc-sec-introduction" class="nav-link active" data-scroll-target="#sec-introduction"><span class="header-section-number">1</span> Einleitung</a>
   <ul class="collapse">
   <li><a href="#sec-status" id="toc-sec-status" class="nav-link" data-scroll-target="#sec-status"><span class="header-section-number">1.1</span> Status</a></li>
   <li><a href="#sec-scope-of-application" id="toc-sec-scope-of-application" class="nav-link" data-scroll-target="#sec-scope-of-application"><span class="header-section-number">1.2</span> Geltungsbereich</a></li>
   <li><a href="#sec-example-subheading" id="toc-sec-example-subheading" class="nav-link" data-scroll-target="#sec-example-subheading"><span class="header-section-number">1.3</span> Wir können Untertitel haben</a></li>
+  <li><a href="#sec-formatting" id="toc-sec-formatting" class="nav-link" data-scroll-target="#sec-formatting"><span class="header-section-number">1.4</span> Formatierungen</a></li>
   </ul></li>
-  <li><a href="#sec-technical-notes" id="toc-sec-technical-notes" class="nav-link" data-scroll-target="#sec-technical-notes"><span class="header-section-number">2</span> Technische Hinweise</a></li>
+  <li><a href="#sec-usage-notes" id="toc-sec-usage-notes" class="nav-link" data-scroll-target="#sec-usage-notes"><span class="header-section-number">2</span> Hinweise zur Verwendung</a>
+  <ul class="collapse">
+  <li><a href="#sec-namespaces" id="toc-sec-namespaces" class="nav-link" data-scroll-target="#sec-namespaces"><span class="header-section-number">2.1</span> Namespaces</a></li>
+  </ul></li>
   <li><a href="#sec-data-model" id="toc-sec-data-model" class="nav-link" data-scroll-target="#sec-data-model"><span class="header-section-number">3</span> Datenmodell</a>
   <ul class="collapse">
   <li><a href="#sec-nodeshape-genreshape" id="toc-sec-nodeshape-genreshape" class="nav-link" data-scroll-target="#sec-nodeshape-genreshape"><span class="header-section-number">3.1</span> Genre</a></li>
@@ -214,8 +422,9 @@ div.csl-indent {
   <li><a href="#sec-nodeshape-trackshape" id="toc-sec-nodeshape-trackshape" class="nav-link" data-scroll-target="#sec-nodeshape-trackshape"><span class="header-section-number">3.3</span> Musikaufnahme</a></li>
   <li><a href="#sec-nodeshape-organisationshape" id="toc-sec-nodeshape-organisationshape" class="nav-link" data-scroll-target="#sec-nodeshape-organisationshape"><span class="header-section-number">3.4</span> Organisation</a></li>
   <li><a href="#sec-nodeshape-personshape" id="toc-sec-nodeshape-personshape" class="nav-link" data-scroll-target="#sec-nodeshape-personshape"><span class="header-section-number">3.5</span> Person</a></li>
-  <li><a href="#sec-nodeshape-quantitativevalueshape" id="toc-sec-nodeshape-quantitativevalueshape" class="nav-link" data-scroll-target="#sec-nodeshape-quantitativevalueshape"><span class="header-section-number">3.6</span> Quantitativer Wert</a></li>
-  <li><a href="#sec-nodeshape-invoiceshape" id="toc-sec-nodeshape-invoiceshape" class="nav-link" data-scroll-target="#sec-nodeshape-invoiceshape"><span class="header-section-number">3.7</span> Rechnung</a></li>
+  <li><a href="#sec-nodeshape-postaladdressshape" id="toc-sec-nodeshape-postaladdressshape" class="nav-link" data-scroll-target="#sec-nodeshape-postaladdressshape"><span class="header-section-number">3.6</span> Postadresse</a></li>
+  <li><a href="#sec-nodeshape-quantitativevalueshape" id="toc-sec-nodeshape-quantitativevalueshape" class="nav-link" data-scroll-target="#sec-nodeshape-quantitativevalueshape"><span class="header-section-number">3.7</span> Quantitativer Wert</a></li>
+  <li><a href="#sec-nodeshape-invoiceshape" id="toc-sec-nodeshape-invoiceshape" class="nav-link" data-scroll-target="#sec-nodeshape-invoiceshape"><span class="header-section-number">3.8</span> Rechnung</a></li>
   </ul></li>
   <li><a href="#sec-data-retrieval" id="toc-sec-data-retrieval" class="nav-link" data-scroll-target="#sec-data-retrieval"><span class="header-section-number">4</span> Datenbezug</a></li>
   <li><a href="#sec-safety-consideration" id="toc-sec-safety-consideration" class="nav-link" data-scroll-target="#sec-safety-consideration"><span class="header-section-number">5</span> Sicherheitsaspekte</a></li>
@@ -228,51 +437,126 @@ div.csl-indent {
   
   
   </ul>
-<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/blw-ofag-ufag/semantic-web-template/blob/main/docs/de/index.qmd" class="toc-action"><i class="bi bi-github"></i>Quellcode anzeigen</a></li><li><a href="https://github.com/blw-ofag-ufag/semantic-web-template/issues/new" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div><div class="quarto-alternate-formats"><h2>Andere Formate</h2><ul><li><a href="index.md"><i class="bi bi-file-code"></i>Github (GFM)</a></li><li><a href="index.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Andere Formate</h2><ul><li><a href="index.pdf"><i class="bi bi-file-earmark-pdf"></i>PDF</a></li><li><a href="index.md"><i class="bi bi-markdown"></i>Markdown</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">eCH-1234 Quarto-Dokument als Vorlage</h1>
+<h1 class="title">eCH-1234 – Quarto-Dokument als Vorlage</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+  
     
+  
+  </div>
+
+<dl class="ech-metadata">
     <div>
-    <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">30. September 2026</p>
-    </div>
+    <dt>eCH-Nummer</dt>
+    <dd>
+                        <p>eCH-1234</p>
+                      </dd>
   </div>
-  
-    
+    <div>
+    <dt>Kategorie</dt>
+    <dd>
+                        <p>Hilfsmittel</p>
+                      </dd>
   </div>
-  
-<div>
-  <div class="abstract">
-    <div class="block-title">Zusammenfassung</div>
-    Kurze Zusammenfassung des Zwecks dieses Dokuments
+    <div>
+    <dt>Reifegrad</dt>
+    <dd>
+                        <p>Experimentell</p>
+                      </dd>
   </div>
-</div>
+    <div>
+    <dt>Version</dt>
+    <dd>
+                        <p>2.4.1</p>
+                      </dd>
+  </div>
+    <div>
+    <dt>Status</dt>
+    <dd>
+                        <p>In Arbeit</p>
+                      </dd>
+  </div>
+    <div>
+    <dt>Beschluss am</dt>
+    <dd>
+            <p>---</p>
+          </dd>
+  </div>
+    <div>
+    <dt>Ausgabedatum</dt>
+    <dd>
+                        <p>2026-10-01</p>
+                      </dd>
+  </div>
+    <div>
+    <dt>Ersetzt Version</dt>
+    <dd>
+                        <p>2.4.0 – Minor Change</p>
+                      </dd>
+  </div>
+    <div>
+    <dt>Voraussetzungen</dt>
+    <dd>
+            <p>---</p>
+          </dd>
+  </div>
+    <div>
+    <dt>Beilagen</dt>
+    <dd>
+            <p>---</p>
+          </dd>
+  </div>
+    <div>
+    <dt>Sprachen</dt>
+    <dd>
+                        <p>Deutsch (Original), Französisch (Übersetzung), Englisch (Übersetzung)</p>
+                      </dd>
+  </div>
+    <div>
+    <dt>Fachgruppe</dt>
+    <dd>
+                        <p>Fachgruppe AgriFood</p>
+                      </dd>
+  </div>
+    <div>
+    <dt>Herausgeber / Vertrieb</dt>
+    <dd>
+                        <p>Verein eCH, Affolternstrasse 52, 8050 Zürich</p>
+            <p>T 044 388 74 64 / <a href="mailto:info@ech.ch">info@ech.ch</a> / <a href="https://www.ech.ch">www.ech.ch</a></p>
+                      </dd>
+  </div>
+  </dl>
+
 
 
 </header>
 
 
-<section id="sec-note" class="level1 unnumbered">
-<h1 class="unnumbered">Hinweis</h1>
+<section id="sec-summary" class="level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Zusammenfassung</h1>
+<p>Kurze Zusammenfassung des Zwecks dieses Dokuments</p>
+</section>
+<section id="sec-note" class="level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Hinweis</h1>
 <p>Im vorliegenden Dokument wird bei der Bezeichnung von Personen eine geschlechtsneutrale Formulierung verwendet. Basis bildet der Leitfaden der Bundeskanzlei. Je nach Situation kommen Paarformen (Bürgerinnen und Bürger), geschlechtsabstrakte Formen (versicherte Person), geschlechtsneutrale Formen (Versicherte) oder Umschreibungen ohne Personenbezug zum Einsatz. Das generische Maskulin (Bürger) ist nicht zulässig. Vollformen werden in fortlaufenden Texten verwendet, also in Texten, die aus ausformulierten Sätzen bestehen. In verknappten Textpassagen, namentlich in Tabellen, können Kurzformen verwendet werden. Dabei wird die Kurzform mit Schrägstrich, aber ohne Auslassungsstrich verwendet (Referent/in). Genderstern und ähnliche Schreibweisen werden nicht verwendet.</p>
 </section>
-<section id="sec-introduction" class="level1" data-number="1">
+<section id="sec-introduction" class="level1 page-columns page-full" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Einleitung</h1>
 <section id="sec-status" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="sec-status"><span class="header-section-number">1.1</span> Status</h2>
-<p>Genehmigt: Dieses Dokument wurde vom Fach-Ausschuss verabschiedet. Es entfaltet normative Kraft für den definierten Anwendungsbereich im festgelegten Geltungsbereich.</p>
+<p>In Arbeit: Der Gebrauch ist nur innerhalb der Fachgruppe, beziehungsweise im Expertenausschuss zugelassen.</p>
 </section>
 <section id="sec-scope-of-application" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="sec-scope-of-application"><span class="header-section-number">1.2</span> Geltungsbereich</h2>
@@ -290,423 +574,894 @@ div.csl-indent {
 <img src="https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Abbildung&nbsp;1: Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt.
+<strong>Abbildung&nbsp;1:</strong> Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt. Hat eine Abbildung eine Beschriftung, erscheint sie im Abbildungsverzeichnis.
 </figcaption>
 </figure>
 </div>
 <p>Bei der Darstellung von Diagrammen sollte versucht werden, diese direkt in Mermaid JS zu erstellen; dies macht zukünftige Änderungen oder Übersetzungen sehr einfach.</p>
 </section>
 </section>
+<section id="sec-formatting" class="level2 page-columns page-full" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="sec-formatting"><span class="header-section-number">1.4</span> Formatierungen</h2>
+<p>Dieses Kapitel ist ein Stresstest: Es enthält die gängigen Markdown- und Quarto-Elemente, damit ihre Darstellung in PDF und Website geprüft werden kann.</p>
+<section id="sec-formatting-text" class="level3 page-columns page-full" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="sec-formatting-text"><span class="header-section-number">1.4.1</span> Textauszeichnungen</h3>
+<p>Text kann <strong>fett</strong>, <em>kursiv</em>, <u>unterstrichen</u>, <mark>markiert</mark>, <span class="smallcaps">in Kapitälchen</span> oder <del>durchgestrichen</del> gesetzt werden. Tastenkürzel wie <kbd title="Ctrl-C" aria-hidden="true">Ctrl-C</kbd><span class="visually-hidden">Ctrl-C</span> + <kbd title="Ctrl-V" aria-hidden="true">Ctrl-V</kbd><span class="visually-hidden">Ctrl-V</span> und Inline-Code wie <code>schema:name</code> werden speziell hervorgehoben.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Fussnoten erscheinen auf der Website am rechten Rand, im PDF am Seitenende.</p></div></div><section id="sec-formatting-h4" class="level4 page-columns page-full" data-number="1.4.1.1">
+<h4 data-number="1.4.1.1" class="anchored" data-anchor-id="sec-formatting-h4"><span class="header-section-number">1.4.1.1</span> Eine Überschrift vierter Stufe</h4>
+<p>Überschriften bis zur vierten Stufe sind möglich; sie werden nummeriert, erscheinen aber nicht im Inhaltsverzeichnis.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;Eine zweite Fussnote mit einem Link auf <a href="https://www.ech.ch/">ech.ch</a>.</p></div></div></section>
 </section>
-<section id="sec-technical-notes" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Technische Hinweise</h1>
-<p>Wir verwenden die ROBOT CLI in unserem Projekt <span class="citation" data-cites="jackson2019robot">(<a href="#ref-jackson2019robot" role="doc-biblioref">Jackson u.&nbsp;a. 2019</a>)</span>, insbesondere wegen ihrer Fähigkeit, den HermiT Reasoner auszuführen <span class="citation" data-cites="glimm2014hermit">(<a href="#ref-glimm2014hermit" role="doc-biblioref">Glimm u.&nbsp;a. 2014</a>)</span>.</p>
+<section id="sec-formatting-lists" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="sec-formatting-lists"><span class="header-section-number">1.4.2</span> Listen und Hinweise</h3>
+<p>Ungeordnete Liste:</p>
+<ul>
+<li>Erster Punkt</li>
+<li>Zweiter Punkt
+<ul>
+<li>Unterpunkt</li>
+</ul></li>
+<li>Dritter Punkt</li>
+</ul>
+<p>Geordnete Liste:</p>
+<ol type="1">
+<li>Erster Schritt</li>
+<li>Zweiter Schritt</li>
+<li>Dritter Schritt</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ein Hinweis macht auf Zusammenhänge aufmerksam, die leicht übersehen werden.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Eine Warnung weist auf Fehlerquellen hin, zum Beispiel auf ungeprüfte Eingabedaten.</p>
+</div>
+</div>
+</section>
+<section id="sec-formatting-code" class="level3" data-number="1.4.3">
+<h3 data-number="1.4.3" class="anchored" data-anchor-id="sec-formatting-code"><span class="header-section-number">1.4.3</span> Code, Tabellen und Formeln</h3>
+<p>Der folgende Codeblock zeigt eine SPARQL-Abfrage:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sparql number-lines code-with-copy"><code class="sourceCode sparql"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="kw">SELECT</span> ?s ?p ?o</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a>  ?s ?p ?o <span class="op">.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-label="4"></a><span class="op">}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-label="5"></a><span class="kw">LIMIT</span> <span class="dv">10</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-example" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Tabelle&nbsp;1:</strong> Beispieltabelle. Hat eine Tabelle eine Beschriftung, erscheint sie im Tabellenverzeichnis.
+</figcaption>
+<div aria-describedby="tbl-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 29%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Spalte</th>
+<th style="text-align: left;">Typ</th>
+<th style="text-align: left;">Bemerkung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">Zeichenkette</td>
+<td style="text-align: left;">Pflichtfeld</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Menge</td>
+<td style="text-align: left;">Dezimalzahl</td>
+<td style="text-align: left;">mit Einheit</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Eine Formel kann im Text stehen, etwa <span class="math inline">\(E = m c^2\)</span>, oder als eigene Gleichung wie <a href="#eq-example" class="quarto-xref">Gleichung&nbsp;1</a>:</p>
+<p><span id="eq-example"><span class="math display">\[
+\sum_{i=1}^{n} x_i = n \bar{x}
+\tag{1}\]</span></span></p>
+</section>
+</section>
+</section>
+<section id="sec-usage-notes" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Hinweise zur Verwendung</h1>
+<p>Der folgende Absatz ist bewusst Unsinn und dient nur dem Test der Zitierweise: Gemäss dem Genehmigungsleitfaden <span class="citation" data-cites="eCH-0003:11.1.0">[<a href="#ref-eCH-0003:11.1.0" role="doc-biblioref">eCH-0003 11.1.0</a>]</span> müssen alle Postadressen <span class="citation" data-cites="eCH-0010:8.1.0">[<a href="#ref-eCH-0010:8.1.0" role="doc-biblioref">eCH-0010 8.1.0</a>]</span> in Turtle <span class="citation" data-cites="Turtle">[<a href="#ref-Turtle" role="doc-biblioref">Turtle</a>]</span> serialisiert, als DCAT-Katalog <span class="citation" data-cites="DCAT eCH-0200:3.0.1">[<a href="#ref-DCAT" role="doc-biblioref">DCAT</a>; <a href="#ref-eCH-0200:3.0.1" role="doc-biblioref">eCH-0200 3.0.1</a>]</span> mit SHACL <span class="citation" data-cites="SHACL">[<a href="#ref-SHACL" role="doc-biblioref">SHACL</a>]</span> geprüft und per SPARQL <span class="citation" data-cites="SPARQL">[<a href="#ref-SPARQL" role="doc-biblioref">SPARQL</a>]</span> als Linked Open Data <span class="citation" data-cites="eCH-0205:1.0">[<a href="#ref-eCH-0205:1.0" role="doc-biblioref">eCH-0205 1.0</a>]</span> über landwirtschaftliche Kulturen <span class="citation" data-cites="eCH-0265:1.0.0">[<a href="#ref-eCH-0265:1.0.0" role="doc-biblioref">eCH-0265 1.0.0</a>]</span> in JSON-LD <span class="citation" data-cites="JSON-LD">[<a href="#ref-JSON-LD" role="doc-biblioref">JSON-LD</a>]</span> und OWL <span class="citation" data-cites="OWL2">[<a href="#ref-OWL2" role="doc-biblioref">OWL 2</a>]</span> veröffentlicht werden, wie es das Semantic Web <span class="citation" data-cites="berners2023semantic">[<a href="#ref-berners2023semantic" role="doc-biblioref">Berners-Lee 2023</a>]</span> vorsieht.</p>
+<section id="sec-namespaces" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-namespaces"><span class="header-section-number">2.1</span> Namespaces</h2>
+<p><a href="#tbl-namespaces" class="quarto-xref">Tabelle&nbsp;2</a> listet die Präfixe und Namespaces, die in diesem Dokument verwendet werden. Ein Präfix steht stellvertretend für eine Namespace-IRI, den gemeinsamen Anfang der IRIs eines Vokabulars. Die Turtle-Spezifikation beschreibt, wie solche <a href="https://www.w3.org/TR/turtle/#prefixed-name"><em>Prefixed Names</em></a> aufgelöst werden <span class="citation" data-cites="Turtle">[<a href="#ref-Turtle" role="doc-biblioref">Turtle</a>]</span>.</p>
+<div id="tbl-namespaces" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-namespaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Tabelle&nbsp;2:</strong> In eCH-1234 – Quarto-Dokument als Vorlage verwendete Namespaces.
+</figcaption>
+<div aria-describedby="tbl-namespaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 79%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Präfix</th>
+<th style="text-align: left;">Namespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>:</code></td>
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/" class="uri">https://agriculture.ld.admin.ch/eCH-1234/2/</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>country:</code></td>
+<td style="text-align: left;"><a href="https://ld.admin.ch/country/" class="uri">https://ld.admin.ch/country/</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>rdf:</code></td>
+<td style="text-align: left;"><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#" class="uri">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>schema:</code></td>
+<td style="text-align: left;"><a href="http://schema.org/" class="uri">http://schema.org/</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>unit:</code></td>
+<td style="text-align: left;"><a href="http://qudt.org/vocab/unit/" class="uri">http://qudt.org/vocab/unit/</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>xsd:</code></td>
+<td style="text-align: left;"><a href="http://www.w3.org/2001/XMLSchema#" class="uri">http://www.w3.org/2001/XMLSchema#</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
 </section>
 <section id="sec-data-model" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Datenmodell</h1>
 <section id="sec-nodeshape-genreshape" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sec-nodeshape-genreshape"><span class="header-section-number">3.1</span> Genre</h2>
 <p>Eine musikalische Kategorie im Chinook-Datensatz.</p>
-<p><strong>Zielklasse:</strong> <code>:Genre</code></p>
-<div id="tbl-nodeshape-genreshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-genreshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;1: Eigenschaften Genre
-</figcaption>
-<div aria-describedby="tbl-nodeshape-genreshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<section id="sec-nodeshape-genreshape-overview" class="level3 unlisted" data-number="3.1.1">
+<h3 class="unlisted anchored" data-number="3.1.1" data-anchor-id="sec-nodeshape-genreshape-overview"><span class="header-section-number">3.1.1</span> Übersicht</h3>
+<div class="ech-facts">
+<dl>
+<dt>IRI</dt>
+<dd>
+<a href="https://agriculture.ld.admin.ch/eCH-1234/2/GenreShape" class="uri">https://agriculture.ld.admin.ch/eCH-1234/2/GenreShape</a>
+</dd>
+<dt>Zielklasse</dt>
+<dd>
+<code>:Genre</code>
+</dd>
+<dt>Geschlossen</dt>
+<dd>
+Ja (nur die aufgeführten Eigenschaften zulässig)
+</dd>
+<dt>Kennzahlen</dt>
+<dd>
+25 Instanzen mit je 5 bis 7 Tripeln (im Mittel 5.4)
+</dd>
+<dt>Open Data</dt>
+<dd>
+Ja (<a href="https://lindas.admin.ch/sparql/#query=PREFIX%20%3A%20%3Chttps%3A%2F%2Fagriculture.ld.admin.ch%2FeCH-1234%2F2%2F%3E%0APREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FpartOf%20%3FalternateName%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20%3AGenre%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3ApartOf%20%3FpartOf%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AalternateName%20%3FalternateName%20.%20%7D%0A%7D%0ALIMIT%201000">auf LINDAS publiziert</a>)
+</dd>
+</dl>
+</div>
+</section>
+<section id="sec-nodeshape-genreshape-properties" class="level3 unlisted" data-number="3.1.2">
+<h3 class="unlisted anchored" data-number="3.1.2" data-anchor-id="sec-nodeshape-genreshape-properties"><span class="header-section-number">3.1.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 10%">
+<col style="width: 41%">
+<col style="width: 43%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
-<th style="text-align: left;">Pfad</th>
-<th style="text-align: left;">Typ</th>
-<th style="text-align: right;">Kard.</th>
+<th style="text-align: left;">Details</th>
+<th style="text-align: right;">Kardinalität</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Name</strong></td>
-<td style="text-align: left;"><code>schema:name</code></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Name</strong> (<code>schema:name</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+<li>Muster: <code>^[A-Z]</code></li>
+<li>Länge: 2–50 Zeichen</li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Teil von</strong></td>
-<td style="text-align: left;"><code>schema:partOf</code></td>
-<td style="text-align: left;"><a href="#sec-nodeshape-genreshape"><code>:Genre</code></a> oder <code>sh:IRI</code></td>
+<td style="text-align: left;"><strong>Teil von</strong> (<code>schema:partOf</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-genreshape">Genre</a></li>
+</ul></td>
+<td style="text-align: right;">0..*</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Alternative Bezeichnung</strong> (<code>schema:alternateName</code>): Übersetzte oder umgangssprachliche Bezeichnung des Genres, höchstens eine pro Sprache.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Sprachabhängiger Text (<code>rdf:langString</code>)</li>
+<li>Länge: ≤ 50 Zeichen</li>
+<li>Sprachen: <code>de</code>, <code>fr</code>, <code>it</code>, <code>en</code> (eine pro Sprache)</li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
 </table>
-</div>
-</figure>
-</div>
+</section>
+<section id="sec-nodeshape-genreshape-rules" class="level3 unlisted" data-number="3.1.3">
+<h3 class="unlisted anchored" data-number="3.1.3" data-anchor-id="sec-nodeshape-genreshape-rules"><span class="header-section-number">3.1.3</span> Regeln (SPARQL)</h3>
+<section id="sec-nodeshape-genreshape-rule-1" class="level4 unlisted" data-number="3.1.3.1">
+<h4 class="unlisted anchored" data-number="3.1.3.1" data-anchor-id="sec-nodeshape-genreshape-rule-1"><span class="header-section-number">3.1.3.1</span> Keine zyklische Hierarchie</h4>
+<p>Ein Genre darf weder direkt noch transitiv ein Teil von sich selbst sein.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sparql number-lines code-with-copy"><code class="sourceCode sparql"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="kw">SELECT</span> $this</span>
+<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-label="3"></a>    $this schema:partOf<span class="op">+</span> $this <span class="op">.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-label="4"></a><span class="op">}</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
 </section>
 <section id="sec-nodeshape-musicalbumshape" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="sec-nodeshape-musicalbumshape"><span class="header-section-number">3.2</span> Musikalbum</h2>
 <p>Eine Sammlung von Titeln im Chinook-Datensatz.</p>
-<p><strong>Zielklasse:</strong> <code>schema:MusicAlbum</code></p>
-<div id="tbl-nodeshape-musicalbumshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-musicalbumshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;2: Eigenschaften Musikalbum
-</figcaption>
-<div aria-describedby="tbl-nodeshape-musicalbumshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<section id="sec-nodeshape-musicalbumshape-overview" class="level3 unlisted" data-number="3.2.1">
+<h3 class="unlisted anchored" data-number="3.2.1" data-anchor-id="sec-nodeshape-musicalbumshape-overview"><span class="header-section-number">3.2.1</span> Übersicht</h3>
+<div class="ech-facts">
+<dl>
+<dt>IRI</dt>
+<dd>
+<a href="https://agriculture.ld.admin.ch/eCH-1234/2/MusicAlbumShape" class="uri">https://agriculture.ld.admin.ch/eCH-1234/2/MusicAlbumShape</a>
+</dd>
+<dt>Zielklasse</dt>
+<dd>
+<code>schema:MusicAlbum</code>
+</dd>
+<dt>Geschlossen</dt>
+<dd>
+Nein (weitere Eigenschaften zulässig)
+</dd>
+<dt>Kennzahlen</dt>
+<dd>
+347 Instanzen mit je 5 Tripeln
+</dd>
+<dt>Open Data</dt>
+<dd>
+Ja (<a href="https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FbyArtist%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicAlbum%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AbyArtist%20%3FbyArtist%20.%20%7D%0A%7D%0ALIMIT%201000">auf LINDAS publiziert</a>)
+</dd>
+</dl>
+</div>
+</section>
+<section id="sec-nodeshape-musicalbumshape-properties" class="level3 unlisted" data-number="3.2.2">
+<h3 class="unlisted anchored" data-number="3.2.2" data-anchor-id="sec-nodeshape-musicalbumshape-properties"><span class="header-section-number">3.2.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 10%">
+<col style="width: 41%">
+<col style="width: 43%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
-<th style="text-align: left;">Pfad</th>
-<th style="text-align: left;">Typ</th>
-<th style="text-align: right;">Kard.</th>
+<th style="text-align: left;">Details</th>
+<th style="text-align: right;">Kardinalität</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Name</strong>: Jedes Album muss einen Namen haben.</td>
-<td style="text-align: left;"><code>schema:name</code></td>
-<td style="text-align: left;"><code>xsd:string</code></td>
+<td style="text-align: left;"><strong>Name</strong> (<code>schema:name</code>): Jedes Album muss einen Namen haben.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+<li>Länge: ≤ 200 Zeichen</li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Künstler</strong>: Person oder Musikgruppe, die das Album erstellt hat.</td>
-<td style="text-align: left;"><code>schema:byArtist</code></td>
-<td style="text-align: left;"><a href="#sec-nodeshape-personshape"><code>schema:Person</code></a> oder <code>schema:MusicGroup</code></td>
+<td style="text-align: left;"><strong>Künstler</strong> (<code>schema:byArtist</code>): Person oder Musikgruppe, die das Album erstellt hat.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-personshape">Person</a> oder <code>schema:MusicGroup</code></li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
 </table>
-</div>
-</figure>
-</div>
+</section>
 </section>
 <section id="sec-nodeshape-trackshape" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="sec-nodeshape-trackshape"><span class="header-section-number">3.3</span> Musikaufnahme</h2>
 <p>Ein einzelner Musiktitel im Chinook-Datensatz.</p>
-<p><strong>Zielklasse:</strong> <code>schema:MusicRecording</code></p>
-<div id="tbl-nodeshape-trackshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-trackshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;3: Eigenschaften Musikaufnahme
-</figcaption>
-<div aria-describedby="tbl-nodeshape-trackshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<section id="sec-nodeshape-trackshape-overview" class="level3 unlisted" data-number="3.3.1">
+<h3 class="unlisted anchored" data-number="3.3.1" data-anchor-id="sec-nodeshape-trackshape-overview"><span class="header-section-number">3.3.1</span> Übersicht</h3>
+<div class="ech-facts">
+<dl>
+<dt>IRI</dt>
+<dd>
+<a href="https://agriculture.ld.admin.ch/eCH-1234/2/TrackShape" class="uri">https://agriculture.ld.admin.ch/eCH-1234/2/TrackShape</a>
+</dd>
+<dt>Zielklasse</dt>
+<dd>
+<code>schema:MusicRecording</code>
+</dd>
+<dt>Geschlossen</dt>
+<dd>
+Nein (weitere Eigenschaften zulässig)
+</dd>
+<dt>Kennzahlen</dt>
+<dd>
+3503 Instanzen mit je 10 bis 15 Tripeln (im Mittel 11.1)
+</dd>
+<dt>Open Data</dt>
+<dd>
+Ja (<a href="https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FinAlbum%20%3Fauthor%20%3Fgenre%20%3Fduration%20%3FcontentSize%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicRecording%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AinAlbum%20%3FinAlbum%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aauthor%20%3Fauthor%20.%20%7D%0A%20%20%3Firi%20schema%3Agenre%20%3Fgenre%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aduration%20%3Fduration%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AcontentSize%20%3FcontentSize%20.%20%7D%0A%7D%0ALIMIT%201000">auf LINDAS publiziert</a>)
+</dd>
+</dl>
+</div>
+</section>
+<section id="sec-nodeshape-trackshape-properties" class="level3 unlisted" data-number="3.3.2">
+<h3 class="unlisted anchored" data-number="3.3.2" data-anchor-id="sec-nodeshape-trackshape-properties"><span class="header-section-number">3.3.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 10%">
+<col style="width: 44%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
-<th style="text-align: left;">Pfad</th>
-<th style="text-align: left;">Typ</th>
-<th style="text-align: right;">Kard.</th>
+<th style="text-align: left;">Details</th>
+<th style="text-align: right;">Kardinalität</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Name</strong>: Jeder Titel muss einen Namen haben.</td>
-<td style="text-align: left;"><code>schema:name</code></td>
-<td style="text-align: left;"><code>xsd:string</code></td>
+<td style="text-align: left;"><strong>Name</strong> (<code>schema:name</code>): Jeder Titel muss einen Namen haben.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+<li>Länge: 1–200 Zeichen</li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>In Album</strong>: Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören.</td>
-<td style="text-align: left;"><code>schema:inAlbum</code></td>
-<td style="text-align: left;"><a href="#sec-nodeshape-musicalbumshape"><code>schema:MusicAlbum</code></a></td>
+<td style="text-align: left;"><strong>In Album</strong> (<code>schema:inAlbum</code>): Ein Titel kann nur zu einem gültigen schema:MusicAlbum gehören.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-musicalbumshape">Musikalbum</a></li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Autor</strong>: Die Person oder Gruppe, die den Titel geschrieben hat.</td>
-<td style="text-align: left;"><code>schema:author</code></td>
+<td style="text-align: left;"><strong>Autor</strong> (<code>schema:author</code>): Die Person oder Gruppe, die den Titel geschrieben hat.</td>
 <td style="text-align: left;"></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Genre</strong></td>
-<td style="text-align: left;"><code>schema:genre</code></td>
-<td style="text-align: left;"><a href="#sec-nodeshape-genreshape"><code>:Genre</code></a></td>
+<td style="text-align: left;"><strong>Genre</strong> (<code>schema:genre</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-genreshape">Genre</a></li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Dauer</strong>: Die Dauer muss als schema:QuantitativeValue ausgedrückt werden.</td>
-<td style="text-align: left;"><code>schema:duration</code></td>
-<td style="text-align: left;"><a href="#sec-nodeshape-quantitativevalueshape"><code>schema:QuantitativeValue</code></a></td>
+<td style="text-align: left;"><strong>Dauer</strong> (<code>schema:duration</code>): Die Dauer muss als schema:QuantitativeValue ausgedrückt werden.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer Wert</a></li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dateigröße</strong></td>
-<td style="text-align: left;"><code>schema:contentSize</code></td>
-<td style="text-align: left;"><a href="#sec-nodeshape-quantitativevalueshape"><code>schema:QuantitativeValue</code></a></td>
+<td style="text-align: left;"><strong>Dateigrösse</strong> (<code>schema:contentSize</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer Wert</a></li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
 </table>
-</div>
-</figure>
-</div>
+</section>
 </section>
 <section id="sec-nodeshape-organisationshape" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="sec-nodeshape-organisationshape"><span class="header-section-number">3.4</span> Organisation</h2>
 <p>Ein Unternehmen oder eine Organisation im Chinook-Datensatz.</p>
-<p><strong>Zielklasse:</strong> <code>schema:Organisation</code></p>
-<div id="tbl-nodeshape-organisationshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-organisationshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;4: Eigenschaften Organisation
-</figcaption>
-<div aria-describedby="tbl-nodeshape-organisationshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<section id="sec-nodeshape-organisationshape-overview" class="level3 unlisted" data-number="3.4.1">
+<h3 class="unlisted anchored" data-number="3.4.1" data-anchor-id="sec-nodeshape-organisationshape-overview"><span class="header-section-number">3.4.1</span> Übersicht</h3>
+<div class="ech-facts">
+<dl>
+<dt>IRI</dt>
+<dd>
+<a href="https://agriculture.ld.admin.ch/eCH-1234/2/OrganisationShape" class="uri">https://agriculture.ld.admin.ch/eCH-1234/2/OrganisationShape</a>
+</dd>
+<dt>Zielklasse</dt>
+<dd>
+<code>schema:Organisation</code>
+</dd>
+<dt>Geschlossen</dt>
+<dd>
+Nein (weitere Eigenschaften zulässig)
+</dd>
+<dt>Open Data</dt>
+<dd>
+Nein (Transaktionsdaten, nicht Teil des publizierten Graphen)
+</dd>
+</dl>
+</div>
+</section>
+<section id="sec-nodeshape-organisationshape-properties" class="level3 unlisted" data-number="3.4.2">
+<h3 class="unlisted anchored" data-number="3.4.2" data-anchor-id="sec-nodeshape-organisationshape-properties"><span class="header-section-number">3.4.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 10%">
+<col style="width: 41%">
+<col style="width: 43%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
-<th style="text-align: left;">Pfad</th>
-<th style="text-align: left;">Typ</th>
-<th style="text-align: right;">Kard.</th>
+<th style="text-align: left;">Details</th>
+<th style="text-align: right;">Kardinalität</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Name</strong>: Jede Organisation muss einen Namen haben.</td>
-<td style="text-align: left;"><code>schema:name</code></td>
-<td style="text-align: left;"><code>xsd:string</code></td>
+<td style="text-align: left;"><strong>Name</strong> (<code>schema:name</code>): Jede Organisation muss einen Namen haben.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+<li>Länge: 2–100 Zeichen</li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 </tbody>
 </table>
-</div>
-</figure>
-</div>
+</section>
 </section>
 <section id="sec-nodeshape-personshape" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="sec-nodeshape-personshape"><span class="header-section-number">3.5</span> Person</h2>
 <p>Jede Person (Mitarbeiter, Kunde oder benutzerdefinierte Person) im Datensatz.</p>
-<p><strong>Zielklasse:</strong> <code>schema:Person</code></p>
-<div id="tbl-nodeshape-personshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-personshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;5: Eigenschaften Person
-</figcaption>
-<div aria-describedby="tbl-nodeshape-personshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>Personen werden unabhängig von ihrer Rolle einheitlich beschrieben: Angestellte des Musikhandels, Kundinnen und Kunden sowie manuell erfasste Personen teilen dieselben Eigenschaften. Die Rolle ergibt sich aus den Beziehungen, etwa <code>schema:worksFor</code> für Angestellte oder <code>schema:customer</code> auf einer Rechnung für Kundschaft.</p>
+<p>Namen werden so erfasst, wie sie die Person selbst verwendet; akademische Titel gehören nicht in den Vornamen. E-Mail-Adressen und Geburtsdaten sind freiwillige Angaben und werden bei Verstössen gegen die Regeln lediglich als Warnung gemeldet.</p>
+<section id="sec-nodeshape-personshape-overview" class="level3 unlisted" data-number="3.5.1">
+<h3 class="unlisted anchored" data-number="3.5.1" data-anchor-id="sec-nodeshape-personshape-overview"><span class="header-section-number">3.5.1</span> Übersicht</h3>
+<div class="ech-facts">
+<dl>
+<dt>IRI</dt>
+<dd>
+<a href="https://agriculture.ld.admin.ch/eCH-1234/2/PersonShape" class="uri">https://agriculture.ld.admin.ch/eCH-1234/2/PersonShape</a>
+</dd>
+<dt>Zielklasse</dt>
+<dd>
+<code>schema:Person</code>
+</dd>
+<dt>Geschlossen</dt>
+<dd>
+Ja (nur die aufgeführten Eigenschaften zulässig)
+</dd>
+<dt>Kennzahlen</dt>
+<dd>
+383 Instanzen mit je 5 bis 10 Tripeln (im Mittel 5.6)
+</dd>
+<dt>Open Data</dt>
+<dd>
+Ja (<a href="https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3FgivenName%20%3FfamilyName%20%3Femail%20%3FbirthDate%20%3Faddress%20%3FworksFor%20%3FjobTitle%20%3Fknows%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3APerson%20.%0A%20%20%3Firi%20schema%3AgivenName%20%3FgivenName%20.%0A%20%20%3Firi%20schema%3AfamilyName%20%3FfamilyName%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aemail%20%3Femail%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AbirthDate%20%3FbirthDate%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aaddress%20%3Faddress%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AworksFor%20%3FworksFor%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AjobTitle%20%3FjobTitle%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aknows%20%3Fknows%20.%20%7D%0A%7D%0ALIMIT%201000">auf LINDAS publiziert</a>)
+</dd>
+</dl>
+</div>
+</section>
+<section id="sec-nodeshape-personshape-properties" class="level3 unlisted" data-number="3.5.2">
+<h3 class="unlisted anchored" data-number="3.5.2" data-anchor-id="sec-nodeshape-personshape-properties"><span class="header-section-number">3.5.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 10%">
+<col style="width: 39%">
+<col style="width: 46%">
+<col style="width: 13%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
-<th style="text-align: left;">Pfad</th>
-<th style="text-align: left;">Typ</th>
-<th style="text-align: right;">Kard.</th>
+<th style="text-align: left;">Details</th>
+<th style="text-align: right;">Kardinalität</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Vorname</strong>: Jede Person muss einen Vornamen haben.</td>
-<td style="text-align: left;"><code>schema:givenName</code></td>
-<td style="text-align: left;"><code>xsd:string</code></td>
+<td style="text-align: left;"><strong>Vorname</strong> (<code>schema:givenName</code>): Jede Person muss einen Vornamen haben.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Nachname</strong>: Jede Person muss einen Nachnamen haben.</td>
-<td style="text-align: left;"><code>schema:familyName</code></td>
-<td style="text-align: left;"><code>xsd:string</code></td>
+<td style="text-align: left;"><strong>Nachname</strong> (<code>schema:familyName</code>): Jede Person muss einen Nachnamen haben.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>E-Mail-Adresse</strong>: Falls angegeben, muss die E-Mail-Adresse einem Standardformat entsprechen.</td>
-<td style="text-align: left;"><code>schema:email</code></td>
-<td style="text-align: left;"><code>xsd:string</code></td>
+<td style="text-align: left;"><strong>E-Mail-Adresse</strong> (<code>schema:email</code>): Falls angegeben, muss die E-Mail-Adresse einem Standardformat entsprechen.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+<li>Muster: <code>^.+@.+\..+$</code> (<code>i</code>)</li>
+<li>Länge: ≤ 254 Zeichen</li>
+<li>Schweregrad: Warnung</li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Geburtsdatum</strong>: Eine Person sollte ein gültiges Geburtsdatum haben.</td>
-<td style="text-align: left;"><code>schema:birthDate</code></td>
-<td style="text-align: left;"><code>xsd:date</code></td>
+<td style="text-align: left;"><strong>Geburtsdatum</strong> (<code>schema:birthDate</code>): Eine Person sollte ein gültiges Geburtsdatum haben.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Datum (<code>xsd:date</code>)</li>
+<li>Wertebereich: ≥ 1900-01-01, ≤ 2025-12-31</li>
+<li>Schweregrad: Warnung</li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Adresse</strong></td>
-<td style="text-align: left;"><code>schema:address</code></td>
-<td style="text-align: left;"><code>schema:PostalAddress</code></td>
+<td style="text-align: left;"><strong>Adresse</strong> (<code>schema:address</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-postaladdressshape">Postadresse</a></li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Arbeitet für</strong>: Ein Mitarbeiter kann einer anderen Person unterstellt sein.</td>
-<td style="text-align: left;"><code>schema:worksFor</code></td>
-<td style="text-align: left;"><a href="#sec-nodeshape-personshape"><code>schema:Person</code></a> oder <code>schema:Organization</code></td>
+<td style="text-align: left;"><strong>Arbeitet für</strong> (<code>schema:worksFor</code>): Ein Mitarbeiter kann einer anderen Person unterstellt sein.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-personshape">Person</a> oder <code>schema:Organization</code></li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Berufsbezeichnung</strong></td>
-<td style="text-align: left;"><code>schema:jobTitle</code></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Berufsbezeichnung</strong> (<code>schema:jobTitle</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+<li>Länge: 2–100 Zeichen</li>
+</ul></td>
 <td style="text-align: right;">0..1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Kennt</strong></td>
-<td style="text-align: left;"><code>schema:knows</code></td>
-<td style="text-align: left;"><a href="#sec-nodeshape-personshape"><code>schema:Person</code></a></td>
+<td style="text-align: left;"><strong>Kennt</strong> (<code>schema:knows</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-personshape">Person</a></li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
 </table>
-</div>
-</figure>
+</section>
+<section id="sec-nodeshape-personshape-rules" class="level3 unlisted" data-number="3.5.3">
+<h3 class="unlisted anchored" data-number="3.5.3" data-anchor-id="sec-nodeshape-personshape-rules"><span class="header-section-number">3.5.3</span> Regeln (SPARQL)</h3>
+<section id="sec-nodeshape-personshape-rule-1" class="level4 unlisted" data-number="3.5.3.1">
+<h4 class="unlisted anchored" data-number="3.5.3.1" data-anchor-id="sec-nodeshape-personshape-rule-1"><span class="header-section-number">3.5.3.1</span> Keine Selbstunterstellung</h4>
+<p>Ein Mitarbeiter kann nicht sich selbst unterstellt sein.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sparql number-lines code-with-copy"><code class="sourceCode sparql"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="kw">SELECT</span> $this</span>
+<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a>    $this schema:worksFor $this <span class="op">.</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-label="4"></a><span class="op">}</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+</section>
+<section id="sec-nodeshape-postaladdressshape" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="sec-nodeshape-postaladdressshape"><span class="header-section-number">3.6</span> Postadresse</h2>
+<p>Die Postadresse einer Person.</p>
+<p>Adressen folgen dem Aufbau von schema.org und nicht dem Schweizer Adressstandard eCH-0010, da der Datensatz überwiegend ausländische Adressen enthält. Postleitzahlen werden deshalb nur auf ein plausibles Format geprüft, nicht gegen ein Verzeichnis.</p>
+<section id="sec-nodeshape-postaladdressshape-overview" class="level3 unlisted" data-number="3.6.1">
+<h3 class="unlisted anchored" data-number="3.6.1" data-anchor-id="sec-nodeshape-postaladdressshape-overview"><span class="header-section-number">3.6.1</span> Übersicht</h3>
+<div class="ech-facts">
+<dl>
+<dt>IRI</dt>
+<dd>
+<a href="https://agriculture.ld.admin.ch/eCH-1234/2/PostalAddressShape" class="uri">https://agriculture.ld.admin.ch/eCH-1234/2/PostalAddressShape</a>
+</dd>
+<dt>Zielklasse</dt>
+<dd>
+<code>schema:PostalAddress</code>
+</dd>
+<dt>Geschlossen</dt>
+<dd>
+Ja (nur die aufgeführten Eigenschaften zulässig)
+</dd>
+<dt>Kennzahlen</dt>
+<dd>
+67 Instanzen mit je 6 bis 8 Tripeln (im Mittel 7.5)
+</dd>
+<dt>Open Data</dt>
+<dd>
+Ja (<a href="https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3FstreetAddress%20%3FpostalCode%20%3FaddressLocality%20%3FaddressRegion%20%3FaddressCountry%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3APostalAddress%20.%0A%20%20%3Firi%20schema%3AstreetAddress%20%3FstreetAddress%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3ApostalCode%20%3FpostalCode%20.%20%7D%0A%20%20%3Firi%20schema%3AaddressLocality%20%3FaddressLocality%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AaddressRegion%20%3FaddressRegion%20.%20%7D%0A%20%20%3Firi%20schema%3AaddressCountry%20%3FaddressCountry%20.%0A%7D%0ALIMIT%201000">auf LINDAS publiziert</a>)
+</dd>
+</dl>
 </div>
 </section>
-<section id="sec-nodeshape-quantitativevalueshape" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="sec-nodeshape-quantitativevalueshape"><span class="header-section-number">3.6</span> Quantitativer Wert</h2>
-<p>Ein numerischer Wert mit einer dazugehörigen Einheit.</p>
-<p><strong>Zielklasse:</strong> <code>schema:QuantitativeValue</code></p>
-<div id="tbl-nodeshape-quantitativevalueshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-quantitativevalueshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;6: Eigenschaften Quantitativer Wert
-</figcaption>
-<div aria-describedby="tbl-nodeshape-quantitativevalueshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<section id="sec-nodeshape-postaladdressshape-properties" class="level3 unlisted" data-number="3.6.2">
+<h3 class="unlisted anchored" data-number="3.6.2" data-anchor-id="sec-nodeshape-postaladdressshape-properties"><span class="header-section-number">3.6.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 10%">
+<col style="width: 41%">
+<col style="width: 43%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
-<th style="text-align: left;">Pfad</th>
-<th style="text-align: left;">Typ</th>
-<th style="text-align: right;">Kard.</th>
+<th style="text-align: left;">Details</th>
+<th style="text-align: right;">Kardinalität</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Wert</strong>: Ein quantitativer Wert muss genau einen numerischen Wert haben.</td>
-<td style="text-align: left;"><code>schema:value</code></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Strasse und Hausnummer</strong> (<code>schema:streetAddress</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+<li>Länge: 3–100 Zeichen</li>
+<li>Beispiele: Schwarzenburgstrasse 165</li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Einheitencode</strong>: Ein quantitativer Wert muss seine Einheit über eine unitCode-URI angeben.</td>
-<td style="text-align: left;"><code>schema:unitCode</code></td>
-<td style="text-align: left;"><code>sh:IRI</code></td>
+<td style="text-align: left;"><strong>Postleitzahl</strong> (<code>schema:postalCode</code>): Buchstaben, Ziffern, Leerzeichen und Bindestriche, zwei bis zehn Zeichen.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+<li>Muster: <code>^[A-Za-z0-9][A-Za-z0-9 -]{1,9}$</code></li>
+<li>Schweregrad: Warnung</li>
+</ul></td>
+<td style="text-align: right;">0..1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Ort</strong> (<code>schema:addressLocality</code>): Jede Adresse braucht genau einen Ort.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+<li>Länge: ≤ 100 Zeichen</li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Region</strong> (<code>schema:addressRegion</code>): Kanton, Bundesstaat oder Provinz, sofern im Land üblich.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Zeichenkette (<code>xsd:string</code>)</li>
+<li>Länge: ≤ 100 Zeichen</li>
+</ul></td>
+<td style="text-align: right;">0..1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Land</strong> (<code>schema:addressCountry</code>): Land als IRI aus dem Länderverzeichnis des Bundesarchivs auf LINDAS (ISO 3166-1 alpha-3).</td>
+<td style="text-align: left;"><ul>
+<li>Muster: <code>^https://ld\.admin\.ch/country/[A-Z]{3}$</code></li>
+<li>Beispiele: <code>country:CHE</code>, <code>country:FRA</code>, <code>country:ITA</code></li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 </tbody>
 </table>
-</div>
-</figure>
+</section>
+</section>
+<section id="sec-nodeshape-quantitativevalueshape" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="sec-nodeshape-quantitativevalueshape"><span class="header-section-number">3.7</span> Quantitativer Wert</h2>
+<p>Ein numerischer Wert mit einer dazugehörigen Einheit.</p>
+<p>Quantitative Werte werden nie als blosse Zahl erfasst, sondern immer zusammen mit einer Einheit aus dem QUDT-Vokabular. So bleibt eindeutig, ob eine Dauer in Millisekunden oder eine Dateigrösse in Bytes gemeint ist. Negative Werte sind in diesem Datensatz nicht vorgesehen.</p>
+<section id="sec-nodeshape-quantitativevalueshape-overview" class="level3 unlisted" data-number="3.7.1">
+<h3 class="unlisted anchored" data-number="3.7.1" data-anchor-id="sec-nodeshape-quantitativevalueshape-overview"><span class="header-section-number">3.7.1</span> Übersicht</h3>
+<div class="ech-facts">
+<dl>
+<dt>IRI</dt>
+<dd>
+<a href="https://agriculture.ld.admin.ch/eCH-1234/2/QuantitativeValueShape" class="uri">https://agriculture.ld.admin.ch/eCH-1234/2/QuantitativeValueShape</a>
+</dd>
+<dt>Zielklasse</dt>
+<dd>
+<code>schema:QuantitativeValue</code>
+</dd>
+<dt>Geschlossen</dt>
+<dd>
+Ja (nur die aufgeführten Eigenschaften zulässig)
+</dd>
+<dt>Kennzahlen</dt>
+<dd>
+15401 Instanzen mit je 3 Tripeln
+</dd>
+<dt>Open Data</dt>
+<dd>
+Ja (<a href="https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fvalue%20%3FunitCode%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AQuantitativeValue%20.%0A%20%20%3Firi%20schema%3Avalue%20%3Fvalue%20.%0A%20%20%3Firi%20schema%3AunitCode%20%3FunitCode%20.%0A%7D%0ALIMIT%201000">auf LINDAS publiziert</a>)
+</dd>
+</dl>
 </div>
 </section>
-<section id="sec-nodeshape-invoiceshape" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="sec-nodeshape-invoiceshape"><span class="header-section-number">3.7</span> Rechnung</h2>
-<p>Ein Kaufbeleg im Chinook-Datensatz.</p>
-<p><strong>Zielklasse:</strong> <code>schema:Invoice</code></p>
-<div id="tbl-nodeshape-invoiceshape" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,25,25,10]">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-nodeshape-invoiceshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;7: Eigenschaften Rechnung
-</figcaption>
-<div aria-describedby="tbl-nodeshape-invoiceshape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<section id="sec-nodeshape-quantitativevalueshape-properties" class="level3 unlisted" data-number="3.7.2">
+<h3 class="unlisted anchored" data-number="3.7.2" data-anchor-id="sec-nodeshape-quantitativevalueshape-properties"><span class="header-section-number">3.7.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 10%">
+<col style="width: 41%">
+<col style="width: 43%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Beschreibung</th>
-<th style="text-align: left;">Pfad</th>
-<th style="text-align: left;">Typ</th>
-<th style="text-align: right;">Kard.</th>
+<th style="text-align: left;">Details</th>
+<th style="text-align: right;">Kardinalität</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Kunde</strong>: Eine Rechnung muss genau einem Kunden zugeordnet sein.</td>
-<td style="text-align: left;"><code>schema:customer</code></td>
-<td style="text-align: left;"><a href="#sec-nodeshape-personshape"><code>schema:Person</code></a></td>
+<td style="text-align: left;"><strong>Wert</strong> (<code>schema:value</code>): Ein quantitativer Wert muss genau einen numerischen Wert haben.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Dezimalzahl (<code>xsd:decimal</code>) oder Ganzzahl (<code>xsd:integer</code>)</li>
+<li>Wertebereich: ≥ 0</li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Fälliger Gesamtbetrag</strong>: Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren.</td>
-<td style="text-align: left;"><code>schema:totalPaymentDue</code></td>
-<td style="text-align: left;"><a href="#sec-nodeshape-quantitativevalueshape"><code>schema:QuantitativeValue</code></a></td>
+<td style="text-align: left;"><strong>Einheitencode</strong> (<code>schema:unitCode</code>): Ein quantitativer Wert muss seine Einheit über eine unitCode-URI angeben.</td>
+<td style="text-align: left;"><ul>
+<li>Werte: <code>unit:USD</code>, <code>unit:EA</code>, <code>unit:BYTE</code>, <code>unit:MilliSEC</code></li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sec-nodeshape-invoiceshape" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="sec-nodeshape-invoiceshape"><span class="header-section-number">3.8</span> Rechnung</h2>
+<p>Ein Kaufbeleg im Chinook-Datensatz. Eine Rechnung fasst die Positionen eines Kaufs zusammen. Der Rechnungsbetrag wird nicht nur als Wert erfasst, sondern auch gegen die Summe der Positionen geprüft; Abweichungen von mehr als fünf Rappen gelten als Fehler. Rechnungen vor dem Jahr 2000 stammen aus einem Altsystem und sind in diesem Datensatz nicht zulässig.</p>
+<section id="sec-nodeshape-invoiceshape-overview" class="level3 unlisted" data-number="3.8.1">
+<h3 class="unlisted anchored" data-number="3.8.1" data-anchor-id="sec-nodeshape-invoiceshape-overview"><span class="header-section-number">3.8.1</span> Übersicht</h3>
+<div class="ech-facts">
+<dl>
+<dt>IRI</dt>
+<dd>
+<a href="https://agriculture.ld.admin.ch/eCH-1234/2/InvoiceShape" class="uri">https://agriculture.ld.admin.ch/eCH-1234/2/InvoiceShape</a>
+</dd>
+<dt>Zielklasse</dt>
+<dd>
+<code>schema:Invoice</code>
+</dd>
+<dt>Geschlossen</dt>
+<dd>
+Nein (weitere Eigenschaften zulässig)
+</dd>
+<dt>Kennzahlen</dt>
+<dd>
+412 Instanzen mit je 8 bis 21 Tripeln (im Mittel 12.4)
+</dd>
+<dt>Open Data</dt>
+<dd>
+Ja (<a href="https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fcustomer%20%3FtotalPaymentDue%20%3FhasPart%20%3FdateCreated%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AInvoice%20.%0A%20%20%3Firi%20schema%3Acustomer%20%3Fcustomer%20.%0A%20%20%3Firi%20schema%3AtotalPaymentDue%20%3FtotalPaymentDue%20.%0A%20%20%3Firi%20schema%3AhasPart%20%3FhasPart%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AdateCreated%20%3FdateCreated%20.%20%7D%0A%7D%0ALIMIT%201000">auf LINDAS publiziert</a>)
+</dd>
+</dl>
+</div>
+</section>
+<section id="sec-nodeshape-invoiceshape-properties" class="level3 unlisted" data-number="3.8.2">
+<h3 class="unlisted anchored" data-number="3.8.2" data-anchor-id="sec-nodeshape-invoiceshape-properties"><span class="header-section-number">3.8.2</span> Eigenschaften</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 44%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Beschreibung</th>
+<th style="text-align: left;">Details</th>
+<th style="text-align: right;">Kardinalität</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Kunde</strong> (<code>schema:customer</code>): Eine Rechnung muss genau einem Kunden zugeordnet sein.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-personshape">Person</a></li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Fälliger Gesamtbetrag</strong> (<code>schema:totalPaymentDue</code>): Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer Wert</a></li>
+</ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Enthält</strong>: Eine Rechnung muss mindestens eine Position (OrderItem) enthalten.</td>
-<td style="text-align: left;"><code>schema:hasPart</code></td>
-<td style="text-align: left;"><code>schema:OrderItem</code></td>
+<td style="text-align: left;"><strong>Enthält</strong> (<code>schema:hasPart</code>): Eine Rechnung muss mindestens eine Position (OrderItem) enthalten.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <code>schema:OrderItem</code></li>
+</ul></td>
 <td style="text-align: right;">1..*</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Erstellungsdatum</strong></td>
-<td style="text-align: left;"><code>schema:dateCreated</code></td>
-<td style="text-align: left;"><code>xsd:date</code></td>
+<td style="text-align: left;"><strong>Erstellungsdatum</strong> (<code>schema:dateCreated</code>)</td>
+<td style="text-align: left;"><ul>
+<li>Typ: Datum (<code>xsd:date</code>)</li>
+<li>Wertebereich: ≥ 2000-01-01</li>
+<li>Beispiele: 2001-01-01, 2024-05-21</li>
+</ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 </tbody>
 </table>
-</div>
-</figure>
-</div>
+</section>
+<section id="sec-nodeshape-invoiceshape-rules" class="level3 unlisted" data-number="3.8.3">
+<h3 class="unlisted anchored" data-number="3.8.3" data-anchor-id="sec-nodeshape-invoiceshape-rules"><span class="header-section-number">3.8.3</span> Regeln (SPARQL)</h3>
+<section id="sec-nodeshape-invoiceshape-rule-1" class="level4 unlisted" data-number="3.8.3.1">
+<h4 class="unlisted anchored" data-number="3.8.3.1" data-anchor-id="sec-nodeshape-invoiceshape-rule-1"><span class="header-section-number">3.8.3.1</span> Rechnungsdatum</h4>
+<p>Eine Rechnung darf nicht vor dem Jahr 2000 datiert sein.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sparql number-lines code-with-copy"><code class="sourceCode sparql"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="kw">SELECT</span> $this</span>
+<span id="cb4-2"><a href="#cb4-2" aria-label="2"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-label="3"></a>    $this schema:dateCreated ?date <span class="op">.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-label="4"></a>    <span class="kw">FILTER</span><span class="op">(</span>?date <span class="op">&lt;</span> <span class="st">"2000-01-01"</span><span class="op">^^</span>xsd:date<span class="op">)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-label="5"></a><span class="op">}</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sec-nodeshape-invoiceshape-rule-2" class="level4 unlisted" data-number="3.8.3.2">
+<h4 class="unlisted anchored" data-number="3.8.3.2" data-anchor-id="sec-nodeshape-invoiceshape-rule-2"><span class="header-section-number">3.8.3.2</span> Rechnungssumme</h4>
+<p>Die Rechnungssumme muss exakt mit der Summe ihrer Positionen übereinstimmen (Toleranz 0.05).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sparql number-lines code-with-copy"><code class="sourceCode sparql"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="kw">SELECT</span> $this</span>
+<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-label="3"></a>    $this schema:totalPaymentDue<span class="op">/</span>schema:value ?invoiceTotal <span class="op">.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-label="4"></a>    <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-label="5"></a>        <span class="kw">SELECT</span> $this <span class="op">(</span><span class="fu">SUM</span><span class="op">(</span>?price <span class="op">*</span> ?qty<span class="op">)</span> <span class="kw">AS</span> ?calculatedTotal<span class="op">)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-label="6"></a>        <span class="kw">WHERE</span> <span class="op">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-label="7"></a>            $this schema:hasPart ?line <span class="op">.</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-label="8"></a>            ?line schema:price<span class="op">/</span>schema:value ?price <span class="op">.</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-label="9"></a>            ?line schema:orderQuantity<span class="op">/</span>schema:value ?qty <span class="op">.</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-label="10"></a>        <span class="op">}</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-label="11"></a>        <span class="kw">GROUP</span> <span class="kw">BY</span> $this</span>
+<span id="cb5-12"><a href="#cb5-12" aria-label="12"></a>    <span class="op">}</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-label="13"></a>    <span class="kw">FILTER</span><span class="op">(</span><span class="fu">ABS</span><span class="op">(</span>?invoiceTotal <span class="op">-</span> ?calculatedTotal<span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-label="14"></a><span class="op">}</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
 </section>
 </section>
 <section id="sec-data-retrieval" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Datenbezug</h1>
 <p>Die diesem Dokument zugrundeliegenden Master- und Referenzdaten sind als <em>Linked Data</em> verfügbar.</p>
-<p>Die technologische Basis dafür bildet das Resource Description Framework <span class="citation" data-cites="cyganiak2014rdf11">(RDF, <a href="#ref-cyganiak2014rdf11" role="doc-biblioref">Cyganiak u.&nbsp;a. 2014</a>)</span>, ein zentraler Standard des World Wide Web Consortiums (W3C) zur Modellierung von Datenstrukturen im Web. In RDF werden Informationen nicht in klassischen Tabellen, sondern als vernetzte Graphen abgebildet. Jede Aussage besteht dabei aus einem sogenannten Triple (Subjekt, Prädikat, Objekt). Diese Struktur ermöglicht eine maschinenlesbare, interoperable und systemübergreifend eindeutige Beschreibung von Ressourcen und deren Relationen zueinander.</p>
+<p>Die technologische Basis dafür bildet das Resource Description Framework <span class="citation" data-cites="cyganiak2014rdf11">[RDF, <a href="#ref-cyganiak2014rdf11" role="doc-biblioref">RDF</a>]</span>, ein zentraler Standard des World Wide Web Consortiums (W3C) zur Modellierung von Datenstrukturen im Web. In RDF werden Informationen nicht in klassischen Tabellen, sondern als vernetzte Graphen abgebildet. Jede Aussage besteht dabei aus einem sogenannten Triple (Subjekt, Prädikat, Objekt). Diese Struktur ermöglicht eine maschinenlesbare, interoperable und systemübergreifend eindeutige Beschreibung von Ressourcen und deren Relationen zueinander.</p>
 <p>Für die Speicherung und Publikation dieser RDF-Daten wird <a href="https://lindas.admin.ch/">LINDAS</a> (Linked Data Service) genutzt, der offizielle Linked-Data-Dienst der Schweizer Bundesverwaltung. LINDAS fungiert als sogenannter <em>Triple Store</em>, einer spezialisierte Graphdatenbank, die für das effiziente Speichern und Abfragen von RDF-Triples optimiert ist und die Daten öffentlich über eine genormte Schnittstelle bereitstellt.</p>
 <p>Das folgende Kapitel gibt eine minimale Anleitung, wie die Daten von LINDAS abgefragt und bezogen werden können.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rq code-with-copy"><code class="sourceCode sparql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">BASE</span> <span class="st">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">PREFIX</span> schema: <span class="st">&lt;http://schema.org/&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    ?genre a <span class="st">&lt;Genre&gt;</span> <span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        schema:name ?name <span class="op">.</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource rq number-lines code-with-copy"><code class="sourceCode sparql"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a><span class="kw">BASE</span> <span class="st">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-label="2"></a><span class="kw">PREFIX</span> schema: <span class="st">&lt;http://schema.org/&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-label="3"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-label="4"></a><span class="kw">WHERE</span> <span class="op">{</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-label="5"></a>    ?genre a <span class="st">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-label="6"></a>        schema:name ?name <span class="op">.</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-label="7"></a><span class="op">}</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-label="8"></a><span class="kw">LIMIT</span> <span class="dv">10</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Die zugrundeliegenden Daten selbst werden auf GitHub als Turtle-Files gepflegt.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ttl code-with-copy"><code class="sourceCode turtle"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@base</span> <span class="bu">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/&gt;</span> <span class="op">.</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">genre:</span> <span class="bu">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/genre/&gt;</span> <span class="op">.</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">@prefix</span> <span class="dt">schema:</span> <span class="bu">&lt;http://schema.org/&gt;</span> <span class="op">.</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:1</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:name</span> <span class="st">"Rock"</span> <span class="op">.</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:2</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:name</span> <span class="st">"Jazz"</span> <span class="op">.</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">genre:3</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:name</span> <span class="st">"Metal"</span> <span class="op">;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">schema:partOf</span> <span class="dt">genre:1</span> <span class="op">.</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ttl number-lines code-with-copy"><code class="sourceCode turtle"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a><span class="kw">@base</span> <span class="bu">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/&gt;</span> <span class="op">.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-label="2"></a><span class="kw">@prefix</span> <span class="dt">genre:</span> <span class="bu">&lt;https://agriculture.ld.admin.ch/eCH-1234/2/genre/&gt;</span> <span class="op">.</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-label="3"></a><span class="kw">@prefix</span> <span class="dt">schema:</span> <span class="bu">&lt;http://schema.org/&gt;</span> <span class="op">.</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-label="4"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-label="5"></a><span class="dt">genre:1</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-label="6"></a>    <span class="dt">schema:name</span> <span class="st">"Rock"</span> <span class="op">.</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-label="7"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-label="8"></a><span class="dt">genre:2</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-label="9"></a>    <span class="dt">schema:name</span> <span class="st">"Jazz"</span> <span class="op">.</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-label="10"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-label="11"></a><span class="dt">genre:3</span> <span class="kw">a</span> <span class="bu">&lt;Genre&gt;</span> <span class="op">;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-label="12"></a>    <span class="dt">schema:name</span> <span class="st">"Metal"</span> <span class="op">;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-label="13"></a>    <span class="dt">schema:partOf</span> <span class="dt">genre:1</span> <span class="op">.</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sec-safety-consideration" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Sicherheitsaspekte</h1>
@@ -732,75 +1487,250 @@ Tabelle&nbsp;7: Eigenschaften Rechnung
 
 
 
-<div id="quarto-appendix" class="default"><section id="sec-appendix-a" class="level1 appendix" data-number="8"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">8</span> Anhang A - Referenzen</h2><div class="quarto-appendix-contents">
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="quarto-appendix" class="default"><section id="sec-appendix-a" class="level1 appendix unnumbered"><h2 class="anchored quarto-appendix-heading">Anhang A – Referenzen</h2><div class="quarto-appendix-contents">
+
+<div id="refs" class="references csl-bib-body" role="list">
+<div id="ref-berners2023semantic" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[Berners-Lee 2023] </div><div class="csl-right-inline">Berners-Lee, Tim ; Hendler, James ; Lassila, Ora: <a href="https://doi.org/10.1145/3591366.3591376">The Semantic Web: A new form of Web content that is meaningful to computers will unleash a revolution of new possibilities</a>. In: <em>Linking the World’s Information: Essays on Tim Berners-Lee’s Invention of the World Wide Web</em>&nbsp;: Association for Computing Machinery, 2023, S.&nbsp;91–103</div>
+</div>
+<div id="ref-DCAT" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[DCAT] </div><div class="csl-right-inline">Albertoni, Riccardo ; Browning, David ; Cox, Simon ; Gonzalez Beltran, Alejandra ; Perego, Andrea ; Winstanley, Peter: <em><a href="https://www.w3.org/TR/vocab-dcat-3/">Data Catalog Vocabulary (DCAT) – Version 3</a></em> (W3C Recommendation)&nbsp;: World Wide Web Consortium (W3C), 2024</div>
+</div>
+<div id="ref-eCH-0003:11.1.0" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[eCH-0003 11.1.0] </div><div class="csl-right-inline">Verein eCH: <em><a href="https://www.ech.ch/de/ech/ech-0003/11.1.0">eCH-0003 Leitfaden zur Genehmigung von Anträgen</a></em> (eCH-Standard)&nbsp;: Verein eCH, 2022</div>
+</div>
+<div id="ref-eCH-0010:8.1.0" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[eCH-0010 8.1.0] </div><div class="csl-right-inline">Verein eCH: <em><a href="https://www.ech.ch/de/ech/ech-0010/8.1.0">eCH-0010 Datenstandard Postadresse für natürliche Personen, Firmen, Organisationen und Behörden</a></em> (eCH-Standard)&nbsp;: Verein eCH, 2021</div>
+</div>
+<div id="ref-eCH-0200:3.0.1" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[eCH-0200 3.0.1] </div><div class="csl-right-inline"><span class="nocase">eCH-Fachgruppe Open Government Data</span>: <em><a href="https://www.ech.ch/de/ech/ech-0200/3.0.1">eCH-0200 DCAT-Anwendungsprofil für Datenportale in der Schweiz (DCAT-AP CH)</a></em> (eCH-Standard)&nbsp;: Verein eCH, 2025</div>
+</div>
+<div id="ref-eCH-0205:1.0" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[eCH-0205 1.0] </div><div class="csl-right-inline"><span class="nocase">eCH-Fachgruppe Open Government Data</span>: <em><a href="https://www.ech.ch/de/ech/ech-0205/1.0">eCH-0205 Linked Open Data</a></em> (eCH-Hilfsmittel)&nbsp;: Verein eCH, 2018</div>
+</div>
+<div id="ref-eCH-0265:1.0.0" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[eCH-0265 1.0.0] </div><div class="csl-right-inline"><span class="nocase">eCH-Fachgruppe AgriFood</span>: <em><a href="https://www.ech.ch/de/ech/ech-0265/1.0.0">eCH-0265 Datenstandard Agrardaten – Flächen und Kulturen</a></em> (eCH-Standard)&nbsp;: Verein eCH, 2024</div>
+</div>
+<div id="ref-JSON-LD" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[JSON-LD] </div><div class="csl-right-inline">Sporny, Manu ; Longley, Dave ; Kellogg, Gregg ; Lanthaler, Markus ; Champin, Pierre-Antoine ; Lindström, Niklas: <em><a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1 – A JSON-based Serialization for Linked Data</a></em> (W3C Recommendation)&nbsp;: World Wide Web Consortium (W3C), 2020</div>
+</div>
+<div id="ref-OWL2" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[OWL 2] </div><div class="csl-right-inline">W3C OWL Working Group: <em><a href="https://www.w3.org/TR/owl2-overview/">OWL 2 Web Ontology Language Document Overview (Second Edition)</a></em> (W3C Recommendation)&nbsp;: World Wide Web Consortium (W3C), 2012</div>
+</div>
 <div id="ref-cyganiak2014rdf11" class="csl-entry" role="listitem">
-Cyganiak, Richard, David Wood, und Markus Lanthaler. 2014. <em><span>RDF</span> 1.1 Concepts and Abstract Syntax</em>. W3C Recommendation. World Wide Web Consortium (W3C). <a href="https://www.w3.org/TR/rdf11-concepts/">https://www.w3.org/TR/rdf11-concepts/</a>.
+<div class="csl-left-margin">[RDF] </div><div class="csl-right-inline">Cyganiak, Richard ; Wood, David ; Lanthaler, Markus: <em><a href="https://www.w3.org/TR/rdf11-concepts/">RDF 1.1 Concepts and Abstract Syntax</a></em> (W3C Recommendation)&nbsp;: World Wide Web Consortium (W3C), 2014</div>
 </div>
-<div id="ref-glimm2014hermit" class="csl-entry" role="listitem">
-Glimm, Birte, Ian Horrocks, Boris Motik, Giorgos Stoilos, und Zhe Wang. 2014. <span>„HermiT: an OWL 2 reasoner“</span>. <em>Journal of automated reasoning</em> 53 (3): 245–69.
+<div id="ref-SHACL" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[SHACL] </div><div class="csl-right-inline">Knublauch, Holger ; Kontokostas, Dimitris: <em><a href="https://www.w3.org/TR/shacl/">Shapes Constraint Language (SHACL)</a></em> (W3C Recommendation)&nbsp;: World Wide Web Consortium (W3C), 2017</div>
 </div>
-<div id="ref-jackson2019robot" class="csl-entry" role="listitem">
-Jackson, Rebecca C, James P Balhoff, Eric Douglass, Nomi L Harris, Christopher J Mungall, und James A Overton. 2019. <span>„ROBOT: a tool for automating ontology workflows“</span>. <em>BMC bioinformatics</em> 20 (1): 407. <a href="https://doi.org/10.1186/s12859-019-3002-3">https://doi.org/10.1186/s12859-019-3002-3</a>.
+<div id="ref-SKOS" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[SKOS] </div><div class="csl-right-inline">Miles, Alistair ; Bechhofer, Sean: <em><a href="https://www.w3.org/TR/skos-reference/">SKOS Simple Knowledge Organization System Reference</a></em> (W3C Recommendation)&nbsp;: World Wide Web Consortium (W3C), 2009</div>
+</div>
+<div id="ref-SPARQL" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[SPARQL] </div><div class="csl-right-inline">Harris, Steve ; Seaborne, Andy: <em><a href="https://www.w3.org/TR/sparql11-query/">SPARQL 1.1 Query Language</a></em> (W3C Recommendation)&nbsp;: World Wide Web Consortium (W3C), 2013</div>
+</div>
+<div id="ref-Turtle" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[Turtle] </div><div class="csl-right-inline">Beckett, David ; Berners-Lee, Tim ; Prud’hommeaux, Eric ; Carothers, Gavin: <em><a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle – Terse RDF Triple Language</a></em> (W3C Recommendation)&nbsp;: World Wide Web Consortium (W3C), 2014</div>
 </div>
 </div>
-</div></section><section id="sec-appendix-b" class="level1 appendix" data-number="9"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">9</span> Anhang B - Mitwirkung und Prüfung</h2><div class="quarto-appendix-contents">
+</div></section><section id="sec-appendix-b" class="level1 appendix unnumbered"><h2 class="anchored quarto-appendix-heading">Anhang B – Mitwirkung und Prüfung</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="sec-appendix-c" class="level1 appendix" data-number="10"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">10</span> Anhang C - Abkürzungen und Glossar</h2><div class="quarto-appendix-contents">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Organisation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Damian Oswald</td>
+<td style="text-align: left;">Bundesamt für Landwirtschaft</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Michael Schüpbach</td>
+<td style="text-align: left;">Bundesamt für Landwirtschaft</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lea Stauber</td>
+<td style="text-align: left;">Bundesamt für Landwirtschaft</td>
+</tr>
+</tbody>
+</table>
+</div></section><section id="sec-appendix-c" class="level1 appendix unnumbered"><h2 class="anchored quarto-appendix-heading">Anhang C – Abkürzungen und Glossar</h2><div class="quarto-appendix-contents">
 
-<div id="tbl-glossary" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[20,25,55]">
+<p>Dieses Glossar ist als SKOS-Glossar <span class="citation" data-cites="SKOS">[<a href="#ref-SKOS" role="doc-biblioref">SKOS</a>]</span> auch maschinenlesbar verfügbar, auf <a href="https://lindas.admin.ch/">LINDAS</a> und im <a href="https://github.com/blw-ofag-ufag/semantic-web-template/blob/main/src/rdf/data/glossary.skos.ttl">GitHub-Repository</a>.</p>
+<div id="tbl-glossary" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[35,65]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-glossary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;8: Glossar des Standards eCH-1234
+<strong>Tabelle&nbsp;3:</strong> Glossar des Standards eCH-1234
 </figcaption>
 <div aria-describedby="tbl-glossary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 25%">
-<col style="width: 55%">
+<col style="width: 35%">
+<col style="width: 65%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">IRI</th>
 <th style="text-align: left;">Begriff</th>
 <th style="text-align: left;">Beschreibung</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/lindas"><code>term:lindas</code></a></td>
+<td style="text-align: left;"><strong>Graph</strong> (Named Graph)</td>
+<td style="text-align: left;"><p>Eine Menge von Tripeln. Ein benannter Graph wird selbst durch eine IRI identifiziert und erlaubt es, Daten in einem Triple Store zu gruppieren.</p>
+<p><em>Oberbegriff</em>: Resource Description Framework</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Inferenz</strong> (Reasoning)</td>
+<td style="text-align: left;">Das automatische Ableiten neuer Aussagen aus den vorhandenen Daten und den Axiomen einer Ontologie, zum Beispiel durch den Reasoner HermiT.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Internationalized Resource Identifier</strong> (IRI)</td>
+<td style="text-align: left;"><p>Weltweit eindeutiger Bezeichner einer Ressource. In RDF werden Subjekte, Prädikate und die meisten Objekte durch IRIs identifiziert.</p>
+<p><em>Oberbegriff</em>: Resource Description Framework</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>JSON for Linking Data</strong> (JSON-LD)</td>
+<td style="text-align: left;"><p>Eine Serialisierung von RDF auf der Basis von JSON, die sich besonders für Web-Schnittstellen eignet.</p>
+<p><em>Oberbegriff</em>: Serialisierung</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Linked Data</strong> (Verknüpfte Daten)</td>
+<td style="text-align: left;"><p>Daten, die nach den Prinzipien des Semantic Web mit IRIs identifiziert, in RDF beschrieben und untereinander verknüpft publiziert werden.</p>
+<p><em>Verwandt</em>: Linked Data Service, Resource Description Framework</p></td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><strong>Linked Data Service</strong> (LINDAS)</td>
 <td style="text-align: left;">Der offizielle Linked-Data-Dienst der Schweizer Bundesverwaltung, der als Triple Store fungiert.</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Literal</strong></td>
+<td style="text-align: left;"><p>Ein konkreter Wert in RDF, etwa eine Zeichenkette, eine Zahl oder ein Datum, optional mit Datentyp oder Sprachangabe.</p>
+<p><em>Oberbegriff</em>: Resource Description Framework</p></td>
+</tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></td>
+<td style="text-align: left;"><strong>Namensraum</strong> (Präfix)</td>
+<td style="text-align: left;"><p>Gemeinsamer Anfang einer Gruppe von IRIs. In Turtle und SPARQL wird ein Namensraum durch ein Präfix abgekürzt, zum Beispiel <code>schema:</code> für <code>http://schema.org/</code>.</p>
+<p><em>Verwandt</em>: Internationalized Resource Identifier</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Ontologie</strong></td>
+<td style="text-align: left;"><p>Ein formales Modell eines Fachgebiets, das Klassen, Eigenschaften und deren logische Beziehungen so beschreibt, dass Maschinen daraus Schlüsse ziehen können.</p>
+<p><em>Oberbegriff</em>: Vokabular</p>
+<p><em>Verwandt</em>: Web Ontology Language</p></td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><strong>Resource Description Framework</strong> (RDF)</td>
 <td style="text-align: left;">Ein zentraler Standard des World Wide Web Consortiums (W3C) zur Modellierung von Datenstrukturen im Web. Informationen werden nicht in klassischen Tabellen, sondern als vernetzte Graphen abgebildet.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/triple"><code>term:triple</code></a></td>
+<td style="text-align: left;"><strong>Serialisierung</strong></td>
+<td style="text-align: left;"><p>Textuelle Darstellung eines RDF-Graphen in einem definierten Format, um ihn zu speichern oder auszutauschen.</p>
+<p><em>Unterbegriff</em>: JSON for Linking Data, Terse RDF Triple Language</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Shape</strong></td>
+<td style="text-align: left;"><p>Eine Menge von Bedingungen, die eine Klasse von Ressourcen oder eine Eigenschaft erfüllen muss, etwa Pflichtfelder, Datentypen und Kardinalitäten.</p>
+<p><em>Oberbegriff</em>: Shapes Constraint Language</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Shapes Constraint Language</strong> (SHACL)</td>
+<td style="text-align: left;"><p>Die Sprache des W3C zur Beschreibung und Prüfung der Struktur von RDF-Daten. Das Datenmodell dieses Standards ist in SHACL formuliert.</p>
+<p><em>Unterbegriff</em>: Shape</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Simple Knowledge Organization System</strong> (SKOS)</td>
+<td style="text-align: left;"><p>Ein Vokabular des W3C für Thesauri, Klassifikationen und Glossare. Dieses Glossar ist selbst in SKOS erfasst.</p>
+<p><em>Verwandt</em>: Vokabular</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>SPARQL Protocol and RDF Query Language</strong> (SPARQL)</td>
+<td style="text-align: left;"><p>Die Abfragesprache des W3C für RDF-Daten. Mit SPARQL werden Daten aus Graphen gelesen, verändert und zwischen Systemen ausgetauscht.</p>
+<p><em>Verwandt</em>: Resource Description Framework</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>SPARQL-Endpunkt</strong></td>
+<td style="text-align: left;"><p>Eine Web-Schnittstelle, über die SPARQL-Abfragen an einen Triple Store gesendet werden können.</p>
+<p><em>Oberbegriff</em>: SPARQL Protocol and RDF Query Language</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Terse RDF Triple Language</strong> (Turtle)</td>
+<td style="text-align: left;"><p>Eine kompakte, gut lesbare Serialisierung für RDF. Alle RDF-Dateien dieses Standards sind in Turtle verfasst.</p>
+<p><em>Oberbegriff</em>: Serialisierung</p></td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><strong>Tripel</strong></td>
 <td style="text-align: left;"><p>Die Grundstruktur einer Aussage in RDF, bestehend aus Subjekt, Prädikat und Objekt.</p>
-<p><em>Oberbegriff</em>: <a href="https://agriculture.ld.admin.ch/eCH-1234/2/term/rdf"><code>term:rdf</code></a></p></td>
+<p><em>Oberbegriff</em>: Resource Description Framework</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Triple Store</strong> (Graphdatenbank)</td>
+<td style="text-align: left;"><p>Eine Datenbank, die auf das Speichern und Abfragen von RDF-Tripeln spezialisiert ist.</p>
+<p><em>Verwandt</em>: Linked Data Service</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Vokabular</strong></td>
+<td style="text-align: left;"><p>Eine Sammlung von Klassen und Eigenschaften mit festgelegter Bedeutung, die zur Beschreibung von Daten wiederverwendet wird, zum Beispiel schema.org.</p>
+<p><em>Unterbegriff</em>: Ontologie</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Web Ontology Language</strong> (OWL)</td>
+<td style="text-align: left;"><p>Die Sprache des W3C zur Formulierung von Ontologien. Sie erlaubt es, Klassen und Eigenschaften mit logischen Axiomen zu definieren.</p>
+<p><em>Verwandt</em>: Inferenz</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-</div></section><section id="sec-appendix-d" class="level1 appendix" data-number="11"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">11</span> Anhang D - Änderungen gegenüber der Vorversion</h2><div class="quarto-appendix-contents">
+</div></section><section id="sec-appendix-d" class="level1 appendix unnumbered"><h2 class="anchored quarto-appendix-heading">Anhang D – Änderungen gegenüber der Vorversion</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="sec-appendix-e" class="level1 appendix" data-number="12"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">12</span> Anhang E - Abbildungsverzeichnis</h2><div class="quarto-appendix-contents">
+<p>Die wichtigsten Änderungen der Version 2.0.0 gegenüber der Vorversion 1.4.6:</p>
+<ul>
+<li><strong>Dokumentvorlage:</strong> Die PDF-Ausgabe folgt neu der eCH-Dokumentvorlage (Titelseite mit Metadatentabelle, Kopf- und Fusszeile, Inhaltsverzeichnis, Anhänge); die Website übernimmt denselben Stil in einer hellen und einer dunklen Variante.</li>
+<li><strong>Metadaten:</strong> Nummer, Kategorie, Reifegrad, Version, Status und weitere Angaben des Standards werden einmal zentral erfasst und automatisch in alle Sprachversionen, in die Titelseite, in die Fusszeile und in <a href="#sec-status" class="quarto-xref">Kapitel&nbsp;1.1</a> übernommen.</li>
+<li><strong>Verzeichnisse:</strong> Abbildungs- und Tabellenverzeichnis (Anhang E und F) werden automatisch erzeugt und sind mit den Abbildungen und Tabellen verlinkt.</li>
+<li><strong>Darstellung:</strong> Einheitliche Gestaltung von Tabellen, Beschriftungen und Code in PDF und Website.</li>
+</ul>
+<p>Eine vollständige Liste aller Änderungen je Version findet sich in den <a href="https://github.com/blw-ofag-ufag/semantic-web-template/releases">Releases auf GitHub</a>.</p>
+</div></section><section id="sec-appendix-e" class="level1 appendix unnumbered"><h2 class="anchored quarto-appendix-heading">Anhang E – Abbildungsverzeichnis</h2><div class="quarto-appendix-contents">
 
-</div></section><section id="sec-appendix-f" class="level1 appendix" data-number="13"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">13</span> Anhang F - Tabellenverzeichnis</h2><div class="quarto-appendix-contents">
+<div class="ech-float-list">
+<ul>
+<li><a href="#fig-example"><strong>Abbildung&nbsp;1:</strong> Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt. Hat eine Abbildung eine Beschriftung, erscheint sie im Abbildungsverzeichnis.</a></li>
+</ul>
+</div>
+</div></section><section id="sec-appendix-f" class="level1 appendix unnumbered"><h2 class="anchored quarto-appendix-heading">Anhang F – Tabellenverzeichnis</h2><div class="quarto-appendix-contents">
 
+<div class="ech-float-list">
+<ul>
+<li><a href="#tbl-example"><strong>Tabelle&nbsp;1:</strong> Beispieltabelle. Hat eine Tabelle eine Beschriftung, erscheint sie im Tabellenverzeichnis.</a></li>
+<li><a href="#tbl-namespaces"><strong>Tabelle&nbsp;2:</strong> In eCH-1234 – Quarto-Dokument als Vorlage verwendete Namespaces.</a></li>
+<li><a href="#tbl-glossary"><strong>Tabelle&nbsp;3:</strong> Glossar des Standards eCH-1234</a></li>
+</ul>
+</div>
 
 
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -1204,4 +2134,4 @@ Tabelle&nbsp;8: Glossar des Standards eCH-1234
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/blw-ofag-ufag/semantic-web-template/blob/main/docs/de/index.qmd" class="toc-action"><i class="bi bi-github"></i>Quellcode anzeigen</a></li><li><a href="https://github.com/blw-ofag-ufag/semantic-web-template/issues/new" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></div></div></footer></body></html>
+</body></html>

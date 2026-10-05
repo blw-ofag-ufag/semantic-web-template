@@ -5,7 +5,7 @@ import re
 import textwrap
 from pathlib import Path
 from rdflib import Graph, Namespace, URIRef
-from rdflib.namespace import DCTERMS, RDF, RDFS
+from rdflib.namespace import DCTERMS, RDF, RDFS, SKOS
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
 
@@ -33,6 +33,7 @@ TRANSLATIONS = {
         "ns_prefix": "Prefix",
         "ns_caption": "Namespaces used in {{< ech title >}}.",
         "ns_namespace": "Namespace",
+        "examples": "Examples",
         "cardinality": "Cardinality",
         "target_class": "Target Class",
         "properties": "properties",
@@ -71,6 +72,7 @@ TRANSLATIONS = {
         "ns_prefix": "Präfix",
         "ns_caption": "In {{< ech title >}} verwendete Namespaces.",
         "ns_namespace": "Namespace",
+        "examples": "Beispiele",
         "cardinality": "Kardinalität",
         "target_class": "Zielklasse",
         "properties": "Eigenschaften",
@@ -109,6 +111,7 @@ TRANSLATIONS = {
         "ns_prefix": "Préfixe",
         "ns_caption": "Espaces de noms utilisés dans {{< ech title >}}.",
         "ns_namespace": "Espace de noms",
+        "examples": "Exemples",
         "cardinality": "Cardinalité",
         "target_class": "Classe cible",
         "properties": "propriétés",
@@ -147,6 +150,7 @@ TRANSLATIONS = {
         "ns_prefix": "Prefisso",
         "ns_caption": "Spazi dei nomi utilizzati in {{< ech title >}}.",
         "ns_namespace": "Spazio dei nomi",
+        "examples": "Esempi",
         "cardinality": "Cardinalità",
         "target_class": "Classe di destinazione",
         "properties": "proprietà",
@@ -233,6 +237,11 @@ def describe_constraints(g, prop, trans):
     if required is not None:
         text = code(format_uri(g, required)) if str(required).startswith("http") else code(format_literal(required))
         parts.append((trans['has_value'], text))
+
+    examples = sorted(g.objects(prop, SKOS.example), key=str)
+    if examples:
+        rendered = [code(format_uri(g, e)) if isinstance(e, URIRef) else code(format_literal(e)) for e in examples]
+        parts.append((trans['examples'], ", ".join(rendered)))
 
     severity = g.value(prop, SH.severity)
     if severity is not None and severity != SH.Violation:
@@ -433,6 +442,7 @@ def used_namespaces(g, shapes):
         iris.update(o for o in g.objects(None, predicate) if isinstance(o, URIRef))
     for head in g.objects(None, SH["in"]):
         iris.update(v for v in rdf_list(g, head) if isinstance(v, URIRef))
+    iris.update(e for e in g.objects(None, SKOS.example) if isinstance(e, URIRef))
     namespaces = {}
     for iri in iris:
         try:

@@ -18,6 +18,7 @@
 @prefix person:          <https://agriculture.ld.admin.ch/eCH-1234/2/person/> .
 
 # LINDAS-specific namespaces/qnames
+@prefix country:         <https://ld.admin.ch/country/> .
 @prefix org:             <https://register.ld.admin.ch/opendataswiss/org/> .
 @prefix cube:            <https://cube.link/> .
 @prefix meta:            <https://cube.link/meta/> .
@@ -36,6 +37,7 @@
 @prefix rdfs:            <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema:          <http://schema.org/> .
 @prefix sh:              <http://www.w3.org/ns/shacl#> .
+@prefix skos:            <http://www.w3.org/2004/02/skos/core#> .
 @prefix unit:            <http://qudt.org/vocab/unit/> .
 @prefix vcard:           <http://www.w3.org/2006/vcard/ns#> .
 @prefix void:            <http://rdfs.org/ns/void#> .
@@ -653,10 +655,7 @@ Gli indirizzi seguono la struttura di schema.org e non lo standard svizzero eCH-
         sh:maxCount 1 ;
         sh:minLength 3 ;
         sh:maxLength 100 ;
-        sh:message "Jede Adresse braucht genau eine Strassenangabe."@de,
-            "Every address needs exactly one street address."@en,
-            "Chaque adresse requiert exactement une indication de rue."@fr,
-            "Ogni indirizzo richiede esattamente una via."@it ;
+        skos:example "Schwarzenburgstrasse 165" ;
     ],
     [
         sh:order 2 ;
@@ -715,14 +714,18 @@ Gli indirizzi seguono la struttura di schema.org e non lo standard svizzero eCH-
             "Country"@en,
             "Pays"@fr,
             "Paese"@it ;
+        sh:description "Land als IRI aus dem Länderverzeichnis des Bundesarchivs auf LINDAS (ISO 3166-1 alpha-3)."@de,
+            "Country as an IRI from the country list of the Swiss Federal Archives on LINDAS (ISO 3166-1 alpha-3)."@en,
+            "Pays sous forme d'IRI tirée de la liste des pays des Archives fédérales sur LINDAS (ISO 3166-1 alpha-3)."@fr,
+            "Paese come IRI dall'elenco dei paesi dell'Archivio federale su LINDAS (ISO 3166-1 alpha-3)."@it ;
         sh:path schema:addressCountry ;
-        sh:datatype xsd:string ;
+        sh:nodeKind sh:IRI ;
+        sh:pattern "^https://ld\\.admin\\.ch/country/[A-Z]{3}$" ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:minLength 2 ;
-        sh:maxLength 60 ;
-        sh:message "Jede Adresse braucht genau ein Land."@de,
-            "Every address needs exactly one country."@en,
-            "Chaque adresse requiert exactement un pays."@fr,
-            "Ogni indirizzo richiede esattamente un paese."@it ;
+        skos:example country:FRA, country:ITA, country:CHE ;
+        sh:message "Jede Adresse braucht genau ein Land als Länder-IRI von LINDAS."@de,
+            "Every address needs exactly one country as a LINDAS country IRI."@en,
+            "Chaque adresse requiert exactement un pays sous forme d'IRI de pays LINDAS."@fr,
+            "Ogni indirizzo richiede esattamente un paese come IRI di paese LINDAS."@it ;
     ] .

@@ -110,7 +110,7 @@ ech:
   category: standard      # standard | best-practice | auxiliary | white-paper | addendum
   maturity: defined       # experimental | defined | established
   version: 2.4.1
-  status: approved        # in-progress | draft | proposal | approved | replaced | repealed | suspended
+  status: approved        # in-progress | draft | proposal | approved | replaced | repealed | suspended; before "approved" the PDF title page carries a "not yet published" ribbon
   decision-date: 2026-09-15
   replaces: { version: 2.4.0, change: minor }   # minor | major | new
   prerequisites: [eCH-0200]                     # optional, printed as "---" if empty

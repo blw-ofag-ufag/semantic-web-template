@@ -62,6 +62,10 @@ rm src/rdf/data/genres.ttl src/rdf/data/people.ttl
 > [!IMPORTANT]
 > Do not delete `glossary.skos.ttl`: the documentation requires it. Replace its demo concepts and the demo namespace with the project's own terms and namespace instead.
 
+### Graph metadata (`src/rdf/metadata.ttl`)
+
+Describes the named graph on LINDAS as a dataset (title, description, publisher, contact, licence, themes, keywords) so that it can be found on LINDAS and opendata.swiss. Replace the demo values; the subject must be the named graph of `docs/_ech.yml` (`ech.graph`), which the test suite checks. The modification date is set automatically by `make publish`, which compares the graph with the one on LINDAS.
+
 ### Ontology (`src/rdf/ontology/model.owl.ttl`)
 
 Replace the demo classes and properties with the custom OWL model, following the [naming conventions](.github/CONTRIBUTING.md#rdf-resource-naming-convention).

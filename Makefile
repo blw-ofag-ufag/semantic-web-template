@@ -22,6 +22,7 @@ ROBOT            := java -jar $(VENV_BIN)/robot.jar
 ONTO             := src/rdf/ontology/model.owl.ttl
 DATA             := $(wildcard src/rdf/data/*.ttl)
 SHAPES           := src/rdf/shapes/model.shacl.ttl
+METADATA         := src/rdf/metadata.ttl
 PREFIXES         := src/rdf/prefixes.ttl
 QUERIES          := $(wildcard src/sparql/processing/*.rq)
 PIPELINE_SCRIPTS := $(sort $(wildcard src/python/pipeline/*.py))
@@ -48,7 +49,7 @@ GREY             := \033[0;90m
 BOLD       := \033[1;37m
 NC               := \033[0m
 
-.PHONY: all robot test docs clean check-python venv install-dependencies setup build delete publish generate-shacl-docs generate-glossary-docs
+.PHONY: all robot test docs clean check-python venv install-dependencies setup build delete publish stamp-metadata generate-shacl-docs generate-glossary-docs
 
 # Default target
 all: test docs
@@ -113,7 +114,7 @@ $(FETCHED_DATA): $(PIPELINE_SCRIPTS) $(PREFIXES) src/python/utils/turtle_seriali
 	printf "$(NC)"
 
 # 3. Check that all turtle files are syntactically valid
-$(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(PREFIXES) $(FETCHED_DATA) tests/test_syntax.py | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
+$(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(METADATA) $(PREFIXES) $(FETCHED_DATA) tests/test_syntax.py | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Checking Turtle syntax...$(NC)\n"
 	@printf "$(GREY)"; \
 	$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || { printf "$(NC)\n$(RED)[ERROR] Syntax check failed:$(NC)\n"; $(PYTEST) tests/test_syntax.py -v; exit 1; }; \
@@ -121,12 +122,13 @@ $(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(PREFIXES) $(FETCHED_D
 	@touch $@
 
 # 4. Merge ontology, shapes, static data, fetched data, and prefixes
-$(MERGED_DATA): $(ONTO) $(SHAPES) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-check.stamp src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
+$(MERGED_DATA): $(ONTO) $(SHAPES) $(METADATA) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-check.stamp src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Merging ontology, shapes and data...$(NC)\n"
 	@printf "$(GREY)"; \
 	$(ROBOT) merge \
 		--input $(ONTO) \
 		--input $(SHAPES) \
+		--input $(METADATA) \
 		$(foreach d,$(DATA),--input $(d)) \
 		--input $(FETCHED_DATA) \
 		--input $(PREFIXES) \
@@ -221,8 +223,15 @@ delete:
 		"$(ENDPOINT)?graph=$(GRAPH)" || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)\n"
 
-# 3. Publish final graph to LINDAS
-publish: test delete
+# 3. Set the modification date of the dataset (compares with the live graph)
+stamp-metadata: $(PROCESSED_DATA) src/python/utils/graph_metadata.py | $(VENV)/.requirements-installed.stamp
+	@printf "$(BOLD)[*] Setting the modification date of the dataset$(NC)\n"
+	@printf "$(GREY)"; \
+	$(VENV_PYTHON) src/python/utils/graph_metadata.py --graph $(PROCESSED_DATA) --iri $(GRAPH) --endpoint $(ENDPOINT) --user $(USER) --password $(PASSWORD) || { printf "$(NC)"; exit 1; }; \
+	printf "$(NC)"
+
+# 4. Publish final graph to LINDAS
+publish: test stamp-metadata delete
 	@printf "$(BOLD)[*] Upload final graph to LINDAS$(NC)\n"
 	@printf "$(GREY)"; \
 	curl \

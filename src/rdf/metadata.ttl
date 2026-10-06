@@ -1,0 +1,55 @@
+# ==============================================================================
+# GRAPH METADATA
+# ==============================================================================
+#
+# Describes the named graph on LINDAS as a dataset (schema.org, DCAT, VoID),
+# so that it can be found on LINDAS and opendata.swiss. The subject is the
+# IRI of the named graph (ech.graph in docs/_ech.yml, GRAPH in .env).
+#
+# The modification date (schema:dateModified, dcterms:modified) is not kept
+# here: `make publish` sets it automatically when the content of the graph
+# differs from the one currently on LINDAS (src/python/utils/graph_metadata.py).
+
+@prefix dcat:            <http://www.w3.org/ns/dcat#> .
+@prefix dcterms:         <http://purl.org/dc/terms/> .
+@prefix schema:          <http://schema.org/> .
+@prefix vcard:           <http://www.w3.org/2006/vcard/ns#> .
+@prefix void:            <http://rdfs.org/ns/void#> .
+@prefix xsd:             <http://www.w3.org/2001/XMLSchema#> .
+@prefix org:             <https://register.ld.admin.ch/opendataswiss/org/> .
+@prefix theme:           <https://register.ld.admin.ch/opendataswiss/category/> .
+@prefix status:          <https://ld.admin.ch/vocabulary/CreativeWorkStatus/> .
+@prefix tou:             <https://ld.admin.ch/vocabulary/TermsOfUse/> .
+@prefix frequency:       <https://publications.europa.eu/resource/authority/frequency/> .
+
+<https://lindas.admin.ch/foag/ogd> a void:Dataset,
+        dcat:Dataset,
+        schema:Dataset ;
+    schema:name
+        "eCH-1234 Chinook-Datensatz"@de,
+        "eCH-1234 Chinook dataset"@en,
+        "eCH-1234 Jeu de données Chinook"@fr,
+        "eCH-1234 Set di dati Chinook"@it ;
+    schema:description
+        "Demonstrationsdaten des Standards eCH-1234: Musiktitel, Alben, Personen und Rechnungen aus der Chinook-Datenbank als Linked Data."@de,
+        "Demonstration data of the eCH-1234 standard: music tracks, albums, persons and invoices from the Chinook database as linked data."@en,
+        "Données de démonstration de la norme eCH-1234: titres musicaux, albums, personnes et factures de la base de données Chinook sous forme de données liées."@fr,
+        "Dati dimostrativi della norma eCH-1234: brani musicali, album, persone e fatture del database Chinook come linked data."@it ;
+    dcterms:issued "2026-10-01"^^xsd:date ;
+    schema:dateCreated "2026-10-01"^^xsd:date ;
+    schema:datePublished "2026-10-01"^^xsd:date ;
+    schema:creativeWorkStatus status:Draft ;
+    schema:creator org:blw-ofag-ufag ;
+    schema:publisher org:blw-ofag-ufag ;
+    dcat:contactPoint [
+        a vcard:Organization ;
+        vcard:fn "Bundesamt für Landwirtschaft BLW" ;
+        vcard:hasEmail <mailto:agridata.ch@blw.admin.ch>
+    ] ;
+    dcterms:rights tou:Open-Use ;
+    dcterms:license tou:Open-Use ;
+    dcat:landingPage <https://blw-ofag-ufag.github.io/semantic-web-template/> ;
+    dcat:theme theme:culture ;
+    dcterms:language "de", "fr", "en" ;
+    dcterms:accrualPeriodicity frequency:IRREG ;
+    dcat:keyword "Linked Data"@de, "Linked Data"@en, "Données liées"@fr, "Musik"@de, "Music"@en, "Musique"@fr .

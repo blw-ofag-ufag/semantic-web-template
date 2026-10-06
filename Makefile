@@ -22,6 +22,7 @@ ROBOT            := java -jar $(VENV_BIN)/robot.jar
 ONTO             := src/rdf/ontology/model.owl.ttl
 DATA             := $(wildcard src/rdf/data/*.ttl)
 SHAPES           := src/rdf/shapes/model.shacl.ttl
+METADATA         := src/rdf/metadata.ttl
 PREFIXES         := src/rdf/prefixes.ttl
 QUERIES          := $(wildcard src/sparql/processing/*.rq)
 PIPELINE_SCRIPTS := $(sort $(wildcard src/python/pipeline/*.py))
@@ -48,10 +49,21 @@ GREY             := \033[0;90m
 BOLD       := \033[1;37m
 NC               := \033[0m
 
-.PHONY: all robot test docs clean check-python venv install-dependencies setup build delete publish generate-shacl-docs generate-glossary-docs
+.PHONY: all help robot test docs clean check-python venv install-dependencies setup build delete publish stamp-metadata generate-shacl-docs generate-glossary-docs
 
 # Default target
-all: test docs
+all: test docs ## Run the tests and build the documentation (default)
+
+# ==============================================================================
+# HELP
+# ==============================================================================
+
+# Lists every target that carries a "## description" after its rule line.
+help: ## Show this help
+	@printf "$(BOLD)Usage:$(NC) make <target>\n\n$(BOLD)Targets:$(NC)\n"
+	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+		awk 'BEGIN {FS = ":.*?## "} {printf "  $(BOLD)%-24s$(NC) %s\n", $$1, $$2}'
+	@printf "\nThe default target is $(BOLD)all$(NC). Publishing requires USER, PASSWORD, GRAPH and ENDPOINT in .env.\n"
 
 # ==============================================================================
 # SETUP
@@ -85,7 +97,7 @@ $(VENV_BIN)/robot.jar: | $(VENV_PYTHON)
 robot: $(VENV_BIN)/robot.jar
 
 # 5. Full setup
-setup: install-dependencies robot
+setup: install-dependencies robot ## Create the virtual environment, install Python dependencies and ROBOT
 	@printf "$(BOLD)[*] Setup complete.$(NC)\n"
 
 # ==============================================================================
@@ -113,7 +125,7 @@ $(FETCHED_DATA): $(PIPELINE_SCRIPTS) $(PREFIXES) src/python/utils/turtle_seriali
 	printf "$(NC)"
 
 # 3. Check that all turtle files are syntactically valid
-$(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(PREFIXES) $(FETCHED_DATA) tests/test_syntax.py | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
+$(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(METADATA) $(PREFIXES) $(FETCHED_DATA) tests/test_syntax.py | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Checking Turtle syntax...$(NC)\n"
 	@printf "$(GREY)"; \
 	$(PYTEST) tests/test_syntax.py -q > /dev/null 2>&1 || { printf "$(NC)\n$(RED)[ERROR] Syntax check failed:$(NC)\n"; $(PYTEST) tests/test_syntax.py -v; exit 1; }; \
@@ -121,12 +133,13 @@ $(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(PREFIXES) $(FETCHED_D
 	@touch $@
 
 # 4. Merge ontology, shapes, static data, fetched data, and prefixes
-$(MERGED_DATA): $(ONTO) $(SHAPES) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-check.stamp src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
+$(MERGED_DATA): $(ONTO) $(SHAPES) $(METADATA) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-check.stamp src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Merging ontology, shapes and data...$(NC)\n"
 	@printf "$(GREY)"; \
 	$(ROBOT) merge \
 		--input $(ONTO) \
 		--input $(SHAPES) \
+		--input $(METADATA) \
 		$(foreach d,$(DATA),--input $(d)) \
 		--input $(FETCHED_DATA) \
 		--input $(PREFIXES) \
@@ -163,25 +176,25 @@ $(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) src/python/utils/turt
 	printf "$(NC)"
 
 # 6. Trigger the whole graph build process
-build: $(PROCESSED_DATA)
+build: $(PROCESSED_DATA) ## Build the graph: integration, reasoning, SPARQL processing
 
 # ==============================================================================
 # BUILD DOCUMENTATION
 # ==============================================================================
 
-generate-shacl-docs: $(SHAPES) $(PREFIXES) $(PROCESSED_DATA) $(DOCS_DIR)/_ech.yml src/python/utils/generate_shacl_docs.py | $(VENV)/.requirements-installed.stamp
+generate-shacl-docs: $(SHAPES) $(PREFIXES) $(PROCESSED_DATA) $(DOCS_DIR)/_ech.yml src/python/utils/generate_shacl_docs.py | $(VENV)/.requirements-installed.stamp ## Generate the data model pages from the SHACL shapes
 	@printf "$(BOLD)[*] Generating SHACL documentation...$(NC)\n"
 	@printf "$(GREY)"; \
 	$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -d $(DOCS_DIR) -p $(PREFIXES) -g $(PROCESSED_DATA) -c $(DOCS_DIR)/_ech.yml || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
-generate-glossary-docs: src/rdf/data/glossary.skos.ttl $(PREFIXES) src/python/utils/generate_glossary_docs.py | $(VENV)/.requirements-installed.stamp
+generate-glossary-docs: src/rdf/data/glossary.skos.ttl $(PREFIXES) src/python/utils/generate_glossary_docs.py | $(VENV)/.requirements-installed.stamp ## Generate the glossary pages from the SKOS glossary
 	@printf "$(BOLD)[*] Generating glossary documentation...$(NC)\n"
 	@printf "$(GREY)"; \
 	$(VENV_PYTHON) src/python/utils/generate_glossary_docs.py -i src/rdf/data/glossary.skos.ttl -d $(DOCS_DIR) -p $(PREFIXES) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
-docs: $(SHACL_REPORT) generate-shacl-docs generate-glossary-docs
+docs: $(SHACL_REPORT) generate-shacl-docs generate-glossary-docs ## Generate the data model and glossary pages and render the documentation (website, PDF)
 	@printf "$(BOLD)[*] Rendering documentation with Quarto...$(NC)\n"
 	@printf "$(GREY)"; \
 	quarto render docs > $(QUARTO_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: Quarto rendering failed. See log below:$(NC)\n$(GREY)"; cat $(QUARTO_LOG); printf "$(NC)\n"; exit 1; }; \
@@ -199,7 +212,7 @@ $(SHACL_REPORT): $(PROCESSED_DATA) $(SHAPES) | $(LOG_DIR) $(VENV)/.requirements-
 	printf "$(NC)"
 
 # 2. Run pytest (relies on written SHACL reports for all shape-related tests)
-test: build $(SHACL_REPORT) | $(VENV)/.requirements-installed.stamp
+test: build $(SHACL_REPORT) | $(VENV)/.requirements-installed.stamp ## Build the graph, validate it with SHACL and run the test suite
 	@printf "$(BOLD)[*] Running final test suite...$(NC)\n"
 	@$(PYTEST) tests/ -v
 
@@ -212,7 +225,7 @@ test: build $(SHACL_REPORT) | $(VENV)/.requirements-installed.stamp
 export
 
 # 2. Delete the existing data from LINDAS
-delete:
+delete: ## Delete the published graph from LINDAS (needs .env)
 	@printf "$(BOLD)[*] Delete existing data from LINDAS$(NC)\n"
 	@printf "$(GREY)"; \
 	curl \
@@ -221,8 +234,15 @@ delete:
 		"$(ENDPOINT)?graph=$(GRAPH)" || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)\n"
 
-# 3. Publish final graph to LINDAS
-publish: test delete
+# 3. Set the modification date of the dataset (compares with the live graph)
+stamp-metadata: $(PROCESSED_DATA) src/python/utils/graph_metadata.py | $(VENV)/.requirements-installed.stamp ## Set the modification date of the dataset by comparing with the graph on LINDAS
+	@printf "$(BOLD)[*] Setting the modification date of the dataset$(NC)\n"
+	@printf "$(GREY)"; \
+	$(VENV_PYTHON) src/python/utils/graph_metadata.py --graph $(PROCESSED_DATA) --iri $(GRAPH) --endpoint $(ENDPOINT) --user $(USER) --password $(PASSWORD) || { printf "$(NC)"; exit 1; }; \
+	printf "$(NC)"
+
+# 4. Publish final graph to LINDAS
+publish: test stamp-metadata delete ## Test, then replace the graph on LINDAS with the newly built one (needs .env)
 	@printf "$(BOLD)[*] Upload final graph to LINDAS$(NC)\n"
 	@printf "$(GREY)"; \
 	curl \
@@ -237,6 +257,6 @@ publish: test delete
 # CLEANUP
 # ==============================================================================
 
-clean:
+clean: ## Remove all build artifacts, the virtual environment and generated pages
 	@printf "$(BOLD)[*] Cleaning build artifacts...$(NC)\n"
 	@rm -rf $(BUILD_DIR) $(VENV) .quarto docs/.quarto tests/__pycache__ docs/index_files docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md

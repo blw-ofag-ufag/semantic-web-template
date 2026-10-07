@@ -91,7 +91,7 @@ Et écrire encore plus de texte. Peut-être même avec une belle image.
 
 Figure 1: Ajoutez toujours du texte pour décrire ce que montre l’image.
 Si une illustration a une légende, elle figure dans la table des
-illustrations.
+illustrations. Seule la première phrase de la légende y est affichée.
 
 </div>
 
@@ -156,8 +156,9 @@ LIMIT 10
 
 <div id="tbl-example">
 
-Table 1: Tableau d’exemple. Si un tableau a une légende, il figure dans
-la liste des tableaux.
+Table 1: Tableau d’exemple à trois colonnes. Si un tableau a une
+légende, il figure dans la liste des tableaux. Seule la première phrase
+de la légende y est affichée.
 
 | Colonne  | Type           | Remarque          |
 |:---------|:---------------|:------------------|

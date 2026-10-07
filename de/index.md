@@ -90,7 +90,8 @@ Und noch mehr Text schreiben. Vielleicht sogar mit einem schönen Bild.
 
 Abbildung 1: Fügen Sie immer etwas Text hinzu, um zu beschreiben, was
 das Bild zeigt. Hat eine Abbildung eine Beschriftung, erscheint sie im
-Abbildungsverzeichnis.
+Abbildungsverzeichnis. Dort wird nur der erste Satz der Beschriftung
+angezeigt.
 
 </div>
 
@@ -156,8 +157,9 @@ LIMIT 10
 
 <div id="tbl-example">
 
-Tabelle 1: Beispieltabelle. Hat eine Tabelle eine Beschriftung,
-erscheint sie im Tabellenverzeichnis.
+Tabelle 1: Beispieltabelle mit drei Spalten. Hat eine Tabelle eine
+Beschriftung, erscheint sie im Tabellenverzeichnis. Dort wird nur der
+erste Satz der Beschriftung angezeigt.
 
 | Spalte | Typ          | Bemerkung   |
 |:-------|:-------------|:------------|

@@ -87,7 +87,8 @@ And write some more text. Maybe even with a pretty image.
 ![](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY)
 
 Figure 1: Always add some text to describe what the image shows. If a
-figure has a caption, it appears in the list of figures.
+figure has a caption, it appears in the list of figures. Only the first
+sentence of the caption is shown there.
 
 </div>
 
@@ -150,8 +151,9 @@ LIMIT 10
 
 <div id="tbl-example">
 
-Table 1: Example table. If a table has a caption, it appears in the list
-of tables.
+Table 1: Example table with three columns. If a table has a caption, it
+appears in the list of tables. Only the first sentence of the caption is
+shown there.
 
 | Column   | Type           | Remark          |
 |:---------|:---------------|:----------------|

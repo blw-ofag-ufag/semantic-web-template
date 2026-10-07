@@ -39,6 +39,10 @@ website:
     content: Diese Seite beinhaltet einen *Working Draft* und kann sich dadurch laufend verändern. Für eine aktuelle Version, besuchen Sie [ech.ch](https://ech.ch/).
     type: warning
 
+# Code chunks show only their output; use `#| echo: true` to show the code.
+execute:
+  echo: false
+
 bibliography: references.yaml
 csl: assets/din-1505-2-alphanumeric.csl
 

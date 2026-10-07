@@ -78,6 +78,23 @@ WHERE {
 LIMIT 10
 ```
 
+Abbildungen lassen sich auch mit R-Code erzeugen, wie @fig-r-example zeigt:
+
+```{r}
+#| label: fig-r-example
+#| fig-cap: "Mit R erzeugte Abbildung. Quarto führt den Code beim Rendern aus und fügt die Grafik ein."
+#| fig-width: 6
+#| fig-height: 2.5
+library(ggplot2)
+tracks <- data.frame(
+  genre = c("Rock", "Latin", "Metal", "Jazz"),
+  n = c(1297, 579, 374, 130)
+)
+ggplot(tracks, aes(x = reorder(genre, n), y = n)) +
+  geom_col(fill = "#D00D28") +
+  coord_flip() + labs(x = NULL, y = "Anzahl Titel") + theme_minimal()
+```
+
 +----------------+--------------------+--------------------------------+
 | Spalte         | Typ                | Bemerkung                      |
 +:===============+:===================+:===============================+

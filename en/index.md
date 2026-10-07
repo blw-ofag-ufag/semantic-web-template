@@ -194,14 +194,14 @@ names*](https://www.w3.org/TR/turtle/#prefixed-name) are resolved
 
 Table 2: Namespaces used in eCH-1234 – Template Quarto Document.
 
-| Prefix     | Namespace                                     |
-|:-----------|:----------------------------------------------|
-| `:`        | <https://agriculture.ld.admin.ch/eCH-1234/2/> |
-| `country:` | <https://ld.admin.ch/country/>                |
-| `rdf:`     | <http://www.w3.org/1999/02/22-rdf-syntax-ns#> |
-| `schema:`  | <http://schema.org/>                          |
-| `unit:`    | <http://qudt.org/vocab/unit/>                 |
-| `xsd:`     | <http://www.w3.org/2001/XMLSchema#>           |
+| Prefix   | Namespace                                   |
+|:---------|:--------------------------------------------|
+| :        | https://agriculture.ld.admin.ch/eCH-1234/2/ |
+| country: | https://ld.admin.ch/country/                |
+| rdf:     | http://www.w3.org/1999/02/22-rdf-syntax-ns# |
+| schema:  | http://schema.org/                          |
+| unit:    | http://qudt.org/vocab/unit/                 |
+| xsd:     | http://www.w3.org/2001/XMLSchema#           |
 
 </div>
 
@@ -215,11 +215,11 @@ A musical category in the Chinook dataset.
 
 <div class="ech-facts">
 
-IRI  
-<https://agriculture.ld.admin.ch/eCH-1234/2/GenreShape>
+Shape  
+[:GenreShape](https://agriculture.ld.admin.ch/eCH-1234/2/GenreShape)
 
 Target class  
-`:Genre`
+[:Genre](https://agriculture.ld.admin.ch/eCH-1234/2/Genre)
 
 Closed  
 Yes (only the listed properties are allowed)
@@ -227,9 +227,9 @@ Yes (only the listed properties are allowed)
 Key figures  
 25 instances with 5 to 7 triples each (5.4 on average)
 
-Open data  
-Yes ([published on
-LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20%3A%20%3Chttps%3A%2F%2Fagriculture.ld.admin.ch%2FeCH-1234%2F2%2F%3E%0APREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FpartOf%20%3FalternateName%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20%3AGenre%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3ApartOf%20%3FpartOf%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AalternateName%20%3FalternateName%20.%20%7D%0A%7D%0ALIMIT%201000))
+Data access  
+[SPARQL
+service](https://lindas.admin.ch/sparql/#query=PREFIX%20%3A%20%3Chttps%3A%2F%2Fagriculture.ld.admin.ch%2FeCH-1234%2F2%2F%3E%0APREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FpartOf%20%3FalternateName%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20%3AGenre%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3ApartOf%20%3FpartOf%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AalternateName%20%3FalternateName%20.%20%7D%0A%7D%0ALIMIT%201000)
 
 </div>
 
@@ -237,9 +237,9 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20%3A%20%3Chttps%3A%2F%2Fag
 
 <table style="width:99%;">
 <colgroup>
-<col style="width: 41%" />
-<col style="width: 43%" />
-<col style="width: 14%" />
+<col style="width: 39%" />
+<col style="width: 49%" />
+<col style="width: 9%" />
 </colgroup>
 <thead>
 <tr>
@@ -250,29 +250,32 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20%3A%20%3Chttps%3A%2F%2Fag
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Name</strong>
-(<code>schema:name</code>)</td>
+<td style="text-align: left;"><strong>Name</strong> (<a
+href="http://schema.org/name">schema:name</a>)</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 <li>Pattern: <code>^[A-Z]</code></li>
 <li>Length: 2–50 characters</li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Part of</strong>
-(<code>schema:partOf</code>)</td>
+<td style="text-align: left;"><strong>Part of</strong> (<a
+href="http://schema.org/partOf">schema:partOf</a>)</td>
 <td style="text-align: left;"><ul>
 <li>Type: <a href="#sec-nodeshape-genreshape">Genre</a></li>
 </ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Alternate name</strong>
-(<code>schema:alternateName</code>): Translated or colloquial name of
-the genre, at most one per language.</td>
+<td style="text-align: left;"><strong>Alternate name</strong> (<a
+href="http://schema.org/alternateName">schema:alternateName</a>):
+Translated or colloquial name of the genre, at most one per
+language.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Language-tagged text (<code>rdf:langString</code>)</li>
+<li>Type: Language-tagged text (<a
+href="http://www.w3.org/1999/02/22-rdf-syntax-ns#langString">rdf:langString</a>)</li>
 <li>Length: ≤ 50 characters</li>
 <li>Languages: <code>de</code>, <code>fr</code>, <code>it</code>,
 <code>en</code> (one per language)</li>
@@ -307,11 +310,11 @@ legacy system and are not permitted in this dataset.
 
 <div class="ech-facts">
 
-IRI  
-<https://agriculture.ld.admin.ch/eCH-1234/2/InvoiceShape>
+Shape  
+[:InvoiceShape](https://agriculture.ld.admin.ch/eCH-1234/2/InvoiceShape)
 
 Target class  
-`schema:Invoice`
+[schema:Invoice](http://schema.org/Invoice)
 
 Closed  
 No (further properties are allowed)
@@ -319,9 +322,9 @@ No (further properties are allowed)
 Key figures  
 412 instances with 8 to 21 triples each (12.4 on average)
 
-Open data  
-Yes ([published on
-LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fcustomer%20%3FtotalPaymentDue%20%3FhasPart%20%3FdateCreated%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AInvoice%20.%0A%20%20%3Firi%20schema%3Acustomer%20%3Fcustomer%20.%0A%20%20%3Firi%20schema%3AtotalPaymentDue%20%3FtotalPaymentDue%20.%0A%20%20%3Firi%20schema%3AhasPart%20%3FhasPart%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AdateCreated%20%3FdateCreated%20.%20%7D%0A%7D%0ALIMIT%201000))
+Data access  
+[SPARQL
+service](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fcustomer%20%3FtotalPaymentDue%20%3FhasPart%20%3FdateCreated%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AInvoice%20.%0A%20%20%3Firi%20schema%3Acustomer%20%3Fcustomer%20.%0A%20%20%3Firi%20schema%3AtotalPaymentDue%20%3FtotalPaymentDue%20.%0A%20%20%3Firi%20schema%3AhasPart%20%3FhasPart%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AdateCreated%20%3FdateCreated%20.%20%7D%0A%7D%0ALIMIT%201000)
 
 </div>
 
@@ -329,9 +332,9 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 
 <table style="width:99%;">
 <colgroup>
+<col style="width: 48%" />
 <col style="width: 40%" />
-<col style="width: 44%" />
-<col style="width: 14%" />
+<col style="width: 11%" />
 </colgroup>
 <thead>
 <tr>
@@ -342,18 +345,19 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Customer</strong>
-(<code>schema:customer</code>): An invoice must be linked to exactly one
-customer.</td>
+<td style="text-align: left;"><strong>Customer</strong> (<a
+href="http://schema.org/customer">schema:customer</a>): An invoice must
+be linked to exactly one customer.</td>
 <td style="text-align: left;"><ul>
 <li>Type: <a href="#sec-nodeshape-personshape">Person</a></li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Total payment due</strong>
-(<code>schema:totalPaymentDue</code>): An invoice must define a total
-payment due as a schema:QuantitativeValue.</td>
+<td style="text-align: left;"><strong>Total payment due</strong> (<a
+href="http://schema.org/totalPaymentDue">schema:totalPaymentDue</a>): An
+invoice must define a total payment due as a
+schema:QuantitativeValue.</td>
 <td style="text-align: left;"><ul>
 <li>Type: <a href="#sec-nodeshape-quantitativevalueshape">Quantitative
 Value</a></li>
@@ -361,19 +365,21 @@ Value</a></li>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Has part</strong>
-(<code>schema:hasPart</code>): An invoice must have at least one line
-item (OrderItem).</td>
+<td style="text-align: left;"><strong>Has part</strong> (<a
+href="http://schema.org/hasPart">schema:hasPart</a>): An invoice must
+have at least one line item (OrderItem).</td>
 <td style="text-align: left;"><ul>
-<li>Type: <code>schema:OrderItem</code></li>
+<li>Type: <a
+href="http://schema.org/OrderItem">schema:OrderItem</a></li>
 </ul></td>
 <td style="text-align: right;">1..*</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Date created</strong>
-(<code>schema:dateCreated</code>)</td>
+<td style="text-align: left;"><strong>Date created</strong> (<a
+href="http://schema.org/dateCreated">schema:dateCreated</a>)</td>
 <td style="text-align: left;"><ul>
-<li>Type: Date (<code>xsd:date</code>)</li>
+<li>Type: Date (<a
+href="http://www.w3.org/2001/XMLSchema#date">xsd:date</a>)</li>
 <li>Range: ≥ 2000-01-01</li>
 <li>Examples: 2001-01-01, 2024-05-21</li>
 </ul></td>
@@ -426,11 +432,11 @@ A collection of tracks in the Chinook dataset.
 
 <div class="ech-facts">
 
-IRI  
-<https://agriculture.ld.admin.ch/eCH-1234/2/MusicAlbumShape>
+Shape  
+[:MusicAlbumShape](https://agriculture.ld.admin.ch/eCH-1234/2/MusicAlbumShape)
 
 Target class  
-`schema:MusicAlbum`
+[schema:MusicAlbum](http://schema.org/MusicAlbum)
 
 Closed  
 No (further properties are allowed)
@@ -438,9 +444,9 @@ No (further properties are allowed)
 Key figures  
 347 instances with 5 triples each
 
-Open data  
-Yes ([published on
-LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FbyArtist%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicAlbum%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AbyArtist%20%3FbyArtist%20.%20%7D%0A%7D%0ALIMIT%201000))
+Data access  
+[SPARQL
+service](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FbyArtist%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicAlbum%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AbyArtist%20%3FbyArtist%20.%20%7D%0A%7D%0ALIMIT%201000)
 
 </div>
 
@@ -448,9 +454,9 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 
 <table style="width:99%;">
 <colgroup>
-<col style="width: 41%" />
-<col style="width: 43%" />
-<col style="width: 14%" />
+<col style="width: 40%" />
+<col style="width: 46%" />
+<col style="width: 12%" />
 </colgroup>
 <thead>
 <tr>
@@ -461,21 +467,23 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Name</strong>
-(<code>schema:name</code>): Every album must have a name.</td>
+<td style="text-align: left;"><strong>Name</strong> (<a
+href="http://schema.org/name">schema:name</a>): Every album must have a
+name.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 <li>Length: ≤ 200 characters</li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Artist</strong>
-(<code>schema:byArtist</code>): Person or music group who created the
-album.</td>
+<td style="text-align: left;"><strong>Artist</strong> (<a
+href="http://schema.org/byArtist">schema:byArtist</a>): Person or music
+group who created the album.</td>
 <td style="text-align: left;"><ul>
-<li>Type: <a href="#sec-nodeshape-personshape">Person</a> or
-<code>schema:MusicGroup</code></li>
+<li>Type: <a href="#sec-nodeshape-personshape">Person</a> or <a
+href="http://schema.org/MusicGroup">schema:MusicGroup</a></li>
 </ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
@@ -490,11 +498,11 @@ A single music track in the Chinook dataset.
 
 <div class="ech-facts">
 
-IRI  
-<https://agriculture.ld.admin.ch/eCH-1234/2/TrackShape>
+Shape  
+[:TrackShape](https://agriculture.ld.admin.ch/eCH-1234/2/TrackShape)
 
 Target class  
-`schema:MusicRecording`
+[schema:MusicRecording](http://schema.org/MusicRecording)
 
 Closed  
 No (further properties are allowed)
@@ -502,9 +510,9 @@ No (further properties are allowed)
 Key figures  
 3503 instances with 10 to 15 triples each (11.1 on average)
 
-Open data  
-Yes ([published on
-LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FinAlbum%20%3Fauthor%20%3Fgenre%20%3Fduration%20%3FcontentSize%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicRecording%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AinAlbum%20%3FinAlbum%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aauthor%20%3Fauthor%20.%20%7D%0A%20%20%3Firi%20schema%3Agenre%20%3Fgenre%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aduration%20%3Fduration%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AcontentSize%20%3FcontentSize%20.%20%7D%0A%7D%0ALIMIT%201000))
+Data access  
+[SPARQL
+service](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FinAlbum%20%3Fauthor%20%3Fgenre%20%3Fduration%20%3FcontentSize%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicRecording%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AinAlbum%20%3FinAlbum%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aauthor%20%3Fauthor%20.%20%7D%0A%20%20%3Firi%20schema%3Agenre%20%3Fgenre%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aduration%20%3Fduration%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AcontentSize%20%3FcontentSize%20.%20%7D%0A%7D%0ALIMIT%201000)
 
 </div>
 
@@ -512,9 +520,9 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 
 <table style="width:99%;">
 <colgroup>
-<col style="width: 40%" />
+<col style="width: 43%" />
 <col style="width: 44%" />
-<col style="width: 14%" />
+<col style="width: 11%" />
 </colgroup>
 <thead>
 <tr>
@@ -525,42 +533,44 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Name</strong>
-(<code>schema:name</code>): Every track must have a name.</td>
+<td style="text-align: left;"><strong>Name</strong> (<a
+href="http://schema.org/name">schema:name</a>): Every track must have a
+name.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 <li>Length: 1–200 characters</li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>In Album</strong>
-(<code>schema:inAlbum</code>): A track can only belong to a valid
-schema:MusicAlbum.</td>
+<td style="text-align: left;"><strong>In Album</strong> (<a
+href="http://schema.org/inAlbum">schema:inAlbum</a>): A track can only
+belong to a valid schema:MusicAlbum.</td>
 <td style="text-align: left;"><ul>
 <li>Type: <a href="#sec-nodeshape-musicalbumshape">Music album</a></li>
 </ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Author</strong>
-(<code>schema:author</code>): The person or group who wrote the
-track.</td>
+<td style="text-align: left;"><strong>Author</strong> (<a
+href="http://schema.org/author">schema:author</a>): The person or group
+who wrote the track.</td>
 <td style="text-align: left;"></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Genre</strong>
-(<code>schema:genre</code>)</td>
+<td style="text-align: left;"><strong>Genre</strong> (<a
+href="http://schema.org/genre">schema:genre</a>)</td>
 <td style="text-align: left;"><ul>
 <li>Type: <a href="#sec-nodeshape-genreshape">Genre</a></li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Duration</strong>
-(<code>schema:duration</code>): Track duration must be expressed as a
-schema:QuantitativeValue.</td>
+<td style="text-align: left;"><strong>Duration</strong> (<a
+href="http://schema.org/duration">schema:duration</a>): Track duration
+must be expressed as a schema:QuantitativeValue.</td>
 <td style="text-align: left;"><ul>
 <li>Type: <a href="#sec-nodeshape-quantitativevalueshape">Quantitative
 Value</a></li>
@@ -568,8 +578,8 @@ Value</a></li>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Content Size</strong>
-(<code>schema:contentSize</code>)</td>
+<td style="text-align: left;"><strong>Content Size</strong> (<a
+href="http://schema.org/contentSize">schema:contentSize</a>)</td>
 <td style="text-align: left;"><ul>
 <li>Type: <a href="#sec-nodeshape-quantitativevalueshape">Quantitative
 Value</a></li>
@@ -587,17 +597,17 @@ A company or organization in the Chinook dataset.
 
 <div class="ech-facts">
 
-IRI  
-<https://agriculture.ld.admin.ch/eCH-1234/2/OrganisationShape>
+Shape  
+[:OrganisationShape](https://agriculture.ld.admin.ch/eCH-1234/2/OrganisationShape)
 
 Target class  
-`schema:Organisation`
+[schema:Organisation](http://schema.org/Organisation)
 
 Closed  
 No (further properties are allowed)
 
-Open data  
-No (transactional data, not part of the published graph)
+Data access  
+None (transactional data, not part of the published graph)
 
 </div>
 
@@ -605,9 +615,9 @@ No (transactional data, not part of the published graph)
 
 <table style="width:99%;">
 <colgroup>
-<col style="width: 41%" />
-<col style="width: 43%" />
-<col style="width: 14%" />
+<col style="width: 36%" />
+<col style="width: 49%" />
+<col style="width: 12%" />
 </colgroup>
 <thead>
 <tr>
@@ -618,10 +628,12 @@ No (transactional data, not part of the published graph)
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Name</strong>
-(<code>schema:name</code>): Every organisation must have a name.</td>
+<td style="text-align: left;"><strong>Name</strong> (<a
+href="http://schema.org/name">schema:name</a>): Every organisation must
+have a name.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 <li>Length: 2–100 characters</li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
@@ -648,11 +660,11 @@ and rule violations are reported as warnings only.
 
 <div class="ech-facts">
 
-IRI  
-<https://agriculture.ld.admin.ch/eCH-1234/2/PersonShape>
+Shape  
+[:PersonShape](https://agriculture.ld.admin.ch/eCH-1234/2/PersonShape)
 
 Target class  
-`schema:Person`
+[schema:Person](http://schema.org/Person)
 
 Closed  
 Yes (only the listed properties are allowed)
@@ -660,9 +672,9 @@ Yes (only the listed properties are allowed)
 Key figures  
 383 instances with 5 to 10 triples each (5.6 on average)
 
-Open data  
-Yes ([published on
-LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3FgivenName%20%3FfamilyName%20%3Femail%20%3FbirthDate%20%3Faddress%20%3FworksFor%20%3FjobTitle%20%3Fknows%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3APerson%20.%0A%20%20%3Firi%20schema%3AgivenName%20%3FgivenName%20.%0A%20%20%3Firi%20schema%3AfamilyName%20%3FfamilyName%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aemail%20%3Femail%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AbirthDate%20%3FbirthDate%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aaddress%20%3Faddress%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AworksFor%20%3FworksFor%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AjobTitle%20%3FjobTitle%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aknows%20%3Fknows%20.%20%7D%0A%7D%0ALIMIT%201000))
+Data access  
+[SPARQL
+service](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3FgivenName%20%3FfamilyName%20%3Femail%20%3FbirthDate%20%3Faddress%20%3FworksFor%20%3FjobTitle%20%3Fknows%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3APerson%20.%0A%20%20%3Firi%20schema%3AgivenName%20%3FgivenName%20.%0A%20%20%3Firi%20schema%3AfamilyName%20%3FfamilyName%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aemail%20%3Femail%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AbirthDate%20%3FbirthDate%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aaddress%20%3Faddress%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AworksFor%20%3FworksFor%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AjobTitle%20%3FjobTitle%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aknows%20%3Fknows%20.%20%7D%0A%7D%0ALIMIT%201000)
 
 </div>
 
@@ -670,9 +682,9 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 
 <table style="width:99%;">
 <colgroup>
-<col style="width: 40%" />
-<col style="width: 43%" />
-<col style="width: 14%" />
+<col style="width: 42%" />
+<col style="width: 44%" />
+<col style="width: 11%" />
 </colgroup>
 <thead>
 <tr>
@@ -683,29 +695,32 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Given Name</strong>
-(<code>schema:givenName</code>): Every person must have a given
-name.</td>
+<td style="text-align: left;"><strong>Given Name</strong> (<a
+href="http://schema.org/givenName">schema:givenName</a>): Every person
+must have a given name.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Family Name</strong>
-(<code>schema:familyName</code>): Every person must have a family
-name.</td>
+<td style="text-align: left;"><strong>Family Name</strong> (<a
+href="http://schema.org/familyName">schema:familyName</a>): Every person
+must have a family name.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Email Address</strong>
-(<code>schema:email</code>): If an email is provided, it must follow a
-standard email format.</td>
+<td style="text-align: left;"><strong>Email Address</strong> (<a
+href="http://schema.org/email">schema:email</a>): If an email is
+provided, it must follow a standard email format.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 <li>Pattern: <code>^.+@.+\..+$</code> (<code>i</code>)</li>
 <li>Length: ≤ 254 characters</li>
 <li>Severity: Warning</li>
@@ -713,19 +728,20 @@ standard email format.</td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Birth date</strong>
-(<code>schema:birthDate</code>): A person should have a valid birth
-date.</td>
+<td style="text-align: left;"><strong>Birth date</strong> (<a
+href="http://schema.org/birthDate">schema:birthDate</a>): A person
+should have a valid birth date.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Date (<code>xsd:date</code>)</li>
+<li>Type: Date (<a
+href="http://www.w3.org/2001/XMLSchema#date">xsd:date</a>)</li>
 <li>Range: ≥ 1900-01-01, ≤ 2025-12-31</li>
 <li>Severity: Warning</li>
 </ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Address</strong>
-(<code>schema:address</code>)</td>
+<td style="text-align: left;"><strong>Address</strong> (<a
+href="http://schema.org/address">schema:address</a>)</td>
 <td style="text-align: left;"><ul>
 <li>Type: <a href="#sec-nodeshape-postaladdressshape">Postal
 address</a></li>
@@ -733,27 +749,28 @@ address</a></li>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Works for</strong>
-(<code>schema:worksFor</code>): An employee can report to another
-person.</td>
+<td style="text-align: left;"><strong>Works for</strong> (<a
+href="http://schema.org/worksFor">schema:worksFor</a>): An employee can
+report to another person.</td>
 <td style="text-align: left;"><ul>
-<li>Type: <a href="#sec-nodeshape-personshape">Person</a> or
-<code>schema:Organization</code></li>
+<li>Type: <a href="#sec-nodeshape-personshape">Person</a> or <a
+href="http://schema.org/Organization">schema:Organization</a></li>
 </ul></td>
 <td style="text-align: right;">0..*</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Job title</strong>
-(<code>schema:jobTitle</code>)</td>
+<td style="text-align: left;"><strong>Job title</strong> (<a
+href="http://schema.org/jobTitle">schema:jobTitle</a>)</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 <li>Length: 2–100 characters</li>
 </ul></td>
 <td style="text-align: right;">0..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>knows</strong>
-(<code>schema:knows</code>)</td>
+<td style="text-align: left;"><strong>knows</strong> (<a
+href="http://schema.org/knows">schema:knows</a>)</td>
 <td style="text-align: left;"><ul>
 <li>Type: <a href="#sec-nodeshape-personshape">Person</a></li>
 </ul></td>
@@ -788,11 +805,11 @@ format, not against a directory.
 
 <div class="ech-facts">
 
-IRI  
-<https://agriculture.ld.admin.ch/eCH-1234/2/PostalAddressShape>
+Shape  
+[:PostalAddressShape](https://agriculture.ld.admin.ch/eCH-1234/2/PostalAddressShape)
 
 Target class  
-`schema:PostalAddress`
+[schema:PostalAddress](http://schema.org/PostalAddress)
 
 Closed  
 Yes (only the listed properties are allowed)
@@ -800,9 +817,9 @@ Yes (only the listed properties are allowed)
 Key figures  
 67 instances with 6 to 8 triples each (7.5 on average)
 
-Open data  
-Yes ([published on
-LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3FstreetAddress%20%3FpostalCode%20%3FaddressLocality%20%3FaddressRegion%20%3FaddressCountry%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3APostalAddress%20.%0A%20%20%3Firi%20schema%3AstreetAddress%20%3FstreetAddress%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3ApostalCode%20%3FpostalCode%20.%20%7D%0A%20%20%3Firi%20schema%3AaddressLocality%20%3FaddressLocality%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AaddressRegion%20%3FaddressRegion%20.%20%7D%0A%20%20%3Firi%20schema%3AaddressCountry%20%3FaddressCountry%20.%0A%7D%0ALIMIT%201000))
+Data access  
+[SPARQL
+service](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3FstreetAddress%20%3FpostalCode%20%3FaddressLocality%20%3FaddressRegion%20%3FaddressCountry%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3APostalAddress%20.%0A%20%20%3Firi%20schema%3AstreetAddress%20%3FstreetAddress%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3ApostalCode%20%3FpostalCode%20.%20%7D%0A%20%20%3Firi%20schema%3AaddressLocality%20%3FaddressLocality%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AaddressRegion%20%3FaddressRegion%20.%20%7D%0A%20%20%3Firi%20schema%3AaddressCountry%20%3FaddressCountry%20.%0A%7D%0ALIMIT%201000)
 
 </div>
 
@@ -810,9 +827,9 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 
 <table style="width:99%;">
 <colgroup>
+<col style="width: 46%" />
 <col style="width: 41%" />
-<col style="width: 43%" />
-<col style="width: 14%" />
+<col style="width: 10%" />
 </colgroup>
 <thead>
 <tr>
@@ -823,54 +840,60 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Street address</strong>
-(<code>schema:streetAddress</code>)</td>
+<td style="text-align: left;"><strong>Street address</strong> (<a
+href="http://schema.org/streetAddress">schema:streetAddress</a>)</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 <li>Length: 3–100 characters</li>
 <li>Examples: Schwarzenburgstrasse 165</li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Postal code</strong>
-(<code>schema:postalCode</code>): Letters, digits, spaces and hyphens,
-two to ten characters.</td>
+<td style="text-align: left;"><strong>Postal code</strong> (<a
+href="http://schema.org/postalCode">schema:postalCode</a>): Letters,
+digits, spaces and hyphens, two to ten characters.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 <li>Pattern: <code>^[A-Za-z0-9][A-Za-z0-9 -]{1,9}$</code></li>
 <li>Severity: Warning</li>
 </ul></td>
 <td style="text-align: right;">0..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Locality</strong>
-(<code>schema:addressLocality</code>): Every address needs exactly one
-locality.</td>
+<td style="text-align: left;"><strong>Locality</strong> (<a
+href="http://schema.org/addressLocality">schema:addressLocality</a>):
+Every address needs exactly one locality.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 <li>Length: ≤ 100 characters</li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Region</strong>
-(<code>schema:addressRegion</code>): Canton, state or province where
-customary in the country.</td>
+<td style="text-align: left;"><strong>Region</strong> (<a
+href="http://schema.org/addressRegion">schema:addressRegion</a>):
+Canton, state or province where customary in the country.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Text (<code>xsd:string</code>)</li>
+<li>Type: Text (<a
+href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a>)</li>
 <li>Length: ≤ 100 characters</li>
 </ul></td>
 <td style="text-align: right;">0..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Country</strong>
-(<code>schema:addressCountry</code>): Country as an IRI from the country
-list of the Swiss Federal Archives on LINDAS (ISO 3166-1 alpha-3).</td>
+<td style="text-align: left;"><strong>Country</strong> (<a
+href="http://schema.org/addressCountry">schema:addressCountry</a>):
+Country as an IRI from the country list of the Swiss Federal Archives on
+LINDAS (ISO 3166-1 alpha-3).</td>
 <td style="text-align: left;"><ul>
 <li>Pattern: <code>^https://ld\.admin\.ch/country/[A-Z]{3}$</code></li>
-<li>Examples: <code>country:CHE</code>, <code>country:FRA</code>,
-<code>country:ITA</code></li>
+<li>Examples: <a href="https://ld.admin.ch/country/CHE">country:CHE</a>,
+<a href="https://ld.admin.ch/country/FRA">country:FRA</a>, <a
+href="https://ld.admin.ch/country/ITA">country:ITA</a></li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
@@ -890,11 +913,11 @@ Negative values are not foreseen in this dataset.
 
 <div class="ech-facts">
 
-IRI  
-<https://agriculture.ld.admin.ch/eCH-1234/2/QuantitativeValueShape>
+Shape  
+[:QuantitativeValueShape](https://agriculture.ld.admin.ch/eCH-1234/2/QuantitativeValueShape)
 
 Target class  
-`schema:QuantitativeValue`
+[schema:QuantitativeValue](http://schema.org/QuantitativeValue)
 
 Closed  
 Yes (only the listed properties are allowed)
@@ -902,9 +925,9 @@ Yes (only the listed properties are allowed)
 Key figures  
 15401 instances with 3 triples each
 
-Open data  
-Yes ([published on
-LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fvalue%20%3FunitCode%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AQuantitativeValue%20.%0A%20%20%3Firi%20schema%3Avalue%20%3Fvalue%20.%0A%20%20%3Firi%20schema%3AunitCode%20%3FunitCode%20.%0A%7D%0ALIMIT%201000))
+Data access  
+[SPARQL
+service](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fvalue%20%3FunitCode%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AQuantitativeValue%20.%0A%20%20%3Firi%20schema%3Avalue%20%3Fvalue%20.%0A%20%20%3Firi%20schema%3AunitCode%20%3FunitCode%20.%0A%7D%0ALIMIT%201000)
 
 </div>
 
@@ -912,9 +935,9 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 
 <table style="width:99%;">
 <colgroup>
-<col style="width: 41%" />
-<col style="width: 43%" />
-<col style="width: 14%" />
+<col style="width: 40%" />
+<col style="width: 47%" />
+<col style="width: 11%" />
 </colgroup>
 <thead>
 <tr>
@@ -925,23 +948,27 @@ LINDAS](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Value</strong>
-(<code>schema:value</code>): A quantitative value must have exactly one
-numeric value.</td>
+<td style="text-align: left;"><strong>Value</strong> (<a
+href="http://schema.org/value">schema:value</a>): A quantitative value
+must have exactly one numeric value.</td>
 <td style="text-align: left;"><ul>
-<li>Type: Decimal number (<code>xsd:decimal</code>) or Integer
-(<code>xsd:integer</code>)</li>
+<li>Type: Decimal number (<a
+href="http://www.w3.org/2001/XMLSchema#decimal">xsd:decimal</a>) or
+Integer (<a
+href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a>)</li>
 <li>Range: ≥ 0</li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Unit Code</strong>
-(<code>schema:unitCode</code>): A quantitative value must specify its
-unit via a unitCode URI.</td>
+<td style="text-align: left;"><strong>Unit Code</strong> (<a
+href="http://schema.org/unitCode">schema:unitCode</a>): A quantitative
+value must specify its unit via a unitCode URI.</td>
 <td style="text-align: left;"><ul>
-<li>Values: <code>unit:USD</code>, <code>unit:EA</code>,
-<code>unit:BYTE</code>, <code>unit:MilliSEC</code></li>
+<li>Values: <a href="http://qudt.org/vocab/unit/USD">unit:USD</a>, <a
+href="http://qudt.org/vocab/unit/EA">unit:EA</a>, <a
+href="http://qudt.org/vocab/unit/BYTE">unit:BYTE</a>, <a
+href="http://qudt.org/vocab/unit/MilliSEC">unit:MilliSEC</a></li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>

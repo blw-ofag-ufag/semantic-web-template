@@ -20,8 +20,10 @@ PREFIXES = Path("src/rdf/prefixes.ttl")
 ECH_CONFIG = Path("docs/_ech.yml")
 NAMESPACE_ROOT = "https://agriculture.ld.admin.ch/"
 
-CONVENTIONAL_FILES = {"README.md", "LICENSE.md", "CLEANUP.md", "CONTRIBUTING.md", "Makefile"}
-TEMPLATE_DIRS = {"docs/assets"}
+# Fixed by convention (GitHub, make) or by the tools that read them (Quarto
+# recognises its template partials by name).
+CONVENTIONAL_FILES = {"README.md", "LICENSE.md", "CLEANUP.md", "CONTRIBUTING.md", "Makefile",
+                      "typst-template.typ", "typst-show.typ", "title-metadata.html"}
 UPPERCASE_EXTENSIONS = {".R"}
 
 SNAKE_CASE = re.compile(r"_?[a-z0-9]+(_[a-z0-9]+)*")  # Quarto config files start with "_"
@@ -81,8 +83,6 @@ def test_file_names_are_snake_case():
     violations = []
     for path in tracked_files():
         if path.name in CONVENTIONAL_FILES or path.name.startswith("."):
-            continue
-        if any(str(path).startswith(d + "/") for d in TEMPLATE_DIRS):
             continue
         stem, *extensions = path.name.split(".")
         bad_extensions = [e for e in extensions if not (e.islower() and e.isalnum()) and "." + e not in UPPERCASE_EXTENSIONS]

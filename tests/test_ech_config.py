@@ -1,6 +1,6 @@
 """
 Validity of docs/_ech.yml, the eCH metadata shared by all language versions
-of the documentation, against the codes of docs/assets/ech-vocabulary.yml.
+of the documentation, against the codes of docs/assets/ech_vocabulary.yml.
 """
 import datetime
 import re
@@ -10,7 +10,7 @@ import pytest
 import yaml
 
 ECH_CONFIG = Path("docs/_ech.yml")
-VOCABULARY = Path("docs/assets/ech-vocabulary.yml")
+VOCABULARY = Path("docs/assets/ech_vocabulary.yml")
 QUARTO_CONFIG = Path("docs/_quarto.yml")
 
 REQUIRED_KEYS = {"number", "category", "maturity", "version", "status", "languages", "group", "graph"}

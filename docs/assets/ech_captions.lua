@@ -4,7 +4,7 @@
 --     "**Tabelle 3:** Beschreibung" (the PDF does the same with a Typst
 --     show rule in typst-template.typ);
 --   * fills the placeholders of the shortcodes {{< ech figures >}} and
---     {{< ech tables >}} (see ech-shortcodes.lua) with linked lists of the
+--     {{< ech tables >}} (see ech_shortcodes.lua) with linked lists of the
 --     captions of all figures or tables of the document.
 
 if not quarto.doc.is_format("html") then return {} end

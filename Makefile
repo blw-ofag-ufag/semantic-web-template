@@ -6,6 +6,7 @@
 BUILD_DIR        := build
 RDF_DIR          := $(BUILD_DIR)/rdf
 PYTHON_DIR       := src/python
+R_DIR            := src/r
 
 # Tools and binaries
 ROBOT_VERSION    := v1.9.5
@@ -17,6 +18,9 @@ VENV_PIP         := $(VENV_BIN)/pip
 PYSHACL          := $(VENV_BIN)/pyshacl
 PYTEST           := $(VENV_BIN)/pytest -p no:cacheprovider # suppress cache
 ROBOT            := java -jar $(VENV_BIN)/robot.jar
+RSCRIPT          ?= Rscript
+R_REQUIREMENTS   := $(wildcard $(R_DIR)/requirements.txt)
+R_STAMP          := $(if $(R_REQUIREMENTS),$(VENV)/.r-packages-installed.stamp)
 
 # Inputs
 ONTO             := src/rdf/ontology/model.owl.ttl
@@ -49,7 +53,7 @@ GREY             := \033[0;90m
 BOLD       := \033[1;37m
 NC               := \033[0m
 
-.PHONY: all help robot test docs clean check-python venv install-dependencies setup build delete publish stamp-metadata generate-shacl-docs generate-glossary-docs
+.PHONY: all help robot test docs clean check-python venv install-dependencies install-r-packages setup build delete publish stamp-metadata generate-shacl-docs generate-glossary-docs
 
 # Default target
 all: test docs ## Run the tests and build the documentation (default)
@@ -90,14 +94,23 @@ $(VENV)/.requirements-installed.stamp: $(PYTHON_DIR)/requirements.txt | $(VENV_P
 
 install-dependencies: $(VENV)/.requirements-installed.stamp
 
-# 4. Install robot
+# 4. Install R packages (the stamp is only defined if src/r/requirements.txt exists)
+$(VENV)/.r-packages-installed.stamp: $(R_REQUIREMENTS) $(R_DIR)/utils/install_packages.R | $(VENV_PYTHON)
+	@command -v $(RSCRIPT) >/dev/null 2>&1 || \
+		(printf "$(RED)ERROR: R not found (Rscript). Install R or delete $(R_DIR)/ if the documentation does not use R.$(NC)\n"; exit 1)
+	@printf "$(GREY)"; $(RSCRIPT) $(R_DIR)/utils/install_packages.R $(R_REQUIREMENTS) || { printf "$(NC)"; exit 1; }; printf "$(NC)"
+	@touch $@
+
+install-r-packages: $(R_STAMP)
+
+# 5. Install robot
 $(VENV_BIN)/robot.jar: | $(VENV_PYTHON)
 	@printf "$(GREY)"; curl -sL https://github.com/ontodev/robot/releases/download/$(ROBOT_VERSION)/robot.jar -o $(VENV_BIN)/robot.jar || { printf "$(NC)"; exit 1; }; printf "$(NC)"
 
 robot: $(VENV_BIN)/robot.jar
 
-# 5. Full setup
-setup: install-dependencies robot ## Create the virtual environment, install Python dependencies and ROBOT
+# 6. Full setup
+setup: install-dependencies install-r-packages robot ## Create the virtual environment, install Python and R dependencies and ROBOT
 	@printf "$(BOLD)[*] Setup complete.$(NC)\n"
 
 # ==============================================================================
@@ -194,7 +207,7 @@ generate-glossary-docs: src/rdf/data/glossary.skos.ttl $(PREFIXES) src/python/ut
 	$(VENV_PYTHON) src/python/utils/generate_glossary_docs.py -i src/rdf/data/glossary.skos.ttl -d $(DOCS_DIR) -p $(PREFIXES) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
-docs: $(SHACL_REPORT) generate-shacl-docs generate-glossary-docs ## Generate the data model and glossary pages and render the documentation (website, PDF)
+docs: $(SHACL_REPORT) generate-shacl-docs generate-glossary-docs $(R_STAMP) ## Generate the data model and glossary pages and render the documentation (website, PDF)
 	@printf "$(BOLD)[*] Rendering documentation with Quarto...$(NC)\n"
 	@printf "$(GREY)"; \
 	quarto render docs > $(QUARTO_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: Quarto rendering failed. See log below:$(NC)\n$(GREY)"; cat $(QUARTO_LOG); printf "$(NC)\n"; exit 1; }; \

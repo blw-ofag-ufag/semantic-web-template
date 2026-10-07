@@ -207,10 +207,13 @@
     it
   }
 
+  // Captions are left-aligned (figures and tables stay as they are); the
+  // caption block spans the full width so that it aligns with the margin.
+  show figure: set block(width: 100%)
   show figure.caption: set text(size: 10pt)
-  show figure.caption: it => context [
+  show figure.caption: it => context align(left, block(width: 100%)[
     *#it.supplement #it.counter.display(it.numbering):* #it.body
-  ]
+  ])
   show footnote.entry: set text(size: 10pt)
 
   // Figures float like in LaTeX: the text flows on and the figure goes to

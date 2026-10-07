@@ -149,6 +149,18 @@ WHERE {
 LIMIT 10
 ```
 
+Figures can also be produced with R code, as
+<a href="#fig-r-example" class="quarto-xref">Figure 2</a> shows:
+
+<div id="fig-r-example">
+
+![](index_files/figure-commonmark/fig-r-example-1.png)
+
+Figure 2: Figure produced with R. Quarto runs the code when rendering
+and inserts the plot.
+
+</div>
+
 <div id="tbl-example">
 
 Table 1: Example table with three columns. If a table has a caption, it

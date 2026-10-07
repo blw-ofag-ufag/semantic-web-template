@@ -155,6 +155,18 @@ WHERE {
 LIMIT 10
 ```
 
+Abbildungen lassen sich auch mit R-Code erzeugen, wie
+<a href="#fig-r-example" class="quarto-xref">Abbildung 2</a> zeigt:
+
+<div id="fig-r-example">
+
+![](index_files/figure-commonmark/fig-r-example-1.png)
+
+Abbildung 2: Mit R erzeugte Abbildung. Quarto führt den Code beim
+Rendern aus und fügt die Grafik ein.
+
+</div>
+
 <div id="tbl-example">
 
 Tabelle 1: Beispieltabelle mit drei Spalten. Hat eine Tabelle eine

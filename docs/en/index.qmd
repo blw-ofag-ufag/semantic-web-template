@@ -27,7 +27,7 @@ And write some text.
 
 And write some more text. Maybe even with a pretty image.
 
-![Always add some text to describe what the image shows. If a figure has a caption, it appears in the list of figures.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
+![Always add some text to describe what the image shows. If a figure has a caption, it appears in the list of figures. Only the first sentence of the caption is shown there.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
 
 When displaying diagrams, try to write them in Mermaid JS straight away; this makes changes in the future or translations straightforward.
 
@@ -86,7 +86,7 @@ LIMIT 10
 | Quantity       | Decimal number     | with unit                      |
 +----------------+--------------------+--------------------------------+
 
-: Example table. If a table has a caption, it appears in the list of tables. {#tbl-example}
+: Example table with three columns. If a table has a caption, it appears in the list of tables. Only the first sentence of the caption is shown there. {#tbl-example}
 
 A formula can appear in the text, for example $E = m c^2$, or as a standalone equation such as @eq-example:
 

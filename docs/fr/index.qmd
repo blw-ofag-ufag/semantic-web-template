@@ -27,7 +27,7 @@ Et écrire un peu de texte.
 
 Et écrire encore plus de texte. Peut-être même avec une belle image.
 
-![Ajoutez toujours du texte pour décrire ce que montre l'image. Si une illustration a une légende, elle figure dans la table des illustrations.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
+![Ajoutez toujours du texte pour décrire ce que montre l'image. Si une illustration a une légende, elle figure dans la table des illustrations. Seule la première phrase de la légende y est affichée.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
 
 Lors de la présentation de diagrammes, essayez de les créer directement dans Mermaid JS ; cela facilite grandement les modifications futures ou les traductions.
 
@@ -86,7 +86,7 @@ LIMIT 10
 | Quantité       | Nombre décimal     | avec unité                     |
 +----------------+--------------------+--------------------------------+
 
-: Tableau d'exemple. Si un tableau a une légende, il figure dans la liste des tableaux. {#tbl-example}
+: Tableau d'exemple à trois colonnes. Si un tableau a une légende, il figure dans la liste des tableaux. Seule la première phrase de la légende y est affichée. {#tbl-example}
 
 Une formule peut figurer dans le texte, par exemple $E = m c^2$, ou comme équation à part entière telle que @eq-example:
 

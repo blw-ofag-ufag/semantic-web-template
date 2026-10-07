@@ -123,8 +123,16 @@
   show outline.entry: it => {
     show link: set text(fill: black)
     if it.element.func() == figure {
-      // Lists of figures and tables (appendices): "Abbildung 1: caption ... 5".
-      block(width: 100%, link(it.element.location(), [*#it.prefix():* #it.inner()]))
+      // Lists of figures and tables (appendices): "Abbildung 1: caption ... 5",
+      // with the caption shortened to its first sentence.
+      let caption = content-to-string(it.element.caption.body)
+      // (the sentence ends at the first ".", "!" or "?" followed by a space or the end)
+      let first = if caption == none { none } else { caption.match(regex("^.*?[.!?](\\s|$$)")) }
+      // Without a sentence end the whole caption is shown; the dot leader is
+      // the same in both cases (Typst's own leader would be spaced differently).
+      let text-part = if first == none { it.element.caption.body } else { first.text.trim() }
+      let body = [#text-part #box(width: 1fr, repeat[.]) #it.page()]
+      block(width: 100%, link(it.element.location(), [*#it.prefix():* #body]))
     } else {
       set text(size: if it.level == 1 { 12pt } else { 11pt })
       set text(weight: "bold") if it.level <= 2

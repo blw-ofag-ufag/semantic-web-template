@@ -1,7 +1,7 @@
 # Bibliography in CSL YAML (one file for all citations and languages).
 #
 # Each entry carries an explicit `citation-label`, which the alphanumeric
-# citation style (docs/assets/din-1505-2-alphanumeric.csl) prints in the text
+# citation style (docs/assets/din_1505_2_alphanumeric.csl) prints in the text
 # and in front of the entry in the bibliography. Other eCH standards are cited
 # by number and version, e.g. [@eCH-0265:1.0.0] renders as "[eCH-0265 1.0.0]".
 references:

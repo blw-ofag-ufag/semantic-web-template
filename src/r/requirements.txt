@@ -1,3 +1,0 @@
-knitr>=1.45
-rmarkdown>=2.25
-ggplot2>=3.5.0

@@ -96,17 +96,18 @@ The test suite runs every query in this folder against LINDAS. Replace the demo 
 
 The pages `entities.md`, `namespaces.md` (prefixes and namespaces used by the data model) and `glossary.md` are generated from the SHACL shapes and the glossary on every `make docs`. Everything else is maintained manually.
 
-### R packages (`src/r/requirements.txt`)
+### R packages (`src/r/DESCRIPTION`)
 
-The pages may contain executable R code chunks (e.g. for figures), which Quarto runs with knitr on every render. By default only the output of a chunk is shown (`execute: echo: false` in `docs/_quarto.yml`); add `#| echo: true` to a chunk to show its code. The R packages they need are listed in `src/r/requirements.txt`, one per line with an optional minimum version, as in pip:
+The pages may contain executable R code chunks (e.g. for figures), which Quarto runs with knitr on every render. By default only the output of a chunk is shown (`execute: echo: false` in `docs/_quarto.yml`); add `#| echo: true` to a chunk to show its code. The R packages they need are listed under `Imports` in `src/r/DESCRIPTION`, R's native dependency file, with optional minimum versions:
 
 ```
-knitr>=1.45
-rmarkdown>=2.25
-ggplot2>=3.5.0
+Imports:
+    knitr (>= 1.45),
+    rmarkdown (>= 2.25),
+    ggplot2 (>= 3.5.0)
 ```
 
-`make setup` runs `src/r/utils/install_packages.R`, which installs the missing or outdated packages into the user library; the CI pipeline does the same with binaries from the Posit Package Manager and caches them. `knitr` and `rmarkdown` are required by Quarto, add the packages of the project's own code chunks below them. If the documentation does not use R, delete the `src/r/` folder (the Makefile then skips the R set-up) and the "Set up R" and "Cache R packages" steps in `.github/workflows/ci.yml`.
+`make setup` installs them with [pak](https://pak.r-lib.org/) (`pak::local_install_deps("src/r")`), which also installs the system libraries the packages need (with `sudo`, if available); the CI pipeline does the same with `r-lib/actions/setup-r-dependencies`, using binaries from the Posit Package Manager, and caches the packages. `knitr` and `rmarkdown` are required by Quarto, add the packages of the project's own code chunks below them. If the documentation does not use R, delete the `src/r/` folder (the Makefile then skips the R set-up) and the "Set up R" and "Install R packages" steps in `.github/workflows/ci.yml`.
 
 ### Website configuration (`docs/_quarto.yml`)
 

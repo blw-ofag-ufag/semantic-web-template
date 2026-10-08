@@ -1,0 +1,14 @@
+Package: project
+Title: R packages of the documentation
+Version: 1.0.0
+Description: Lists the R packages that the code chunks of docs/*/index.qmd
+    need, with optional minimum versions. They are installed by `make setup`
+    locally and by the action r-lib/actions/setup-r-dependencies in CI, both
+    with pak, which also installs the system libraries the packages require.
+    knitr and rmarkdown are needed by Quarto; add the packages of the
+    project's own code chunks below them.
+Imports:
+    knitr (>= 1.45),
+    rmarkdown (>= 2.25),
+    ggplot2 (>= 3.5.0)
+Encoding: UTF-8

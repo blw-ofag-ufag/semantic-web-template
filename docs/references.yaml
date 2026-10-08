@@ -3,7 +3,9 @@
 # Each entry carries an explicit `citation-label`, which the alphanumeric
 # citation style (docs/assets/din_1505_2_alphanumeric.csl) prints in the text
 # and in front of the entry in the bibliography. Other eCH standards are cited
-# by number and version, e.g. [@eCH-0265:1.0.0] renders as "[eCH-0265 1.0.0]".
+# by number and version: [@eCH-0265:1.0.0] renders as "[eCH-0265 1.0.0]", the
+# in-text form @eCH-0265:1.0.0 as "eCH-0265 1.0.0" without the brackets
+# (docs/assets/ech_citations.lua).
 references:
 
 # --- eCH standards -----------------------------------------------------------

@@ -22,7 +22,7 @@ NAMESPACE_ROOT = "https://agriculture.ld.admin.ch/"
 
 # Fixed by convention (GitHub, make) or by the tools that read them (Quarto
 # recognises its template partials by name).
-CONVENTIONAL_FILES = {"README.md", "LICENSE.md", "CLEANUP.md", "CONTRIBUTING.md", "Makefile",
+CONVENTIONAL_FILES = {"README.md", "LICENSE.md", "CLEANUP.md", "CONTRIBUTING.md", "Makefile", "DESCRIPTION",
                       "typst-template.typ", "typst-show.typ", "title-metadata.html"}
 UPPERCASE_EXTENSIONS = {".R"}
 

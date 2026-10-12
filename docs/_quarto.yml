@@ -53,6 +53,7 @@ filters:
   - assets/ech_metadata.lua
   - quarto
   - assets/ech_captions.lua
+  - assets/ech_citations.lua
 shortcodes:
   - assets/ech_shortcodes.lua
 

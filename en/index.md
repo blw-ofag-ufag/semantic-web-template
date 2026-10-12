@@ -185,10 +185,11 @@ standalone equation such as
 # Usage notes
 
 The following paragraph is deliberately nonsense and only tests the
-citation style: according to the approval guideline \[eCH-0003 11.1.0\],
-all postal addresses \[eCH-0010 8.1.0\] must be serialised in Turtle
-\[Turtle\], validated as a DCAT catalogue \[DCAT; eCH-0200 3.0.1\] with
-SHACL \[SHACL\] and published via SPARQL \[SPARQL\] as Linked Open Data
+citation style (in running text without brackets with `@key`, otherwise
+in brackets with `[@key]`): according to eCH-0003 11.1.0, all postal
+addresses \[eCH-0010 8.1.0\] must be serialised in Turtle \[Turtle\],
+validated as a DCAT catalogue \[DCAT; eCH-0200 3.0.1\] with SHACL
+\[SHACL\] and published via SPARQL \[SPARQL\] as Linked Open Data
 \[eCH-0205 1.0\] on agricultural crops \[eCH-0265 1.0.0\] in JSON-LD
 \[JSON-LD\] and OWL \[OWL 2\], as the Semantic Web \[Berners-Lee 2023\]
 intends.

@@ -190,10 +190,11 @@ Gleichung wie <a href="#eq-example" class="quarto-xref">Gleichung 1</a>:
 # Hinweise zur Verwendung
 
 Der folgende Absatz ist bewusst Unsinn und dient nur dem Test der
-Zitierweise: Gemäss dem Genehmigungsleitfaden \[eCH-0003 11.1.0\] müssen
-alle Postadressen \[eCH-0010 8.1.0\] in Turtle \[Turtle\] serialisiert,
-als DCAT-Katalog \[DCAT; eCH-0200 3.0.1\] mit SHACL \[SHACL\] geprüft
-und per SPARQL \[SPARQL\] als Linked Open Data \[eCH-0205 1.0\] über
+Zitierweise (im Fliesstext ohne Klammern mit `@key`, sonst in Klammern
+mit `[@key]`): Gemäss eCH-0003 11.1.0 müssen alle Postadressen
+\[eCH-0010 8.1.0\] in Turtle \[Turtle\] serialisiert, als DCAT-Katalog
+\[DCAT; eCH-0200 3.0.1\] mit SHACL \[SHACL\] geprüft und per SPARQL
+\[SPARQL\] als Linked Open Data \[eCH-0205 1.0\] über
 landwirtschaftliche Kulturen \[eCH-0265 1.0.0\] in JSON-LD \[JSON-LD\]
 und OWL \[OWL 2\] veröffentlicht werden, wie es das Semantic Web
 \[Berners-Lee 2023\] vorsieht.

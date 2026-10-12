@@ -33,13 +33,18 @@
     Wert](#sec-nodeshape-quantitativevalueshape)
   - [<span class="toc-section-number">3.8</span>
     Rechnung](#sec-nodeshape-invoiceshape)
-- [<span class="toc-section-number">4</span>
-  Datenbezug](#sec-data-retrieval)
+- [<span class="toc-section-number">4</span> Codelisten](#sec-codelists)
+  - [<span class="toc-section-number">4.1</span>
+    Einheiten](#sec-codelist-units)
+  - [<span class="toc-section-number">4.2</span>
+    Medientypen](#sec-codelist-mediatypes)
 - [<span class="toc-section-number">5</span>
-  Sicherheitsaspekte](#sec-safety-consideration)
+  Datenbezug](#sec-data-retrieval)
 - [<span class="toc-section-number">6</span>
-  Haftungsausschluss](#sec-disclaimer)
+  Sicherheitsaspekte](#sec-safety-consideration)
 - [<span class="toc-section-number">7</span>
+  Haftungsausschluss](#sec-disclaimer)
+- [<span class="toc-section-number">8</span>
   Urheberrechte](#sec-copyrights)
 - [Anhang A – Referenzen](#sec-appendix-a)
 - [Anhang B – Mitwirkung und Prüfung](#sec-appendix-b)
@@ -214,14 +219,17 @@ Names*](https://www.w3.org/TR/turtle/#prefixed-name) aufgelöst werden
 Tabelle 2: In eCH-1234 – Quarto-Dokument als Vorlage verwendete
 Namespaces.
 
-| Präfix   | Namespace                                   |
-|:---------|:--------------------------------------------|
-| :        | https://agriculture.ld.admin.ch/eCH-1234/2/ |
-| country: | https://ld.admin.ch/country/                |
-| rdf:     | http://www.w3.org/1999/02/22-rdf-syntax-ns# |
-| schema:  | http://schema.org/                          |
-| unit:    | http://qudt.org/vocab/unit/                 |
-| xsd:     | http://www.w3.org/2001/XMLSchema#           |
+| Präfix    | Namespace                                             |
+|:----------|:------------------------------------------------------|
+| :         | https://agriculture.ld.admin.ch/eCH-1234/2/           |
+| codelist: | https://agriculture.ld.admin.ch/eCH-1234/2/codelist/  |
+| country:  | https://ld.admin.ch/country/                          |
+| currency: | http://qudt.org/vocab/currency/                       |
+| media:    | https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/ |
+| rdf:      | http://www.w3.org/1999/02/22-rdf-syntax-ns#           |
+| schema:   | http://schema.org/                                    |
+| unit:     | http://qudt.org/vocab/unit/                           |
+| xsd:      | http://www.w3.org/2001/XMLSchema#                     |
 
 </div>
 
@@ -257,7 +265,7 @@ Datenzugriff
 <table style="width:99%;">
 <colgroup>
 <col style="width: 39%" />
-<col style="width: 49%" />
+<col style="width: 50%" />
 <col style="width: 9%" />
 </colgroup>
 <thead>
@@ -348,8 +356,8 @@ Datenzugriff
 <table style="width:99%;">
 <colgroup>
 <col style="width: 40%" />
-<col style="width: 46%" />
-<col style="width: 12%" />
+<col style="width: 47%" />
+<col style="width: 11%" />
 </colgroup>
 <thead>
 <tr>
@@ -404,7 +412,7 @@ Kennzahlen
 3503 Instanzen mit je 10 bis 15 Tripeln (im Mittel 11.1)
 
 Datenzugriff  
-[SPARQL-Dienst](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FinAlbum%20%3Fauthor%20%3Fgenre%20%3Fduration%20%3FcontentSize%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicRecording%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AinAlbum%20%3FinAlbum%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aauthor%20%3Fauthor%20.%20%7D%0A%20%20%3Firi%20schema%3Agenre%20%3Fgenre%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aduration%20%3Fduration%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AcontentSize%20%3FcontentSize%20.%20%7D%0A%7D%0ALIMIT%201000)
+[SPARQL-Dienst](https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FinAlbum%20%3Fauthor%20%3Fgenre%20%3FencodingFormat%20%3Fduration%20%3FcontentSize%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicRecording%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AinAlbum%20%3FinAlbum%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aauthor%20%3Fauthor%20.%20%7D%0A%20%20%3Firi%20schema%3Agenre%20%3Fgenre%20.%0A%20%20%3Firi%20schema%3AencodingFormat%20%3FencodingFormat%20.%0A%20%20%3Firi%20schema%3Aduration%20%3Fduration%20.%0A%20%20%3Firi%20schema%3AcontentSize%20%3FcontentSize%20.%0A%7D%0ALIMIT%201000)
 
 </div>
 
@@ -412,9 +420,9 @@ Datenzugriff
 
 <table style="width:99%;">
 <colgroup>
-<col style="width: 43%" />
-<col style="width: 44%" />
-<col style="width: 11%" />
+<col style="width: 41%" />
+<col style="width: 48%" />
+<col style="width: 9%" />
 </colgroup>
 <thead>
 <tr>
@@ -460,23 +468,64 @@ href="http://schema.org/genre">schema:genre</a>)</td>
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Medientyp</strong> (<a
+href="http://schema.org/encodingFormat">schema:encodingFormat</a>): Das
+Dateiformat des Titels als Code der Codeliste Medientypen.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a
+href="http://schema.org/CategoryCode">schema:CategoryCode</a> mit
+folgender Auswahl:
+<ul>
+<li>MPEG-Audiodatei (<a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/1">media:1</a>)</li>
+<li>Geschützte AAC-Audiodatei (<a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/2">media:2</a>)</li>
+<li>Geschützte MPEG-4-Videodatei (<a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/3">media:3</a>)</li>
+<li>Gekaufte AAC-Audiodatei (<a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/4">media:4</a>)</li>
+<li>AAC-Audiodatei (<a
+href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/5">media:5</a>)</li>
+</ul>
+Siehe Codeliste <a href="#sec-codelist-mediatypes">Medientypen</a></li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr>
 <td style="text-align: left;"><strong>Dauer</strong> (<a
-href="http://schema.org/duration">schema:duration</a>): Die Dauer muss
-als schema:QuantitativeValue ausgedrückt werden.</td>
+href="http://schema.org/duration">schema:duration</a>): Die Dauer des
+Titels als quantitativer Wert in Millisekunden mit einem Wert grösser
+als null.</td>
 <td style="text-align: left;"><ul>
 <li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer
-Wert</a></li>
+Wert</a> mit folgenden Einschränkungen:
+<ul>
+<li>Einheitencode (<a
+href="http://schema.org/unitCode">schema:unitCode</a>): Pflichtwert <a
+href="http://qudt.org/vocab/unit/MilliSEC">unit:MilliSEC</a></li>
+<li>Wert (<a href="http://schema.org/value">schema:value</a>):
+Wertebereich &gt; 0</li>
+</ul></li>
 </ul></td>
-<td style="text-align: right;">0..*</td>
+<td style="text-align: right;">1..1</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Dateigrösse</strong> (<a
-href="http://schema.org/contentSize">schema:contentSize</a>)</td>
+href="http://schema.org/contentSize">schema:contentSize</a>): Die
+Dateigrösse des Titels als quantitativer Wert in Byte mit einem Wert
+grösser als null.</td>
 <td style="text-align: left;"><ul>
 <li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer
-Wert</a></li>
+Wert</a> mit folgenden Einschränkungen:
+<ul>
+<li>Einheitencode (<a
+href="http://schema.org/unitCode">schema:unitCode</a>): Pflichtwert <a
+href="http://qudt.org/vocab/unit/BYTE">unit:BYTE</a></li>
+<li>Wert (<a href="http://schema.org/value">schema:value</a>):
+Wertebereich &gt; 0</li>
+</ul></li>
 </ul></td>
-<td style="text-align: right;">0..*</td>
+<td style="text-align: right;">1..1</td>
 </tr>
 </tbody>
 </table>
@@ -508,7 +557,7 @@ Keiner (Transaktionsdaten, nicht Teil des publizierten Graphen)
 <table style="width:99%;">
 <colgroup>
 <col style="width: 36%" />
-<col style="width: 49%" />
+<col style="width: 50%" />
 <col style="width: 12%" />
 </colgroup>
 <thead>
@@ -574,8 +623,8 @@ Datenzugriff
 
 <table style="width:99%;">
 <colgroup>
-<col style="width: 42%" />
-<col style="width: 44%" />
+<col style="width: 41%" />
+<col style="width: 45%" />
 <col style="width: 11%" />
 </colgroup>
 <thead>
@@ -719,7 +768,7 @@ Datenzugriff
 <table style="width:99%;">
 <colgroup>
 <col style="width: 46%" />
-<col style="width: 41%" />
+<col style="width: 42%" />
 <col style="width: 10%" />
 </colgroup>
 <thead>
@@ -798,9 +847,10 @@ href="https://ld.admin.ch/country/ITA">country:ITA</a></li>
 Ein numerischer Wert mit einer dazugehörigen Einheit.
 
 Quantitative Werte werden nie als blosse Zahl erfasst, sondern immer
-zusammen mit einer Einheit aus dem QUDT-Vokabular. So bleibt eindeutig,
-ob eine Dauer in Millisekunden oder eine Dateigrösse in Bytes gemeint
-ist. Negative Werte sind in diesem Datensatz nicht vorgesehen.
+zusammen mit einer Einheit aus der Codeliste Einheiten (IRIs des
+QUDT-Vokabulars). So bleibt eindeutig, ob eine Dauer in Millisekunden
+oder eine Dateigrösse in Bytes gemeint ist. Negative Werte sind in
+diesem Datensatz nicht vorgesehen.
 
 ### Übersicht
 
@@ -827,8 +877,8 @@ Datenzugriff
 
 <table style="width:99%;">
 <colgroup>
-<col style="width: 40%" />
-<col style="width: 47%" />
+<col style="width: 39%" />
+<col style="width: 48%" />
 <col style="width: 11%" />
 </colgroup>
 <thead>
@@ -854,13 +904,14 @@ href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a>)</li>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Einheitencode</strong> (<a
-href="http://schema.org/unitCode">schema:unitCode</a>): Ein
-quantitativer Wert muss seine Einheit über eine unitCode-URI
-angeben.</td>
+href="http://schema.org/unitCode">schema:unitCode</a>): Die Einheit als
+Code der Codeliste Einheiten (IRI des QUDT-Vokabulars).</td>
 <td style="text-align: left;"><ul>
-<li>Werte: <a href="http://qudt.org/vocab/unit/USD">unit:USD</a>, <a
-href="http://qudt.org/vocab/unit/EA">unit:EA</a>, <a
-href="http://qudt.org/vocab/unit/BYTE">unit:BYTE</a>, <a
+<li>Typ: <a
+href="http://schema.org/CategoryCode">schema:CategoryCode</a>, siehe
+Codeliste <a href="#sec-codelist-units">Einheiten</a></li>
+<li>Beispiele: <a
+href="http://qudt.org/vocab/currency/USD">currency:USD</a>, <a
 href="http://qudt.org/vocab/unit/MilliSEC">unit:MilliSEC</a></li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
@@ -902,9 +953,9 @@ Datenzugriff
 
 <table style="width:99%;">
 <colgroup>
-<col style="width: 48%" />
-<col style="width: 40%" />
-<col style="width: 11%" />
+<col style="width: 47%" />
+<col style="width: 41%" />
+<col style="width: 10%" />
 </colgroup>
 <thead>
 <tr>
@@ -930,7 +981,12 @@ Eine Rechnung muss einen fälligen Gesamtbetrag als
 schema:QuantitativeValue definieren.</td>
 <td style="text-align: left;"><ul>
 <li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer
-Wert</a></li>
+Wert</a> mit folgenden Einschränkungen:
+<ul>
+<li>Einheitencode (<a
+href="http://schema.org/unitCode">schema:unitCode</a>): Pflichtwert <a
+href="http://qudt.org/vocab/currency/USD">currency:USD</a></li>
+</ul></li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
@@ -992,6 +1048,53 @@ WHERE {
     FILTER(ABS(?invoiceTotal - ?calculatedTotal) > 0.05)
 }
 ```
+
+# Codelisten
+
+Die folgenden Codelisten legen die zulässigen Werte der entsprechenden
+Eigenschaften des Datenmodells fest
+(<a href="#sec-data-model" class="quarto-xref">Kapitel 3</a>). Jede
+Codeliste ist als `schema:CategoryCodeSet` und jeder Wert als
+`schema:CategoryCode` auf LINDAS publiziert.
+
+## Einheiten
+
+Die Einheiten der quantitativen Werte des Datensatzes: Dauer in
+Millisekunden, Dateigrösse in Byte, Stückzahl und Preise in US-Dollar.
+Die Codes sind IRIs des QUDT-Vokabulars, die Codewerte die UN/CEFACT
+Common Codes bzw. der ISO-4217-Währungscode.
+
+<div id="tbl-codelist-units">
+
+Tabelle 3: Werte der Codeliste Einheiten.
+
+| IRI | Code | Name | Beschreibung |
+|:---|:---|:---|:---|
+| [unit:BYTE](http://qudt.org/vocab/unit/BYTE) | `AD` | Byte (B) | Acht Bit; Einheit der Dateigrösse der Titel. |
+| [unit:MilliSEC](http://qudt.org/vocab/unit/MilliSEC) | `C26` | Millisekunde (ms) | Tausendstel einer Sekunde; Einheit der Dauer der Titel. |
+| [unit:NUM](http://qudt.org/vocab/unit/NUM) | `EA` | Stück (#) | Zähleinheit für Stückzahlen, etwa die bestellte Menge einer Rechnungsposition. |
+| [currency:USD](http://qudt.org/vocab/currency/USD) | `USD` | US-Dollar (\$) | Währung der Vereinigten Staaten (ISO 4217: USD); Einheit der Preise und Rechnungsbeträge. |
+
+</div>
+
+## Medientypen
+
+Die Dateiformate der Titel des Chinook-Datensatzes. Die Codewerte sind
+die Kennungen der Tabelle MediaType der Chinook-Datenbank.
+
+<div id="tbl-codelist-mediatypes">
+
+Tabelle 4: Werte der Codeliste Medientypen.
+
+| IRI | Code | Name | Beschreibung |
+|:---|:---|:---|:---|
+| [media:1](https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/1) | `1` | MPEG-Audiodatei (MP3) | Audiodatei im Format MPEG-1 Audio Layer III (MP3), ohne Kopierschutz. |
+| [media:2](https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/2) | `2` | Geschützte AAC-Audiodatei (M4P) | AAC-Audiodatei mit Kopierschutz (DRM), wie sie der iTunes Store bis 2009 verkaufte. |
+| [media:3](https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/3) | `3` | Geschützte MPEG-4-Videodatei (M4V) | MPEG-4-Videodatei mit Kopierschutz (DRM), etwa gekaufte Filme und Serien. |
+| [media:4](https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/4) | `4` | Gekaufte AAC-Audiodatei (iTunes Plus) | Im iTunes Store gekaufte AAC-Audiodatei ohne Kopierschutz (iTunes Plus). |
+| [media:5](https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/5) | `5` | AAC-Audiodatei (M4A) | AAC-Audiodatei ohne Kopierschutz, etwa von einer CD importiert. |
+
+</div>
 
 # Datenbezug
 
@@ -1270,7 +1373,7 @@ verfügbar, auf [LINDAS](https://lindas.admin.ch/) und im
 
 <div id="tbl-glossary">
 
-Tabelle 3: Glossar des Standards eCH-1234
+Tabelle 5: Glossar des Standards eCH-1234
 
 <table>
 <colgroup>

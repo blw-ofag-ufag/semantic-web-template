@@ -426,10 +426,15 @@ window.Quarto = {
   <li><a href="#sec-nodeshape-quantitativevalueshape" id="toc-sec-nodeshape-quantitativevalueshape" class="nav-link" data-scroll-target="#sec-nodeshape-quantitativevalueshape"><span class="header-section-number">3.7</span> Quantitativer Wert</a></li>
   <li><a href="#sec-nodeshape-invoiceshape" id="toc-sec-nodeshape-invoiceshape" class="nav-link" data-scroll-target="#sec-nodeshape-invoiceshape"><span class="header-section-number">3.8</span> Rechnung</a></li>
   </ul></li>
-  <li><a href="#sec-data-retrieval" id="toc-sec-data-retrieval" class="nav-link" data-scroll-target="#sec-data-retrieval"><span class="header-section-number">4</span> Datenbezug</a></li>
-  <li><a href="#sec-safety-consideration" id="toc-sec-safety-consideration" class="nav-link" data-scroll-target="#sec-safety-consideration"><span class="header-section-number">5</span> Sicherheitsaspekte</a></li>
-  <li><a href="#sec-disclaimer" id="toc-sec-disclaimer" class="nav-link" data-scroll-target="#sec-disclaimer"><span class="header-section-number">6</span> Haftungsausschluss</a></li>
-  <li><a href="#sec-copyrights" id="toc-sec-copyrights" class="nav-link" data-scroll-target="#sec-copyrights"><span class="header-section-number">7</span> Urheberrechte</a></li>
+  <li><a href="#sec-codelists" id="toc-sec-codelists" class="nav-link" data-scroll-target="#sec-codelists"><span class="header-section-number">4</span> Codelisten</a>
+  <ul class="collapse">
+  <li><a href="#sec-codelist-units" id="toc-sec-codelist-units" class="nav-link" data-scroll-target="#sec-codelist-units"><span class="header-section-number">4.1</span> Einheiten</a></li>
+  <li><a href="#sec-codelist-mediatypes" id="toc-sec-codelist-mediatypes" class="nav-link" data-scroll-target="#sec-codelist-mediatypes"><span class="header-section-number">4.2</span> Medientypen</a></li>
+  </ul></li>
+  <li><a href="#sec-data-retrieval" id="toc-sec-data-retrieval" class="nav-link" data-scroll-target="#sec-data-retrieval"><span class="header-section-number">5</span> Datenbezug</a></li>
+  <li><a href="#sec-safety-consideration" id="toc-sec-safety-consideration" class="nav-link" data-scroll-target="#sec-safety-consideration"><span class="header-section-number">6</span> Sicherheitsaspekte</a></li>
+  <li><a href="#sec-disclaimer" id="toc-sec-disclaimer" class="nav-link" data-scroll-target="#sec-disclaimer"><span class="header-section-number">7</span> Haftungsausschluss</a></li>
+  <li><a href="#sec-copyrights" id="toc-sec-copyrights" class="nav-link" data-scroll-target="#sec-copyrights"><span class="header-section-number">8</span> Urheberrechte</a></li>
   
   
   
@@ -730,22 +735,34 @@ Warnung
 <td style="text-align: left;">https://agriculture.ld.admin.ch/eCH-1234/2/</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">codelist:</td>
+<td style="text-align: left;">https://agriculture.ld.admin.ch/eCH-1234/2/codelist/</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">country:</td>
 <td style="text-align: left;">https://ld.admin.ch/country/</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">currency:</td>
+<td style="text-align: left;">http://qudt.org/vocab/currency/</td>
+</tr>
 <tr class="odd">
+<td style="text-align: left;">media:</td>
+<td style="text-align: left;">https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">rdf:</td>
 <td style="text-align: left;">http://www.w3.org/1999/02/22-rdf-syntax-ns#</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">schema:</td>
 <td style="text-align: left;">http://schema.org/</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">unit:</td>
 <td style="text-align: left;">http://qudt.org/vocab/unit/</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">xsd:</td>
 <td style="text-align: left;">http://www.w3.org/2001/XMLSchema#</td>
 </tr>
@@ -793,7 +810,7 @@ Ja (nur die aufgeführten Eigenschaften zulässig)
 <table class="caption-top table">
 <colgroup>
 <col style="width: 39%">
-<col style="width: 49%">
+<col style="width: 50%">
 <col style="width: 9%">
 </colgroup>
 <thead>
@@ -879,8 +896,8 @@ Nein (weitere Eigenschaften zulässig)
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
-<col style="width: 46%">
-<col style="width: 12%">
+<col style="width: 47%">
+<col style="width: 11%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -934,7 +951,7 @@ Nein (weitere Eigenschaften zulässig)
 </dd>
 <dt>Datenzugriff</dt>
 <dd>
-<a href="https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FinAlbum%20%3Fauthor%20%3Fgenre%20%3Fduration%20%3FcontentSize%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicRecording%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AinAlbum%20%3FinAlbum%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aauthor%20%3Fauthor%20.%20%7D%0A%20%20%3Firi%20schema%3Agenre%20%3Fgenre%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aduration%20%3Fduration%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AcontentSize%20%3FcontentSize%20.%20%7D%0A%7D%0ALIMIT%201000">SPARQL-Dienst</a>
+<a href="https://lindas.admin.ch/sparql/#query=PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0ASELECT%20%3Firi%20%3Fname%20%3FinAlbum%20%3Fauthor%20%3Fgenre%20%3FencodingFormat%20%3Fduration%20%3FcontentSize%0AFROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Ffoag%2Fogd%3E%0AWHERE%20%7B%0A%20%20%3Firi%20a%20schema%3AMusicRecording%20.%0A%20%20%3Firi%20schema%3Aname%20%3Fname%20.%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3AinAlbum%20%3FinAlbum%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Firi%20schema%3Aauthor%20%3Fauthor%20.%20%7D%0A%20%20%3Firi%20schema%3Agenre%20%3Fgenre%20.%0A%20%20%3Firi%20schema%3AencodingFormat%20%3FencodingFormat%20.%0A%20%20%3Firi%20schema%3Aduration%20%3Fduration%20.%0A%20%20%3Firi%20schema%3AcontentSize%20%3FcontentSize%20.%0A%7D%0ALIMIT%201000">SPARQL-Dienst</a>
 </dd>
 </dl>
 </div>
@@ -943,9 +960,9 @@ Nein (weitere Eigenschaften zulässig)
 <h3 class="unlisted anchored" data-number="3.3.2" data-anchor-id="sec-nodeshape-trackshape-properties"><span class="header-section-number">3.3.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 43%">
-<col style="width: 44%">
-<col style="width: 11%">
+<col style="width: 41%">
+<col style="width: 48%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -983,18 +1000,41 @@ Nein (weitere Eigenschaften zulässig)
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Dauer</strong> (<a href="http://schema.org/duration">schema:duration</a>): Die Dauer muss als schema:QuantitativeValue ausgedrückt werden.</td>
+<td style="text-align: left;"><strong>Medientyp</strong> (<a href="http://schema.org/encodingFormat">schema:encodingFormat</a>): Das Dateiformat des Titels als Code der Codeliste Medientypen.</td>
 <td style="text-align: left;"><ul>
-<li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer Wert</a></li>
+<li>Typ: <a href="http://schema.org/CategoryCode">schema:CategoryCode</a> mit folgender Auswahl:
+<ul>
+<li>MPEG-Audiodatei (<a href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/1">media:1</a>)</li>
+<li>Geschützte AAC-Audiodatei (<a href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/2">media:2</a>)</li>
+<li>Geschützte MPEG-4-Videodatei (<a href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/3">media:3</a>)</li>
+<li>Gekaufte AAC-Audiodatei (<a href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/4">media:4</a>)</li>
+<li>AAC-Audiodatei (<a href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/5">media:5</a>)</li>
+</ul>
+Siehe Codeliste <a href="#sec-codelist-mediatypes">Medientypen</a></li>
 </ul></td>
-<td style="text-align: right;">0..*</td>
+<td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dateigrösse</strong> (<a href="http://schema.org/contentSize">schema:contentSize</a>)</td>
+<td style="text-align: left;"><strong>Dauer</strong> (<a href="http://schema.org/duration">schema:duration</a>): Die Dauer des Titels als quantitativer Wert in Millisekunden mit einem Wert grösser als null.</td>
 <td style="text-align: left;"><ul>
-<li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer Wert</a></li>
+<li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer Wert</a> mit folgenden Einschränkungen:
+<ul>
+<li>Einheitencode (<a href="http://schema.org/unitCode">schema:unitCode</a>): Pflichtwert <a href="http://qudt.org/vocab/unit/MilliSEC">unit:MilliSEC</a></li>
+<li>Wert (<a href="http://schema.org/value">schema:value</a>): Wertebereich &gt; 0</li>
+</ul></li>
 </ul></td>
-<td style="text-align: right;">0..*</td>
+<td style="text-align: right;">1..1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Dateigrösse</strong> (<a href="http://schema.org/contentSize">schema:contentSize</a>): Die Dateigrösse des Titels als quantitativer Wert in Byte mit einem Wert grösser als null.</td>
+<td style="text-align: left;"><ul>
+<li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer Wert</a> mit folgenden Einschränkungen:
+<ul>
+<li>Einheitencode (<a href="http://schema.org/unitCode">schema:unitCode</a>): Pflichtwert <a href="http://qudt.org/vocab/unit/BYTE">unit:BYTE</a></li>
+<li>Wert (<a href="http://schema.org/value">schema:value</a>): Wertebereich &gt; 0</li>
+</ul></li>
+</ul></td>
+<td style="text-align: right;">1..1</td>
 </tr>
 </tbody>
 </table>
@@ -1031,7 +1071,7 @@ Keiner (Transaktionsdaten, nicht Teil des publizierten Graphen)
 <table class="caption-top table">
 <colgroup>
 <col style="width: 36%">
-<col style="width: 49%">
+<col style="width: 50%">
 <col style="width: 12%">
 </colgroup>
 <thead>
@@ -1090,8 +1130,8 @@ Ja (nur die aufgeführten Eigenschaften zulässig)
 <h3 class="unlisted anchored" data-number="3.5.2" data-anchor-id="sec-nodeshape-personshape-properties"><span class="header-section-number">3.5.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 42%">
-<col style="width: 44%">
+<col style="width: 41%">
+<col style="width: 45%">
 <col style="width: 11%">
 </colgroup>
 <thead>
@@ -1215,7 +1255,7 @@ Ja (nur die aufgeführten Eigenschaften zulässig)
 <table class="caption-top table">
 <colgroup>
 <col style="width: 46%">
-<col style="width: 41%">
+<col style="width: 42%">
 <col style="width: 10%">
 </colgroup>
 <thead>
@@ -1275,7 +1315,7 @@ Ja (nur die aufgeführten Eigenschaften zulässig)
 <section id="sec-nodeshape-quantitativevalueshape" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="sec-nodeshape-quantitativevalueshape"><span class="header-section-number">3.7</span> Quantitativer Wert</h2>
 <p>Ein numerischer Wert mit einer dazugehörigen Einheit.</p>
-<p>Quantitative Werte werden nie als blosse Zahl erfasst, sondern immer zusammen mit einer Einheit aus dem QUDT-Vokabular. So bleibt eindeutig, ob eine Dauer in Millisekunden oder eine Dateigrösse in Bytes gemeint ist. Negative Werte sind in diesem Datensatz nicht vorgesehen.</p>
+<p>Quantitative Werte werden nie als blosse Zahl erfasst, sondern immer zusammen mit einer Einheit aus der Codeliste Einheiten (IRIs des QUDT-Vokabulars). So bleibt eindeutig, ob eine Dauer in Millisekunden oder eine Dateigrösse in Bytes gemeint ist. Negative Werte sind in diesem Datensatz nicht vorgesehen.</p>
 <section id="sec-nodeshape-quantitativevalueshape-overview" class="level3 unlisted" data-number="3.7.1">
 <h3 class="unlisted anchored" data-number="3.7.1" data-anchor-id="sec-nodeshape-quantitativevalueshape-overview"><span class="header-section-number">3.7.1</span> Übersicht</h3>
 <div class="ech-facts">
@@ -1307,8 +1347,8 @@ Ja (nur die aufgeführten Eigenschaften zulässig)
 <h3 class="unlisted anchored" data-number="3.7.2" data-anchor-id="sec-nodeshape-quantitativevalueshape-properties"><span class="header-section-number">3.7.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 47%">
+<col style="width: 39%">
+<col style="width: 48%">
 <col style="width: 11%">
 </colgroup>
 <thead>
@@ -1328,9 +1368,10 @@ Ja (nur die aufgeführten Eigenschaften zulässig)
 <td style="text-align: right;">1..1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Einheitencode</strong> (<a href="http://schema.org/unitCode">schema:unitCode</a>): Ein quantitativer Wert muss seine Einheit über eine unitCode-URI angeben.</td>
+<td style="text-align: left;"><strong>Einheitencode</strong> (<a href="http://schema.org/unitCode">schema:unitCode</a>): Die Einheit als Code der Codeliste Einheiten (IRI des QUDT-Vokabulars).</td>
 <td style="text-align: left;"><ul>
-<li>Werte: <a href="http://qudt.org/vocab/unit/USD">unit:USD</a>, <a href="http://qudt.org/vocab/unit/EA">unit:EA</a>, <a href="http://qudt.org/vocab/unit/BYTE">unit:BYTE</a>, <a href="http://qudt.org/vocab/unit/MilliSEC">unit:MilliSEC</a></li>
+<li>Typ: <a href="http://schema.org/CategoryCode">schema:CategoryCode</a>, siehe Codeliste <a href="#sec-codelist-units">Einheiten</a></li>
+<li>Beispiele: <a href="http://qudt.org/vocab/currency/USD">currency:USD</a>, <a href="http://qudt.org/vocab/unit/MilliSEC">unit:MilliSEC</a></li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
@@ -1372,9 +1413,9 @@ Nein (weitere Eigenschaften zulässig)
 <h3 class="unlisted anchored" data-number="3.8.2" data-anchor-id="sec-nodeshape-invoiceshape-properties"><span class="header-section-number">3.8.2</span> Eigenschaften</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 48%">
-<col style="width: 40%">
-<col style="width: 11%">
+<col style="width: 47%">
+<col style="width: 41%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1394,7 +1435,10 @@ Nein (weitere Eigenschaften zulässig)
 <tr class="even">
 <td style="text-align: left;"><strong>Fälliger Gesamtbetrag</strong> (<a href="http://schema.org/totalPaymentDue">schema:totalPaymentDue</a>): Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren.</td>
 <td style="text-align: left;"><ul>
-<li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer Wert</a></li>
+<li>Typ: <a href="#sec-nodeshape-quantitativevalueshape">Quantitativer Wert</a> mit folgenden Einschränkungen:
+<ul>
+<li>Einheitencode (<a href="http://schema.org/unitCode">schema:unitCode</a>): Pflichtwert <a href="http://qudt.org/vocab/currency/USD">currency:USD</a></li>
+</ul></li>
 </ul></td>
 <td style="text-align: right;">1..1</td>
 </tr>
@@ -1449,8 +1493,128 @@ Nein (weitere Eigenschaften zulässig)
 </section>
 </section>
 </section>
-<section id="sec-data-retrieval" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Datenbezug</h1>
+<section id="sec-codelists" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Codelisten</h1>
+<p>Die folgenden Codelisten legen die zulässigen Werte der entsprechenden Eigenschaften des Datenmodells fest (<a href="#sec-data-model" class="quarto-xref">Kapitel&nbsp;3</a>). Jede Codeliste ist als <code>schema:CategoryCodeSet</code> und jeder Wert als <code>schema:CategoryCode</code> auf LINDAS publiziert.</p>
+<section id="sec-codelist-units" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-codelist-units"><span class="header-section-number">4.1</span> Einheiten</h2>
+<p>Die Einheiten der quantitativen Werte des Datensatzes: Dauer in Millisekunden, Dateigrösse in Byte, Stückzahl und Preise in US-Dollar. Die Codes sind IRIs des QUDT-Vokabulars, die Codewerte die UN/CEFACT Common Codes bzw. der ISO-4217-Währungscode.</p>
+<div id="tbl-codelist-units" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[18,10,30,42]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-codelist-units-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Tabelle&nbsp;3:</strong> Werte der Codeliste Einheiten.
+</figcaption>
+<div aria-describedby="tbl-codelist-units-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 10%">
+<col style="width: 30%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">IRI</th>
+<th style="text-align: left;">Code</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="http://qudt.org/vocab/unit/BYTE">unit:BYTE</a></td>
+<td style="text-align: left;"><code>AD</code></td>
+<td style="text-align: left;">Byte (B)</td>
+<td style="text-align: left;">Acht Bit; Einheit der Dateigrösse der Titel.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="http://qudt.org/vocab/unit/MilliSEC">unit:MilliSEC</a></td>
+<td style="text-align: left;"><code>C26</code></td>
+<td style="text-align: left;">Millisekunde (ms)</td>
+<td style="text-align: left;">Tausendstel einer Sekunde; Einheit der Dauer der Titel.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="http://qudt.org/vocab/unit/NUM">unit:NUM</a></td>
+<td style="text-align: left;"><code>EA</code></td>
+<td style="text-align: left;">Stück (#)</td>
+<td style="text-align: left;">Zähleinheit für Stückzahlen, etwa die bestellte Menge einer Rechnungsposition.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="http://qudt.org/vocab/currency/USD">currency:USD</a></td>
+<td style="text-align: left;"><code>USD</code></td>
+<td style="text-align: left;">US-Dollar ($)</td>
+<td style="text-align: left;">Währung der Vereinigten Staaten (ISO 4217: USD); Einheit der Preise und Rechnungsbeträge.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-codelist-mediatypes" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-codelist-mediatypes"><span class="header-section-number">4.2</span> Medientypen</h2>
+<p>Die Dateiformate der Titel des Chinook-Datensatzes. Die Codewerte sind die Kennungen der Tabelle MediaType der Chinook-Datenbank.</p>
+<div id="tbl-codelist-mediatypes" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[18,10,30,42]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-codelist-mediatypes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Tabelle&nbsp;4:</strong> Werte der Codeliste Medientypen.
+</figcaption>
+<div aria-describedby="tbl-codelist-mediatypes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 10%">
+<col style="width: 30%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">IRI</th>
+<th style="text-align: left;">Code</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/1">media:1</a></td>
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;">MPEG-Audiodatei (MP3)</td>
+<td style="text-align: left;">Audiodatei im Format MPEG-1 Audio Layer III (MP3), ohne Kopierschutz.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/2">media:2</a></td>
+<td style="text-align: left;"><code>2</code></td>
+<td style="text-align: left;">Geschützte AAC-Audiodatei (M4P)</td>
+<td style="text-align: left;">AAC-Audiodatei mit Kopierschutz (DRM), wie sie der iTunes Store bis 2009 verkaufte.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/3">media:3</a></td>
+<td style="text-align: left;"><code>3</code></td>
+<td style="text-align: left;">Geschützte MPEG-4-Videodatei (M4V)</td>
+<td style="text-align: left;">MPEG-4-Videodatei mit Kopierschutz (DRM), etwa gekaufte Filme und Serien.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/4">media:4</a></td>
+<td style="text-align: left;"><code>4</code></td>
+<td style="text-align: left;">Gekaufte AAC-Audiodatei (iTunes Plus)</td>
+<td style="text-align: left;">Im iTunes Store gekaufte AAC-Audiodatei ohne Kopierschutz (iTunes Plus).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/5">media:5</a></td>
+<td style="text-align: left;"><code>5</code></td>
+<td style="text-align: left;">AAC-Audiodatei (M4A)</td>
+<td style="text-align: left;">AAC-Audiodatei ohne Kopierschutz, etwa von einer CD importiert.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-data-retrieval" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Datenbezug</h1>
 <p>Die diesem Dokument zugrundeliegenden Master- und Referenzdaten sind als <em>Linked Data</em> verfügbar.</p>
 <p>Die technologische Basis dafür bildet das Resource Description Framework <span class="citation" data-cites="cyganiak2014rdf11">[RDF, <a href="#ref-cyganiak2014rdf11" role="doc-biblioref">RDF</a>]</span>, ein zentraler Standard des World Wide Web Consortiums (W3C) zur Modellierung von Datenstrukturen im Web. In RDF werden Informationen nicht in klassischen Tabellen, sondern als vernetzte Graphen abgebildet. Jede Aussage besteht dabei aus einem sogenannten Triple (Subjekt, Prädikat, Objekt). Diese Struktur ermöglicht eine maschinenlesbare, interoperable und systemübergreifend eindeutige Beschreibung von Ressourcen und deren Relationen zueinander.</p>
 <p>Für die Speicherung und Publikation dieser RDF-Daten wird <a href="https://lindas.admin.ch/">LINDAS</a> (Linked Data Service) genutzt, der offizielle Linked-Data-Dienst der Schweizer Bundesverwaltung. LINDAS fungiert als sogenannter <em>Triple Store</em>, einer spezialisierte Graphdatenbank, die für das effiziente Speichern und Abfragen von RDF-Triples optimiert ist und die Daten öffentlich über eine genormte Schnittstelle bereitstellt.</p>
@@ -1478,19 +1642,19 @@ Nein (weitere Eigenschaften zulässig)
 <span id="cb7-12"><a href="#cb7-12" aria-label="12"></a>    <span class="dt">schema:name</span> <span class="st">"Metal"</span> <span class="op">;</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-label="13"></a>    <span class="dt">schema:partOf</span> <span class="dt">genre:1</span> <span class="op">.</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sec-safety-consideration" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Sicherheitsaspekte</h1>
+<section id="sec-safety-consideration" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Sicherheitsaspekte</h1>
 <p>Informationen zu den ausdrücklich massgeblichen rechtlichen Grundlagen oder ein Hinweis darauf, dass bei der Umsetzung die entsprechenden rechtlichen Grundlagen zu beachten sind.</p>
 </section>
-<section id="sec-disclaimer" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Haftungsausschluss</h1>
+<section id="sec-disclaimer" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Haftungsausschluss</h1>
 <p>eCH-Standards, die der Verein eCH dem Anwender kostenlos zur Verfügung stellt oder die auf eCH verweisen, haben nur den Status von Empfehlungen. Der Verein eCH haftet in keinem Fall für Entscheidungen oder Massnahmen, die der Anwender auf der Grundlage dieser Dokumente trifft bzw. ergreift. Der Anwender ist dafür verantwortlich, die Dokumente vor ihrer Verwendung selbst zu überprüfen und gegebenenfalls fachlichen Rat einzuholen. eCH-Standards können und sollen die technische, organisatorische oder rechtliche Beratung im Einzelfall nicht ersetzen.</p>
 <p>Dokumente, Verfahren, Methoden, Produkte und Standards, auf die in eCH-Standards verwiesen wird, sind möglicherweise durch Marken-, Urheber- oder Patentrechte geschützt. Es liegt in der ausschliesslichen Verantwortung des Anwenders, die erforderlichen Lizenzen von den berechtigten Personen und/oder Organisationen einzuholen.</p>
 <p>Obwohl der Verein eCH bei der Erstellung der eCH-Standards mit angemessener Sorgfalt vorgegangen ist, kann er keine Gewährleistung oder Garantie dafür übernehmen, dass die bereitgestellten Informationen und Dokumente aktuell, vollständig, richtig oder fehlerfrei sind. eCH behält sich das Recht vor, die Inhalte der eCH-Standards jederzeit und ohne vorherige Ankündigung zu ändern.</p>
 <p>Jede Haftung für Schäden, die durch die Nutzung der eCH-Standards durch den Anwender entstehen, wird im gesetzlich zulässigen Rahmen ausgeschlossen.</p>
 </section>
-<section id="sec-copyrights" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Urheberrechte</h1>
+<section id="sec-copyrights" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Urheberrechte</h1>
 <p>Personen, die eCH-Standards erarbeiten, bleiben Inhaber ihrer geistigen Eigentumsrechte. Diese Personen verpflichten sich jedoch, ihre geistigen Eigentumsrechte oder andere Rechte an geistigen Eigentumsrechten Dritter, soweit möglich, den jeweiligen Fachgruppen und dem Verein eCH kostenlos und zur uneingeschränkten Nutzung und Weiterentwicklung im Rahmen des Vereinszwecks zur Verfügung zu stellen.</p>
 <p>Die von den Fachgruppen erarbeiteten Standards dürfen unter Nennung des jeweiligen Autors von eCH kostenlos und in uneingeschränktem Umfang genutzt, verbreitet und weiterentwickelt werden.</p>
 <p>eCH-Standards sind vollständig dokumentiert und frei von lizenz- und/oder patentrechtlichen Einschränkungen. Die dazugehörige Dokumentation kann kostenlos angefordert werden. Diese Bestimmungen gelten jedoch nur für die von eCH erarbeiteten Standards, nicht aber für Standards oder Produkte Dritter, die auf eCH-Standards verweisen. Die Standards enthalten die entsprechenden Hinweise auf Rechte Dritter.</p>
@@ -1579,7 +1743,7 @@ Nein (weitere Eigenschaften zulässig)
 <div id="tbl-glossary" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[35,65]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-glossary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<strong>Tabelle&nbsp;3:</strong> Glossar des Standards eCH-1234
+<strong>Tabelle&nbsp;5:</strong> Glossar des Standards eCH-1234
 </figcaption>
 <div aria-describedby="tbl-glossary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1726,7 +1890,9 @@ Nein (weitere Eigenschaften zulässig)
 <ul>
 <li><a href="#tbl-example"><strong>Tabelle&nbsp;1:</strong> Beispieltabelle mit drei Spalten.</a></li>
 <li><a href="#tbl-namespaces"><strong>Tabelle&nbsp;2:</strong> In eCH-1234 – Quarto-Dokument als Vorlage verwendete Namespaces.</a></li>
-<li><a href="#tbl-glossary"><strong>Tabelle&nbsp;3:</strong> Glossar des Standards eCH-1234</a></li>
+<li><a href="#tbl-codelist-units"><strong>Tabelle&nbsp;3:</strong> Werte der Codeliste Einheiten.</a></li>
+<li><a href="#tbl-codelist-mediatypes"><strong>Tabelle&nbsp;4:</strong> Werte der Codeliste Medientypen.</a></li>
+<li><a href="#tbl-glossary"><strong>Tabelle&nbsp;5:</strong> Glossar des Standards eCH-1234</a></li>
 </ul>
 </div>
 

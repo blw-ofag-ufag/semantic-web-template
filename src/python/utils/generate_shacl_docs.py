@@ -53,6 +53,8 @@ TRANSLATIONS = {
         "code_list": "Code list",
         "type_selection": "with the following selection:",
         "see_code_list": "See code list {list}",
+        "type_restrictions": "with the following restrictions:",
+        "restrictions": "Restrictions",
         "cl_iri": "IRI",
         "cl_code": "Code",
         "cl_name": "Name",
@@ -102,6 +104,8 @@ TRANSLATIONS = {
         "code_list": "Codeliste",
         "type_selection": "mit folgender Auswahl:",
         "see_code_list": "Siehe Codeliste {list}",
+        "type_restrictions": "mit folgenden Einschränkungen:",
+        "restrictions": "Einschränkungen",
         "cl_iri": "IRI",
         "cl_code": "Code",
         "cl_name": "Name",
@@ -151,6 +155,8 @@ TRANSLATIONS = {
         "code_list": "Liste de codes",
         "type_selection": "avec la sélection suivante:",
         "see_code_list": "Voir la liste de codes {list}",
+        "type_restrictions": "avec les restrictions suivantes:",
+        "restrictions": "Restrictions",
         "cl_iri": "IRI",
         "cl_code": "Code",
         "cl_name": "Nom",
@@ -200,6 +206,8 @@ TRANSLATIONS = {
         "code_list": "Elenco di codici",
         "type_selection": "con la seguente selezione:",
         "see_code_list": "Vedi l'elenco di codici {list}",
+        "type_restrictions": "con le seguenti restrizioni:",
+        "restrictions": "Restrizioni",
         "cl_iri": "IRI",
         "cl_code": "Codice",
         "cl_name": "Nome",
@@ -272,7 +280,7 @@ def code_entry(g, data, iri, lang):
 
 def values_list(g, data, members, lang):
     """The members of a sh:in list. Codes of a code list become a nested list of
-    their names (the code list chapter has the code values and IRIs); other
+    their names with the linked prefixed IRI, "Name ([media:1](…))"; other
     values stay a comma-separated line."""
     entries = [(v, code_entry(g, data, v, lang) if isinstance(v, URIRef) else None) for v in members]
     if not any(entry for _, entry in entries):
@@ -280,12 +288,52 @@ def values_list(g, data, members, lang):
     items = []
     for v, entry in entries:
         if entry:
-            items.append(f"  - {sanitize_cell(entry[1])}")
+            items.append(f"  - {sanitize_cell(entry[1])} ({qname_link(g, v)})")
         elif isinstance(v, URIRef):
             items.append(f"  - {qname_link(g, v)}")
         else:
             items.append(f"  - {code(format_literal(v))}")
     return "\n" + "\n".join(items)
+
+
+def inline_restrictions(g, prop):
+    """The property shapes of the inline node shapes (blank nodes under sh:node)
+    of a property shape, except the code list restriction (schema:inCodeSet with
+    sh:hasValue), which is rendered separately. Sorted by sh:order, then path."""
+    nested = []
+    for node in g.objects(prop, SH.node):
+        if isinstance(node, URIRef):
+            continue
+        for shape in g.objects(node, SH.property):
+            if g.value(shape, SH.path) == SCHEMA.inCodeSet and g.value(shape, SH.hasValue) is not None:
+                continue
+            order = g.value(shape, SH.order)
+            nested.append((order.toPython() if order is not None else 9999, str(g.value(shape, SH.path) or ""), shape))
+    return [shape for _, _, shape in sorted(nested, key=lambda n: n[:2])]
+
+
+def property_name(g, shape, path, lang):
+    """The localized name of the property shape with the given path in a node shape."""
+    for prop in g.objects(shape, SH.property):
+        if g.value(prop, SH.path) == path:
+            return get_localized_value(g, prop, [SH.name, RDFS.label], lang)
+    return None
+
+
+def describe_restriction(g, nested, trans, data, lang, format_type, name):
+    """One line for a nested property shape: "name (path): type, constraints, cardinality"."""
+    path = g.value(nested, SH.path)
+    phrases = []
+    primary = next((t for t in [g.value(nested, SH.node), g.value(nested, SH["class"]), g.value(nested, SH.datatype)]
+                    if isinstance(t, URIRef)), None)
+    if primary is not None:
+        phrases.append(f"{trans['type']} {format_type(primary)}")
+    phrases.extend(f"{label} {value}" for label, value in describe_constraints(g, nested, trans, data, lang))
+    min_c, max_c = g.value(nested, SH.minCount), g.value(nested, SH.maxCount)
+    if min_c is not None or max_c is not None:
+        phrases.append(f"{trans['cardinality']} {min_c if min_c is not None else 0}..{max_c if max_c is not None else '*'}")
+    head = f"{sanitize_cell(name)} ({qname_link(g, path)})" if name else qname_link(g, path)
+    return f"  - {head}: {', '.join(phrases)}" if phrases else f"  - {head}"
 
 
 def describe_constraints(g, prop, trans, data=None, lang=None, skip_values=False):
@@ -663,6 +711,7 @@ def main():
         shapes_data = []
         uri_to_slug = {}
         uri_to_label = {}
+        class_to_shape = {}
         
         for s_info in shapes_list:
             shape_uri = s_info['uri']
@@ -683,6 +732,7 @@ def main():
             uri_to_label[shape_uri] = label
             if target_class:
                 uri_to_slug[target_class] = slug
+                class_to_shape[target_class] = shape_uri
                 uri_to_label[target_class] = label
                 
             shapes_data.append({
@@ -825,18 +875,33 @@ def main():
                     if code_lists:
                         links = ", ".join(f"[{code_list_label(g, data, cl, lang)}](#sec-{code_list_slug(cl)})" for cl in code_lists)
                         see = trans['see_code_list'].format(list=links)
+                    # Inline node shapes (sh:node [ sh:property [...] ]): "Type: X with the
+                    # following restrictions:" + one line per nested property shape, named
+                    # after the property of the shape that describes the class, if any.
+                    restrictions = inline_restrictions(g, p["prop"])
+                    shape_of_class = class_to_shape.get(p["class"]) if p["class"] else None
+                    restriction_lines = "\n".join(
+                        describe_restriction(g, nested, trans, data, lang, format_type,
+                                             get_localized_value(g, nested, [SH.name, RDFS.label], lang)
+                                             or (property_name(g, shape_of_class, g.value(nested, SH.path), lang) if shape_of_class else None))
+                        for nested in restrictions)
                     if types:
                         type_text = f" {trans['or']} ".join(types)
                         if see and allowed is not None:
+                            # the "see code list" line stays in the type item, as a paragraph after the values
                             type_text += f" {trans['type_selection']}" + values_list(g, data, rdf_list(g, allowed), lang)
-                            details.append((trans['type'], type_text))
-                            details.append((None, see))
+                            details.append((trans['type'], f"{type_text}\n\n  {see}"))
                         elif see:
                             details.append((trans['type'], f"{type_text}, {see[0].lower()}{see[1:]}"))
+                        elif restrictions:
+                            details.append((trans['type'], f"{type_text} {trans['type_restrictions']}\n{restriction_lines}"))
+                            restrictions = []
                         else:
                             details.append((trans['type'], type_text))
                     elif see:
                         details.append((None, see))
+                    if restrictions:
+                        details.append((trans['restrictions'], "\n" + restriction_lines))
                     details.extend(describe_constraints(g, p["prop"], trans, data, lang,
                                                         skip_values=bool(see and types and allowed is not None)))
                     details_cell = "\n".join(f"- {label}: {value}" if label else f"- {value}" for label, value in details)

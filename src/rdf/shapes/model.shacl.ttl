@@ -321,12 +321,28 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
             "Duration"@en,
             "Durée"@fr,
             "Durata"@it ;
+        sh:description "Die Dauer des Titels als quantitativer Wert in Millisekunden mit einem Wert grösser als null."@de,
+            "The duration of the track as a quantitative value in milliseconds with a value greater than zero."@en,
+            "La durée de la piste sous forme de valeur quantitative en millisecondes avec une valeur supérieure à zéro."@fr,
+            "La durata del brano come valore quantitativo in millisecondi con un valore maggiore di zero."@it ;
         sh:path schema:duration ;
         sh:class schema:QuantitativeValue ;
-        sh:message "Die Dauer muss als schema:QuantitativeValue ausgedrückt werden."@de,
-            "Track duration must be expressed as a schema:QuantitativeValue."@en,
-            "La durée doit être exprimée en tant que schema:QuantitativeValue."@fr,
-            "La durata deve essere espressa come schema:QuantitativeValue."@it ;
+        sh:node [
+            sh:property [
+                sh:path schema:unitCode ;
+                sh:hasValue unit:MilliSEC ;
+            ],
+            [
+                sh:path schema:value ;
+                sh:minExclusive 0 ;
+            ]
+        ] ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Jeder Titel hat genau eine Dauer: ein schema:QuantitativeValue in Millisekunden (unit:MilliSEC) mit einem Wert grösser als null."@de,
+            "Every track has exactly one duration: a schema:QuantitativeValue in milliseconds (unit:MilliSEC) with a value greater than zero."@en,
+            "Chaque piste a exactement une durée: une schema:QuantitativeValue en millisecondes (unit:MilliSEC) avec une valeur supérieure à zéro."@fr,
+            "Ogni brano ha esattamente una durata: uno schema:QuantitativeValue in millisecondi (unit:MilliSEC) con un valore maggiore di zero."@it ;
     ],
     [
         sh:order 7 ;
@@ -334,8 +350,28 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
             "Content Size"@en,
             "Taille du contenu"@fr,
             "Dimensione del contenuto"@it ;
+        sh:description "Die Dateigrösse des Titels als quantitativer Wert in Byte mit einem Wert grösser als null."@de,
+            "The file size of the track as a quantitative value in bytes with a value greater than zero."@en,
+            "La taille du fichier de la piste sous forme de valeur quantitative en octets avec une valeur supérieure à zéro."@fr,
+            "La dimensione del file del brano come valore quantitativo in byte con un valore maggiore di zero."@it ;
         sh:path schema:contentSize ;
         sh:class schema:QuantitativeValue ;
+        sh:node [
+            sh:property [
+                sh:path schema:unitCode ;
+                sh:hasValue unit:BYTE ;
+            ],
+            [
+                sh:path schema:value ;
+                sh:minExclusive 0 ;
+            ]
+        ] ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Jeder Titel hat genau eine Dateigrösse: ein schema:QuantitativeValue in Byte (unit:BYTE) mit einem Wert grösser als null."@de,
+            "Every track has exactly one file size: a schema:QuantitativeValue in bytes (unit:BYTE) with a value greater than zero."@en,
+            "Chaque piste a exactement une taille de fichier: une schema:QuantitativeValue en octets (unit:BYTE) avec une valeur supérieure à zéro."@fr,
+            "Ogni brano ha esattamente una dimensione del file: uno schema:QuantitativeValue in byte (unit:BYTE) con un valore maggiore di zero."@it ;
     ] .
 
 :MusicAlbumShape a sh:NodeShape ;
@@ -442,6 +478,12 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
             "Pagamento totale dovuto"@it ;
         sh:path schema:totalPaymentDue ;
         sh:class schema:QuantitativeValue ;
+        sh:node [
+            sh:property [
+                sh:path schema:unitCode ;
+                sh:hasValue currency:USD ;
+            ]
+        ] ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "Eine Rechnung muss einen fälligen Gesamtbetrag als schema:QuantitativeValue definieren."@de,

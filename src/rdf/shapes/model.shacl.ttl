@@ -7,6 +7,7 @@
 @prefix address:         <https://agriculture.ld.admin.ch/eCH-1234/2/address/> .
 @prefix album:           <https://agriculture.ld.admin.ch/eCH-1234/2/album/> .
 @prefix artist:          <https://agriculture.ld.admin.ch/eCH-1234/2/artist/> .
+@prefix codelist:        <https://agriculture.ld.admin.ch/eCH-1234/2/codelist/> .
 @prefix customer:        <https://agriculture.ld.admin.ch/eCH-1234/2/customer/> .
 @prefix employee:        <https://agriculture.ld.admin.ch/eCH-1234/2/employee/> .
 @prefix genre:           <https://agriculture.ld.admin.ch/eCH-1234/2/genre/> .
@@ -27,6 +28,7 @@
 
 # Globally used namespaces/qnames
 @prefix adms:            <https://www.w3.org/ns/adms#> .
+@prefix currency:        <http://qudt.org/vocab/currency/> .
 @prefix dcat:            <http://www.w3.org/ns/dcat#> .
 @prefix dcterms:         <http://purl.org/dc/terms/> .
 @prefix doap:            <http://usefulinc.com/ns/doap#> .
@@ -288,6 +290,33 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
     ],
     [
         sh:order 5 ;
+        sh:name "Medientyp"@de,
+            "Media type"@en,
+            "Type de média"@fr,
+            "Tipo di supporto"@it ;
+        sh:description "Das Dateiformat des Titels als Code der Codeliste Medientypen."@de,
+            "The file format of the track as a code of the media types code list."@en,
+            "Le format de fichier de la piste sous forme de code de la liste de codes des types de média."@fr,
+            "Il formato di file del brano come codice dell'elenco di codici dei tipi di supporto."@it ;
+        sh:path schema:encodingFormat ;
+        sh:nodeKind sh:IRI ;
+        sh:class schema:CategoryCode ;
+        sh:node [
+            sh:property [
+                sh:path schema:inCodeSet ;
+                sh:hasValue codelist:MediaTypes ;
+            ]
+        ] ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( media:1 media:2 media:3 media:4 media:5 ) ;
+        sh:message "Jeder Titel muss genau einen Wert aus der Codeliste Medientypen haben."@de,
+            "Every track must have exactly one value from the code list Media types."@en,
+            "Chaque piste doit avoir exactement une valeur de la liste de codes Types de média."@fr,
+            "Ogni brano deve avere esattamente un valore dall'elenco di codici Tipi di supporto."@it ;
+    ],
+    [
+        sh:order 6 ;
         sh:name "Dauer"@de,
             "Duration"@en,
             "Durée"@fr,
@@ -300,7 +329,7 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
             "La durata deve essere espressa come schema:QuantitativeValue."@it ;
     ],
     [
-        sh:order 6 ;
+        sh:order 7 ;
         sh:name "Dateigrösse"@de,
             "Content Size"@en,
             "Taille du contenu"@fr,
@@ -501,16 +530,16 @@ I nomi sono registrati come li usa la persona stessa; i titoli accademici non fa
         "Valore quantitativo"@it ;
     rdfs:comment """Ein numerischer Wert mit einer dazugehörigen Einheit.
 
-Quantitative Werte werden nie als blosse Zahl erfasst, sondern immer zusammen mit einer Einheit aus dem QUDT-Vokabular. So bleibt eindeutig, ob eine Dauer in Millisekunden oder eine Dateigrösse in Bytes gemeint ist. Negative Werte sind in diesem Datensatz nicht vorgesehen."""@de,
+Quantitative Werte werden nie als blosse Zahl erfasst, sondern immer zusammen mit einer Einheit aus der Codeliste Einheiten (IRIs des QUDT-Vokabulars). So bleibt eindeutig, ob eine Dauer in Millisekunden oder eine Dateigrösse in Bytes gemeint ist. Negative Werte sind in diesem Datensatz nicht vorgesehen."""@de,
         """A numerical value with an associated unit.
 
-Quantitative values are never recorded as a bare number but always together with a unit from the QUDT vocabulary. This keeps it unambiguous whether a duration is meant in milliseconds or a file size in bytes. Negative values are not foreseen in this dataset."""@en,
+Quantitative values are never recorded as a bare number but always together with a unit from the units code list (IRIs of the QUDT vocabulary). This keeps it unambiguous whether a duration is meant in milliseconds or a file size in bytes. Negative values are not foreseen in this dataset."""@en,
         """Une valeur numérique avec une unité associée.
 
-Les valeurs quantitatives ne sont jamais saisies comme un simple nombre, mais toujours avec une unité du vocabulaire QUDT. Il reste ainsi clair si une durée est exprimée en millisecondes ou une taille de fichier en octets. Les valeurs négatives ne sont pas prévues dans ce jeu de données."""@fr,
+Les valeurs quantitatives ne sont jamais saisies comme un simple nombre, mais toujours avec une unité de la liste de codes des unités (IRI du vocabulaire QUDT). Il reste ainsi clair si une durée est exprimée en millisecondes ou une taille de fichier en octets. Les valeurs négatives ne sont pas prévues dans ce jeu de données."""@fr,
         """Un valore numerico con un'unità associata.
 
-I valori quantitativi non vengono mai registrati come semplice numero, ma sempre insieme a un'unità del vocabolario QUDT. Resta così chiaro se una durata è espressa in millisecondi o una dimensione di file in byte. I valori negativi non sono previsti in questo set di dati."""@it ;
+I valori quantitativi non vengono mai registrati come semplice numero, ma sempre insieme a un'unità dell'elenco di codici delle unità (IRI del vocabolario QUDT). Resta così chiaro se una durata è espressa in millisecondi o una dimensione di file in byte. I valori negativi non sono previsti in questo set di dati."""@it ;
     sh:targetClass schema:QuantitativeValue ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
@@ -539,15 +568,26 @@ I valori quantitativi non vengono mai registrati come semplice numero, ma sempre
             "Unit Code"@en,
             "Code d'unité"@fr,
             "Codice unità"@it ;
+        sh:description "Die Einheit als Code der Codeliste Einheiten (IRI des QUDT-Vokabulars)."@de,
+            "The unit as a code of the units code list (an IRI of the QUDT vocabulary)."@en,
+            "L'unité sous forme de code de la liste de codes des unités (IRI du vocabulaire QUDT)."@fr,
+            "L'unità come codice dell'elenco di codici delle unità (IRI del vocabolario QUDT)."@it ;
         sh:path schema:unitCode ;
         sh:nodeKind sh:IRI ;
-        sh:in ( unit:USD unit:EA unit:BYTE unit:MilliSEC ) ;
+        sh:class schema:CategoryCode ;
+        sh:node [
+            sh:property [
+                sh:path schema:inCodeSet ;
+                sh:hasValue codelist:Units ;
+            ]
+        ] ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "Ein quantitativer Wert muss seine Einheit über eine unitCode-URI angeben."@de,
-            "A quantitative value must specify its unit via a unitCode URI."@en,
-            "Une valeur quantitative doit spécifier son unité via une URI unitCode."@fr,
-            "Un valore quantitativo deve specificare la sua unità tramite un'URI unitCode."@it ;
+        skos:example unit:MilliSEC, currency:USD ;
+        sh:message "Ein quantitativer Wert muss genau einen Wert aus der Codeliste Einheiten haben."@de,
+            "A quantitative value must have exactly one value from the code list Units."@en,
+            "Une valeur quantitative doit avoir exactement une valeur de la liste de codes Unités."@fr,
+            "Un valore quantitativo deve avere esattamente un valore dall'elenco di codici Unità."@it ;
     ] .
 
 :GenreShape a sh:NodeShape ;

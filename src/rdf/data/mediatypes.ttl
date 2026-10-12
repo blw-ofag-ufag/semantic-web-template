@@ -1,0 +1,105 @@
+# ==============================================================================
+# PREFIXES
+# ==============================================================================
+
+# Project-specific namespaces/qnames
+@prefix codelist:        <https://agriculture.ld.admin.ch/eCH-1234/2/codelist/> .
+@prefix media:           <https://agriculture.ld.admin.ch/eCH-1234/2/mediatype/> .
+
+# Globally used namespaces/qnames
+@prefix schema:          <http://schema.org/> .
+
+# ==============================================================================
+# CODE LIST
+# ==============================================================================
+#
+# The media types (file formats) of the tracks, modelled as a schema.org code
+# list: the list is a schema:CategoryCodeSet, its values are
+# schema:CategoryCode instances with a code value, a name and a description
+# per language and at least one alternate name, as prescribed by the
+# template-wide shapes src/rdf/shapes/codelist.shacl.ttl and checked by
+# tests/test_codelists.py. The code values
+# are the identifiers of the table MediaType of the Chinook database; the
+# integration pipeline links every track to its code with
+# schema:encodingFormat, and the data model restricts that property to this
+# list. The documentation renders the values in its chapter on code lists.
+
+codelist:MediaTypes a schema:CategoryCodeSet ;
+    schema:name "Medientypen"@de,
+        "Media types"@en,
+        "Types de média"@fr,
+        "Tipi di supporto"@it ;
+    schema:description "Die Dateiformate der Titel des Chinook-Datensatzes. Die Codewerte sind die Kennungen der Tabelle MediaType der Chinook-Datenbank."@de,
+        "The file formats of the tracks of the Chinook dataset. The code values are the identifiers of the table MediaType of the Chinook database."@en,
+        "Les formats de fichier des pistes du jeu de données Chinook. Les valeurs des codes sont les identifiants de la table MediaType de la base de données Chinook."@fr,
+        "I formati di file dei brani del set di dati Chinook. I valori dei codici sono gli identificatori della tabella MediaType del database Chinook."@it ;
+    schema:hasCategoryCode media:1, media:2, media:3, media:4, media:5 .
+
+# ==============================================================================
+# CODES
+# ==============================================================================
+
+media:1 a schema:CategoryCode ;
+    schema:inCodeSet codelist:MediaTypes ;
+    schema:codeValue "1" ;
+    schema:name "MPEG-Audiodatei"@de,
+        "MPEG audio file"@en,
+        "Fichier audio MPEG"@fr,
+        "File audio MPEG"@it ;
+    schema:alternateName "MP3" ;
+    schema:description "Audiodatei im Format MPEG-1 Audio Layer III (MP3), ohne Kopierschutz."@de,
+        "Audio file in the MPEG-1 Audio Layer III format (MP3), without copy protection."@en,
+        "Fichier audio au format MPEG-1 Audio Layer III (MP3), sans protection contre la copie."@fr,
+        "File audio in formato MPEG-1 Audio Layer III (MP3), senza protezione dalla copia."@it .
+
+media:2 a schema:CategoryCode ;
+    schema:inCodeSet codelist:MediaTypes ;
+    schema:codeValue "2" ;
+    schema:name "Geschützte AAC-Audiodatei"@de,
+        "Protected AAC audio file"@en,
+        "Fichier audio AAC protégé"@fr,
+        "File audio AAC protetto"@it ;
+    schema:alternateName "M4P" ;
+    schema:description "AAC-Audiodatei mit Kopierschutz (DRM), wie sie der iTunes Store bis 2009 verkaufte."@de,
+        "AAC audio file with copy protection (DRM), as sold by the iTunes Store until 2009."@en,
+        "Fichier audio AAC avec protection contre la copie (DRM), tel que vendu par l'iTunes Store jusqu'en 2009."@fr,
+        "File audio AAC con protezione dalla copia (DRM), come venduto dall'iTunes Store fino al 2009."@it .
+
+media:3 a schema:CategoryCode ;
+    schema:inCodeSet codelist:MediaTypes ;
+    schema:codeValue "3" ;
+    schema:name "Geschützte MPEG-4-Videodatei"@de,
+        "Protected MPEG-4 video file"@en,
+        "Fichier vidéo MPEG-4 protégé"@fr,
+        "File video MPEG-4 protetto"@it ;
+    schema:alternateName "M4V" ;
+    schema:description "MPEG-4-Videodatei mit Kopierschutz (DRM), etwa gekaufte Filme und Serien."@de,
+        "MPEG-4 video file with copy protection (DRM), such as purchased films and series."@en,
+        "Fichier vidéo MPEG-4 avec protection contre la copie (DRM), par exemple des films et des séries achetés."@fr,
+        "File video MPEG-4 con protezione dalla copia (DRM), ad esempio film e serie acquistati."@it .
+
+media:4 a schema:CategoryCode ;
+    schema:inCodeSet codelist:MediaTypes ;
+    schema:codeValue "4" ;
+    schema:name "Gekaufte AAC-Audiodatei"@de,
+        "Purchased AAC audio file"@en,
+        "Fichier audio AAC acheté"@fr,
+        "File audio AAC acquistato"@it ;
+    schema:alternateName "iTunes Plus" ;
+    schema:description "Im iTunes Store gekaufte AAC-Audiodatei ohne Kopierschutz (iTunes Plus)."@de,
+        "AAC audio file purchased in the iTunes Store without copy protection (iTunes Plus)."@en,
+        "Fichier audio AAC acheté dans l'iTunes Store sans protection contre la copie (iTunes Plus)."@fr,
+        "File audio AAC acquistato nell'iTunes Store senza protezione dalla copia (iTunes Plus)."@it .
+
+media:5 a schema:CategoryCode ;
+    schema:inCodeSet codelist:MediaTypes ;
+    schema:codeValue "5" ;
+    schema:name "AAC-Audiodatei"@de,
+        "AAC audio file"@en,
+        "Fichier audio AAC"@fr,
+        "File audio AAC"@it ;
+    schema:alternateName "M4A" ;
+    schema:description "AAC-Audiodatei ohne Kopierschutz, etwa von einer CD importiert."@de,
+        "AAC audio file without copy protection, e.g. imported from a CD."@en,
+        "Fichier audio AAC sans protection contre la copie, p. ex. importé d'un CD."@fr,
+        "File audio AAC senza protezione dalla copia, ad es. importato da un CD."@it .

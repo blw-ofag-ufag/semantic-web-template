@@ -1,0 +1,116 @@
+# ==============================================================================
+# PREFIXES
+# ==============================================================================
+
+@prefix rdf:             <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:            <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema:          <http://schema.org/> .
+@prefix sh:              <http://www.w3.org/ns/shacl#> .
+@prefix xsd:             <http://www.w3.org/2001/XMLSchema#> .
+
+# ==============================================================================
+# SHAPES
+# ==============================================================================
+#
+# Code lists are modelled the same way in every project: a list is a
+# schema:CategoryCodeSet, its values are schema:CategoryCode instances with a
+# code value, a name and a description per language, at least one alternate
+# name (abbreviation or symbol) and the list(s) they belong to. These shapes
+# are maintained by the template and checked by tests/test_codelists.py
+# against the code lists of src/rdf/data/. They are not part of the project's
+# data model (model.shacl.ttl), which only restricts its properties to a list.
+
+<CategoryCodeSetShape> a sh:NodeShape ;
+    rdfs:label "Code list"@en ;
+    sh:targetClass schema:CategoryCodeSet ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:order 1 ;
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:uniqueLang true ;
+        sh:languageIn ( "de" "en" "fr" "it" "rm" ) ;
+    ] ;
+    sh:property [
+        sh:order 2 ;
+        sh:path schema:description ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:uniqueLang true ;
+        sh:languageIn ( "de" "en" "fr" "it" "rm" ) ;
+    ] ;
+    sh:property [
+        sh:order 3 ;
+        sh:path schema:hasCategoryCode ;
+        sh:minCount 1 ;
+        sh:class schema:CategoryCode ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A code list must contain at least one schema:CategoryCode."@en ;
+    ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "The codes a code list lists (schema:hasCategoryCode) and the codes that refer to it (schema:inCodeSet) must be the same."@en ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                {
+                    $this <http://schema.org/hasCategoryCode> ?value .
+                    FILTER NOT EXISTS { ?value <http://schema.org/inCodeSet> $this }
+                }
+                UNION
+                {
+                    ?value <http://schema.org/inCodeSet> $this .
+                    FILTER NOT EXISTS { $this <http://schema.org/hasCategoryCode> ?value }
+                }
+            }
+        """
+    ] .
+
+<CategoryCodeShape> a sh:NodeShape ;
+    rdfs:label "Code"@en ;
+    sh:targetClass schema:CategoryCode ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:order 1 ;
+        sh:path schema:codeValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:message "Every code needs exactly one schema:codeValue."@en ;
+    ] ;
+    sh:property [
+        sh:order 2 ;
+        sh:path schema:inCodeSet ;
+        sh:minCount 1 ;
+        sh:class schema:CategoryCodeSet ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Every code must belong to at least one schema:CategoryCodeSet."@en ;
+    ] ;
+    sh:property [
+        sh:order 3 ;
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:uniqueLang true ;
+        sh:languageIn ( "de" "en" "fr" "it" "rm" ) ;
+    ] ;
+    sh:property [
+        sh:order 4 ;
+        sh:path schema:alternateName ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:disjoint schema:name ;
+        sh:message "Every code needs at least one schema:alternateName (abbreviation or symbol) that differs from its schema:name."@en ;
+    ] ;
+    sh:property [
+        sh:order 5 ;
+        sh:path schema:description ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:uniqueLang true ;
+        sh:languageIn ( "de" "en" "fr" "it" "rm" ) ;
+    ] .

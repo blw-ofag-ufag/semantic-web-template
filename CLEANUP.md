@@ -52,12 +52,12 @@ The Makefile runs all Python scripts in this folder in alphabetical order. It ca
 
 Delete all scripts with `rm -f src/python/pipeline/*.py`. The Makefile then creates an empty file instead.
 
-### Static data and glossary (`src/rdf/data/`)
+### Static data, code lists and glossary (`src/rdf/data/`)
 
-All Turtle files in this folder are merged into the graph. Delete the demo files and add custom master data or vocabularies:
+All Turtle files in this folder are merged into the graph: master data (`people.ttl`), the genre taxonomy (`genres.ttl`) and the code lists (`mediatypes.ttl`, `units.ttl`). A code list is a `schema:CategoryCodeSet`; its values are `schema:CategoryCode`s with a code value, a name and a description per language and at least one alternate name. This structure is the same in every project: `src/rdf/shapes/codelist.shacl.ttl` prescribes it and `tests/test_codelists.py` checks it, both maintained by the template like the glossary shapes, and it is not part of the project's data model. A property shape of the data model restricts its values to a code list with `sh:node [ sh:property [ sh:path schema:inCodeSet ; sh:hasValue <list> ] ]`, which the documentation renders as a link to the list; the values of all code lists appear in the chapter "Code lists" (`codelists.md`). If the project has no code lists, remove that chapter from `docs/*/index.qmd`. Delete the demo files and add the project's own master data, code lists and vocabularies:
 
 ```bash
-rm src/rdf/data/genres.ttl src/rdf/data/people.ttl
+rm src/rdf/data/genres.ttl src/rdf/data/mediatypes.ttl src/rdf/data/people.ttl src/rdf/data/units.ttl
 ```
 
 > [!IMPORTANT]
@@ -73,7 +73,7 @@ Replace the demo classes and properties with the custom OWL model, following the
 
 ### SHACL shapes (`src/rdf/shapes/model.shacl.ttl`)
 
-Replace the demo shapes with shapes for the custom classes. Provide all labels and messages in every documentation language. Do not change `glossary.shacl.ttl`; it is maintained by the template.
+Replace the demo shapes with shapes for the custom classes. Provide all labels and messages in every documentation language. Do not change `glossary.shacl.ttl` and `codelist.shacl.ttl`; they are maintained by the template.
 
 ### SPARQL post-processing (`src/sparql/processing/`)
 
@@ -94,7 +94,7 @@ The test suite runs every query in this folder against LINDAS. Replace the demo 
 
 ## Adapting the documentation (`docs/`)
 
-The pages `entities.md`, `namespaces.md` (prefixes and namespaces used by the data model) and `glossary.md` are generated from the SHACL shapes and the glossary on every `make docs`. Everything else is maintained manually.
+The pages `entities.md`, `namespaces.md` (prefixes and namespaces used by the data model), `codelists.md` (values of the code lists of the graph) and `glossary.md` are generated from the SHACL shapes, the graph and the glossary on every `make docs`. Everything else is maintained manually.
 
 ### R packages (`src/r/DESCRIPTION`)
 

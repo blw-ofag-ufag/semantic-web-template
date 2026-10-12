@@ -8,6 +8,7 @@ from rdflib import Graph, Namespace, URIRef
 from rdflib.namespace import DCTERMS, RDF, RDFS, SKOS
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
+SCHEMA = Namespace("http://schema.org/")
 
 TRANSLATIONS = {
     "en": {
@@ -49,6 +50,14 @@ TRANSLATIONS = {
         "has_value": "Required value",
         "severity": "Severity",
         "Warning": "Warning",
+        "code_list": "Code list",
+        "type_selection": "with the following selection:",
+        "see_code_list": "See code list {list}",
+        "cl_iri": "IRI",
+        "cl_code": "Code",
+        "cl_name": "Name",
+        "cl_description": "Description",
+        "cl_caption": "Values of the code list {name}.",
         "Info": "Info",
     },
     "de": {
@@ -90,6 +99,14 @@ TRANSLATIONS = {
         "has_value": "Pflichtwert",
         "severity": "Schweregrad",
         "Warning": "Warnung",
+        "code_list": "Codeliste",
+        "type_selection": "mit folgender Auswahl:",
+        "see_code_list": "Siehe Codeliste {list}",
+        "cl_iri": "IRI",
+        "cl_code": "Code",
+        "cl_name": "Name",
+        "cl_description": "Beschreibung",
+        "cl_caption": "Werte der Codeliste {name}.",
         "Info": "Hinweis",
     },
     "fr": {
@@ -131,6 +148,14 @@ TRANSLATIONS = {
         "has_value": "Valeur obligatoire",
         "severity": "Gravité",
         "Warning": "Avertissement",
+        "code_list": "Liste de codes",
+        "type_selection": "avec la sélection suivante:",
+        "see_code_list": "Voir la liste de codes {list}",
+        "cl_iri": "IRI",
+        "cl_code": "Code",
+        "cl_name": "Nom",
+        "cl_description": "Description",
+        "cl_caption": "Valeurs de la liste de codes {name}.",
         "Info": "Information",
     },
     "it": {
@@ -172,6 +197,14 @@ TRANSLATIONS = {
         "has_value": "Valore obbligatorio",
         "severity": "Gravità",
         "Warning": "Avvertimento",
+        "code_list": "Elenco di codici",
+        "type_selection": "con la seguente selezione:",
+        "see_code_list": "Vedi l'elenco di codici {list}",
+        "cl_iri": "IRI",
+        "cl_code": "Codice",
+        "cl_name": "Nome",
+        "cl_description": "Descrizione",
+        "cl_caption": "Valori dell'elenco di codici {name}.",
         "Info": "Informazione",
     }
 }
@@ -206,8 +239,58 @@ def rdf_list(g, head):
     return items
 
 
-def describe_constraints(g, prop, trans):
-    """Returns the value constraints of a property shape as (label, value) pairs."""
+def code_lists_of(g, prop):
+    """The code lists (schema:CategoryCodeSet) that a property shape restricts its
+    values to, declared as sh:node [ sh:property [ sh:path schema:inCodeSet ;
+    sh:hasValue <code list> ] ]."""
+    lists = []
+    for node in g.objects(prop, SH.node):
+        for nested in g.objects(node, SH.property):
+            if g.value(nested, SH.path) == SCHEMA.inCodeSet:
+                lists.extend(v for v in g.objects(nested, SH.hasValue) if isinstance(v, URIRef))
+    return lists
+
+
+def code_list_slug(code_list):
+    """Section slug of a code list, language-independent: codelist-<local name>."""
+    return "codelist-" + slugify(str(code_list).split('#')[-1].split('/')[-1])
+
+
+def code_list_label(g, data, code_list, lang):
+    """Name of a code list in the data graph, falling back to its QName."""
+    return (get_localized_value(data, code_list, [SCHEMA.name], lang) if data is not None else None) or format_uri(g, code_list)
+
+
+def code_entry(g, data, iri, lang):
+    """(code value, name) of a code of a code list, or None if the IRI is no
+    schema:CategoryCode with a code value in the data graph."""
+    value = data.value(iri, SCHEMA.codeValue) if data is not None else None
+    if value is None:
+        return None
+    return str(value), get_localized_value(data, iri, [SCHEMA.name], lang) or format_uri(g, iri)
+
+
+def values_list(g, data, members, lang):
+    """The members of a sh:in list. Codes of a code list become a nested list of
+    their names (the code list chapter has the code values and IRIs); other
+    values stay a comma-separated line."""
+    entries = [(v, code_entry(g, data, v, lang) if isinstance(v, URIRef) else None) for v in members]
+    if not any(entry for _, entry in entries):
+        return ", ".join(qname_link(g, v) if isinstance(v, URIRef) else code(format_literal(v)) for v in members)
+    items = []
+    for v, entry in entries:
+        if entry:
+            items.append(f"  - {sanitize_cell(entry[1])}")
+        elif isinstance(v, URIRef):
+            items.append(f"  - {qname_link(g, v)}")
+        else:
+            items.append(f"  - {code(format_literal(v))}")
+    return "\n" + "\n".join(items)
+
+
+def describe_constraints(g, prop, trans, data=None, lang=None, skip_values=False):
+    """Returns the value constraints of a property shape as (label, value) pairs.
+    `skip_values` leaves out the sh:in list (shown with the type instead)."""
     parts = []
 
     pattern = g.value(prop, SH.pattern)
@@ -241,10 +324,8 @@ def describe_constraints(g, prop, trans):
         parts.append((trans['languages'], trans['unique_lang']))
 
     allowed = g.value(prop, SH["in"])
-    if allowed is not None:
-        values = [qname_link(g, v) if not hasattr(v, "language") and str(v).startswith("http") else code(format_literal(v))
-                  for v in rdf_list(g, allowed)]
-        parts.append((trans['values'], ', '.join(values)))
+    if allowed is not None and not skip_values:
+        parts.append((trans['values'], values_list(g, data, rdf_list(g, allowed), lang)))
 
     required = g.value(prop, SH.hasValue)
     if required is not None:
@@ -287,9 +368,12 @@ def build_grid_table(headers, rows, min_col_widths, align=None):
     for row in [headers] + rows:
         for i, cell in enumerate(row):
             for paragraph in str(cell).split('\n'):
+                # continuation lines of a list item are indented (see wrap_cell)
+                item = re.match(r'^(\s*)[-*] ', paragraph)
+                indent = len(item.group(1)) + 2 if item else 0
                 for word in paragraph.split():
-                    if len(word) > col_widths[i] - 2:
-                        col_widths[i] = len(word) + 2
+                    if len(word) + indent > col_widths[i] - 2:
+                        col_widths[i] = len(word) + indent + 2
 
     def wrap_cell(text, width):
         lines = []
@@ -297,7 +381,11 @@ def build_grid_table(headers, rows, min_col_widths, align=None):
             if paragraph.strip() == '':
                 lines.append('')
             else:
-                lines.extend(textwrap.wrap(paragraph, width, break_long_words=False, break_on_hyphens=False))
+                # continuation lines of a list item stay inside the item (nested lists)
+                item = re.match(r'^(\s*)[-*] ', paragraph)
+                indent = ' ' * (len(item.group(1)) + 2) if item else ''
+                lines.extend(textwrap.wrap(paragraph, width, break_long_words=False, break_on_hyphens=False,
+                                           subsequent_indent=indent))
         return lines or ['']
 
     def format_row(row_data, separator_char='-', header=False):
@@ -442,6 +530,55 @@ def fact_sheet(g, data, shape, target_class, properties, graph_iri, trans):
 # Positions in a shape graph whose IRIs belong to the described data, as
 # opposed to the SHACL vocabulary that merely structures the shapes.
 DATA_POSITIONS = [SH.path, SH.targetClass, SH["class"], SH.datatype, SH.node, SH.hasValue]
+
+
+def natural_key(text):
+    """Sort key that orders embedded numbers numerically ("2" before "10")."""
+    return [int(part) if part.isdigit() else part.lower() for part in re.split(r'(\d+)', str(text))]
+
+
+def alternate_names(data, subject, lang):
+    """Language-independent alternate names and those of the page language."""
+    names = {str(o) for o in data.objects(subject, SCHEMA.alternateName)
+             if not getattr(o, "language", None) or o.language.lower() == lang}
+    return sorted(names)
+
+
+def code_list_pages(g, data, lang, trans):
+    """Markdown of the chapter on code lists: one section per
+    schema:CategoryCodeSet of the data graph with its description and a table
+    of its codes (IRI, code value, name with alternate names, description)."""
+    lines = []
+    code_lists = sorted(set(data.subjects(RDF.type, SCHEMA.CategoryCodeSet)),
+                        key=lambda cl: (code_list_label(g, data, cl, lang).lower(), str(cl)))
+    for code_list in code_lists:
+        label = sanitize_cell(code_list_label(g, data, code_list, lang))
+        slug = code_list_slug(code_list)
+        lines.append(f"## {label} {{#sec-{slug}}}")
+        lines.append("")
+        description = get_localized_value(data, code_list, [SCHEMA.description], lang)
+        if description:
+            lines.append(sanitize_cell(description))
+            lines.append("")
+        codes = set(data.objects(code_list, SCHEMA.hasCategoryCode)) | set(data.subjects(SCHEMA.inCodeSet, code_list))
+        rows = []
+        for item in sorted(codes, key=lambda c: (natural_key(data.value(c, SCHEMA.codeValue) or ""), str(c))):
+            value = data.value(item, SCHEMA.codeValue)
+            name = get_localized_value(data, item, [SCHEMA.name], lang) or format_uri(g, item)
+            alternates = alternate_names(data, item, lang)
+            if alternates:
+                name += f" ({', '.join(alternates)})"
+            rows.append([qname_link(g, item),
+                         code(value) if value is not None else "",
+                         sanitize_cell(name),
+                         sanitize_cell(get_localized_value(data, item, [SCHEMA.description], lang) or "")])
+        lines.extend(build_grid_table([trans['cl_iri'], trans['cl_code'], trans['cl_name'], trans['cl_description']],
+                                      rows, [20, 10, 30, 50]))
+        lines.append("")
+        # explicit widths: the IRI links make the ASCII column wider than it should render
+        lines.append(f": {trans['cl_caption'].format(name=label)} {{#tbl-{slug} tbl-colwidths=\"[18,10,30,42]\"}}")
+        lines.append("")
+    return lines
 
 
 def used_namespaces(g, shapes):
@@ -657,7 +794,9 @@ def main():
                             return f"{trans['datatypes'][local]} ({qname_link(g, t_uri)})"
                         return qname_link(g, t_uri)
 
-                    primary = next((t for t in [p["node"], p["class"], p["datatype"]] if t), None)
+                    # an inline node shape (blank node, e.g. a code list restriction) is not a type
+                    node = p["node"] if isinstance(p["node"], URIRef) else None
+                    primary = next((t for t in [node, p["class"], p["datatype"]] if t), None)
                     types = [format_type(primary)] if primary else []
 
                     if not types and p["prop"]:
@@ -676,11 +815,36 @@ def main():
                             if t_uri:
                                 types.append(format_type(t_uri))
 
+                    # Values from a code list: "Type: schema:CategoryCode, see code list X",
+                    # or with an sh:in subset "Type: schema:CategoryCode with the following
+                    # selection:" + the values, then "See code list X" on its own line.
                     details = []
+                    code_lists = code_lists_of(g, p["prop"])
+                    allowed = g.value(p["prop"], SH["in"])
+                    see = None
+                    if code_lists:
+                        links = ", ".join(f"[{code_list_label(g, data, cl, lang)}](#sec-{code_list_slug(cl)})" for cl in code_lists)
+                        see = trans['see_code_list'].format(list=links)
                     if types:
-                        details.append((trans['type'], f" {trans['or']} ".join(types)))
-                    details.extend(describe_constraints(g, p["prop"], trans))
-                    details_cell = "\n".join(f"- {label}: {value}" for label, value in details)
+                        type_text = f" {trans['or']} ".join(types)
+                        if see and allowed is not None:
+                            type_text += f" {trans['type_selection']}" + values_list(g, data, rdf_list(g, allowed), lang)
+                            details.append((trans['type'], type_text))
+                            details.append((None, see))
+                        elif see:
+                            details.append((trans['type'], f"{type_text}, {see[0].lower()}{see[1:]}"))
+                        else:
+                            details.append((trans['type'], type_text))
+                    elif see:
+                        details.append((None, see))
+                    details.extend(describe_constraints(g, p["prop"], trans, data, lang,
+                                                        skip_values=bool(see and types and allowed is not None)))
+                    details_cell = "\n".join(f"- {label}: {value}" if label else f"- {value}" for label, value in details)
+                    if details and "\n  - " in details[0][1]:
+                        # A nested list in the first item: pandoc's Typst writer would put that
+                        # item on the cell's opening line, which breaks Typst's indentation-based
+                        # nesting. A zero-height spacer first makes the list start on its own line.
+                        details_cell = "```{=typst}\n#v(0pt)\n```\n\n" + details_cell
 
                     min_c = str(p["minCount"]) if p["minCount"] else "0"
                     max_c = str(p["maxCount"]) if p["maxCount"] else "*"
@@ -725,6 +889,11 @@ def main():
         ns_lines.append(f"\n: {trans['ns_caption']} {{#tbl-namespaces}}")
         with open(docs_dir / lang / "namespaces.md", "w", encoding="utf-8") as f:
             f.write("\n".join(ns_lines) + "\n")
+
+        # Values of the code lists (schema:CategoryCodeSet) of the data graph
+        cl_lines = code_list_pages(g, data, lang, trans) if data is not None else []
+        with open(docs_dir / lang / "codelists.md", "w", encoding="utf-8") as f:
+            f.write("\n".join(cl_lines))
 
 if __name__ == "__main__":
     main()

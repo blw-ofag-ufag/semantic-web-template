@@ -128,6 +128,12 @@ Le @tbl-namespaces énumère les préfixes et les espaces de noms utilisés dans
 
 {{< include entities.md >}}
 
+# Listes de codes {#sec-codelists}
+
+Les listes de codes suivantes définissent les valeurs admises des propriétés correspondantes du modèle de données (@sec-data-model). Chaque liste de codes est publiée sur LINDAS comme `schema:CategoryCodeSet` et chaque valeur comme `schema:CategoryCode`.
+
+{{< include codelists.md >}}
+
 # Accès aux données {#sec-data-retrieval}
 
 Les données de base et de référence qui sous-tendent ce document sont disponibles sous forme de *Linked Data*.

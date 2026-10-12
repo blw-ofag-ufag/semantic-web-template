@@ -197,7 +197,7 @@ build: $(PROCESSED_DATA) ## Build the graph: integration, reasoning, SPARQL proc
 # BUILD DOCUMENTATION
 # ==============================================================================
 
-generate-shacl-docs: $(SHAPES) $(PREFIXES) $(PROCESSED_DATA) $(DOCS_DIR)/_ech.yml src/python/utils/generate_shacl_docs.py | $(VENV)/.requirements-installed.stamp ## Generate the data model pages from the SHACL shapes
+generate-shacl-docs: $(SHAPES) $(PREFIXES) $(PROCESSED_DATA) $(DOCS_DIR)/_ech.yml src/python/utils/generate_shacl_docs.py | $(VENV)/.requirements-installed.stamp ## Generate the data model and code list pages from the SHACL shapes and the graph
 	@printf "$(BOLD)[*] Generating SHACL documentation...$(NC)\n"
 	@printf "$(GREY)"; \
 	$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -d $(DOCS_DIR) -p $(PREFIXES) -g $(PROCESSED_DATA) -c $(DOCS_DIR)/_ech.yml || { printf "$(NC)"; exit 1; }; \
@@ -274,5 +274,5 @@ publish: test stamp-metadata delete ## Test, then replace the graph on LINDAS wi
 
 clean: ## Remove all build artifacts, caches, the virtual environment and generated pages
 	@printf "$(BOLD)[*] Cleaning build artifacts...$(NC)\n"
-	@rm -rf $(BUILD_DIR) $(VENV) docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md
+	@rm -rf $(BUILD_DIR) $(VENV) docs/*/codelists.md docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md
 	@find . -path ./.git -prune -o \( -name __pycache__ -o -name .pytest_cache -o -name .quarto -o -name '*_files' -o -name '*_cache' -o -name '*.quarto_ipynb' -o -name .Rhistory -o -name .RData \) -prune -exec rm -rf {} +

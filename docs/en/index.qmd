@@ -128,6 +128,12 @@ The following paragraph is deliberately nonsense and only tests the citation sty
 
 {{< include entities.md >}}
 
+# Code lists {#sec-codelists}
+
+The following code lists define the permitted values of the corresponding properties of the data model (@sec-data-model). Every code list is published on LINDAS as a `schema:CategoryCodeSet` and every value as a `schema:CategoryCode`.
+
+{{< include codelists.md >}}
+
 # Data Retrieval {#sec-data-retrieval}
 
 The master and reference data underlying this document are available as *Linked Data*.

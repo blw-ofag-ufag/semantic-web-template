@@ -6,7 +6,7 @@
 
 For demonstrative purposes, this template repository includes a full semantic web pipeline, including
  
-1. manual data curation (data files in `src/rdf/data`),
+1. manual data curation (data files and code lists in `src/rdf/data`),
 2. data integration from a relational database (using python, specifically `src/python/pipeline/...`),
 3. OWL-based inferencing (using the ontology in `src/rdf/model.owl.ttl`),
 4. SPARQL-based processing of the graph (using rules in `src/sparql/processing/...`)

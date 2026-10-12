@@ -27,6 +27,7 @@ def main():
     g = Graph()
     SCHEMA = Namespace("http://schema.org/")
     UNIT = Namespace("http://qudt.org/vocab/unit/")
+    CURRENCY = Namespace("http://qudt.org/vocab/currency/")
     ARTIST = Namespace("https://agriculture.ld.admin.ch/eCH-1234/2/artist/")
     ALBUM = Namespace("https://agriculture.ld.admin.ch/eCH-1234/2/album/")
     TRACK = Namespace("https://agriculture.ld.admin.ch/eCH-1234/2/tracks/")
@@ -41,6 +42,7 @@ def main():
 
     g.bind("schema", SCHEMA)
     g.bind("unit", UNIT)
+    g.bind("currency", CURRENCY)
     g.bind("artist", ARTIST)
     g.bind("album", ALBUM)
     g.bind("track", TRACK)
@@ -126,12 +128,9 @@ def main():
         g.add((uri, RDF.type, SCHEMA.DefinedTerm))
         add_string(uri, SCHEMA.name, row[1])
 
-    # Media Types
-    cursor.execute("SELECT MediaTypeId, Name FROM MediaType")
-    for row in cursor.fetchall():
-        uri = MEDIATYPE[str(row[0])]
-        g.add((uri, RDF.type, SCHEMA.DefinedTerm))
-        add_string(uri, SCHEMA.name, row[1])
+    # Media types are not created here: they are the codes of the code list
+    # src/rdf/data/mediatypes.ttl (schema:CategoryCodeSet), which the tracks
+    # reference by their Chinook identifier (schema:encodingFormat, see below).
 
     # Tracks
     cursor.execute("""
@@ -144,9 +143,10 @@ def main():
         g.add((uri, RDF.type, SCHEMA.MusicRecording))
         add_string(uri, SCHEMA.name, row[1])
         
-        # Express quantitative values via QUDT units
+        # Express quantitative values with the units of the code list
+        # src/rdf/data/units.ttl (IRIs of the QUDT vocabulary)
         add_quantitative_value(uri, SCHEMA.duration, row[6], XSD.integer, UNIT.MilliSEC)
-        add_quantitative_value(uri, SCHEMA.offers, row[8], XSD.decimal, UNIT.USD)
+        add_quantitative_value(uri, SCHEMA.offers, row[8], XSD.decimal, CURRENCY.USD)
         
         if row[5]:
             add_string(uri, SCHEMA.author, row[5])
@@ -157,6 +157,7 @@ def main():
         if row[2] is not None:
             g.add((uri, SCHEMA.inAlbum, ALBUM[str(row[2])]))
         if row[3] is not None:
+            # Media type: a code of src/rdf/data/mediatypes.ttl (MediaTypeId)
             g.add((uri, SCHEMA.encodingFormat, MEDIATYPE[str(row[3])]))
         if row[4] is not None:
             g.add((uri, SCHEMA.genre, GENRE[str(row[4])]))
@@ -243,7 +244,7 @@ def main():
             date_only = str(row[2])[:10]
             g.add((uri, SCHEMA.dateCreated, Literal(date_only, datatype=XSD.date)))
             
-        add_quantitative_value(uri, SCHEMA.totalPaymentDue, row[8], XSD.decimal, UNIT.USD)
+        add_quantitative_value(uri, SCHEMA.totalPaymentDue, row[8], XSD.decimal, CURRENCY.USD)
         
         address_node = build_address(row[3], row[4], row[5], row[6], row[7])
         if address_node:
@@ -258,8 +259,8 @@ def main():
         g.add((uri, RDF.type, SCHEMA.OrderItem))
         g.add((uri, SCHEMA.orderedItem, TRACK[str(row[2])]))
         
-        add_quantitative_value(uri, SCHEMA.price, row[3], XSD.decimal, UNIT.USD)
-        add_quantitative_value(uri, SCHEMA.orderQuantity, row[4], XSD.integer, UNIT.EA) # 'EA' stands for 'Each'
+        add_quantitative_value(uri, SCHEMA.price, row[3], XSD.decimal, CURRENCY.USD)
+        add_quantitative_value(uri, SCHEMA.orderQuantity, row[4], XSD.integer, UNIT.NUM)  # QUDT has no "each": NUM counts items
         
         g.add((invoice_uri, SCHEMA.hasPart, uri))
 

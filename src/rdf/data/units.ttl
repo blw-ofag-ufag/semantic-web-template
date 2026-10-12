@@ -1,0 +1,97 @@
+# ==============================================================================
+# PREFIXES
+# ==============================================================================
+
+# Project-specific namespaces/qnames
+@prefix codelist:        <https://agriculture.ld.admin.ch/eCH-1234/2/codelist/> .
+
+# Globally used namespaces/qnames
+@prefix currency:        <http://qudt.org/vocab/currency/> .
+@prefix schema:          <http://schema.org/> .
+@prefix unit:            <http://qudt.org/vocab/unit/> .
+
+# ==============================================================================
+# CODE LIST
+# ==============================================================================
+#
+# The units of the quantitative values (schema:QuantitativeValue) of the
+# dataset, modelled as a schema.org code list: the list is a
+# schema:CategoryCodeSet, its values are schema:CategoryCode instances with a
+# code value, a name and a description per language and at least one
+# alternate name, as prescribed by the template-wide shapes
+# src/rdf/shapes/codelist.shacl.ttl and checked by tests/test_codelists.py.
+# The codes reuse the IRIs of the QUDT
+# vocabulary (https://qudt.org/), so that the units are globally unambiguous;
+# the list declares which of them the dataset uses. The code value is the
+# UN/CEFACT common code of the unit, which schema:unitCode expects as text, or
+# the ISO 4217 code of the currency; the alternate name is the symbol. The
+# data model restricts schema:unitCode to this list, and the documentation
+# renders the values in its chapter on code lists.
+
+codelist:Units a schema:CategoryCodeSet ;
+    schema:name "Einheiten"@de,
+        "Units"@en,
+        "Unités"@fr,
+        "Unità"@it ;
+    schema:description "Die Einheiten der quantitativen Werte des Datensatzes: Dauer in Millisekunden, Dateigrösse in Byte, Stückzahl und Preise in US-Dollar. Die Codes sind IRIs des QUDT-Vokabulars, die Codewerte die UN/CEFACT Common Codes bzw. der ISO-4217-Währungscode."@de,
+        "The units of the quantitative values of the dataset: duration in milliseconds, file size in bytes, number of items and prices in US dollars. The codes are IRIs of the QUDT vocabulary, the code values the UN/CEFACT common codes or the ISO 4217 currency code."@en,
+        "Les unités des valeurs quantitatives du jeu de données: durée en millisecondes, taille de fichier en octets, nombre de pièces et prix en dollars américains. Les codes sont des IRI du vocabulaire QUDT, les valeurs des codes les codes communs UN/CEFACT ou le code de devise ISO 4217."@fr,
+        "Le unità dei valori quantitativi del set di dati: durata in millisecondi, dimensione del file in byte, numero di pezzi e prezzi in dollari statunitensi. I codici sono IRI del vocabolario QUDT, i valori dei codici i codici comuni UN/CEFACT o il codice valuta ISO 4217."@it ;
+    schema:hasCategoryCode unit:MilliSEC, unit:BYTE, unit:NUM, currency:USD .
+
+# ==============================================================================
+# CODES
+# ==============================================================================
+
+unit:MilliSEC a schema:CategoryCode ;
+    schema:inCodeSet codelist:Units ;
+    schema:codeValue "C26" ;
+    schema:name "Millisekunde"@de,
+        "Millisecond"@en,
+        "Milliseconde"@fr,
+        "Millisecondo"@it ;
+    schema:alternateName "ms" ;
+    schema:description "Tausendstel einer Sekunde; Einheit der Dauer der Titel."@de,
+        "One thousandth of a second; unit of the duration of the tracks."@en,
+        "Millième de seconde; unité de la durée des pistes."@fr,
+        "Millesimo di secondo; unità della durata dei brani."@it .
+
+unit:BYTE a schema:CategoryCode ;
+    schema:inCodeSet codelist:Units ;
+    schema:codeValue "AD" ;
+    schema:name "Byte"@de,
+        "Byte"@en,
+        "Octet"@fr,
+        "Byte"@it ;
+    schema:alternateName "B" ;
+    schema:description "Acht Bit; Einheit der Dateigrösse der Titel."@de,
+        "Eight bits; unit of the file size of the tracks."@en,
+        "Huit bits; unité de la taille des fichiers des pistes."@fr,
+        "Otto bit; unità della dimensione dei file dei brani."@it .
+
+# QUDT has no unit "each"; NUM (number) counts items such as the order quantity.
+unit:NUM a schema:CategoryCode ;
+    schema:inCodeSet codelist:Units ;
+    schema:codeValue "EA" ;
+    schema:name "Stück"@de,
+        "Each"@en,
+        "Pièce"@fr,
+        "Pezzo"@it ;
+    schema:alternateName "#" ;
+    schema:description "Zähleinheit für Stückzahlen, etwa die bestellte Menge einer Rechnungsposition."@de,
+        "Counting unit for numbers of items, such as the ordered quantity of an invoice line."@en,
+        "Unité de comptage pour les quantités, par exemple la quantité commandée d'une ligne de facture."@fr,
+        "Unità di conteggio per i pezzi, ad esempio la quantità ordinata di una riga di fattura."@it .
+
+currency:USD a schema:CategoryCode ;
+    schema:inCodeSet codelist:Units ;
+    schema:codeValue "USD" ;
+    schema:name "US-Dollar"@de,
+        "US dollar"@en,
+        "Dollar américain"@fr,
+        "Dollaro statunitense"@it ;
+    schema:alternateName "$" ;
+    schema:description "Währung der Vereinigten Staaten (ISO 4217: USD); Einheit der Preise und Rechnungsbeträge."@de,
+        "Currency of the United States (ISO 4217: USD); unit of the prices and invoice totals."@en,
+        "Monnaie des États-Unis (ISO 4217: USD); unité des prix et des montants des factures."@fr,
+        "Valuta degli Stati Uniti (ISO 4217: USD); unità dei prezzi e degli importi delle fatture."@it .

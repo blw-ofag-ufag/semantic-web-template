@@ -128,6 +128,12 @@ Der folgende Absatz ist bewusst Unsinn und dient nur dem Test der Zitierweise (i
 
 {{< include entities.md >}}
 
+# Codelisten {#sec-codelists}
+
+Die folgenden Codelisten legen die zulässigen Werte der entsprechenden Eigenschaften des Datenmodells fest (@sec-data-model). Jede Codeliste ist als `schema:CategoryCodeSet` und jeder Wert als `schema:CategoryCode` auf LINDAS publiziert.
+
+{{< include codelists.md >}}
+
 # Datenbezug {#sec-data-retrieval}
 
 Die diesem Dokument zugrundeliegenden Master- und Referenzdaten sind als _Linked Data_ verfügbar.

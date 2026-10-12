@@ -9,6 +9,7 @@
 @prefix address:         <https://agriculture.ld.admin.ch/eCH-1234/2/address/> .
 @prefix album:           <https://agriculture.ld.admin.ch/eCH-1234/2/album/> .
 @prefix artist:          <https://agriculture.ld.admin.ch/eCH-1234/2/artist/> .
+@prefix codelist:        <https://agriculture.ld.admin.ch/eCH-1234/2/codelist/> .
 @prefix customer:        <https://agriculture.ld.admin.ch/eCH-1234/2/customer/> .
 @prefix employee:        <https://agriculture.ld.admin.ch/eCH-1234/2/employee/> .
 @prefix genre:           <https://agriculture.ld.admin.ch/eCH-1234/2/genre/> .
@@ -30,6 +31,7 @@
 
 # Globally used namespaces/qnames
 @prefix adms:            <https://www.w3.org/ns/adms#> .
+@prefix currency:        <http://qudt.org/vocab/currency/> .
 @prefix dcat:            <http://www.w3.org/ns/dcat#> .
 @prefix dcterms:         <http://purl.org/dc/terms/> .
 @prefix doap:            <http://usefulinc.com/ns/doap#> .

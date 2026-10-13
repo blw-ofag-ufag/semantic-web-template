@@ -129,13 +129,22 @@ Ungeordnete Liste:
 
 - Erster Punkt
 - Zweiter Punkt
-  - Unterpunkt
+  - Erster Unterpunkt
+  - Zweiter Unterpunkt
+    - Erstes Detail
+    - Zweites Detail
+      - Erste Anmerkung
+      - Zweite Anmerkung
 - Dritter Punkt
 
 Geordnete Liste:
 
 1.  Erster Schritt
 2.  Zweiter Schritt
+    1.  Erster Teilschritt
+    2.  Zweiter Teilschritt
+        1.  Erstes Detail
+        2.  Zweites Detail
 3.  Dritter Schritt
 
 > [!NOTE]

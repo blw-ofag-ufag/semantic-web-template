@@ -124,13 +124,22 @@ Unordered list:
 
 - First item
 - Second item
-  - Sub-item
+  - First sub-item
+  - Second sub-item
+    - First detail
+    - Second detail
+      - First note
+      - Second note
 - Third item
 
 Ordered list:
 
 1.  First step
 2.  Second step
+    1.  First sub-step
+    2.  Second sub-step
+        1.  First detail
+        2.  Second detail
 3.  Third step
 
 > [!NOTE]

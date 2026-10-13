@@ -130,13 +130,22 @@ Liste non ordonnée:
 
 - Premier point
 - Deuxième point
-  - Sous-point
+  - Premier sous-point
+  - Deuxième sous-point
+    - Premier détail
+    - Deuxième détail
+      - Première remarque
+      - Deuxième remarque
 - Troisième point
 
 Liste ordonnée:
 
 1.  Première étape
 2.  Deuxième étape
+    1.  Première sous-étape
+    2.  Deuxième sous-étape
+        1.  Premier détail
+        2.  Deuxième détail
 3.  Troisième étape
 
 > [!NOTE]

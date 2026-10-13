@@ -193,8 +193,6 @@ comme équation à part entière telle que
 \sum_{i=1}^{n} x_i = n \bar{x}
  \qquad(1)$$</span>
 
-# Indications d’utilisation
-
 Le paragraphe suivant est volontairement absurde et ne sert qu’à tester
 le style de citation (dans le texte courant sans crochets avec `@key`,
 sinon entre crochets avec `[@key]`): selon eCH-0003 11.1.0, toutes les
@@ -204,6 +202,8 @@ SHACL \[SHACL\] et publiées via SPARQL \[SPARQL\] comme Linked Open Data
 \[eCH-0205 1.0\] sur les cultures agricoles \[eCH-0265 1.0.0\] en
 JSON-LD \[JSON-LD\] et OWL \[OWL 2\], comme le prévoit le Web sémantique
 \[Berners-Lee 2023\].
+
+# Indications d’utilisation
 
 ## Espaces de noms
 

@@ -187,8 +187,6 @@ standalone equation such as
 \sum_{i=1}^{n} x_i = n \bar{x}
  \qquad(1)$$</span>
 
-# Usage notes
-
 The following paragraph is deliberately nonsense and only tests the
 citation style (in running text without brackets with `@key`, otherwise
 in brackets with `[@key]`): according to eCH-0003 11.1.0, all postal
@@ -198,6 +196,8 @@ validated as a DCAT catalogue \[DCAT; eCH-0200 3.0.1\] with SHACL
 \[eCH-0205 1.0\] on agricultural crops \[eCH-0265 1.0.0\] in JSON-LD
 \[JSON-LD\] and OWL \[OWL 2\], as the Semantic Web \[Berners-Lee 2023\]
 intends.
+
+# Usage notes
 
 ## Namespaces
 

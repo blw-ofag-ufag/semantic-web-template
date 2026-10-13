@@ -192,8 +192,6 @@ Gleichung wie <a href="#eq-example" class="quarto-xref">Gleichung 1</a>:
 \sum_{i=1}^{n} x_i = n \bar{x}
  \qquad(1)$$</span>
 
-# Hinweise zur Verwendung
-
 Der folgende Absatz ist bewusst Unsinn und dient nur dem Test der
 Zitierweise (im Fliesstext ohne Klammern mit `@key`, sonst in Klammern
 mit `[@key]`): Gemäss eCH-0003 11.1.0 müssen alle Postadressen
@@ -203,6 +201,8 @@ mit `[@key]`): Gemäss eCH-0003 11.1.0 müssen alle Postadressen
 landwirtschaftliche Kulturen \[eCH-0265 1.0.0\] in JSON-LD \[JSON-LD\]
 und OWL \[OWL 2\] veröffentlicht werden, wie es das Semantic Web
 \[Berners-Lee 2023\] vorsieht.
+
+# Hinweise zur Verwendung
 
 ## Namespaces
 

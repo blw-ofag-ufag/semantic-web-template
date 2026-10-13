@@ -114,9 +114,9 @@ $$ {#eq-example}
 [^1]: Fussnoten erscheinen auf der Website am rechten Rand, im PDF am Seitenende.
 [^2]: Eine zweite Fussnote mit einem Link auf [ech.ch](https://www.ech.ch/).
 
-# Hinweise zur Verwendung {#sec-usage-notes}
-
 Der folgende Absatz ist bewusst Unsinn und dient nur dem Test der Zitierweise (im Fliesstext ohne Klammern mit `@key`, sonst in Klammern mit `[@key]`): Gemäss @eCH-0003:11.1.0 müssen alle Postadressen [@eCH-0010:8.1.0] in Turtle [@Turtle] serialisiert, als DCAT-Katalog [@DCAT; @eCH-0200:3.0.1] mit SHACL [@SHACL] geprüft und per SPARQL [@SPARQL] als Linked Open Data [@eCH-0205:1.0] über landwirtschaftliche Kulturen [@eCH-0265:1.0.0] in JSON-LD [@JSON-LD] und OWL [@OWL2] veröffentlicht werden, wie es das Semantic Web [@berners2023semantic] vorsieht.
+
+# Hinweise zur Verwendung {#sec-usage-notes}
 
 ## Namespaces {#sec-namespaces}
 

@@ -55,7 +55,6 @@ TRANSLATIONS = {
         "see_code_list": "See code list {list}",
         "type_restrictions": "with the following restrictions:",
         "restrictions": "Restrictions",
-        "cl_iri": "IRI",
         "cl_code": "Code",
         "cl_name": "Name",
         "cl_description": "Description",
@@ -106,7 +105,6 @@ TRANSLATIONS = {
         "see_code_list": "Siehe Codeliste {list}",
         "type_restrictions": "mit folgenden Einschränkungen:",
         "restrictions": "Einschränkungen",
-        "cl_iri": "IRI",
         "cl_code": "Code",
         "cl_name": "Name",
         "cl_description": "Beschreibung",
@@ -157,7 +155,6 @@ TRANSLATIONS = {
         "see_code_list": "Voir la liste de codes {list}",
         "type_restrictions": "avec les restrictions suivantes:",
         "restrictions": "Restrictions",
-        "cl_iri": "IRI",
         "cl_code": "Code",
         "cl_name": "Nom",
         "cl_description": "Description",
@@ -208,7 +205,6 @@ TRANSLATIONS = {
         "see_code_list": "Vedi l'elenco di codici {list}",
         "type_restrictions": "con le seguenti restrizioni:",
         "restrictions": "Restrizioni",
-        "cl_iri": "IRI",
         "cl_code": "Codice",
         "cl_name": "Nome",
         "cl_description": "Descrizione",
@@ -595,7 +591,8 @@ def alternate_names(data, subject, lang):
 def code_list_pages(g, data, lang, trans):
     """Markdown of the chapter on code lists: one section per
     schema:CategoryCodeSet of the data graph with its description and a table
-    of its codes (IRI, code value, name with alternate names, description)."""
+    of its codes (code value, name linked to the IRI with alternate names,
+    description)."""
     lines = []
     code_lists = sorted(set(data.subjects(RDF.type, SCHEMA.CategoryCodeSet)),
                         key=lambda cl: (code_list_label(g, data, cl, lang).lower(), str(cl)))
@@ -612,19 +609,17 @@ def code_list_pages(g, data, lang, trans):
         rows = []
         for item in sorted(codes, key=lambda c: (natural_key(data.value(c, SCHEMA.codeValue) or ""), str(c))):
             value = data.value(item, SCHEMA.codeValue)
-            name = get_localized_value(data, item, [SCHEMA.name], lang) or format_uri(g, item)
+            name = f"[{sanitize_cell(get_localized_value(data, item, [SCHEMA.name], lang) or format_uri(g, item))}]({item})"
             alternates = alternate_names(data, item, lang)
             if alternates:
-                name += f" ({', '.join(alternates)})"
-            rows.append([qname_link(g, item),
-                         code(value) if value is not None else "",
-                         sanitize_cell(name),
+                name += f" ({sanitize_cell(', '.join(alternates))})"
+            rows.append([code(value) if value is not None else "",
+                         name,
                          sanitize_cell(get_localized_value(data, item, [SCHEMA.description], lang) or "")])
-        lines.extend(build_grid_table([trans['cl_iri'], trans['cl_code'], trans['cl_name'], trans['cl_description']],
-                                      rows, [20, 10, 30, 50]))
+        lines.extend(build_grid_table([trans['cl_code'], trans['cl_name'], trans['cl_description']], rows, [30, 30, 40]))
         lines.append("")
-        # explicit widths: the IRI links make the ASCII column wider than it should render
-        lines.append(f": {trans['cl_caption'].format(name=label)} {{#tbl-{slug} tbl-colwidths=\"[18,10,30,42]\"}}")
+        # explicit widths: the name links make the ASCII column wider than it should render
+        lines.append(f": {trans['cl_caption'].format(name=label)} {{#tbl-{slug} tbl-colwidths=\"[25,25,50]\"}}")
         lines.append("")
     return lines
 

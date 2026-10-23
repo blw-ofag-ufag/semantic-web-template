@@ -18,6 +18,7 @@ PATTERNS = [
     "docs/assets/*.yml",
     "docs/assets/*.html",
     "docs/assets/*.scss",
+    "docs/assets/*.mplstyle",
     "docs/assets/*.svg",
     "docs/assets/*.csl",
     "LICENSE.md",

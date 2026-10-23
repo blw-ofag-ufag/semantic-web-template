@@ -22,9 +22,8 @@ NAMESPACE_ROOT = "https://agriculture.ld.admin.ch/"
 
 # Fixed by convention (GitHub, make) or by the tools that read them (Quarto
 # recognises its template partials by name).
-CONVENTIONAL_FILES = {"README.md", "LICENSE.md", "CLEANUP.md", "CONTRIBUTING.md", "Makefile", "DESCRIPTION",
+CONVENTIONAL_FILES = {"README.md", "LICENSE.md", "CLEANUP.md", "CONTRIBUTING.md", "Makefile",
                       "typst-template.typ", "typst-show.typ", "title-metadata.html"}
-UPPERCASE_EXTENSIONS = {".R"}
 
 SNAKE_CASE = re.compile(r"_?[a-z0-9]+(_[a-z0-9]+)*")  # Quarto config files start with "_"
 PASCAL_CASE = re.compile(r"[A-Z][a-z0-9]*([A-Z][a-z0-9]*)*")
@@ -85,7 +84,7 @@ def test_file_names_are_snake_case():
         if path.name in CONVENTIONAL_FILES or path.name.startswith("."):
             continue
         stem, *extensions = path.name.split(".")
-        bad_extensions = [e for e in extensions if not (e.islower() and e.isalnum()) and "." + e not in UPPERCASE_EXTENSIONS]
+        bad_extensions = [e for e in extensions if not (e.islower() and e.isalnum())]
         if not SNAKE_CASE.fullmatch(stem) or bad_extensions:
             violations.append(str(path))
     report("Files not named in lowercase snake_case", violations)

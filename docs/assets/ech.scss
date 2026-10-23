@@ -287,3 +287,10 @@ $grid-margin-width: 375px;
 #TOC li:has(> a[href^="#sec-appendix"]) {
   display: none;
 }
+
+// Figures of code chunks: Jupyter sets their width and height, so they do not
+// get the class img-fluid; scale them down on narrow screens all the same.
+.cell-output-display img.figure-img {
+  max-width: 100%;
+  height: auto;
+}

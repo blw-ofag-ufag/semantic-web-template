@@ -72,6 +72,27 @@ person:2 a eCH-1234:Person .
 person:3 a eCH-1234:Person .
 ```
 
+## Figures
+
+Data analyses and figures of the documentation are written in Python; the project does not use R. Code chunks in `docs/*/index.qmd` run with the packages of `src/python/requirements.txt`, which `make setup` installs into the virtual environment.
+
+All figures share one plot style, `docs/assets/ech.mplstyle` (based on ggplot2's `theme_minimal()`): a white background, no axis lines or ticks, a light grey grid behind the data, grey tick labels and the eCH red `#D00D28` as the first colour. Load it at the beginning of every chunk that draws a figure, give the chunk a label and a caption, so that the figure is numbered and listed, and set the size of the figure in inches with `figsize` (the chunk options `fig-width` and `fig-height` have no effect on Python chunks):
+
+````markdown
+```{python}
+#| label: fig-example
+#| fig-cap: "Caption of the figure."
+import matplotlib.pyplot as plt
+
+plt.style.use("../assets/ech.mplstyle")
+fig, ax = plt.subplots(figsize=(6, 2.5))
+ax.barh(["A", "B"], [1, 2], height=0.9)
+plt.show()
+```
+````
+
+Write axis labels in the language of the page, and adapt the style file only in the template, so that all projects keep the same look.
+
 ## Alignment with eCH processes
 
 To maintain consistency, the releases of this repository must strictly align with the official status of the corresponding document on [ech.ch](https://www.ech.ch/).

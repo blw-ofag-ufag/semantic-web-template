@@ -87,21 +87,26 @@ WHERE {
 LIMIT 10
 ```
 
-Figures can also be produced with R code, as @fig-r-example shows:
+Figures can also be produced with Python code, as @fig-python-example shows:
 
-```{r}
-#| label: fig-r-example
-#| fig-cap: "Figure produced with R. Quarto runs the code when rendering and inserts the plot."
-#| fig-width: 6
-#| fig-height: 2.5
-library(ggplot2)
-tracks <- data.frame(
-  genre = c("Rock", "Latin", "Metal", "Jazz"),
-  n = c(1297, 579, 374, 130)
-)
-ggplot(tracks, aes(x = reorder(genre, n), y = n)) +
-  geom_col(fill = "#D00D28") +
-  coord_flip() + labs(x = NULL, y = "Number of tracks") + theme_minimal()
+```{python}
+#| label: fig-python-example
+#| fig-cap: "Figure produced with Python. Quarto runs the code when rendering and inserts the plot."
+import matplotlib.pyplot as plt
+from matplotlib.ticker import AutoMinorLocator, MaxNLocator
+
+plt.style.use("../assets/ech.mplstyle")
+tracks = {"Rock": 1297, "Latin": 579, "Metal": 374, "Jazz": 130}
+tracks = dict(sorted(tracks.items(), key=lambda item: item[1]))
+fig, ax = plt.subplots(figsize=(6, 2.5))
+ax.barh(list(tracks), list(tracks.values()), height=0.9)
+ax.use_sticky_edges = False  # 5 % space around the data, also left of 0
+ax.set_ylim(-0.6, len(tracks) - 0.4)
+ax.xaxis.set_major_locator(MaxNLocator(nbins=4, steps=[1, 2, 2.5, 5, 10]))
+ax.xaxis.set_minor_locator(AutoMinorLocator(2))
+ax.grid(which="minor", linewidth=0.71)
+ax.set_xlabel("Number of tracks")
+plt.show()
 ```
 
 +----------------+--------------------+--------------------------------+

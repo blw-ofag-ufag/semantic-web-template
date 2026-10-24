@@ -11,7 +11,6 @@ The following tools must be installed:
 * Python 3 (>= 3.10)
 * Java (>= 11, required for ROBOT and HermiT; the CI pipeline uses Java 17)
 * Quarto CLI (for the documentation)
-* R (>= 4.1, executes the R code chunks of the documentation; not needed if `src/r/` is deleted)
 * curl (for the deployment to LINDAS)
 
 Then run in the project directory:
@@ -20,7 +19,7 @@ Then run in the project directory:
 make setup
 ```
 
-This creates a virtual environment in `venv/`, installs the Python and R packages and downloads ROBOT.
+This creates a virtual environment in `venv/`, installs the Python packages (including those that Quarto needs to run the Python code chunks of the documentation) and downloads ROBOT.
 
 > [!NOTE]
 > On Posit Workbench or in paths containing @, VS Code may report Unable to handle .../.venv.
@@ -96,18 +95,9 @@ The test suite runs every query in this folder against LINDAS. Replace the demo 
 
 The pages `entities.md`, `namespaces.md` (prefixes and namespaces used by the data model), `codelists.md` (values of the code lists of the graph) and `glossary.md` are generated from the SHACL shapes, the graph and the glossary on every `make docs`. Everything else is maintained manually.
 
-### R packages (`src/r/DESCRIPTION`)
+### Figures and code chunks (Python)
 
-The pages may contain executable R code chunks (e.g. for figures), which Quarto runs with knitr on every render. By default only the output of a chunk is shown (`execute: echo: false` in `docs/_quarto.yml`); add `#| echo: true` to a chunk to show its code. The R packages they need are listed in the `Imports` field of `src/r/DESCRIPTION`, the standard dependency file of R, with optional minimum versions:
-
-```
-Imports:
-    knitr (>= 1.45),
-    rmarkdown (>= 2.25),
-    ggplot2 (>= 3.5.0)
-```
-
-`make setup` installs them with [pak](https://pak.r-lib.org/) (`pak::local_install_deps`), which also installs the system libraries the packages need; the CI pipeline does the same with the action `r-lib/actions/setup-r-dependencies`, which caches the packages between runs. `knitr` and `rmarkdown` are required by Quarto, add the packages of the project's own code chunks below them. The `Package`, `Title` and `Version` fields are informational; adapt them to the project. If the documentation does not use R, delete the `src/r/` folder (the Makefile then skips the R set-up) and the "Set up R" and "Install R packages" steps in `.github/workflows/ci.yml`.
+The pages may contain executable Python code chunks (e.g. for figures), which Quarto runs with Jupyter on every render. `make docs` points Quarto to the interpreter of the virtual environment (`QUARTO_PYTHON=venv/bin/python`), so the chunks use exactly the packages of `src/python/requirements.txt`; add the packages of the project's own code chunks there. By default only the output of a chunk is shown (`execute: echo: false` in `docs/_quarto.yml`); add `#| echo: true` to a chunk to show its code. Figures follow the plot style described in the [contributing guidelines](.github/CONTRIBUTING.md#figures). The documentation uses Python only; do not add R code chunks.
 
 ### Website configuration (`docs/_quarto.yml`)
 

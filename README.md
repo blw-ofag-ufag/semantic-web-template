@@ -30,6 +30,7 @@ This template uses a variety of tools to ensure robust data integration, reasoni
 - [ROBOT](http://robot.obolibrary.org/): CLI tool used to merge, reason, and process RDF graphs.
 - [RDFLib](https://rdflib.readthedocs.io/): A Python library used to parse, serialize, and programmatically manipulate RDF data.
 - [Quarto](https://quarto.org/): An open-source publishing system used for rendering the documentation.
+- [Matplotlib](https://matplotlib.org/): A Python plotting library used for the figures of the documentation.
 
 ## Semantic web standards
 
@@ -84,7 +85,7 @@ To streamline the workflow, this project uses `make` as its primary orchestratio
     make docs
     ```
     
-    Note that this step requires [Quarto](https://quarto.org/) and [R](https://www.r-project.org/) to be installed. The R packages of the documentation are listed in `src/r/DESCRIPTION` and installed by `make setup` with [pak](https://pak.r-lib.org/), together with the system libraries they need.
+    Note that this step requires [Quarto](https://quarto.org/) to be installed. Quarto runs the Python code chunks of the documentation (e.g. figures made with [Matplotlib](https://matplotlib.org/)) with the virtual environment set up by `make setup`, so no other language runtime is needed.
 
 4. Upload the final data to [LINDAS](https://lindas.admin.ch/), the linked data service by the federal archives:
 

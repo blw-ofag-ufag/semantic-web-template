@@ -169,15 +169,15 @@ WHERE {
 LIMIT 10
 ```
 
-Les figures peuvent aussi être produites avec du code R, comme le montre
-<a href="#fig-r-example" class="quarto-xref">Figure 2</a>:
+Les figures peuvent aussi être produites avec du code Python, comme le
+montre <a href="#fig-python-example" class="quarto-xref">Figure 2</a>:
 
-<div id="fig-r-example">
+<div id="fig-python-example">
 
-![](index_files/figure-commonmark/fig-r-example-1.png)
+![](index_files/figure-commonmark/fig-python-example-output-1.png)
 
-Figure 2: Figure produite avec R. Quarto exécute le code lors du rendu
-et insère le graphique.
+Figure 2: Figure produite avec Python. Quarto exécute le code lors du
+rendu et insère le graphique.
 
 </div>
 

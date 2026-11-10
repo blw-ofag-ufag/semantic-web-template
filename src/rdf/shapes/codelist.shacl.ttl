@@ -101,7 +101,7 @@
     sh:property [
         sh:order 4 ;
         sh:path schema:alternateName ;
-        sh:minCount 1 ;
+        sh:minCount 0 ;
         sh:nodeKind sh:Literal ;
         sh:disjoint schema:name ;
         sh:message "Every code needs at least one schema:alternateName (abbreviation or symbol) that differs from its schema:name."@en ;
@@ -109,7 +109,7 @@
     sh:property [
         sh:order 5 ;
         sh:path schema:description ;
-        sh:minCount 1 ;
+        sh:minCount 0 ;
         sh:nodeKind sh:Literal ;
         sh:uniqueLang true ;
         sh:languageIn ( "de" "en" "fr" "it" "rm" ) ;

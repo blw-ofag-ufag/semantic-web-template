@@ -8,7 +8,7 @@ For demonstrative purposes, this template repository includes a full semantic we
  
 1. manual data curation (data files and code lists in `src/rdf/data`),
 2. data integration from a relational database (using python, specifically `src/python/pipeline/...`),
-3. OWL-based inferencing (using the ontology in `src/rdf/model.owl.ttl`),
+3. OWL-based inferencing (using the ontology in `src/rdf/ontology/model.owl.ttl`),
 4. SPARQL-based processing of the graph (using rules in `src/sparql/processing/...`)
 5. SHACL-based graph data validation (using `src/rdf/shapes/model.shacl.ttl`)
 6. a even more customizable Pytest test suite,
@@ -18,7 +18,13 @@ For demonstrative purposes, this template repository includes a full semantic we
 Specifically, this demo project creates a graph of around 120k triples from the Chinook database, makes some inferences, processes and validates the graph.
 
 > [!IMPORTANT]
-> After using this template repository for a project, you probably want to delete/overwrite any of the aforementioned turtle/sparql/python files.
+> After using this template repository for a project, you probably want to delete/overwrite any of the aforementioned turtle/sparql/python files. [CLEANUP.md](CLEANUP.md) describes how.
+
+Further documentation:
+
+- [CLEANUP.md](CLEANUP.md): setting up a project from this template.
+- [CONTRIBUTING.md](.github/CONTRIBUTING.md): Git workflow, naming conventions and figure style.
+- [AGENTS.md](AGENTS.md): rules, commands and file ownership for coding agents (also a compact technical overview).
 
 ## Development tools
 
@@ -79,7 +85,7 @@ To streamline the workflow, this project uses `make` as its primary orchestratio
 
     **Build documentation**
 
-    To render the model UML diagram, and builds the Quarto website into `build/docs/`:
+    To generate the data model, code list and glossary pages and render the Quarto website and the PDF into `build/docs/`:
     
     ``` sh
     make docs

@@ -27,7 +27,7 @@ Und etwas Text schreiben.
 
 Und noch mehr Text schreiben. Vielleicht sogar mit einem schönen Bild.
 
-![Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt. Hat eine Abbildung eine Beschriftung, erscheint sie im Abbildungsverzeichnis. Dort wird nur der erste Satz der Beschriftung angezeigt.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
+![Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt. Hat eine Abbildung eine Beschriftung, erscheint sie im Abbildungsverzeichnis. Dort wird nur der erste Satz der Beschriftung angezeigt.](https://upload.wikimedia.org/wikipedia/commons/8/84/Mountan_Laurel_Ajax_the_Chinook_dog.jpg){#fig-example}
 
 Bei der Darstellung von Diagrammen sollte versucht werden, diese direkt in Mermaid JS zu erstellen; dies macht zukünftige Änderungen oder Übersetzungen sehr einfach.
 

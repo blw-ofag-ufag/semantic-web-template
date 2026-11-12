@@ -27,7 +27,7 @@ Et écrire un peu de texte.
 
 Et écrire encore plus de texte. Peut-être même avec une belle image.
 
-![Ajoutez toujours du texte pour décrire ce que montre l'image. Si une illustration a une légende, elle figure dans la table des illustrations. Seule la première phrase de la légende y est affichée.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
+![Ajoutez toujours du texte pour décrire ce que montre l'image. Si une illustration a une légende, elle figure dans la table des illustrations. Seule la première phrase de la légende y est affichée.](https://upload.wikimedia.org/wikipedia/commons/8/84/Mountan_Laurel_Ajax_the_Chinook_dog.jpg){#fig-example}
 
 Lors de la présentation de diagrammes, essayez de les créer directement dans Mermaid JS ; cela facilite grandement les modifications futures ou les traductions.
 

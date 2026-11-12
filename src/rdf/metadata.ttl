@@ -7,7 +7,7 @@
 # IRI of the named graph (ech.graph in docs/_ech.yml, GRAPH in .env).
 #
 # The modification date (schema:dateModified, dcterms:modified) is not kept
-# here: `make publish` sets it automatically when the content of the graph
+# here: `make build` sets it automatically when the content of the graph
 # differs from the one currently on LINDAS (src/python/utils/graph_metadata.py).
 
 @prefix dcat:            <http://www.w3.org/ns/dcat#> .

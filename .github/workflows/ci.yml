@@ -44,7 +44,14 @@ jobs:
       - name: Set up dependencies
         run: make setup
 
+      # The build compares the graph with the one on LINDAS to set the
+      # modification date of the dataset, hence the secrets.
       - name: Build processed RDF graph
+        env:
+          LINDAS_USER: ${{ secrets.LINDAS_USER }}
+          LINDAS_PASSWORD: ${{ secrets.LINDAS_PASSWORD }}
+          GRAPH: ${{ secrets.GRAPH }}
+          ENDPOINT: ${{ secrets.ENDPOINT }}
         run: make build
 
       - name: Run tests
@@ -53,8 +60,8 @@ jobs:
       - name: Publish RDF graph to LINDAS
         if: github.ref == 'refs/heads/main'
         env:
-          USER: ${{ secrets.USER }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+          LINDAS_USER: ${{ secrets.LINDAS_USER }}
+          LINDAS_PASSWORD: ${{ secrets.LINDAS_PASSWORD }}
           GRAPH: ${{ secrets.GRAPH }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
         run: make publish

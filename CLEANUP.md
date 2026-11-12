@@ -64,7 +64,7 @@ rm src/rdf/data/genres.ttl src/rdf/data/mediatypes.ttl src/rdf/data/people.ttl s
 
 ### Graph metadata (`src/rdf/metadata.ttl`)
 
-Describes the named graph on LINDAS as a dataset (title, description, publisher, contact, licence, themes, keywords) so that it can be found on LINDAS and opendata.swiss. Replace the demo values; the subject must be the named graph of `docs/_ech.yml` (`ech.graph`), which the test suite checks. The modification date is set automatically by `make publish`, which compares the graph with the one on LINDAS.
+Describes the named graph on LINDAS as a dataset (title, description, publisher, contact, licence, themes, keywords) so that it can be found on LINDAS and opendata.swiss. Replace the demo values; the subject must be the named graph of `docs/_ech.yml` (`ech.graph`), which the test suite checks. The modification date is set automatically at the end of `make build`, which compares the graph with the one on LINDAS (this needs `GRAPH` and `ENDPOINT`, see [Deployment to LINDAS](#deployment-to-lindas); without them the graph is built without a modification date and cannot be published).
 
 ### Ontology (`src/rdf/ontology/model.owl.ttl`)
 
@@ -176,19 +176,19 @@ If a step fails, `build/log/` contains a log file for each step. `make clean` re
 
 ## Deployment to LINDAS
 
-The CI pipeline tests every pull request. On `main`, it also publishes the graph to LINDAS and the documentation to GitHub Pages. For this, add `ENDPOINT`, `USER`, `PASSWORD` and `GRAPH` as repository secrets under Settings > Secrets and variables > Actions.
+The CI pipeline tests every pull request. On `main`, it also publishes the graph to LINDAS and the documentation to GitHub Pages. For this, add `ENDPOINT`, `LINDAS_USER`, `LINDAS_PASSWORD` and `GRAPH` as repository secrets under Settings > Secrets and variables > Actions.
 
 For a manual deployment, create a `.env` file in the root directory (it is ignored by Git). Do not use quotes, as the Makefile reads the values literally:
 
 ``` dotenv
 ENDPOINT=https://test.lindas.admin.ch/sparql
-USER=blw-service-account
-PASSWORD=my-secure-password
+LINDAS_USER=blw-service-account
+LINDAS_PASSWORD=my-secure-password
 GRAPH=https://agriculture.ld.admin.ch/foag/my-project
 ```
 
 ``` bash
-make publish   # run the tests, clear the named graph on LINDAS and upload the new graph
+make publish   # run the tests and replace the named graph on LINDAS with the new graph
 make delete    # only clear the named graph on LINDAS
 ```
 

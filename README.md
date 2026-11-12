@@ -49,8 +49,8 @@ To streamline the workflow, this project uses `make` as its primary orchestratio
 1. Add variables to `.env` (for local execution)
 
     ``` sh
-    USER=********
-    PASSWORD=********
+    LINDAS_USER=********
+    LINDAS_PASSWORD=********
     GRAPH=********
     ENDPOINT=********
     ```
@@ -102,7 +102,7 @@ To streamline the workflow, this project uses `make` as its primary orchestratio
     make publish
     ```
 
-    By default, the publication process starts by deleting any pre-existing data in the provided named graph on LINDAS.
+    The upload replaces the content of the provided named graph on LINDAS in a single request; if it fails, the published graph stays as it was.
     You can also *just* delete any published data by running:
 
     ``` sh

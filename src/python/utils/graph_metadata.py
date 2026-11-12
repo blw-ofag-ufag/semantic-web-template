@@ -2,7 +2,7 @@
 """
 Sets the modification date of the dataset that describes the named graph.
 
-Before publishing, the graph to be uploaded is compared with the graph that is
+As the last step of the build, the graph is compared with the graph that is
 currently on LINDAS. If their content differs, the dataset gets today's date
 as schema:dateModified and dcterms:modified; otherwise the date found on
 LINDAS is kept. The comparison uses a content fingerprint that ignores blank
@@ -10,16 +10,18 @@ node identifiers and the modification date itself.
 
     python graph_metadata.py --graph build/rdf/03-processed.ttl \\
         --iri https://lindas.admin.ch/foag/ogd \\
-        --endpoint https://.../rdf-graphs/service --user ... --password ...
+        --endpoint https://.../rdf-graphs/service
 
-Without --endpoint (or when LINDAS cannot be reached) today's date is set.
+The credentials are read from the environment variables LINDAS_USER and
+LINDAS_PASSWORD, so that they do not appear on the command line. Without
+--endpoint (or when LINDAS cannot be reached) today's date is set.
 """
 
 import argparse
 import base64
 import datetime
 import hashlib
-import re
+import os
 import sys
 import urllib.request
 import urllib.error
@@ -67,9 +69,8 @@ def main():
     parser.add_argument("--graph", required=True, help="Turtle file to be published (updated in place)")
     parser.add_argument("--iri", required=True, help="IRI of the named graph (and of the dataset)")
     parser.add_argument("--endpoint", help="Graph Store endpoint (…/rdf-graphs/service)")
-    parser.add_argument("--user")
-    parser.add_argument("--password")
     args = parser.parse_args()
+    user, password = os.environ.get("LINDAS_USER"), os.environ.get("LINDAS_PASSWORD")
 
     dataset = URIRef(args.iri)
     local = Graph()
@@ -77,7 +78,7 @@ def main():
     if (dataset, None, None) not in local:
         sys.exit(f"The graph contains no triples about the dataset <{args.iri}>; see src/rdf/metadata.ttl.")
 
-    live = fetch_live_graph(args.endpoint, args.iri, args.user, args.password) if args.endpoint else None
+    live = fetch_live_graph(args.endpoint, args.iri, user, password) if args.endpoint else None
     live_date = next((o for o in live.objects(dataset, SCHEMA_MODIFIED)), None) if live is not None else None
 
     if live is not None and live_date is not None and fingerprint(live, dataset) == fingerprint(local, dataset):

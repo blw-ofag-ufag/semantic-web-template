@@ -49,7 +49,7 @@ def test_metadata_is_translated(metadata):
 
 
 def test_metadata_has_no_fixed_modification_date(metadata):
-    """The modification date is set by `make publish`, not maintained by hand."""
+    """The modification date is set by `make build`, not maintained by hand."""
     dataset = URIRef(configured_graph())
     for predicate in (DCTERMS.modified, URIRef("http://schema.org/dateModified")):
         assert (dataset, predicate, None) not in metadata, f"remove {predicate} from src/rdf/metadata.ttl"

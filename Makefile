@@ -49,7 +49,7 @@ GREY             := \033[0;90m
 BOLD       := \033[1;37m
 NC               := \033[0m
 
-.PHONY: all help robot test docs clean check-python venv install-dependencies setup build delete publish stamp-metadata generate-shacl-docs generate-glossary-docs
+.PHONY: all help robot test docs clean check-python venv install-dependencies setup build delete publish check-publication generate-shacl-docs generate-glossary-docs
 
 # Default target
 all: test docs ## Run the tests and build the documentation (default)
@@ -63,7 +63,7 @@ help: ## Show this help
 	@printf "$(BOLD)Usage:$(NC) make <target>\n\n$(BOLD)Targets:$(NC)\n"
 	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
 		awk 'BEGIN {FS = ":.*?## "} {printf "  $(BOLD)%-24s$(NC) %s\n", $$1, $$2}'
-	@printf "\nThe default target is $(BOLD)all$(NC). Publishing requires USER, PASSWORD, GRAPH and ENDPOINT in .env.\n"
+	@printf "\nThe default target is $(BOLD)all$(NC). Publishing requires LINDAS_USER, LINDAS_PASSWORD, GRAPH and ENDPOINT in .env.\n"
 
 # ==============================================================================
 # SETUP
@@ -160,8 +160,12 @@ $(INFERRED_DATA): $(MERGED_DATA) $(PREFIXES) src/python/utils/turtle_serializer.
 	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(INFERRED_DATA) -p $(PREFIXES) -o $(INFERRED_DATA) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
-# 6. Model-driven processing via SPARQL
-$(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
+# 6. Model-driven processing via SPARQL, then set the modification date of the
+#    dataset. The date is part of the build, so that the graph that is tested
+#    is exactly the graph that is published. It is today's date if the content
+#    differs from the graph on LINDAS, otherwise the date found there. Without
+#    GRAPH (e.g. no .env) the graph is built without a modification date.
+$(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) $(wildcard .env) src/python/utils/turtle_serializer.py src/python/utils/graph_metadata.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Applying SPARQL updates...$(NC)\n"
 	@printf "$(GREY)"; \
 	if [ -z "$(QUERIES)" ]; then \
@@ -171,6 +175,11 @@ $(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) src/python/utils/turt
 			--input $(INFERRED_DATA) \
 			$(foreach q,$(QUERIES),--update $(q)) \
 			convert --output $(PROCESSED_DATA) > $(QUERY_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: ROBOT query failed. See log below:$(NC)\n$(GREY)"; cat $(QUERY_LOG); printf "$(NC)\n"; exit 1; }; \
+	fi; \
+	if [ -n "$(GRAPH)" ]; then \
+		$(VENV_PYTHON) src/python/utils/graph_metadata.py --graph $(PROCESSED_DATA) --iri "$(GRAPH)" --endpoint "$(ENDPOINT)" || { rm -f $(PROCESSED_DATA); printf "$(NC)"; exit 1; }; \
+	else \
+		echo "GRAPH is not set: the dataset gets no modification date (required for publishing)."; \
 	fi; \
 	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(PROCESSED_DATA) -p $(PREFIXES) -o $(PROCESSED_DATA) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
@@ -221,37 +230,45 @@ test: build $(SHACL_REPORT) | $(VENV)/.requirements-installed.stamp ## Build the
 # PUBLICATION
 # ==============================================================================
 
-# 1. Import environment variables natively into Make
+# 1. Import environment variables natively into Make. Only the credentials are
+#    passed on to the recipes, as environment variables: they are read there
+#    by graph_metadata.py and handed to curl on standard input, so that the
+#    password never appears on a command line.
 -include .env
-export
+export LINDAS_USER LINDAS_PASSWORD
 
-# 2. Delete the existing data from LINDAS
-delete: ## Delete the published graph from LINDAS (needs .env)
+# curl: fail on HTTP errors (printing the answer of the server) and read the
+# credentials as a config line from standard input.
+CURL             := curl --silent --show-error --fail-with-body --config -
+CURL_CREDENTIALS := printf '%s:%s' "$$LINDAS_USER" "$$LINDAS_PASSWORD" | sed 's/[\\"]/\\&/g; s/.*/user = "&"/'
+
+# 2. Check that everything needed to reach LINDAS is set
+check-publication:
+	@missing=""; \
+	[ -n "$$LINDAS_USER" ] || missing="$$missing LINDAS_USER"; \
+	[ -n "$$LINDAS_PASSWORD" ] || missing="$$missing LINDAS_PASSWORD"; \
+	[ -n "$(GRAPH)" ] || missing="$$missing GRAPH"; \
+	[ -n "$(ENDPOINT)" ] || missing="$$missing ENDPOINT"; \
+	if [ -n "$$missing" ]; then \
+		printf "$(RED)ERROR: not set:$$missing. Add them to .env or to the environment.$(NC)\n"; exit 1; \
+	fi
+
+# 3. Delete the existing data from LINDAS
+delete: check-publication ## Delete the published graph from LINDAS (needs .env)
 	@printf "$(BOLD)[*] Delete existing data from LINDAS$(NC)\n"
 	@printf "$(GREY)"; \
-	curl \
-		--user $(USER):$(PASSWORD) \
-		-X DELETE \
-		"$(ENDPOINT)?graph=$(GRAPH)" || { printf "$(NC)"; exit 1; }; \
+	$(CURL_CREDENTIALS) | $(CURL) -X DELETE "$(ENDPOINT)?graph=$(GRAPH)" \
+		|| { printf "$(NC)\n$(RED)ERROR: could not delete the graph on LINDAS.$(NC)\n"; exit 1; }; \
 	printf "$(NC)\n"
 
-# 3. Set the modification date of the dataset (compares with the live graph)
-stamp-metadata: $(PROCESSED_DATA) src/python/utils/graph_metadata.py | $(VENV)/.requirements-installed.stamp ## Set the modification date of the dataset by comparing with the graph on LINDAS
-	@printf "$(BOLD)[*] Setting the modification date of the dataset$(NC)\n"
-	@printf "$(GREY)"; \
-	$(VENV_PYTHON) src/python/utils/graph_metadata.py --graph $(PROCESSED_DATA) --iri $(GRAPH) --endpoint $(ENDPOINT) --user $(USER) --password $(PASSWORD) || { printf "$(NC)"; exit 1; }; \
-	printf "$(NC)"
-
-# 4. Publish final graph to LINDAS
-publish: test stamp-metadata delete ## Test, then replace the graph on LINDAS with the newly built one (needs .env)
+# 4. Publish the final graph to LINDAS. A single PUT request replaces the
+#    content of the named graph: if it fails, the published graph stays as it was.
+publish: check-publication test ## Test, then replace the graph on LINDAS with the newly built one (needs .env)
 	@printf "$(BOLD)[*] Upload final graph to LINDAS$(NC)\n"
+	@grep -q "dateModified" $(PROCESSED_DATA) || { printf "$(RED)ERROR: $(PROCESSED_DATA) has no modification date, because it was built without GRAPH. Remove the file and publish again.$(NC)\n"; exit 1; }
 	@printf "$(GREY)"; \
-	curl \
-		--user $(USER):$(PASSWORD) \
-		-X POST \
-		-H "Content-Type: text/turtle" \
-		--data-binary @$(PROCESSED_DATA) \
-		"$(ENDPOINT)?graph=$(GRAPH)" || { printf "$(NC)"; exit 1; }; \
+	$(CURL_CREDENTIALS) | $(CURL) -X PUT -H "Content-Type: text/turtle" --data-binary @$(PROCESSED_DATA) "$(ENDPOINT)?graph=$(GRAPH)" \
+		|| { printf "$(NC)\n$(RED)ERROR: the upload to LINDAS failed. The published graph was not replaced.$(NC)\n"; exit 1; }; \
 	printf "$(NC)\n"
 
 # ==============================================================================

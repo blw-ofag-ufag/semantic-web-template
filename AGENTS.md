@@ -2,62 +2,115 @@
 
 Template for eCH standards: an RDF data model and data, validated with SHACL,
 published on LINDAS and documented as a multilingual eCH document with Quarto.
+The template ships with demo content (the Chinook music database); a project
+created from it replaces the demo with its own model and data.
 
-## Commands
+## Build and test
 
 Run all commands from the repository root.
 
 ```sh
-make setup   # once: venv/, Python packages, ROBOT
-make test    # build the graph, validate with SHACL, run all tests
-make docs    # render the documentation into build/docs/
+make setup   # once: creates venv/, installs the Python packages and ROBOT
+make test    # steps 1–6 below
+make docs    # step 7 (builds the graph first if needed)
+make clean   # removes build/ and venv/; run make setup again afterwards
 ```
 
-Always check with `make test`, not with `pytest` alone: pytest reads the
-graph in `build/` and does not rebuild it.
+Every step writes into `build/`:
 
-## Never
+1. `src/python/pipeline/*.py` integrate external data → `build/rdf/00-integrated.ttl`
+2. ROBOT merges it with `src/rdf/` (ontology, shapes, data, metadata) → `01-merged.ttl`
+3. HermiT infers new triples → `02-inferred.ttl`
+4. The SPARQL updates in `src/sparql/processing/` run → `03-processed.ttl` (the final graph)
+5. pyshacl validates the graph against `src/rdf/shapes/model.shacl.ttl` → `04-shacl-report.ttl`
+6. pytest runs the tests in `tests/`
+7. Pages are generated from the shapes, the graph and the glossary, and Quarto renders `docs/` → `build/docs/`
+
+On `main`, the CI publishes the graph on LINDAS and the documentation on GitHub Pages.
+
+- Check every change with `make test`, not with `pytest` alone: pytest reads the
+  graph in `build/` and does not rebuild it. After `make test`, a single test
+  file can be repeated with `venv/bin/pytest tests/<file>.py -v`.
+- `make` reruns only the steps whose inputs changed, so a repeated `make test` is fast.
+- The Makefile hides the output of the tools. If a step fails, read its log in `build/log/`.
+
+
+## Common tasks
+
+- **Add or change a property of a class:** add a property shape to
+  `src/rdf/shapes/model.shacl.ttl` with `sh:name` (and `sh:message` if needed) in
+  every documentation language and `sh:order` for its position in the
+  documentation. Declare new classes and properties of the project namespace in
+    `src/rdf/ontology/model.owl.ttl`. Most shapes are closed (`sh:closed true`):
+  data without a property shape fails there.
+- **Add a code list:** a new file in `src/rdf/data/` modelled on `mediatypes.ttl`.
+  Every list and code needs a name and a description in every documentation
+  language. Restrict a property to the list with
+  `sh:node [ sh:property [ sh:path schema:inCodeSet ; sh:hasValue <list> ] ]`.
+- **Add a glossary term:** `src/rdf/data/glossary.skos.ttl`, with name and
+  description in every documentation language.
+- **Change the documentation:** edit `docs/de`, `docs/fr` and `docs/en` together,
+  on the same lines. New headings need an ID (`{#sec-...}`); cite with `[@key]`
+  from `docs/references.yaml`. Write German in Swiss spelling (ss, never ß), here
+  and in the `@de` labels of the RDF files.
+- **Add a figure:** a Python chunk with a label `fig-...` and a caption that
+  loads `../assets/ech.mplstyle` and sets its size with `figsize`. Take colours
+  from the style; never hard-code them.
+- **Transform the graph:** a SPARQL Update (INSERT/DELETE) in
+  `src/sparql/processing/`; the number in the file name sets the order.
+- **Set up a new project from this template:** follow `CLEANUP.md`.
+
+## Boundaries
+
+Never:
 
 - Run `make publish` or `make delete`: they replace or delete the published graph on LINDAS.
-- Push to `main`: a merge publishes the graph and the website. Work on a branch.
 - Read, print or commit `.env`: it holds the LINDAS credentials.
-- Edit generated files (`build/`, `docs/*/{entities,namespaces,codelists,glossary}.md`).
-  Change their source instead: the shapes, the graph or the glossary.
-- Remove a link, a query or a test to make a failing test pass.
+- Push to `main` or force-push: `main` is published automatically. Work on a branch.
+- Edit generated files (`build/`, `docs/*/{entities,namespaces,codelists,glossary}.md`);
+  change their source instead.
+- Delete or weaken a link, a query or a test to make a failing test pass.
 
-## Ask first
+Ask first:
 
-- Renaming or removing classes, properties, individuals or namespaces:
-  published data and other systems depend on these IRIs.
-- In a project created from this template: changing a file maintained by the
-  template (see `PATTERNS` in `tests/test_template_sync.py`). Such changes
-  belong in the template repository.
+- Renaming or removing classes, properties, individuals or namespaces, or changing
+  `number` or `version` in `docs/_ech.yml`: published data depends on these IRIs.
+- In a project created from this template: changing files that the template
+  maintains (`PATTERNS` in `tests/test_template_sync.py`). Propose the change for
+  the template repository instead.
 - Adding a Python package or a tool.
 
 ## Gotchas
 
 - A failing SHACL test names only the shape and the nodes. The reason is in
   `build/rdf/04-shacl-report.ttl`.
-- The shapes are closed (`sh:closed true`): a new property in the data needs a
-  property shape in `src/rdf/shapes/model.shacl.ttl`, with names and messages
-  in every documentation language.
 - The files in `build/rdf/` have about 100 000 lines. Query them with `grep` or
   rdflib; never read them whole.
-- `test_links.py`, `test_queries.py` and `test_template_sync.py` need the
-  network, `test_queries.py` runs against the production endpoint of LINDAS.
-  If they fail on something the change did not touch, report it.
-- Warnings from `test_naming.py` and `test_template_sync.py` are reports, not failures.
-- Pipeline scripts in `src/python/pipeline/` share one `--output` file: only the
-  first may overwrite it, every further script appends.
-- `src/sparql/processing/` takes only SPARQL Update (INSERT/DELETE); a SELECT aborts the build.
-
-## Conventions
-
-- Change `docs/de`, `docs/fr` and `docs/en` together, on the same lines: the
-  tests compare line counts, headings, code blocks, images and table rows.
-- German text in Swiss orthography (no ß).
-- Python only, no R. Keep code compatible with Python 3.10, which the CI uses.
+- Some checks need the network: `test_links.py` (every URL in the Markdown files),
+  `test_queries.py` (runs the example queries against the production LINDAS
+  endpoint), `test_template_sync.py` (GitHub) and `make docs` (downloads images
+  and the Word template). If one fails on something the change did not touch,
+  report it.
+- Warnings from `test_naming.py` (the demo data breaks some naming conventions)
+  and `test_template_sync.py` (files that differ from the template) are expected.
+- The eCH colours are defined three times: `docs/assets/ech.mplstyle` (figures),
+  `ech.scss` (website) and `typst-template.typ` (PDF). Change them in all three.
+- The CI runs Python 3.10: do not use language features of later versions.
 
 ## Done
 
-`make test` passes. If shapes, glossary or `docs/` changed, `make docs` passes too.
+A change is done when:
+
+- `make test` passes, with no warnings other than the expected ones above.
+- `make docs` passes, if the change touches the shapes, the glossary or `docs/`.
+- All language versions are updated.
+- You have reported what you changed and what you could not check.
+
+## More documentation
+
+- `README.md`: the tools and standards used, and how to publish.
+- `CLEANUP.md`: setting up a new project from this template, step by step.
+- `.github/CONTRIBUTING.md`: Git workflow (issue, branch, draft pull request),
+  naming conventions, figure style and eCH releases.
+
+If you learn something that the next agent would need, propose a line for this file.

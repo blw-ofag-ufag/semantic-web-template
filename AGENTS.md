@@ -57,8 +57,8 @@ text needs a language tag for each of them (`@de`, `@fr`, `@en`).
   Every list and code needs a name and a description in every documentation
   language. Restrict a property to the list with
   `sh:node [ sh:property [ sh:path schema:inCodeSet ; sh:hasValue <list> ] ]`.
-- **Add a glossary term:** `src/rdf/data/glossary.skos.ttl`, with name and
-  description in every documentation language.
+- **Add a glossary term:** `src/rdf/data/glossary.skos.ttl`, modelled on the
+  existing terms, in every documentation language.
 - **Change the documentation:** edit `docs/de`, `docs/fr` and `docs/en` together,
   on the same lines. New headings need an ID (`{#sec-...}`); cite with `[@key]`
   from `docs/references.yaml`. Write German in Swiss spelling (ss, never ß), here
@@ -80,6 +80,7 @@ Never:
 - Edit generated files (`build/`, `docs/*/{entities,namespaces,codelists,glossary}.md`);
   change their source instead.
 - Delete or weaken a link, a query or a test to make a failing test pass.
+  A dead link may be replaced by a working one.
 
 Ask first:
 

@@ -3,7 +3,9 @@
 Template for eCH standards: an RDF data model and data, validated with SHACL,
 published on LINDAS and documented as a multilingual eCH document with Quarto.
 The template ships with demo content (the Chinook music database); a project
-created from it replaces the demo with its own model and data.
+created from it replaces the demo with its own model and data. 
+This file serves the template repository and every project created from it; 
+`git remote -v` shows which one you are in.
 
 ## Build and test
 
@@ -37,12 +39,20 @@ On `main`, the CI publishes the graph on LINDAS and the documentation on GitHub 
 
 ## Common tasks
 
+The documentation languages are the folders in `docs/` (de, fr, en); every RDF
+text needs a language tag for each of them (`@de`, `@fr`, `@en`).
+
 - **Add or change a property of a class:** add a property shape to
   `src/rdf/shapes/model.shacl.ttl` with `sh:name` (and `sh:message` if needed) in
   every documentation language and `sh:order` for its position in the
   documentation. Declare new classes and properties of the project namespace in
-    `src/rdf/ontology/model.owl.ttl`. Most shapes are closed (`sh:closed true`):
-  data without a property shape fails there.
+  `src/rdf/ontology/model.owl.ttl`. Shapes with `sh:closed true` reject data that
+  has no property shape.
+- **Add or change data:** static data, code lists and the glossary live in
+  `src/rdf/data/`; every `.ttl` file there is merged into the graph.
+- **Integrate external data:** a script in `src/python/pipeline/` that writes
+  Turtle to the file given by `--output`. The first script overwrites the file,
+  every further script appends to it.
 - **Add a code list:** a new file in `src/rdf/data/` modelled on `mediatypes.ttl`.
   Every list and code needs a name and a description in every documentation
   language. Restrict a property to the list with
@@ -75,6 +85,7 @@ Ask first:
 
 - Renaming or removing classes, properties, individuals or namespaces, or changing
   `number` or `version` in `docs/_ech.yml`: published data depends on these IRIs.
+  Replacing the demo content while following `CLEANUP.md` is the exception.
 - In a project created from this template: changing files that the template
   maintains (`PATTERNS` in `tests/test_template_sync.py`). Propose the change for
   the template repository instead.
@@ -84,15 +95,15 @@ Ask first:
 
 - A failing SHACL test names only the shape and the nodes. The reason is in
   `build/rdf/04-shacl-report.ttl`.
-- The files in `build/rdf/` have about 100 000 lines. Query them with `grep` or
-  rdflib; never read them whole.
+- The files in `build/rdf/` are large. Query them with `grep` or rdflib; never
+  read them whole.
 - Some checks need the network: `test_links.py` (every URL in the Markdown files),
   `test_queries.py` (runs the example queries against the production LINDAS
   endpoint), `test_template_sync.py` (GitHub) and `make docs` (downloads images
   and the Word template). If one fails on something the change did not touch,
   report it.
-- Warnings from `test_naming.py` (the demo data breaks some naming conventions)
-  and `test_template_sync.py` (files that differ from the template) are expected.
+- Warnings from `test_naming.py` (as long as the demo data is present) and
+  `test_template_sync.py` (files that differ from the template) are expected.
 - The eCH colours are defined three times: `docs/assets/ech.mplstyle` (figures),
   `ech.scss` (website) and `typst-template.typ` (PDF). Change them in all three.
 - The CI runs Python 3.10: do not use language features of later versions.
@@ -104,7 +115,8 @@ A change is done when:
 - `make test` passes, with no warnings other than the expected ones above.
 - `make docs` passes, if the change touches the shapes, the glossary or `docs/`.
 - All language versions are updated.
-- You have reported what you changed and what you could not check.
+- If only network checks fail, for reasons unrelated to the change, the change
+  is done; report the failure.
 
 ## More documentation
 

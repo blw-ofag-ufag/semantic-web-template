@@ -87,8 +87,7 @@ Never:
 
 - Run `make publish` or `make delete`: they replace or delete the published graph on LINDAS.
 - Read, print or commit `.env`: it holds the LINDAS credentials.
-- Push to `main` or force-push: `main` is published automatically. Work on a branch
-  and leave commits to the user unless they ask for them.
+- Push to `main` or force-push: `main` is published automatically. Work on a branch.
 - Edit generated files (see the table above); change their source instead.
 - Delete or weaken a link, a query or a test to make a failing test pass.
   A dead link may be replaced by a working one.

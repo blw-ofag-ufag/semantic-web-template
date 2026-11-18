@@ -4,122 +4,144 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/blw-ofag-ufag/semantic-web-template.svg)](https://github.com/blw-ofag-ufag/semantic-web-template/commits)
 [![GitHub issues](https://img.shields.io/github/issues/blw-ofag-ufag/semantic-web-template.svg)](https://github.com/blw-ofag-ufag/semantic-web-template/issues)
 
-For demonstrative purposes, this template repository includes a full semantic web pipeline, including
- 
-1. manual data curation (data files and code lists in `src/rdf/data`),
-2. data integration from a relational database (using python, specifically `src/python/pipeline/...`),
-3. OWL-based inferencing (using the ontology in `src/rdf/ontology/model.owl.ttl`),
-4. SPARQL-based processing of the graph (using rules in `src/sparql/processing/...`)
-5. SHACL-based graph data validation (using `src/rdf/shapes/model.shacl.ttl`)
-6. a even more customizable Pytest test suite,
-7. uploading of the final graph to LINDAS
-8. a documentation building pipeline using Quarto
+This template repository publishes an eCH standard together with its linked data. It builds an RDF graph, validates it, uploads it to [LINDAS](https://lindas.admin.ch/) and renders the documentation as a website and a PDF in the eCH layout.
 
-Specifically, this demo project creates a graph of around 120k triples from the Chinook database, makes some inferences, processes and validates the graph.
+For demonstrative purposes, it includes a full pipeline that creates a graph of around 120 000 triples from the Chinook music database:
+
+1. manual data curation (data files and code lists in `src/rdf/data/`),
+2. data integration from a relational database (Python scripts in `src/python/pipeline/`),
+3. OWL-based inferencing (using the ontology in `src/rdf/ontology/model.owl.ttl`),
+4. SPARQL-based processing of the graph (updates in `src/sparql/processing/`),
+5. SHACL-based validation of the graph (using `src/rdf/shapes/model.shacl.ttl`),
+6. a Pytest test suite for everything SHACL cannot check,
+7. upload of the final graph to LINDAS,
+8. documentation in several languages, built with Quarto.
 
 > [!IMPORTANT]
-> After using this template repository for a project, you probably want to delete/overwrite any of the aforementioned turtle/sparql/python files. [CLEANUP.md](CLEANUP.md) describes how.
+> After using this template repository for a project, you probably want to delete or overwrite the demo files. [CLEANUP.md](CLEANUP.md) describes how.
 
-Further documentation:
+## Getting started
+
+The following tools must be installed:
+
+- Python 3.10 or newer
+- Java 11 or newer (for ROBOT and HermiT)
+- [Quarto](https://quarto.org/) (for the documentation)
+- curl (for the upload to LINDAS)
+- the font Nimbus Sans (for the PDF; package `fonts-urw-base35` on Debian and Ubuntu)
+
+Then run:
+
+``` sh
+make setup   # create venv/, install the Python packages, download ROBOT
+make check   # check the sources, in about a second
+make         # build the graph, test it and render the documentation
+```
+
+## Make targets
+
+`make` is the single entry point of the project. `make help` lists all targets.
+
+| Target | What it does | Needs |
+| --- | --- | --- |
+| `make setup` | Creates the virtual environment `venv/`, installs the Python packages and downloads ROBOT. | Python, network |
+| `make check` | Checks the sources: Turtle syntax, prefixes, eCH metadata, translations, code lists and glossary. Takes about a second. | |
+| `make build` | Builds the graph into `build/rdf/03-processed.ttl`. Takes about a minute. | Java, network |
+| `make test` | Builds the graph, validates it with SHACL and runs the whole test suite. Takes about three minutes. | Java, network |
+| `make docs` | Generates the data model, code list and glossary pages and renders the website and the PDF into `build/docs/`. | Quarto |
+| `make` | Runs `make test` and `make docs`. | |
+| `make publish` | Runs `make test`, then replaces the graph on LINDAS. | `.env` |
+| `make delete` | Deletes the graph on LINDAS. | `.env` |
+| `make clean` | Removes `build/`, `venv/`, caches and generated pages. | |
+
+The Makefile hides the output of the tools. If a step fails, its log is in `build/log/`.
+
+## Repository layout
+
+| Path | Content |
+| --- | --- |
+| `src/rdf/ontology/` | The OWL ontology. |
+| `src/rdf/shapes/` | The SHACL shapes of the data model (`model.shacl.ttl`), of code lists and of the glossary. |
+| `src/rdf/data/` | Manually curated data, code lists and the glossary. |
+| `src/rdf/metadata.ttl` | Description of the published graph as a dataset. |
+| `src/rdf/prefixes.ttl` | All prefixes of the project. Every other file must use them consistently. |
+| `src/python/pipeline/` | Data integration scripts, run in alphabetical order. |
+| `src/python/utils/` | Tools of the template: Turtle serialiser, documentation generators, modification date. |
+| `src/sparql/processing/` | SPARQL updates applied to the graph after reasoning, in alphabetical order. |
+| `src/sparql/queries/` | Example queries, tested against LINDAS. |
+| `docs/` | The documentation: one folder per language, the eCH metadata (`_ech.yml`) and the Quarto configuration. |
+| `docs/assets/` | The eCH layout: Lua filters, Typst template, styles and vocabulary. |
+| `tests/` | The Pytest suite. |
+| `build/` | Everything generated: graphs, logs, test reports and the rendered documentation. Not in Git. |
+
+The pages `entities.md`, `codelists.md`, `namespaces.md` and `glossary.md` in the language folders are generated by `make docs` from the shapes, the graph and the glossary. They are not in Git and must not be edited.
+
+## How the graph is built
+
+Each step writes one file to `build/rdf/`, so that the result of every step can be inspected:
+
+| File | Step |
+| --- | --- |
+| `00-integrated.ttl` | The scripts in `src/python/pipeline/` integrate the source data. |
+| `01-merged.ttl` | ROBOT merges it with the ontology, the shapes, the metadata and the files in `src/rdf/data/`. |
+| `02-inferred.ttl` | HermiT infers class and property assertions. |
+| `03-processed.ttl` | The SPARQL updates in `src/sparql/processing/` are applied and the modification date of the dataset is set. This is the graph that is tested and published. |
+| `04-shacl-report.ttl` | pyshacl validates the graph against `model.shacl.ttl`. |
+
+The modification date is today's date if the graph differs from the one on LINDAS, otherwise the date found there. Setting it needs `GRAPH` and `ENDPOINT` (see [Publication](#publication)); without them the graph is built without a modification date and cannot be published.
+
+## Tests
+
+The test suite in `tests/` has three kinds of tests:
+
+| Kind | What they check | Run by |
+| --- | --- | --- |
+| Offline | The sources: Turtle syntax, consistent prefixes, the eCH metadata, aligned translations, the structure of code lists and glossary. | `make check`, `make test` |
+| Graph | The built graph: one test per SHACL shape, and the naming conventions. | `make test` |
+| Network | Every link in the Markdown files, the example queries on LINDAS, and the differences to the template repository. | `make test` |
+
+A network test can fail for reasons outside the repository, for example when a linked website is unavailable.
+
+## Publication
+
+The graph is uploaded to [LINDAS](https://lindas.admin.ch/), the linked data service of the Swiss Federal Archives. The upload replaces the content of the named graph in a single request; if it fails, the published graph stays as it was.
+
+Four variables are needed:
+
+``` dotenv
+LINDAS_USER=********
+LINDAS_PASSWORD=********
+GRAPH=********       # IRI of the named graph
+ENDPOINT=********    # graph store endpoint
+```
+
+**Automatic deployment.** GitHub Actions tests every pull request. On every push or merge to the `main` branch, it also publishes the graph to LINDAS and the documentation to GitHub Pages. For this, add the four variables as repository secrets (`Settings > Secrets and variables > Actions > New repository secret`).
+
+**Manual deployment.** Write the four variables to a file `.env` in the root directory, without quotes. The file is ignored by Git. Then run:
+
+``` sh
+make publish   # run the tests and replace the graph on LINDAS
+make delete    # only delete the graph on LINDAS
+```
+
+## Tools and standards
+
+| Tool | Use |
+| --- | --- |
+| [ROBOT](http://robot.obolibrary.org/) | Merges, reasons over and updates the graph. |
+| [HermiT](http://www.hermit-reasoner.com/) | The OWL reasoner used by ROBOT. |
+| [RDFLib](https://rdflib.readthedocs.io/) | Parses, serialises and manipulates RDF in Python. |
+| [PySHACL](https://github.com/RDFLib/pySHACL) | Validates the graph against the SHACL shapes. |
+| [Pytest](https://docs.pytest.org/) | Runs the test suite. |
+| [Quarto](https://quarto.org/) | Renders the documentation. It runs the Python code chunks with the virtual environment, so no other language runtime is needed. |
+| [Matplotlib](https://matplotlib.org/) | Draws the figures of the documentation. |
+
+The project relies on the W3C standards [RDF](https://www.w3.org/RDF/) (data model), [Turtle](https://www.w3.org/TR/turtle/) (serialisation of all RDF files), [OWL](https://www.w3.org/OWL/) (ontology), [SHACL](https://www.w3.org/TR/shacl/) (validation) and [SPARQL](https://www.w3.org/TR/sparql11-overview/) (queries and updates).
+
+## Further documentation
 
 - [CLEANUP.md](CLEANUP.md): setting up a project from this template.
 - [CONTRIBUTING.md](.github/CONTRIBUTING.md): Git workflow, naming conventions and figure style.
-- [AGENTS.md](AGENTS.md): rules, commands and file ownership for coding agents (also a compact technical overview).
-
-## Development tools
-
-This template uses a variety of tools to ensure robust data integration, reasoning, validation, and documentation.
-
-- [HermiT](http://www.hermit-reasoner.com/): An OWL reasoner used for logical reasoning and inferring new knowledge from the ontology and data.
-- [Pytest](https://docs.pytest.org/): A testing framework used to run syntax checks and evaluate SHACL validation reports.
-- [PySHACL](https://github.com/RDFLib/pySHACL): A Python engine used to validate the generated RDF graphs against SHACL shape definitions.
-- [ROBOT](http://robot.obolibrary.org/): CLI tool used to merge, reason, and process RDF graphs.
-- [RDFLib](https://rdflib.readthedocs.io/): A Python library used to parse, serialize, and programmatically manipulate RDF data.
-- [Quarto](https://quarto.org/): An open-source publishing system used for rendering the documentation.
-- [Matplotlib](https://matplotlib.org/): A Python plotting library used for the figures of the documentation.
-
-## Semantic web standards
-
-The project relies on core W3C Semantic Web standards to model, link, and validate data effectively.
-
-- [RDF (Resource Description Framework)](https://www.w3.org/RDF/): The foundational data model used to represent information as a directed graph of triples.
-- [OWL (Web Ontology Language)](https://www.w3.org/OWL/): Used to define the formal semantics, classes, and properties of the ontology.
-- [SHACL (Shapes Constraint Language)](https://www.w3.org/TR/shacl/): Used to declare structural constraints and validate the integrity of the RDF data.
-- [SPARQL](https://www.w3.org/TR/sparql11-overview/): The standard query language used to extract, transform, and post-process the RDF graphs.
-- [Turtle](https://www.w3.org/TR/turtle/): The primary, human-readable serialization format used for all RDF files in this repository.
-
-## Build and deployment orchestration
-
-To streamline the workflow, this project uses `make` as its primary orchestration tool, automating everything from setup to deployment. The `Makefile` defines a single entry point to sequentially execute data integration, logical reasoning, SPARQL updates, SHACL validation, testing, and documentation rendering. `make help` lists all available targets with a short description.
-
-1. Add variables to `.env` (for local execution)
-
-    ``` sh
-    LINDAS_USER=********
-    LINDAS_PASSWORD=********
-    GRAPH=********
-    ENDPOINT=********
-    ```
-
-2. Set up dependencies:
-
-    ``` sh
-    make setup
-    ```
-
-3. Run the build process:
-
-    ``` sh
-    make
-    ```
-
-    The default target runs `make test` followed by `make docs`.
-
-    **Run tests**
-
-    To build the graph (data integration, reasoning, SPARQL processing and SHACL validation) and run the Pytest suite, run:
-
-    ``` sh
-    make test
-    ```
-
-    **Build documentation**
-
-    To generate the data model, code list and glossary pages and render the Quarto website and the PDF into `build/docs/`:
-    
-    ``` sh
-    make docs
-    ```
-    
-    Note that this step requires [Quarto](https://quarto.org/) to be installed. Quarto runs the Python code chunks of the documentation (e.g. figures made with [Matplotlib](https://matplotlib.org/)) with the virtual environment set up by `make setup`, so no other language runtime is needed.
-
-4. Upload the final data to [LINDAS](https://lindas.admin.ch/), the linked data service by the federal archives:
-
-    **Automatic deployment**
-
-    The deployment is automatically triggered via GitHub Actions whenever changes are pushed or merged to the `main` branch. 
-    To enable this, configure the environment variables listed in step 1 as **repository secrets** in your GitHub project settings (`Settings > Secrets and variables > Actions > New repository secret`):
-
-    **Manual deployment**
-
-    You can still upload the final data manually by running:
-
-    ``` sh
-    make publish
-    ```
-
-    The upload replaces the content of the provided named graph on LINDAS in a single request; if it fails, the published graph stays as it was.
-    You can also *just* delete any published data by running:
-
-    ``` sh
-    make delete
-    ```
-
-5. *If* you want to clean all written files:
-
-    ``` sh
-    make clean
-    ```
 
 ## Contact
 

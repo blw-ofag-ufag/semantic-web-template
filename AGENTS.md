@@ -3,12 +3,13 @@
 Template for eCH standards: an RDF data model and data, validated with SHACL,
 published on LINDAS and documented as a multilingual eCH document with Quarto.
 The template ships with demo content (the Chinook music database); a project
-created from it replaces the demo with its own model and data. 
-This file serves the template repository and every project created from it; 
+created from it replaces the demo with its own model and data.
+This file serves the template repository and every project created from it;
 `git remote -v` shows which one you are in.
 
 ## Build and test
 
+Requires Python 3.10 or newer, Java 11 or newer (for ROBOT), Quarto and curl.
 Run all commands from the repository root.
 
 ```sh
@@ -41,6 +42,8 @@ On `main`, the CI publishes the graph on LINDAS and the documentation on GitHub 
 
 The documentation languages are the folders in `docs/` (de, fr, en); every RDF
 text needs a language tag for each of them (`@de`, `@fr`, `@en`).
+Name classes and individuals in PascalCase, properties in camelCase without a
+leading verb, and files in snake_case; `test_naming.py` only warns.
 
 - **Add or change a property of a class:** add a property shape to
   `src/rdf/shapes/model.shacl.ttl` with `sh:name` (and `sh:message` if needed) in
@@ -70,15 +73,23 @@ text needs a language tag for each of them (`@de`, `@fr`, `@en`).
   `src/sparql/processing/`; the number in the file name sets the order.
 - **Set up a new project from this template:** follow `CLEANUP.md`.
 
+## Who owns which file
+
+| Owner | Files | Rule |
+| --- | --- | --- |
+| Template | `tests/`, `src/python/utils/`, `docs/assets/`, `.github/`, `src/rdf/shapes/{glossary,codelist}.shacl.ttl`, `LICENSE.md`, `.gitattributes` (exact list: `PATTERNS` in `tests/test_template_sync.py`) | In a project, ask first and propose the change for the template repository. |
+| Generated | `build/`, `docs/*/{entities,namespaces,codelists,glossary}.md` | Never edit. Content: change the shapes, the graph or `src/rdf/data/glossary.skos.ttl`. Form: change the generator in `src/python/utils/generate_*_docs.py`. |
+| Project | everything else, e.g. `src/rdf/`, `src/python/pipeline/`, `src/sparql/`, `docs/`, `Makefile`, `README.md` | Edit as needed. |
+
 ## Boundaries
 
 Never:
 
 - Run `make publish` or `make delete`: they replace or delete the published graph on LINDAS.
 - Read, print or commit `.env`: it holds the LINDAS credentials.
-- Push to `main` or force-push: `main` is published automatically. Work on a branch.
-- Edit generated files (`build/`, `docs/*/{entities,namespaces,codelists,glossary}.md`);
-  change their source instead.
+- Push to `main` or force-push: `main` is published automatically. Work on a branch
+  and leave commits to the user unless they ask for them.
+- Edit generated files (see the table above); change their source instead.
 - Delete or weaken a link, a query or a test to make a failing test pass.
   A dead link may be replaced by a working one.
 
@@ -87,9 +98,7 @@ Ask first:
 - Renaming or removing classes, properties, individuals or namespaces, or changing
   `number` or `version` in `docs/_ech.yml`: published data depends on these IRIs.
   Replacing the demo content while following `CLEANUP.md` is the exception.
-- In a project created from this template: changing files that the template
-  maintains (`PATTERNS` in `tests/test_template_sync.py`). Propose the change for
-  the template repository instead.
+- In a project created from this template: changing template files (see the table above).
 - Adding a Python package or a tool.
 
 ## Gotchas
@@ -108,6 +117,10 @@ Ask first:
 - The eCH colours are defined three times: `docs/assets/ech.mplstyle` (figures),
   `ech.scss` (website) and `typst-template.typ` (PDF). Change them in all three.
 - The CI runs Python 3.10: do not use language features of later versions.
+- When editing the Lua filters in `docs/assets/`: Quarto turns metadata values
+  that match a folder into paths (`de` arrives as `../de`, because `docs/de/`
+  exists), and Pandoc turns an empty Lua table into `true` (use `pandoc.MetaList({})`).
+- The PDF needs the font Nimbus Sans (Debian/Ubuntu package `fonts-urw-base35`).
 
 ## Done
 

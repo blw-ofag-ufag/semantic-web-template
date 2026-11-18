@@ -20,6 +20,7 @@ entities.md
 namespaces.md
 codelists.md
 glossary.md
+/docs/_project.yml
 
 # Small tests and notes
 /test.*

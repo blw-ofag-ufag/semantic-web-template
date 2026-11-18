@@ -76,7 +76,7 @@ def main():
     local = Graph()
     local.parse(args.graph, format="turtle")
     if (dataset, None, None) not in local:
-        sys.exit(f"The graph contains no triples about the dataset <{args.iri}>; see src/rdf/metadata.ttl.")
+        sys.exit(f"The graph contains no triples about the dataset <{args.iri}>; see the dataset section of project.yml.")
 
     live = fetch_live_graph(args.endpoint, args.iri, user, password) if args.endpoint else None
     live_date = next((o for o in live.objects(dataset, SCHEMA_MODIFIED)), None) if live is not None else None

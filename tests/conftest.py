@@ -1,5 +1,10 @@
+import sys
 from pathlib import Path
 import pytest
+
+# The tests read the project configuration (project.yml) with the module that
+# the build uses as well: `import project_config`.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src" / "python" / "utils"))
 from rdflib import Graph
 
 # Tests that produce human-readable reports write them to this directory.

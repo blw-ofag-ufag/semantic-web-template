@@ -22,18 +22,27 @@ ROBOT            := java -jar $(VENV_BIN)/robot.jar
 ONTO             := src/rdf/ontology/model.owl.ttl
 DATA             := $(wildcard src/rdf/data/*.ttl)
 SHAPES           := src/rdf/shapes/model.shacl.ttl
-METADATA         := src/rdf/metadata.ttl
+CONFIG           := project.yml
+CONFIG_SCRIPT    := src/python/utils/project_config.py
 PREFIXES         := src/rdf/prefixes.ttl
 QUERIES          := $(wildcard src/sparql/processing/*.rq)
 PIPELINE_SCRIPTS := $(sort $(wildcard src/python/pipeline/*.py))
 
 # Intermediate & Output Files
+METADATA         := $(RDF_DIR)/metadata.ttl
 FETCHED_DATA     := $(RDF_DIR)/00-integrated.ttl
 MERGED_DATA      := $(RDF_DIR)/01-merged.ttl
 INFERRED_DATA    := $(RDF_DIR)/02-inferred.ttl
 PROCESSED_DATA   := $(RDF_DIR)/03-processed.ttl
 SHACL_REPORT     := $(RDF_DIR)/04-shacl-report.ttl
 DOCS_DIR         := docs
+QUARTO_METADATA  := $(DOCS_DIR)/_project.yml
+
+# Values of the project configuration, read when a recipe runs (the virtual
+# environment does not exist yet when Make reads this file). They can be
+# overridden on the command line, e.g. to publish to another endpoint.
+LINDAS_GRAPH       = $$($(VENV_PYTHON) $(CONFIG_SCRIPT) get lindas.graph)
+LINDAS_GRAPH_STORE = $$($(VENV_PYTHON) $(CONFIG_SCRIPT) get lindas.graph-store)
 
 # Logs
 LOG_DIR          := $(BUILD_DIR)/log
@@ -63,7 +72,7 @@ help: ## Show this help
 	@printf "$(BOLD)Usage:$(NC) make <target>\n\n$(BOLD)Targets:$(NC)\n"
 	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
 		awk 'BEGIN {FS = ":.*?## "} {printf "  $(BOLD)%-24s$(NC) %s\n", $$1, $$2}'
-	@printf "\nThe default target is $(BOLD)all$(NC). Publishing requires LINDAS_USER, LINDAS_PASSWORD, GRAPH and ENDPOINT in .env.\n"
+	@printf "\nThe default target is $(BOLD)all$(NC). The project is configured in $(CONFIG). Publishing requires LINDAS_USER and LINDAS_PASSWORD in .env.\n"
 
 # ==============================================================================
 # SETUP
@@ -108,7 +117,12 @@ setup: install-dependencies robot ## Create the virtual environment, install the
 $(RDF_DIR) $(LOG_DIR):
 	@mkdir -p $@
 
-# 2. Fetch, Query, and Transform source data sequentially
+# 2. Describe the named graph as a dataset, from the project configuration
+$(METADATA): $(CONFIG) $(CONFIG_SCRIPT) $(PREFIXES) | $(RDF_DIR) $(VENV)/.requirements-installed.stamp
+	@printf "$(BOLD)[*] Generating the dataset description...$(NC)\n"
+	@$(VENV_PYTHON) $(CONFIG_SCRIPT) metadata -o $(METADATA) -p $(PREFIXES)
+
+# 3. Fetch, Query, and Transform source data sequentially
 $(FETCHED_DATA): $(PIPELINE_SCRIPTS) $(PREFIXES) src/python/utils/turtle_serializer.py | $(RDF_DIR) $(LOG_DIR) $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Running data integration pipelines...$(NC)\n"
 	@printf "$(GREY)"; \
@@ -124,7 +138,7 @@ $(FETCHED_DATA): $(PIPELINE_SCRIPTS) $(PREFIXES) src/python/utils/turtle_seriali
 	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(FETCHED_DATA) -p $(PREFIXES) -o $(FETCHED_DATA) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
-# 3. Check that all turtle files are syntactically valid
+# 4. Check that all turtle files are syntactically valid
 $(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(METADATA) $(PREFIXES) $(FETCHED_DATA) tests/test_syntax.py | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Checking Turtle syntax...$(NC)\n"
 	@printf "$(GREY)"; \
@@ -132,7 +146,7 @@ $(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(METADATA) $(PREFIXES)
 	printf "$(NC)"
 	@touch $@
 
-# 4. Merge ontology, shapes, static data, fetched data, and prefixes
+# 5. Merge ontology, shapes, static data, fetched data, and prefixes
 $(MERGED_DATA): $(ONTO) $(SHAPES) $(METADATA) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-check.stamp src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Merging ontology, shapes and data...$(NC)\n"
 	@printf "$(GREY)"; \
@@ -147,7 +161,7 @@ $(MERGED_DATA): $(ONTO) $(SHAPES) $(METADATA) $(DATA) $(FETCHED_DATA) $(PREFIXES
 	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(MERGED_DATA) -p $(PREFIXES) -o $(MERGED_DATA) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
-# 5. Inference using HermiT
+# 6. Inference using HermiT
 $(INFERRED_DATA): $(MERGED_DATA) $(PREFIXES) src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Running logical inference (HermiT)...$(NC)\n"
 	@printf "$(GREY)"; \
@@ -160,12 +174,12 @@ $(INFERRED_DATA): $(MERGED_DATA) $(PREFIXES) src/python/utils/turtle_serializer.
 	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(INFERRED_DATA) -p $(PREFIXES) -o $(INFERRED_DATA) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
-# 6. Model-driven processing via SPARQL, then set the modification date of the
+# 7. Model-driven processing via SPARQL, then set the modification date of the
 #    dataset. The date is part of the build, so that the graph that is tested
 #    is exactly the graph that is published. It is today's date if the content
-#    differs from the graph on LINDAS, otherwise the date found there. Without
-#    GRAPH (e.g. no .env) the graph is built without a modification date.
-$(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) $(wildcard .env) src/python/utils/turtle_serializer.py src/python/utils/graph_metadata.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
+#    differs from the graph on LINDAS (or if LINDAS cannot be reached),
+#    otherwise the date found there.
+$(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) $(CONFIG) src/python/utils/turtle_serializer.py src/python/utils/graph_metadata.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Applying SPARQL updates...$(NC)\n"
 	@printf "$(GREY)"; \
 	if [ -z "$(QUERIES)" ]; then \
@@ -176,25 +190,21 @@ $(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) $(wildcard .env) src/
 			$(foreach q,$(QUERIES),--update $(q)) \
 			convert --output $(PROCESSED_DATA) > $(QUERY_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: ROBOT query failed. See log below:$(NC)\n$(GREY)"; cat $(QUERY_LOG); printf "$(NC)\n"; exit 1; }; \
 	fi; \
-	if [ -n "$(GRAPH)" ]; then \
-		$(VENV_PYTHON) src/python/utils/graph_metadata.py --graph $(PROCESSED_DATA) --iri "$(GRAPH)" --endpoint "$(ENDPOINT)" || { rm -f $(PROCESSED_DATA); printf "$(NC)"; exit 1; }; \
-	else \
-		echo "GRAPH is not set: the dataset gets no modification date (required for publishing)."; \
-	fi; \
+	$(VENV_PYTHON) src/python/utils/graph_metadata.py --graph $(PROCESSED_DATA) --iri "$(LINDAS_GRAPH)" --endpoint "$(LINDAS_GRAPH_STORE)" || { rm -f $(PROCESSED_DATA); printf "$(NC)"; exit 1; }; \
 	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(PROCESSED_DATA) -p $(PREFIXES) -o $(PROCESSED_DATA) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
-# 6. Trigger the whole graph build process
+# 8. Trigger the whole graph build process
 build: $(PROCESSED_DATA) ## Build the graph: integration, reasoning, SPARQL processing
 
 # ==============================================================================
 # BUILD DOCUMENTATION
 # ==============================================================================
 
-generate-shacl-docs: $(SHAPES) $(PREFIXES) $(PROCESSED_DATA) $(DOCS_DIR)/_ech.yml src/python/utils/generate_shacl_docs.py | $(VENV)/.requirements-installed.stamp ## Generate the data model and code list pages from the SHACL shapes and the graph
+generate-shacl-docs: $(SHAPES) $(PREFIXES) $(PROCESSED_DATA) $(CONFIG) src/python/utils/generate_shacl_docs.py | $(VENV)/.requirements-installed.stamp ## Generate the data model and code list pages from the SHACL shapes and the graph
 	@printf "$(BOLD)[*] Generating SHACL documentation...$(NC)\n"
 	@printf "$(GREY)"; \
-	$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -d $(DOCS_DIR) -p $(PREFIXES) -g $(PROCESSED_DATA) -c $(DOCS_DIR)/_ech.yml || { printf "$(NC)"; exit 1; }; \
+	$(VENV_PYTHON) src/python/utils/generate_shacl_docs.py -i $(SHAPES) -d $(DOCS_DIR) -p $(PREFIXES) -g $(PROCESSED_DATA) -c $(CONFIG) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
 generate-glossary-docs: src/rdf/data/glossary.skos.ttl $(PREFIXES) src/python/utils/generate_glossary_docs.py | $(VENV)/.requirements-installed.stamp ## Generate the glossary pages from the SKOS glossary
@@ -203,8 +213,13 @@ generate-glossary-docs: src/rdf/data/glossary.skos.ttl $(PREFIXES) src/python/ut
 	$(VENV_PYTHON) src/python/utils/generate_glossary_docs.py -i src/rdf/data/glossary.skos.ttl -d $(DOCS_DIR) -p $(PREFIXES) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
+# The metadata that docs/_quarto.yml includes: eCH title page, website title,
+# navigation and announcement, all from the project configuration
+$(QUARTO_METADATA): $(CONFIG) $(CONFIG_SCRIPT) $(DOCS_DIR)/assets/ech_vocabulary.yml | $(VENV)/.requirements-installed.stamp
+	@$(VENV_PYTHON) $(CONFIG_SCRIPT) quarto -o $(QUARTO_METADATA)
+
 # Quarto runs the Python code chunks with the interpreter of the virtual environment
-docs: $(SHACL_REPORT) generate-shacl-docs generate-glossary-docs | $(VENV)/.requirements-installed.stamp ## Generate the data model and glossary pages and render the documentation (website, PDF)
+docs: $(SHACL_REPORT) $(QUARTO_METADATA) generate-shacl-docs generate-glossary-docs | $(VENV)/.requirements-installed.stamp ## Generate the data model and glossary pages and render the documentation (website, PDF)
 	@printf "$(BOLD)[*] Rendering documentation with Quarto...$(NC)\n"
 	@printf "$(GREY)"; \
 	QUARTO_PYTHON=$(VENV_PYTHON) quarto render docs > $(QUARTO_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: Quarto rendering failed. See log below:$(NC)\n$(GREY)"; cat $(QUARTO_LOG); printf "$(NC)\n"; exit 1; }; \
@@ -250,13 +265,11 @@ export LINDAS_USER LINDAS_PASSWORD
 CURL             := curl --silent --show-error --fail-with-body --config -
 CURL_CREDENTIALS := printf '%s:%s' "$$LINDAS_USER" "$$LINDAS_PASSWORD" | sed 's/[\\"]/\\&/g; s/.*/user = "&"/'
 
-# 2. Check that everything needed to reach LINDAS is set
-check-publication:
+# 2. Check that the credentials for LINDAS are set
+check-publication: | $(VENV)/.requirements-installed.stamp
 	@missing=""; \
 	[ -n "$$LINDAS_USER" ] || missing="$$missing LINDAS_USER"; \
 	[ -n "$$LINDAS_PASSWORD" ] || missing="$$missing LINDAS_PASSWORD"; \
-	[ -n "$(GRAPH)" ] || missing="$$missing GRAPH"; \
-	[ -n "$(ENDPOINT)" ] || missing="$$missing ENDPOINT"; \
 	if [ -n "$$missing" ]; then \
 		printf "$(RED)ERROR: not set:$$missing. Add them to .env or to the environment.$(NC)\n"; exit 1; \
 	fi
@@ -265,7 +278,7 @@ check-publication:
 delete: check-publication ## Delete the published graph from LINDAS (needs .env)
 	@printf "$(BOLD)[*] Delete existing data from LINDAS$(NC)\n"
 	@printf "$(GREY)"; \
-	$(CURL_CREDENTIALS) | $(CURL) -X DELETE "$(ENDPOINT)?graph=$(GRAPH)" \
+	$(CURL_CREDENTIALS) | $(CURL) -X DELETE "$(LINDAS_GRAPH_STORE)?graph=$(LINDAS_GRAPH)" \
 		|| { printf "$(NC)\n$(RED)ERROR: could not delete the graph on LINDAS.$(NC)\n"; exit 1; }; \
 	printf "$(NC)\n"
 
@@ -273,9 +286,8 @@ delete: check-publication ## Delete the published graph from LINDAS (needs .env)
 #    content of the named graph: if it fails, the published graph stays as it was.
 publish: check-publication test ## Test, then replace the graph on LINDAS with the newly built one (needs .env)
 	@printf "$(BOLD)[*] Upload final graph to LINDAS$(NC)\n"
-	@grep -q "dateModified" $(PROCESSED_DATA) || { printf "$(RED)ERROR: $(PROCESSED_DATA) has no modification date, because it was built without GRAPH. Remove the file and publish again.$(NC)\n"; exit 1; }
 	@printf "$(GREY)"; \
-	$(CURL_CREDENTIALS) | $(CURL) -X PUT -H "Content-Type: text/turtle" --data-binary @$(PROCESSED_DATA) "$(ENDPOINT)?graph=$(GRAPH)" \
+	$(CURL_CREDENTIALS) | $(CURL) -X PUT -H "Content-Type: text/turtle" --data-binary @$(PROCESSED_DATA) "$(LINDAS_GRAPH_STORE)?graph=$(LINDAS_GRAPH)" \
 		|| { printf "$(NC)\n$(RED)ERROR: the upload to LINDAS failed. The published graph was not replaced.$(NC)\n"; exit 1; }; \
 	printf "$(NC)\n"
 
@@ -285,5 +297,5 @@ publish: check-publication test ## Test, then replace the graph on LINDAS with t
 
 clean: ## Remove all build artifacts, caches, the virtual environment and generated pages
 	@printf "$(BOLD)[*] Cleaning build artifacts...$(NC)\n"
-	@rm -rf $(BUILD_DIR) $(VENV) docs/*/codelists.md docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md
+	@rm -rf $(BUILD_DIR) $(VENV) docs/*/codelists.md docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md $(QUARTO_METADATA)
 	@find . -path ./.git -prune -o \( -name __pycache__ -o -name .pytest_cache -o -name .quarto -o -name '*_files' -o -name '*_cache' -o -name '*.quarto_ipynb' \) -prune -exec rm -rf {} +

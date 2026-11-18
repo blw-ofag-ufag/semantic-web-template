@@ -12,12 +12,12 @@ import warnings
 from pathlib import Path
 
 import pytest
-import yaml
 from rdflib import Graph, URIRef
 from rdflib.namespace import OWL, RDF, RDFS, SH, SKOS
 
+import project_config
+
 PREFIXES = Path("src/rdf/prefixes.ttl")
-ECH_CONFIG = Path("docs/_ech.yml")
 NAMESPACE_ROOT = "https://agriculture.ld.admin.ch/"
 
 # Fixed by convention (GitHub, make) or by the tools that read them (Quarto
@@ -61,10 +61,6 @@ def declared_namespaces():
     return dict(re.findall(r"^@prefix\s+([^\s:]*):\s*<([^>]+)>", PREFIXES.read_text(encoding="utf-8"), re.M))
 
 
-def ech_config():
-    return yaml.safe_load(ECH_CONFIG.read_text(encoding="utf-8")) or {}
-
-
 def qname_function():
     """Abbreviates IRIs with the prefixes of src/rdf/prefixes.ttl (longest namespace wins)."""
     namespaces = sorted(declared_namespaces().items(), key=lambda item: -len(item[1]))
@@ -98,7 +94,7 @@ def test_project_namespace_follows_convention():
     if not PREFIXES.exists():
         pytest.skip(f"{PREFIXES} not found")
     base = project_namespace()
-    ech = ech_config().get("ech", {})
+    ech = project_config.load().get("ech", {})
     number, version = ech.get("number"), str(ech.get("version", ""))
     violations = []
     if not base:
@@ -106,7 +102,7 @@ def test_project_namespace_follows_convention():
     elif number and version:
         expected = f"{NAMESPACE_ROOT}{number}/{version.split('.')[0]}/"
         if base != expected:
-            violations.append(f"project namespace is <{base}>, expected <{expected}> from docs/_ech.yml")
+            violations.append(f"project namespace is <{base}>, expected <{expected}> from project.yml")
     if base:
         for prefix, iri in declared_namespaces().items():
             if iri.startswith(base) and iri != base and not SUBNAMESPACE.fullmatch(iri[len(base):]):

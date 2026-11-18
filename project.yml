@@ -1,0 +1,57 @@
+date: 2026-10-01 # date of issue
+
+ech:
+  number: eCH-1234
+  category: auxiliary # standard | best-practice | auxiliary | white-paper | addendum
+  maturity: experimental # experimental | defined | established
+  version: 2.4.1
+  status: in-progress # in-progress | draft | proposal | approved | replaced | repealed | suspended
+  decision-date: null
+  replaces:
+    version: 2.4.0
+    change: minor # minor | major | new
+  prerequisites: [] # e.g. [eCH-0200]
+  attachments: [] # e.g. [model.ttl, shapes.ttl]
+  languages:
+    original: de
+    translations: [fr, en]
+  group: AgriFood
+
+project:
+  repository: blw-ofag-ufag/semantic-web-template
+  homepage: https://blw-ofag-ufag.github.io/semantic-web-template/
+  contact:
+    name: Bundesamt für Landwirtschaft BLW
+    email: agridata.ch@blw.admin.ch
+
+lindas:
+  graph: https://lindas.admin.ch/foag/ogd
+  graph-store: https://graphdb.lindas.admin.ch/repositories/lindas/rdf-graphs/service
+  sparql: https://agriculture.ld.admin.ch/query
+  yasgui: https://lindas.admin.ch/sparql/
+
+dataset:
+  title:
+    de: eCH-1234 Musiktitel und Alben
+    en: eCH-1234 Music tracks and albums
+    fr: eCH-1234 Titres musicaux et albums
+    it: eCH-1234 Brani musicali e album
+  description:
+    de: >-
+      Demonstrationsdaten für einen Demonstrations-eCH-Standard: Musiktitel, Alben, Personen und Rechnungen aus der Chinook-Datenbank als Linked Data.
+    en: >-
+      Demonstration data for a demonstration eCH standard: music tracks, albums, persons and invoices from the Chinook database as linked data.
+    fr: >-
+      Données de démonstration pour une norme eCH de démonstration : titres musicaux, albums, personnes et factures de la base de données Chinook sous forme de données liées.
+    it: >-
+      Dati dimostrativi per uno standard eCH dimostrativo: brani musicali, album, persone e fatture del database Chinook come linked data.
+  keywords:
+    de: [Linked Data, Musik]
+    en: [Linked Data, Music]
+    fr: [Données liées, Musique]
+    it: [Linked Data, Musica]
+  created: 2026-10-01
+  publisher: blw-ofag-ufag
+  themes: [agriculture]       # see https://register.ld.admin.ch/opendataswiss/category/
+  terms-of-use: Open-Use
+  frequency: IRREG

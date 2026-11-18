@@ -25,6 +25,36 @@ This creates a virtual environment in `venv/`, installs the Python packages (inc
 > On Posit Workbench or in paths containing @, VS Code may report Unable to handle .../.venv.
 > In this case, select the interpreter manually: `Ctrl + Shift + P` -> Python: Select Interpreter -> Enter interpreter path... -> `venv/bin/python`.
 
+## Project configuration (`project.yml`)
+
+Start here: `project.yml` states what the project is, and the build, the tests and the documentation derive everything else from it. Replace the demo values of all four sections. `make check` validates the file.
+
+**`date` and `ech`: the eCH document.** The values are language-neutral codes; `docs/assets/ech_vocabulary.yml` lists the allowed codes and translates them into the labels of the title page.
+
+``` yaml
+date: 2026-10-01          # date of issue
+ech:
+  number: eCH-1234
+  category: standard      # standard | best-practice | auxiliary | white-paper | addendum
+  maturity: defined       # experimental | defined | established
+  version: 2.4.1
+  status: approved        # in-progress | draft | proposal | approved | replaced | repealed | suspended
+  decision-date: 2026-09-15
+  replaces: { version: 2.4.0, change: minor }   # minor | major | new
+  prerequisites: [eCH-0200]                     # optional, printed as "---" if empty
+  attachments: [model.ttl, shapes.ttl]          # optional, printed as "---" if empty
+  languages: { original: de, translations: [fr, en] }
+  group: AgriFood         # the "Fachgruppe" prefix is added per language
+```
+
+The number and the major version determine the project namespace (see [Prefixes](#prefixes-srcrdfprefixesttl)). As long as the status is `in-progress`, `draft` or `proposal`, the website shows a banner and the dataset is marked as a draft.
+
+**`project`: repository and contact.** The repository (`owner/name` on GitHub) gives the links of the website and, unless `homepage` is set, the landing page of the dataset (the GitHub Pages site). The contact appears on the website and in the dataset.
+
+**`lindas`: where the graph lives.** `graph` is the IRI of the named graph and of the dataset, `graph-store` the endpoint the graph is uploaded to, `sparql` the endpoint the example queries are tested against, and `yasgui` the query editor that the data model pages link to.
+
+**`dataset`: the description of the graph.** Titles, descriptions and keywords per language, the publisher, themes, terms of use and update frequency, so that the graph can be found on LINDAS and opendata.swiss. Title and description are required in every documentation language. `make build` turns this section into `build/rdf/metadata.ttl` and sets the modification date by comparing the graph with the one on LINDAS.
+
 ## Removing demo data and building the domain model
 
 ### Prefixes (`src/rdf/prefixes.ttl`)
@@ -62,10 +92,6 @@ rm src/rdf/data/genres.ttl src/rdf/data/mediatypes.ttl src/rdf/data/people.ttl s
 > [!IMPORTANT]
 > Do not delete `glossary.skos.ttl`: the documentation requires it. Replace its demo concepts and the demo namespace with the project's own terms and namespace instead.
 
-### Graph metadata (`src/rdf/metadata.ttl`)
-
-Describes the named graph on LINDAS as a dataset (title, description, publisher, contact, licence, themes, keywords) so that it can be found on LINDAS and opendata.swiss. Replace the demo values; the subject must be the named graph of `docs/_ech.yml` (`ech.graph`), which the test suite checks. The modification date is set automatically at the end of `make build`, which compares the graph with the one on LINDAS (this needs `GRAPH` and `ENDPOINT`, see [Deployment to LINDAS](#deployment-to-lindas); without them the graph is built without a modification date and cannot be published).
-
 ### Ontology (`src/rdf/ontology/model.owl.ttl`)
 
 Replace the demo classes and properties with the custom OWL model, following the [naming conventions](.github/CONTRIBUTING.md#rdf-resource-naming-convention).
@@ -101,7 +127,7 @@ The pages may contain executable Python code chunks (e.g. for figures), which Qu
 
 ### Website configuration (`docs/_quarto.yml`)
 
-Adapt `website.title`, `repo-url`, the `announcement` banner and the links in the `navbar` to the project.
+The title of the website, the links to the repository, the language menu and the announcement banner are generated from `project.yml`; nothing has to be adapted here.
 
 If `make docs` fails because the Word template referenced under `reference-doc` cannot be downloaded, delete or comment out this line.
 
@@ -109,24 +135,7 @@ If `make docs` fails because the Word template referenced under `reference-doc` 
 
 Replace the template texts with the project description, and replace the Chinook examples in `docs/data/` that the pages include.
 
-The metadata of the eCH title page lives in `docs/_ech.yml` and is shared by all languages. It uses language-neutral codes:
-
-``` yaml
-date: 2026-10-01          # date of issue
-ech:
-  number: eCH-1234
-  category: standard      # standard | best-practice | auxiliary | white-paper | addendum
-  maturity: defined       # experimental | defined | established
-  version: 2.4.1
-  status: approved        # in-progress | draft | proposal | approved | replaced | repealed | suspended
-  decision-date: 2026-09-15
-  replaces: { version: 2.4.0, change: minor }   # minor | major | new
-  prerequisites: [eCH-0200]                     # optional, printed as "---" if empty
-  attachments: [model.ttl, shapes.ttl]          # optional, printed as "---" if empty
-  languages: { original: de, translations: [fr, en] }
-  group: AgriFood         # the "Fachgruppe" prefix is added per language
-  graph: https://lindas.admin.ch/foag/ogd   # corresponding named graph on LINDAS
-```
+The metadata of the eCH title page comes from the section `ech` of `project.yml` (see [Project configuration](#project-configuration-projectyml)) and is shared by all languages.
 
 The Lua filter `docs/assets/ech_metadata.lua` translates these codes with `docs/assets/ech_vocabulary.yml` into the labels of the PDF title page, header and footer (`typst-template.typ`) and of the HTML title block (`title-metadata.html`). The vocabulary lists the allowed codes; an unknown code aborts the render. Only `title`, `abstract` and `lang` remain in the front matter of each language version, and the eCH number is prefixed to the title automatically.
 
@@ -148,17 +157,7 @@ For a single-language project, delete the folders of the other languages. For ex
 rm -rf docs/en docs/fr
 ```
 
-Then remove these languages from `render:` in `docs/_quarto.yml`:
-
-``` diff
- project:
-   output-dir: ../build/docs/
-   type: website
-   render:
-     - de/index.qmd
--    - fr/index.qmd
--    - en/index.qmd
-```
+Then remove these languages from `ech.languages` in `project.yml`. Quarto renders exactly the folders of the languages listed there, and the language menu of the website follows.
 
 ## Adapting the build (`Makefile`)
 
@@ -177,15 +176,13 @@ If a step fails, `build/log/` contains a log file for each step. `make clean` re
 
 ## Deployment to LINDAS
 
-The CI pipeline tests every pull request. On `main`, it also publishes the graph to LINDAS and the documentation to GitHub Pages. For this, add `ENDPOINT`, `LINDAS_USER`, `LINDAS_PASSWORD` and `GRAPH` as repository secrets under Settings > Secrets and variables > Actions.
+The CI pipeline tests every pull request. On `main`, it also publishes the graph to LINDAS and the documentation to GitHub Pages. For this, add `LINDAS_USER` and `LINDAS_PASSWORD` as repository secrets under Settings > Secrets and variables > Actions.
 
 For a manual deployment, create a `.env` file in the root directory (it is ignored by Git). Do not use quotes, as the Makefile reads the values literally:
 
 ``` dotenv
-ENDPOINT=https://test.lindas.admin.ch/sparql
 LINDAS_USER=blw-service-account
 LINDAS_PASSWORD=my-secure-password
-GRAPH=https://agriculture.ld.admin.ch/foag/my-project
 ```
 
 ``` bash

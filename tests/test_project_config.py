@@ -1,6 +1,7 @@
 """
-Validity of docs/_ech.yml, the eCH metadata shared by all language versions
-of the documentation, against the codes of docs/assets/ech_vocabulary.yml.
+Validity of project.yml, the configuration of the project: the eCH metadata
+(against the codes of docs/assets/ech_vocabulary.yml), the repository, the
+LINDAS endpoints and the description of the dataset.
 """
 import datetime
 import re
@@ -9,31 +10,37 @@ from pathlib import Path
 import pytest
 import yaml
 
-ECH_CONFIG = Path("docs/_ech.yml")
-VOCABULARY = Path("docs/assets/ech_vocabulary.yml")
-QUARTO_CONFIG = Path("docs/_quarto.yml")
+import project_config
 
-REQUIRED_KEYS = {"number", "category", "maturity", "version", "status", "languages", "group", "graph"}
+VOCABULARY = Path("docs/assets/ech_vocabulary.yml")
+DOCS_DIR = Path("docs")
+
+SECTIONS = {"date", "ech", "project", "lindas", "dataset"}
+REQUIRED_KEYS = {"number", "category", "maturity", "version", "status", "languages", "group"}
 OPTIONAL_KEYS = {"decision-date", "replaces", "prerequisites", "attachments", "publisher"}
 CODE_GROUPS = {"category": "category", "maturity": "maturity", "status": "status"}
 STATUSES_WITH_DECISION = {"approved", "replaced"}
+LINDAS_KEYS = {"graph", "graph-store", "sparql", "yasgui"}
+DATASET_REQUIRED = {"title", "description", "publisher", "terms-of-use", "frequency"}
+DATASET_OPTIONAL = {"keywords", "created", "themes"}
 
 ECH_NUMBER = re.compile(r"eCH-\d{4}")
 SEMVER = re.compile(r"\d+\.\d+\.\d+")
+URL = re.compile(r"https://\S+")
+REPOSITORY = re.compile(r"[\w.-]+/[\w.-]+")
+EMAIL = re.compile(r"[^@\s]+@[^@\s]+\.[^@\s]+")
 
 
 @pytest.fixture(scope="module")
 def config():
-    if not ECH_CONFIG.exists():
-        pytest.skip(f"{ECH_CONFIG} not found")
-    data = yaml.safe_load(ECH_CONFIG.read_text(encoding="utf-8"))
-    assert isinstance(data, dict), f"{ECH_CONFIG} must be a YAML mapping"
-    return data
+    if not project_config.CONFIG.exists():
+        pytest.skip(f"{project_config.CONFIG} not found")
+    return project_config.load()
 
 
 @pytest.fixture(scope="module")
 def ech(config):
-    assert isinstance(config.get("ech"), dict), f"{ECH_CONFIG} needs an 'ech' mapping"
+    assert isinstance(config.get("ech"), dict), "project.yml needs an 'ech' mapping"
     return config["ech"]
 
 
@@ -50,10 +57,9 @@ def codes(vocabulary, group):
     return set(first[group])
 
 
-def doc_languages():
-    """The languages rendered by Quarto (docs/{lang}/index.qmd in project.render)."""
-    quarto = yaml.safe_load(QUARTO_CONFIG.read_text(encoding="utf-8"))
-    return {Path(p).parts[0] for p in quarto.get("project", {}).get("render", [])}
+def language_folders(vocabulary):
+    """The folders in docs/ that are named like a language code."""
+    return {d.name for d in DOCS_DIR.iterdir() if d.is_dir() and d.name in codes(vocabulary, "language")}
 
 
 def test_vocabulary_is_consistent_across_languages(vocabulary):
@@ -67,6 +73,18 @@ def test_vocabulary_is_consistent_across_languages(vocabulary):
                 f"'{group}' codes of '{lang}' differ from '{languages[0]}'"
             )
 
+
+def test_sections(config):
+    """All sections exist and no unknown one is present (typos would be ignored silently)."""
+    missing = SECTIONS - set(config)
+    unknown = set(config) - SECTIONS
+    assert not missing, f"missing sections in project.yml: {sorted(missing)}"
+    assert not unknown, f"unknown sections in project.yml: {sorted(unknown)} (allowed: {sorted(SECTIONS)})"
+
+
+# ------------------------------------------------------------------------------
+# eCH metadata
+# ------------------------------------------------------------------------------
 
 def test_keys(ech):
     """All required keys exist and no unknown key is present (typos would be ignored silently)."""
@@ -123,7 +141,7 @@ def test_lists(ech):
 
 
 def test_languages(ech, vocabulary):
-    """The original language and its translations are known codes and match the rendered languages."""
+    """The original language and its translations are known codes, and each has its folder in docs/."""
     languages = ech["languages"]
     assert isinstance(languages, dict) and "original" in languages, "'languages' needs 'original' (and optionally 'translations')"
     original = languages["original"]
@@ -133,12 +151,56 @@ def test_languages(ech, vocabulary):
     assert isinstance(translations, list) and set(translations) <= allowed, f"'languages.translations' must be a list of {sorted(allowed)}"
     assert original not in translations, "the original language is not a translation"
     assert len(translations) == len(set(translations)), "'languages.translations' has duplicates"
-    assert {original, *translations} == doc_languages(), (
-        f"languages {sorted({original, *translations})} differ from the rendered ones {sorted(doc_languages())} (project.render in docs/_quarto.yml)"
+    configured = {original, *translations}
+    assert configured == language_folders(vocabulary), (
+        f"languages {sorted(configured)} differ from the language folders in docs/ {sorted(language_folders(vocabulary))}"
     )
 
 
-def test_group_and_graph(ech):
+def test_group(ech):
     assert isinstance(ech["group"], str) and ech["group"].strip(), "'group' (Fachgruppe) must be a non-empty string"
-    graph = str(ech["graph"])
-    assert re.fullmatch(r"https://\S+", graph), f"'graph' must be an https IRI of the named graph on LINDAS, got {graph!r}"
+
+
+# ------------------------------------------------------------------------------
+# Repository, LINDAS and dataset
+# ------------------------------------------------------------------------------
+
+def test_project(config):
+    """The repository is given as owner/name, and the contact has a name and an e-mail address."""
+    project = config["project"]
+    assert REPOSITORY.fullmatch(str(project.get("repository", ""))), (
+        f"'project.repository' must be owner/name on GitHub, got {project.get('repository')!r}"
+    )
+    if project.get("homepage") is not None:
+        assert URL.fullmatch(str(project["homepage"])), "'project.homepage' must be an https URL"
+    contact = project.get("contact") or {}
+    assert isinstance(contact.get("name"), str) and contact["name"].strip(), "'project.contact.name' must be a non-empty string"
+    assert EMAIL.fullmatch(str(contact.get("email", ""))), f"'project.contact.email' must be an e-mail address, got {contact.get('email')!r}"
+
+
+def test_lindas(config):
+    """The named graph and the three endpoints are https URLs."""
+    lindas = config["lindas"]
+    assert set(lindas) == LINDAS_KEYS, f"'lindas' must have exactly the keys {sorted(LINDAS_KEYS)}, got {sorted(lindas)}"
+    for key in sorted(LINDAS_KEYS):
+        assert URL.fullmatch(str(lindas[key])), f"'lindas.{key}' must be an https URL, got {lindas[key]!r}"
+
+
+def test_dataset(config):
+    """The dataset has the required entries, and its title and description exist in every documentation language."""
+    dataset = config["dataset"]
+    missing = DATASET_REQUIRED - set(dataset)
+    unknown = set(dataset) - DATASET_REQUIRED - DATASET_OPTIONAL
+    assert not missing, f"missing keys under 'dataset': {sorted(missing)}"
+    assert not unknown, f"unknown keys under 'dataset': {sorted(unknown)} (allowed: {sorted(DATASET_REQUIRED | DATASET_OPTIONAL)})"
+    for key in ("title", "description"):
+        lacking = set(project_config.languages(config)) - set(dataset[key])
+        assert not lacking, f"'dataset.{key}' lacks the languages {sorted(lacking)}"
+    created = dataset.get("created")
+    assert created is None or isinstance(created, datetime.date), "'dataset.created' must be an ISO date"
+    for key in ("keywords",):
+        value = dataset.get(key) or {}
+        assert isinstance(value, dict) and all(isinstance(v, list) for v in value.values()), (
+            f"'dataset.{key}' must map language codes to lists"
+        )
+    assert isinstance(dataset.get("themes") or [], list), "'dataset.themes' must be a list"

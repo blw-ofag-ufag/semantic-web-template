@@ -1,43 +1,17 @@
 project:
   output-dir: ../build/docs/
   type: website
-  render:
-    - de/index.qmd
-    - fr/index.qmd
-    - en/index.qmd
 
+# The pages to render (one folder per language), the website title, the
+# repository links, the language menu and the announcement banner come from
+# ../project.yml (see metadata-files below).
 website:
-  title: eCH-1234 Version 2.4.1 (Working Draft)
-  repo-url: https://github.com/blw-ofag-ufag/semantic-web-template
   favicon: assets/favicon.svg
   navbar:
     background: dark
     title: false
     logo: assets/ech.svg
     logo-alt: eCH
-    right:
-      - icon: github
-        href: https://github.com/blw-ofag-ufag/semantic-web-template
-        aria-label: GitHub
-      - icon: bug
-        href: https://github.com/blw-ofag-ufag/semantic-web-template/issues/new
-        aria-label: Issue
-      - icon: envelope
-        href: mailto:agridata.ch@blw.admin.ch
-        aria-label: Contact
-      - icon: translate
-        menu:
-          - text: English
-            href: /en/index.html
-          - text: Deutsch
-            href: /de/index.html
-          - text: Français
-            href: /fr/index.html
-  announcement:
-    icon: info-circle
-    dismissable: true
-    content: Diese Seite beinhaltet einen *Working Draft* und kann sich dadurch laufend verändern. Für eine aktuelle Version, besuchen Sie [ech.ch](https://ech.ch/).
-    type: warning
 
 # Code chunks show only their output; use `#| echo: true` to show the code.
 execute:
@@ -46,9 +20,11 @@ execute:
 bibliography: references.yaml
 csl: assets/din_1505_2_alphanumeric.csl
 
-# eCH metadata shared by all languages, translated by the Lua filter
+# Generated from ../project.yml by `make docs`: the eCH metadata shared by all
+# languages (translated by the Lua filter), the pages to render and the
+# website settings.
 metadata-files:
-  - _ech.yml
+  - _project.yml
 filters:
   - assets/ech_metadata.lua
   - quarto

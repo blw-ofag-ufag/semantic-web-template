@@ -30,6 +30,9 @@ PATTERNS = [
     ".github/CONTRIBUTING.md"
 ]
 
+# Both tests ask the GitHub API; `make check` leaves them out.
+pytestmark = pytest.mark.network
+
 def test_sync_with_template(pytestconfig):
     """
     Checks if managed files match the upstream template.

@@ -4,6 +4,9 @@ import urllib.parse
 from pathlib import Path
 import pytest
 
+# The queries run against LINDAS; `make check` leaves them out.
+pytestmark = pytest.mark.network
+
 def get_queries():
     """Fetches all SPARQL files inside the queries directory."""
     return list(Path("src/sparql/queries").rglob("*.rq"))

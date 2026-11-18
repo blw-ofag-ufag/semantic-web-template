@@ -167,6 +167,7 @@ The Makefile orchestrates the whole pipeline and is meant to be adapted to the p
 ## Running the pipeline locally
 
 ``` bash
+make check  # check the sources in about a second, without building the graph
 make test   # build the graph (integration, reasoning, SPARQL, SHACL) and run the test suite
 make docs   # generate the documentation in build/docs/
 make        # both of the above

@@ -49,7 +49,7 @@ GREY             := \033[0;90m
 BOLD       := \033[1;37m
 NC               := \033[0m
 
-.PHONY: all help robot test docs clean check-python venv install-dependencies setup build delete publish check-publication generate-shacl-docs generate-glossary-docs
+.PHONY: all help robot check test docs clean check-python venv install-dependencies setup build delete publish check-publication generate-shacl-docs generate-glossary-docs
 
 # Default target
 all: test docs ## Run the tests and build the documentation (default)
@@ -214,14 +214,22 @@ docs: $(SHACL_REPORT) generate-shacl-docs generate-glossary-docs | $(VENV)/.requ
 # TESTS
 # ==============================================================================
 
-# 1. SHACL validation
+# 1. Offline checks of the sources (syntax, prefixes, configuration,
+#    translations, code lists, glossary). They need neither Java, the network
+#    nor a built graph: pytest leaves out the tests marked `network` and
+#    `graph` (see tests/conftest.py).
+check: | $(VENV)/.requirements-installed.stamp ## Check the sources offline, without building the graph
+	@printf "$(BOLD)[*] Checking the sources...$(NC)\n"
+	@$(PYTEST) tests/ -q -m "not network and not graph"
+
+# 2. SHACL validation
 $(SHACL_REPORT): $(PROCESSED_DATA) $(SHAPES) | $(LOG_DIR) $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Running SHACL engine...$(NC)\n"
 	@printf "$(GREY)"; \
 	$(PYSHACL) -s $(SHAPES)  -a -f turtle -o $(SHACL_REPORT) $(PROCESSED_DATA) > $(SHACL_LOG) 2>&1 || true; \
 	printf "$(NC)"
 
-# 2. Run pytest (relies on written SHACL reports for all shape-related tests)
+# 3. Run pytest (relies on written SHACL reports for all shape-related tests)
 test: build $(SHACL_REPORT) | $(VENV)/.requirements-installed.stamp ## Build the graph, validate it with SHACL and run the test suite
 	@printf "$(BOLD)[*] Running final test suite...$(NC)\n"
 	@$(PYTEST) tests/ -v

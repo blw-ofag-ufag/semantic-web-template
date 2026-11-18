@@ -260,5 +260,5 @@ publish: test stamp-metadata delete ## Test, then replace the graph on LINDAS wi
 
 clean: ## Remove all build artifacts, caches, the virtual environment and generated pages
 	@printf "$(BOLD)[*] Cleaning build artifacts...$(NC)\n"
-	@rm -rf $(BUILD_DIR) $(VENV) docs/*/codelists.md docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md
+	@rm -rf $(BUILD_DIR) $(VENV) docs/*/codelists.md docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md docs/*/index.html docs/*/index.md docs/*/index.docx
 	@find . -path ./.git -prune -o \( -name __pycache__ -o -name .pytest_cache -o -name .quarto -o -name '*_files' -o -name '*_cache' -o -name '*.quarto_ipynb' \) -prune -exec rm -rf {} +

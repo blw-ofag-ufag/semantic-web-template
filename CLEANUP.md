@@ -1,6 +1,6 @@
 # Setting up a project from this template
 
-This template ships with a working demo pipeline based on the Chinook music database, which integrates data with Python, reasons with ROBOT and HermiT, post-processes the graph with SPARQL, validates it with SHACL and Pytest, builds the documentation with Quarto and publishes the graph on LINDAS.
+This template ships with a working demo pipeline based on the Chinook music database, which integrates data with Python, infers with RDFS rules, post-processes the graph with SPARQL, validates it with SHACL and Pytest, builds the documentation with Quarto and publishes the graph on LINDAS.
 
 This guide describes how to remove the demo components and replace them with a custom domain model.
 
@@ -9,7 +9,6 @@ This guide describes how to remove the demo components and replace them with a c
 The following tools must be installed:
 
 * Python 3 (>= 3.10)
-* Java (>= 11, required for ROBOT and HermiT; the CI pipeline uses Java 17)
 * Quarto CLI (for the documentation)
 * curl (for the deployment to LINDAS)
 
@@ -19,7 +18,7 @@ Then run in the project directory:
 make setup
 ```
 
-This creates a virtual environment in `venv/`, installs the Python packages (including those that Quarto needs to run the Python code chunks of the documentation) and downloads ROBOT.
+This creates a virtual environment in `venv/`, installs the Python packages (including those that Quarto needs to run the Python code chunks of the documentation).
 
 > [!NOTE]
 > On Posit Workbench or in paths containing @, VS Code may report Unable to handle .../.venv.
@@ -102,16 +101,17 @@ Replace the demo shapes with shapes for the custom classes. Provide all labels a
 
 ### SPARQL post-processing (`src/sparql/processing/`)
 
-After reasoning, the build applies all SPARQL updates in this folder to the graph. Delete the demo updates:
+After inference, the build applies all SPARQL updates in this folder to the graph, in alphabetical order. Delete the demo updates:
 
 ```bash
 rm src/sparql/processing/02_author_linking.rq src/sparql/processing/03_create_companies.rq
 ```
 
-> [!IMPORTANT]
-> Keep `01_hermit_cleanup.rq`. It is not part of the demo but removes auxiliary triples that HermiT adds during reasoning.
-
 Custom updates can be added as further `.rq` files. They must use SPARQL Update (INSERT/DELETE) and declare their prefixes; SELECT queries abort the build.
+
+### Inference rules (`src/sparql/inference/`)
+
+Keep `rdfs.rq`; it is maintained by the template. Its rules derive new statements from the sub-classes, sub-properties, domains and ranges of the ontology, and the build applies them until nothing new is derived. They are not an OWL reasoner. If the custom ontology relies on other constructs (e.g. `owl:inverseOf`), add a further `.rq` file with a rule for each of them.
 
 ### Example queries (`src/sparql/queries/`)
 

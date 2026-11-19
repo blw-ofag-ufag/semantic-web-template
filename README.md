@@ -10,7 +10,7 @@ For demonstrative purposes, it includes a full pipeline that creates a graph of 
 
 1. manual data curation (data files and code lists in `src/rdf/data/`),
 2. data integration from a relational database (Python scripts in `src/python/pipeline/`),
-3. OWL-based inferencing (using the ontology in `src/rdf/ontology/model.owl.ttl`),
+3. RDFS inference (using the ontology in `src/rdf/ontology/model.owl.ttl` and the rules in `src/sparql/inference/`),
 4. SPARQL-based processing of the graph (updates in `src/sparql/processing/`),
 5. SHACL-based validation of the graph (using `src/rdf/shapes/model.shacl.ttl`),
 6. a Pytest test suite for everything SHACL cannot check,
@@ -25,7 +25,6 @@ For demonstrative purposes, it includes a full pipeline that creates a graph of 
 The following tools must be installed:
 
 - Python 3.10 or newer
-- Java 11 or newer (for ROBOT and HermiT)
 - [Quarto](https://quarto.org/) (for the documentation)
 - curl (for the upload to LINDAS)
 - the font Nimbus Sans (for the PDF; package `fonts-urw-base35` on Debian and Ubuntu)
@@ -33,7 +32,7 @@ The following tools must be installed:
 Then run:
 
 ``` sh
-make setup   # create venv/, install the Python packages, download ROBOT
+make setup   # create venv/ and install the Python packages
 make check   # check the sources, in about a second
 make         # build the graph, test it and render the documentation
 ```
@@ -59,10 +58,10 @@ Only the credentials for LINDAS are kept elsewhere, see [Publication](#publicati
 
 | Target | What it does | Needs |
 | --- | --- | --- |
-| `make setup` | Creates the virtual environment `venv/`, installs the Python packages and downloads ROBOT. | Python, network |
+| `make setup` | Creates the virtual environment `venv/` and installs the Python packages. | Python, network |
 | `make check` | Checks the sources: Turtle syntax, prefixes, the project configuration, translations, code lists and glossary. Takes about a second. | |
-| `make build` | Builds the graph into `build/rdf/03-processed.ttl`. Takes about half a minute. | Java, network |
-| `make test` | Builds the graph, validates it with SHACL and runs the whole test suite. Takes about three minutes. | Java, network |
+| `make build` | Builds the graph into `build/rdf/03-processed.ttl`. Takes about ten seconds. | network |
+| `make test` | Builds the graph, validates it with SHACL and runs the whole test suite. Takes about a minute. | network |
 | `make docs` | Generates the data model, code list and glossary pages and renders the website and the PDF into `build/docs/`. | Quarto |
 | `make` | Runs `make test` and `make docs`. | |
 | `make publish` | Runs `make test`, then replaces the graph on LINDAS. | `.env` |
@@ -81,8 +80,9 @@ The Makefile hides the output of the tools. If a step fails, its log is in `buil
 | `src/rdf/data/` | Manually curated data, code lists and the glossary. |
 | `src/rdf/prefixes.ttl` | All prefixes of the project. Every other file must use them consistently. |
 | `src/python/pipeline/` | Data integration scripts, run in alphabetical order. |
-| `src/python/utils/` | Tools of the template: project configuration, documentation generators, modification date. |
-| `src/sparql/processing/` | SPARQL updates applied to the graph after reasoning, in alphabetical order. |
+| `src/python/utils/` | Tools of the template: project configuration, graph build, documentation generators, modification date. |
+| `src/sparql/inference/` | Inference rules as SPARQL updates, applied to the merged graph until nothing new is derived. |
+| `src/sparql/processing/` | SPARQL updates applied to the graph after inference, in alphabetical order. |
 | `src/sparql/queries/` | Example queries, tested against LINDAS. |
 | `docs/` | The documentation: one folder per language and the Quarto configuration. |
 | `docs/assets/` | The eCH layout: Lua filters, Typst template, styles and vocabulary. |
@@ -99,12 +99,14 @@ Each step writes one file to `build/rdf/`, so that the result of every step can 
 | --- | --- |
 | `00-integrated.ttl` | The scripts in `src/python/pipeline/` integrate the source data. |
 | `metadata.ttl` | The description of the graph as a dataset is generated from `project.yml`. |
-| `01-merged.ttl` | ROBOT merges both with the ontology, the shapes and the files in `src/rdf/data/`. |
-| `02-inferred.ttl` | HermiT infers class and property assertions. |
+| `01-merged.ttl` | Both are merged with the ontology, the shapes and the files in `src/rdf/data/`. |
+| `02-inferred.ttl` | The rules in `src/sparql/inference/` derive new statements from the ontology. |
 | `03-processed.ttl` | The SPARQL updates in `src/sparql/processing/` are applied and the modification date of the dataset is set. This is the graph that is tested and published. |
 | `04-shacl-report.ttl` | pyshacl validates the graph against `model.shacl.ttl`. |
 
-ROBOT merges, reasons and applies the updates in a single run. `01-merged.ttl` and `02-inferred.ttl` are written as ROBOT leaves them, with full IRIs where it does not know a prefix. Only `03-processed.ttl` is formatted with the prefixes of `src/rdf/prefixes.ttl`.
+`src/python/utils/build_graph.py` merges, infers and applies the updates in a single run, in memory, with [Oxigraph](https://pyoxigraph.readthedocs.io/). `01-merged.ttl` and `02-inferred.ttl` are written with one statement per line; only `03-processed.ttl` is formatted for readers.
+
+The inference covers RDFS: sub-classes, sub-properties, domains and ranges (`src/sparql/inference/rdfs.rq`). It is not an OWL reasoner: restrictions, inverse or transitive properties are not evaluated, and the ontology is not checked for consistency. A project that needs more adds a rule file to `src/sparql/inference/`.
 
 The modification date is today's date if the graph differs from the one on LINDAS or if LINDAS cannot be reached, otherwise the date found there.
 
@@ -144,8 +146,7 @@ make delete    # only delete the graph on LINDAS
 
 | Tool | Use |
 | --- | --- |
-| [ROBOT](http://robot.obolibrary.org/) | Merges, reasons over and updates the graph. |
-| [HermiT](http://www.hermit-reasoner.com/) | The OWL reasoner used by ROBOT. |
+| [Oxigraph](https://pyoxigraph.readthedocs.io/) | Merges the graph and runs the inference rules and the SPARQL updates. |
 | [RDFLib](https://rdflib.readthedocs.io/) | Parses, serialises and manipulates RDF in Python. |
 | [PySHACL](https://github.com/RDFLib/pySHACL) | Validates the graph against the SHACL shapes. |
 | [Pytest](https://docs.pytest.org/) | Runs the test suite. |

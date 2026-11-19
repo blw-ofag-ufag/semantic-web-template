@@ -8,7 +8,6 @@ RDF_DIR          := $(BUILD_DIR)/rdf
 PYTHON_DIR       := src/python
 
 # Tools and binaries
-ROBOT_VERSION    := v1.9.5
 PYTHON           ?= $(shell command -v python3 || command -v python)
 VENV             ?= venv
 VENV_BIN         := $(VENV)/bin
@@ -16,7 +15,6 @@ VENV_PYTHON      := $(VENV_BIN)/python
 VENV_PIP         := $(VENV_BIN)/pip
 PYSHACL          := $(VENV_BIN)/pyshacl
 PYTEST           := $(VENV_BIN)/pytest -p no:cacheprovider # suppress cache
-ROBOT            := java -jar $(VENV_BIN)/robot.jar
 
 # Inputs
 ONTO             := src/rdf/ontology/model.owl.ttl
@@ -25,7 +23,8 @@ SHAPES           := src/rdf/shapes/model.shacl.ttl
 CONFIG           := project.yml
 CONFIG_SCRIPT    := src/python/utils/project_config.py
 PREFIXES         := src/rdf/prefixes.ttl
-QUERIES          := $(wildcard src/sparql/processing/*.rq)
+RULES            := $(sort $(wildcard src/sparql/inference/*.rq))
+QUERIES          := $(sort $(wildcard src/sparql/processing/*.rq))
 PIPELINE_SCRIPTS := $(sort $(wildcard src/python/pipeline/*.py))
 
 # Intermediate & Output Files
@@ -46,9 +45,8 @@ LINDAS_GRAPH_STORE = $$($(VENV_PYTHON) $(CONFIG_SCRIPT) get lindas.graph-store)
 
 # Logs
 LOG_DIR          := $(BUILD_DIR)/log
-ROBOT_LOG        := $(LOG_DIR)/01-robot.log
-SHACL_LOG        := $(LOG_DIR)/02-shacl.log
-QUARTO_LOG       := $(LOG_DIR)/03-quarto.log
+SHACL_LOG        := $(LOG_DIR)/01-shacl.log
+QUARTO_LOG       := $(LOG_DIR)/02-quarto.log
 
 # Colors for logging
 RED              := \033[0;31m
@@ -56,7 +54,7 @@ GREY             := \033[0;90m
 BOLD       := \033[1;37m
 NC               := \033[0m
 
-.PHONY: all help robot check test docs clean check-python venv install-dependencies setup build delete publish check-publication generate-shacl-docs generate-glossary-docs
+.PHONY: all help check test docs clean check-python venv install-dependencies setup build delete publish check-publication generate-shacl-docs generate-glossary-docs
 
 # A failed recipe must not leave a half-written target behind
 .DELETE_ON_ERROR:
@@ -100,18 +98,12 @@ $(VENV)/.requirements-installed.stamp: $(PYTHON_DIR)/requirements.txt | $(VENV_P
 
 install-dependencies: $(VENV)/.requirements-installed.stamp
 
-# 4. Install robot
-$(VENV_BIN)/robot.jar: | $(VENV_PYTHON)
-	@printf "$(GREY)"; curl -sSL --fail https://github.com/ontodev/robot/releases/download/$(ROBOT_VERSION)/robot.jar -o $(VENV_BIN)/robot.jar || { printf "$(NC)"; exit 1; }; printf "$(NC)"
-
-robot: $(VENV_BIN)/robot.jar
-
-# 5. Full setup
-setup: install-dependencies robot ## Create the virtual environment, install the Python dependencies and ROBOT
+# 4. Full setup
+setup: install-dependencies ## Create the virtual environment and install the Python dependencies
 	@printf "$(BOLD)[*] Setup complete.$(NC)\n"
 
 # ==============================================================================
-# RDF DATA INTEGRATION, REASONING AND POST-PROCESSING
+# RDF DATA INTEGRATION, INFERENCE AND POST-PROCESSING
 # ==============================================================================
 
 # 1. Set up directories
@@ -146,36 +138,27 @@ $(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(METADATA) $(PREFIXES)
 	printf "$(NC)"
 	@touch $@
 
-# 5. Merge, reason and process the graph in a single ROBOT run, so that Java
-#    starts once and the graph is parsed once. ROBOT writes the result of each
-#    step to its own file for inspection:
+# 5. Build the graph in one run (src/python/utils/build_graph.py), which
+#    writes the result of each step to its own file for inspection:
 #      - merge: ontology, shapes, dataset description, static and fetched data
-#      - reason: inference with HermiT
-#      - query: the SPARQL updates of src/sparql/processing/
-#    The intermediate files are written as ROBOT leaves them. Only the final
-#    graph is formatted with the prefixes of the project, by the script that
-#    sets the modification date of the dataset. The date is part of the build,
+#      - infer: the rules of src/sparql/inference/, until nothing new is derived
+#      - update: the SPARQL updates of src/sparql/processing/, in alphabetical order
+#    Then the modification date of the dataset is set and the final graph is
+#    formatted with the prefixes of the project. The date is part of the build,
 #    so that the graph that is tested is exactly the graph that is published.
 #    It is today's date if the content differs from the graph on LINDAS (or if
 #    LINDAS cannot be reached), otherwise the date found there.
-$(PROCESSED_DATA): $(ONTO) $(SHAPES) $(METADATA) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(QUERIES) $(CONFIG) $(LOG_DIR)/syntax-check.stamp $(CONFIG_SCRIPT) src/python/utils/graph_metadata.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
-	@printf "$(BOLD)[*] Merging, reasoning (HermiT) and applying SPARQL updates...$(NC)\n"
+$(PROCESSED_DATA): $(ONTO) $(SHAPES) $(METADATA) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(RULES) $(QUERIES) $(CONFIG) $(LOG_DIR)/syntax-check.stamp $(CONFIG_SCRIPT) src/python/utils/build_graph.py src/python/utils/graph_metadata.py | $(VENV)/.requirements-installed.stamp
+	@printf "$(BOLD)[*] Merging, inferring and applying SPARQL updates...$(NC)\n"
 	@printf "$(GREY)"; \
-	$(ROBOT) merge \
-			--input $(ONTO) \
-			--input $(SHAPES) \
-			--input $(METADATA) \
-			$(foreach d,$(DATA),--input $(d)) \
-			--input $(FETCHED_DATA) \
-			--input $(PREFIXES) \
-			--output $(MERGED_DATA) \
-		reason \
-			--reasoner HermiT \
-			--axiom-generators "SubClass ClassAssertion PropertyAssertion" \
-			--include-indirect true \
-			--output $(INFERRED_DATA) \
-		$(if $(QUERIES),query $(foreach q,$(QUERIES),--update $(q))) \
-		convert --output $(PROCESSED_DATA) > $(ROBOT_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: ROBOT failed. See log below:$(NC)\n$(GREY)"; cat $(ROBOT_LOG); printf "$(NC)\n"; exit 1; }; \
+	$(VENV_PYTHON) src/python/utils/build_graph.py \
+		--input $(ONTO) $(SHAPES) $(METADATA) $(DATA) $(FETCHED_DATA) \
+		--rules $(RULES) \
+		--update $(QUERIES) \
+		--prefixes $(PREFIXES) \
+		--merged $(MERGED_DATA) \
+		--inferred $(INFERRED_DATA) \
+		--output $(PROCESSED_DATA) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 	@printf "$(BOLD)[*] Setting the modification date and formatting the graph...$(NC)\n"
 	@printf "$(GREY)"; \
@@ -183,7 +166,7 @@ $(PROCESSED_DATA): $(ONTO) $(SHAPES) $(METADATA) $(DATA) $(FETCHED_DATA) $(PREFI
 	printf "$(NC)"
 
 # 6. Trigger the whole graph build process
-build: $(PROCESSED_DATA) ## Build the graph: integration, reasoning, SPARQL processing
+build: $(PROCESSED_DATA) ## Build the graph: integration, inference, SPARQL processing
 
 # ==============================================================================
 # BUILD DOCUMENTATION
@@ -218,7 +201,7 @@ docs: $(SHACL_REPORT) $(QUARTO_METADATA) generate-shacl-docs generate-glossary-d
 # ==============================================================================
 
 # 1. Offline checks of the sources (syntax, prefixes, configuration,
-#    translations, code lists, glossary). They need neither Java, the network
+#    translations, code lists, glossary). They need neither the network
 #    nor a built graph: pytest leaves out the tests marked `network` and
 #    `graph` (see tests/conftest.py).
 check: | $(VENV)/.requirements-installed.stamp ## Check the sources offline, without building the graph

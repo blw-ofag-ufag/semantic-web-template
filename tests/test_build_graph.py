@@ -16,30 +16,30 @@ RULES = sorted(Path("src/sparql/inference").glob("*.rq"))
 EX = Namespace("http://example.org/")
 
 PREFIXES = """
-@prefix : <http://example.org/> .
+@prefix ex: <http://example.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 """
 
 ONTOLOGY = PREFIXES + """
-:Dog rdfs:subClassOf :Mammal .
-:Mammal rdfs:subClassOf :Animal .
-:hasPuppy rdfs:subPropertyOf :hasChild .
-:hasChild rdfs:domain :Parent ; rdfs:range :Child .
-:name rdfs:range :Name .
+ex:Dog rdfs:subClassOf ex:Mammal .
+ex:Mammal rdfs:subClassOf ex:Animal .
+ex:hasPuppy rdfs:subPropertyOf ex:hasChild .
+ex:hasChild rdfs:domain ex:Parent ; rdfs:range ex:Child .
+ex:name rdfs:range ex:Name .
 """
 
 DATA = PREFIXES + """
-:rex a :Dog ; :hasPuppy :bello ; :name "Rex" .
-_:b :name "first file" .
+ex:rex a ex:Dog ; ex:hasPuppy ex:bello ; ex:name "Rex" .
+_:b ex:name "first file" .
 """
 
 MORE_DATA = PREFIXES + """
-_:b :name "second file" .
+_:b ex:name "second file" .
 """
 
 UPDATE = """
-PREFIX : <http://example.org/>
-DELETE { ?s :name ?name } INSERT { ?s :label ?name } WHERE { ?s :name ?name }
+PREFIX ex: <http://example.org/>
+DELETE { ?s ex:name ?name } INSERT { ?s ex:label ?name } WHERE { ?s ex:name ?name }
 """
 
 

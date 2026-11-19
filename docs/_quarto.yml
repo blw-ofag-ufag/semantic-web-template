@@ -6,11 +6,11 @@ project:
 # repository links, the language menu and the announcement banner come from
 # ../project.yml (see metadata-files below).
 website:
-  favicon: assets/favicon.svg
+  favicon: _extensions/ech/favicon.svg
   navbar:
     background: dark
     title: false
-    logo: assets/ech.svg
+    logo: _extensions/ech/ech.svg
     logo-alt: eCH
 
 # Code chunks show only their output; use `#| echo: true` to show the code.
@@ -18,71 +18,27 @@ execute:
   echo: false
 
 bibliography: references.yaml
-csl: assets/din_1505_2_alphanumeric.csl
 
 # Generated from ../project.yml by `make docs`: the eCH metadata shared by all
 # languages (translated by the Lua filter), the pages to render and the
 # website settings.
 metadata-files:
   - _project.yml
-filters:
-  - assets/ech_metadata.lua
-  - quarto
-  - assets/ech_captions.lua
-  - assets/ech_citations.lua
-shortcodes:
-  - assets/ech_shortcodes.lua
 
+# The eCH layout comes from the Quarto extension in _extensions/ech/: Lua
+# filters, shortcodes, the Typst template, styles and the citation style.
+# Keep ech-typst last: rendered earlier, its downloaded images are removed
+# again before the PDF is compiled.
 format:
-  html:
-    theme:
-      light: [cosmo, assets/ech.scss]
-      dark: [cosmo, assets/ech.scss, assets/ech_dark.scss]
-    template-partials:
-      - assets/title-metadata.html
-    toc: true
-    toc-depth: 2
-    highlight-style: github   # muted colours in both the light and the dark theme
-    code-line-numbers: true
-    tbl-colwidths: true       # keep the column widths of the generated grid tables
-    reference-location: margin   # footnotes in the right margin, beside the text
+  ech-html:
     format-links:
       - html
-      - format: typst
-        text: PDF
+      - text: PDF
+        href: index.pdf
         icon: file-earmark-pdf
-      - format: gfm
-        text: Markdown
+      - text: Markdown
+        href: index.md
         icon: markdown
-    number-sections: true
-
-    syntax-definitions:
-     - assets/sparql.xml
-     - assets/turtle.xml
-  gfm: 
-    toc: true
-    toc-depth: 2
-    number-sections: true
-  docx:
-    toc: true
-    toc-depth: 2
-    number-sections: true
-    reference-doc: https://ech.ch/sites/default/files/imce/eCH-Dossier/0001-0030/eCH-0003/11.1.0/Beilagen/Beilagen%20aktuell%2028.11.2025/XXXX_d_DRA_JJJJ-MM-TT_eCH-0XXX_Vx.x.x_Titel.docx
-    link-citations: true
-  typst:
-    papersize: a4
-    mainfont: Nimbus Sans
-    fontsize: 11pt
-    toc: true
-    toc-depth: 3
-    number-sections: true
-    section-numbering: 1.1.1
-    template-partials:
-      - assets/typst-template.typ
-      - assets/typst-show.typ
-    code-line-numbers: true
-    syntax-definitions:
-     - assets/sparql.xml
-     - assets/turtle.xml
-    citeproc: true
-    link-citations: true
+  ech-gfm: default
+  ech-docx: default
+  ech-typst: default

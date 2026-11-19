@@ -1,6 +1,6 @@
 """
 Validity of project.yml, the configuration of the project: the eCH metadata
-(against the codes of docs/assets/ech_vocabulary.yml), the repository, the
+(against the codes of docs/_extensions/ech/ech_vocabulary.yml), the repository, the
 LINDAS endpoints and the description of the dataset.
 """
 import datetime
@@ -12,7 +12,7 @@ import yaml
 
 import project_config
 
-VOCABULARY = Path("docs/assets/ech_vocabulary.yml")
+VOCABULARY = Path("docs/_extensions/ech/ech_vocabulary.yml")
 DOCS_DIR = Path("docs")
 
 SECTIONS = {"date", "ech", "project", "lindas", "dataset"}

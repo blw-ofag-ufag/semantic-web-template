@@ -1,0 +1,3 @@
+# The PlantUML engine (downloaded on first use) and the rendered diagrams
+/vendor/
+/cache/

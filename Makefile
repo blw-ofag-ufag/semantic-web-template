@@ -186,7 +186,7 @@ generate-glossary-docs: src/rdf/data/glossary.skos.ttl $(PREFIXES) src/python/ut
 
 # The metadata that docs/_quarto.yml includes: eCH title page, website title,
 # navigation and announcement, all from the project configuration
-$(QUARTO_METADATA): $(CONFIG) $(CONFIG_SCRIPT) $(DOCS_DIR)/assets/ech_vocabulary.yml | $(VENV)/.requirements-installed.stamp
+$(QUARTO_METADATA): $(CONFIG) $(CONFIG_SCRIPT) $(DOCS_DIR)/_extensions/ech/ech_vocabulary.yml | $(VENV)/.requirements-installed.stamp
 	@$(VENV_PYTHON) $(CONFIG_SCRIPT) quarto -o $(QUARTO_METADATA)
 
 # Quarto runs the Python code chunks with the interpreter of the virtual environment
@@ -268,5 +268,5 @@ publish: check-publication test ## Test, then replace the graph on LINDAS with t
 
 clean: ## Remove all build artifacts, caches, the virtual environment and generated pages
 	@printf "$(BOLD)[*] Cleaning build artifacts...$(NC)\n"
-	@rm -rf $(BUILD_DIR) $(VENV) docs/*/codelists.md docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md $(QUARTO_METADATA)
+	@rm -rf $(BUILD_DIR) $(VENV) docs/*/codelists.md docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md $(QUARTO_METADATA) $(DOCS_DIR)/_extensions/ech/plantuml/cache
 	@find . -path ./.git -prune -o \( -name __pycache__ -o -name .pytest_cache -o -name .quarto -o -name '*_files' -o -name '*_cache' -o -name '*.quarto_ipynb' \) -prune -exec rm -rf {} +

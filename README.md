@@ -85,7 +85,7 @@ The Makefile hides the output of the tools. If a step fails, its log is in `buil
 | `src/sparql/processing/` | SPARQL updates applied to the graph after inference, in alphabetical order. |
 | `src/sparql/queries/` | Example queries, tested against LINDAS. |
 | `docs/` | The documentation: one folder per language and the Quarto configuration. |
-| `docs/assets/` | The eCH layout: Lua filters, Typst template, styles and vocabulary. |
+| `docs/_extensions/ech/` | The eCH layout as a Quarto extension: Lua filters, shortcodes, Typst template, styles, citation style and vocabulary. It provides the formats `ech-html`, `ech-typst`, `ech-gfm` and `ech-docx` that `docs/_quarto.yml` uses. |
 | `tests/` | The Pytest suite. |
 | `build/` | Everything generated: graphs, logs, test reports and the rendered documentation. Not in Git. |
 
@@ -150,6 +150,7 @@ make delete    # only delete the graph on LINDAS
 | [RDFLib](https://rdflib.readthedocs.io/) | Parses, serialises and manipulates RDF in Python. |
 | [PySHACL](https://github.com/RDFLib/pySHACL) | Validates the graph against the SHACL shapes. |
 | [Pytest](https://docs.pytest.org/) | Runs the test suite. |
+| [PlantUML](https://plantuml.com/) | Draws the UML diagrams of the documentation from code blocks. The JavaScript build of the engine runs on the Deno runtime that ships with Quarto, so Java is not needed; it is downloaded on first use. |
 | [Quarto](https://quarto.org/) | Renders the documentation. It runs the Python code chunks with the virtual environment, so no other language runtime is needed. |
 | [Matplotlib](https://matplotlib.org/) | Draws the figures of the documentation. |
 

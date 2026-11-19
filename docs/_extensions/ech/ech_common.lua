@@ -1,7 +1,7 @@
 -- Shared logic of the eCH metadata filter and shortcodes.
 --
 -- Reads the language-neutral codes under `ech` in the document metadata
--- (see project.yml) and translates them with docs/assets/ech_vocabulary.yml
+-- (see project.yml) and translates them with docs/_extensions/ech/ech_vocabulary.yml
 -- into the rows of the eCH title page and a few display strings.
 
 local M = {}

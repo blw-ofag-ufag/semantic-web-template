@@ -23,7 +23,7 @@ from rdflib.namespace import DCAT, DCTERMS, RDF, VOID, XSD, NamespaceManager
 
 ROOT = Path(__file__).resolve().parents[3]
 CONFIG = ROOT / "project.yml"
-VOCABULARY = ROOT / "docs" / "assets" / "ech_vocabulary.yml"
+VOCABULARY = ROOT / "docs" / "_extensions" / "ech" / "ech_vocabulary.yml"
 
 # Documents whose status precedes "approved" are not published yet.
 UNPUBLISHED_STATUSES = {"in-progress", "draft", "proposal"}

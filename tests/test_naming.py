@@ -1,6 +1,6 @@
 """
 Naming conventions of .github/CONTRIBUTING.md: file names, the project
-namespace and the local names of RDF resources.
+namespace and the local names of classes and properties.
 
 Violations are reported as warnings (one per convention), not as failures:
 the conventions are recommendations, and renaming published resources is a
@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pytest
 from rdflib import Graph, URIRef
-from rdflib.namespace import OWL, RDF, RDFS, SH, SKOS
+from rdflib.namespace import OWL, RDF, RDFS
 
 import project_config
 
@@ -28,7 +28,6 @@ CONVENTIONAL_FILES = {"README.md", "LICENSE.md", "CLEANUP.md", "CONTRIBUTING.md"
 SNAKE_CASE = re.compile(r"_?[a-z0-9]+(_[a-z0-9]+)*")  # Quarto config files start with "_"
 PASCAL_CASE = re.compile(r"[A-Z][a-z0-9]*([A-Z][a-z0-9]*)*")
 CAMEL_CASE = re.compile(r"[a-z][a-z0-9]*([A-Z][a-z0-9]*)*")
-IDENTIFIER = re.compile(r"(?=.*[0-9])[a-z0-9][a-z0-9_-]*")  # e.g. person:1, invoice:2021-03, a hash
 VERB_PREFIX = re.compile(r"(has|is)[A-Z]")
 SUBNAMESPACE = re.compile(r"[a-z][a-z0-9_]*/")
 
@@ -110,60 +109,33 @@ def test_project_namespace_follows_convention():
     report("Namespaces not following the convention", violations)
 
 
-def classify(graph, node, predicates):
-    """Returns 'class', 'property', 'shape', 'ontology' or 'individual' for a resource."""
-    types = set(graph.objects(node, RDF.type))
-    if types & {OWL.Class, RDFS.Class}:
-        return "class"
-    if node in predicates or types & {RDF.Property, OWL.ObjectProperty, OWL.DatatypeProperty, OWL.AnnotationProperty}:
-        return "property"
-    if types & {SH.NodeShape, SH.PropertyShape}:
-        return "shape"
-    if OWL.Ontology in types:
-        return "ontology"
-    return "individual"
+CLASS_TYPES = {OWL.Class, RDFS.Class}
+PROPERTY_TYPES = {RDF.Property, OWL.ObjectProperty, OWL.DatatypeProperty, OWL.AnnotationProperty}
 
 
-def test_resource_names_follow_convention(final_graph):
+def test_class_and_property_names_follow_convention(final_graph):
     """
-    Local names of resources in the project namespace (CONTRIBUTING.md, "RDF
-    resource naming convention"): classes and individuals in PascalCase,
-    properties in camelCase without a leading verb, individuals in a
-    sub-namespace (identifiers such as person:1 are allowed for individuals).
+    Local names of the classes and properties in the project namespace
+    (CONTRIBUTING.md, "RDF resource naming convention"): classes in PascalCase,
+    properties in camelCase without a leading verb. All other resources
+    (individuals, code list entries, shapes, the ontology) are named freely.
     """
     base = project_namespace()
     if not base:
         pytest.skip("src/rdf/prefixes.ttl declares no project namespace")
 
+    def own(nodes):
+        return {n for n in nodes if isinstance(n, URIRef) and str(n).startswith(base) and str(n) != base}
+
+    def name(node):
+        return str(node)[len(base):].rpartition("/")[2]
+
     qname = qname_function()
-    predicates = set(final_graph.predicates())
-    resources = {node for triple in final_graph for node in triple
-                 if isinstance(node, URIRef) and str(node).startswith(base) and str(node) != base}
+    classes = own(s for kind in CLASS_TYPES for s in final_graph.subjects(RDF.type, kind))
+    properties = own(final_graph.predicates()) | own(s for kind in PROPERTY_TYPES for s in final_graph.subjects(RDF.type, kind))
+    properties -= classes
 
-    violations = {"class": set(), "property": set(), "verb": set(), "individual": set(), "subnamespace": set()}
-    for node in sorted(resources):
-        local = str(node)[len(base):]
-        subnamespace, _, name = local.rpartition("/")
-        kind = classify(final_graph, node, predicates)
-        if kind == "class":
-            if not PASCAL_CASE.fullmatch(name):
-                violations["class"].add(f"{qname(node)} (class)")
-        elif kind == "property":
-            if not CAMEL_CASE.fullmatch(name):
-                violations["property"].add(f"{qname(node)} (property)")
-            elif VERB_PREFIX.match(name):
-                violations["verb"].add(f"{qname(node)} (property)")
-        elif kind == "individual":
-            kinds = ", ".join(sorted(qname(t) for t in final_graph.objects(node, RDF.type)
-                                     if t not in {OWL.NamedIndividual, OWL.Thing})) or "individual"
-            if not subnamespace:
-                violations["subnamespace"].add(f"{qname(node)} ({kinds})")
-            if not (PASCAL_CASE.fullmatch(name) or IDENTIFIER.fullmatch(name)):
-                violations["individual"].add(f"{qname(node)} ({kinds})")
-        # shapes and the ontology IRI are not covered by the convention
-
-    report("Classes not in PascalCase", violations["class"])
-    report("Properties not in camelCase", violations["property"])
-    report("Properties starting with a verb (prefer eppoCode over hasEppoCode)", violations["verb"])
-    report("Individuals not in PascalCase (or an identifier)", violations["individual"])
-    report("Individuals directly in the project namespace instead of a sub-namespace", violations["subnamespace"])
+    report("Classes not in PascalCase", {qname(n) for n in classes if not PASCAL_CASE.fullmatch(name(n))})
+    report("Properties not in camelCase", {qname(n) for n in properties if not CAMEL_CASE.fullmatch(name(n))})
+    report("Properties starting with a verb (prefer eppoCode over hasEppoCode)",
+           {qname(n) for n in properties if CAMEL_CASE.fullmatch(name(n)) and VERB_PREFIX.match(name(n))})

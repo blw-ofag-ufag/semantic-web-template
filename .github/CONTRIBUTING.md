@@ -56,7 +56,7 @@ https://agriculture.ld.admin.ch/eCH-1234/3/eppoCode
 
 Aligning with standard Semantic Web conventions, we enforce the following casing rules for URI local names:
 
-- **Classes and individuals** (e.g., instances of `owl:Class` and instances of these): Use **PascalCase** (a.k.a. UpperCamelCase).
+- **Classes and important individuals** (e.g., instances of `owl:Class`): Use **PascalCase** (a.k.a. UpperCamelCase).
 - **Properties** (e.g., `owl:ObjectProperty`, `owl:DatatypeProperty`): Use **camelCase** (a.k.a. lowerCamelCase). Don't include starting verbs, i.e. `eppoCode` would be preferred over `hasEppoCode`.
 
 Ensure identifiers are meaningful to facilitate readability and improve [DX](https://en.wikipedia.org/wiki/Developer_experience).

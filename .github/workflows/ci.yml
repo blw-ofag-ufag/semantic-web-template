@@ -41,6 +41,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y fonts-urw-base35
 
+      # ROBOT is downloaded by `make setup` unless the cache provides it.
+      - name: Cache ROBOT
+        uses: actions/cache@v4
+        with:
+          path: venv/bin/robot.jar
+          key: robot-${{ hashFiles('Makefile') }}
+
       - name: Set up dependencies
         run: make setup
 
@@ -55,10 +62,12 @@ jobs:
           LINDAS_PASSWORD: ${{ secrets.LINDAS_PASSWORD }}
         run: make build
 
+      # On main, `make publish` runs the tests itself before the upload.
       - name: Run tests
+        if: github.ref != 'refs/heads/main'
         run: make test
 
-      - name: Publish RDF graph to LINDAS
+      - name: Run tests and publish RDF graph to LINDAS
         if: github.ref == 'refs/heads/main'
         env:
           LINDAS_USER: ${{ secrets.LINDAS_USER }}

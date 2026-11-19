@@ -1,16 +1,20 @@
 # Warning: Please do not adjust this script in any other place than the upstream repo template
 """
-Sets the modification date of the dataset that describes the named graph.
+Sets the modification date of the dataset that describes the named graph,
+and writes the graph in its final form.
 
 As the last step of the build, the graph is compared with the graph that is
 currently on LINDAS. If their content differs, the dataset gets today's date
 as schema:dateModified and dcterms:modified; otherwise the date found on
 LINDAS is kept. The comparison uses a content fingerprint that ignores blank
-node identifiers and the modification date itself.
+node identifiers and the modification date itself. The graph is then written
+back as Turtle with the prefixes of the project. This is the only place of
+the build where the graph is formatted for readers.
 
     python graph_metadata.py --graph build/rdf/03-processed.ttl \\
         --iri https://lindas.admin.ch/foag/ogd \\
-        --endpoint https://.../rdf-graphs/service
+        --endpoint https://.../rdf-graphs/service \\
+        --prefixes src/rdf/prefixes.ttl
 
 The credentials are read from the environment variables LINDAS_USER and
 LINDAS_PASSWORD, so that they do not appear on the command line. Without
@@ -25,8 +29,11 @@ import os
 import sys
 import urllib.request
 import urllib.error
+from pathlib import Path
 from rdflib import Graph, Literal, URIRef, BNode
 from rdflib.namespace import DCTERMS, XSD
+
+from project_config import bind_prefixes
 
 SCHEMA_MODIFIED = URIRef("http://schema.org/dateModified")
 DATE_PREDICATES = (SCHEMA_MODIFIED, DCTERMS.modified)
@@ -66,14 +73,15 @@ def fetch_live_graph(endpoint, iri, user, password):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--graph", required=True, help="Turtle file to be published (updated in place)")
+    parser.add_argument("--graph", required=True, help="Turtle file to be published (rewritten in place)")
     parser.add_argument("--iri", required=True, help="IRI of the named graph (and of the dataset)")
     parser.add_argument("--endpoint", help="Graph Store endpoint (…/rdf-graphs/service)")
+    parser.add_argument("--prefixes", type=Path, help="Prefix file (.ttl); the graph is written with exactly these prefixes")
     args = parser.parse_args()
     user, password = os.environ.get("LINDAS_USER"), os.environ.get("LINDAS_PASSWORD")
 
     dataset = URIRef(args.iri)
-    local = Graph()
+    local = Graph(bind_namespaces="none")
     local.parse(args.graph, format="turtle")
     if (dataset, None, None) not in local:
         sys.exit(f"The graph contains no triples about the dataset <{args.iri}>; see the dataset section of project.yml.")
@@ -92,10 +100,9 @@ def main():
         local.remove((dataset, predicate, None))
         local.add((dataset, predicate, date))
 
-    with open(args.graph, "a", encoding="utf-8") as f:
-        f.write("\n")
-        for predicate in DATE_PREDICATES:
-            f.write(f"<{dataset}> <{predicate}> {date.n3()} .\n")
+    if args.prefixes:
+        bind_prefixes(local, args.prefixes)
+    local.serialize(destination=args.graph, format="turtle")
 
 
 if __name__ == "__main__":

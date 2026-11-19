@@ -61,7 +61,7 @@ Only the credentials for LINDAS are kept elsewhere, see [Publication](#publicati
 | --- | --- | --- |
 | `make setup` | Creates the virtual environment `venv/`, installs the Python packages and downloads ROBOT. | Python, network |
 | `make check` | Checks the sources: Turtle syntax, prefixes, the project configuration, translations, code lists and glossary. Takes about a second. | |
-| `make build` | Builds the graph into `build/rdf/03-processed.ttl`. Takes about a minute. | Java, network |
+| `make build` | Builds the graph into `build/rdf/03-processed.ttl`. Takes about half a minute. | Java, network |
 | `make test` | Builds the graph, validates it with SHACL and runs the whole test suite. Takes about three minutes. | Java, network |
 | `make docs` | Generates the data model, code list and glossary pages and renders the website and the PDF into `build/docs/`. | Quarto |
 | `make` | Runs `make test` and `make docs`. | |
@@ -81,7 +81,7 @@ The Makefile hides the output of the tools. If a step fails, its log is in `buil
 | `src/rdf/data/` | Manually curated data, code lists and the glossary. |
 | `src/rdf/prefixes.ttl` | All prefixes of the project. Every other file must use them consistently. |
 | `src/python/pipeline/` | Data integration scripts, run in alphabetical order. |
-| `src/python/utils/` | Tools of the template: Turtle serialiser, documentation generators, modification date. |
+| `src/python/utils/` | Tools of the template: project configuration, documentation generators, modification date. |
 | `src/sparql/processing/` | SPARQL updates applied to the graph after reasoning, in alphabetical order. |
 | `src/sparql/queries/` | Example queries, tested against LINDAS. |
 | `docs/` | The documentation: one folder per language and the Quarto configuration. |
@@ -103,6 +103,8 @@ Each step writes one file to `build/rdf/`, so that the result of every step can 
 | `02-inferred.ttl` | HermiT infers class and property assertions. |
 | `03-processed.ttl` | The SPARQL updates in `src/sparql/processing/` are applied and the modification date of the dataset is set. This is the graph that is tested and published. |
 | `04-shacl-report.ttl` | pyshacl validates the graph against `model.shacl.ttl`. |
+
+ROBOT merges, reasons and applies the updates in a single run. `01-merged.ttl` and `02-inferred.ttl` are written as ROBOT leaves them, with full IRIs where it does not know a prefix. Only `03-processed.ttl` is formatted with the prefixes of `src/rdf/prefixes.ttl`.
 
 The modification date is today's date if the graph differs from the one on LINDAS or if LINDAS cannot be reached, otherwise the date found there.
 

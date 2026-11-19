@@ -19,7 +19,7 @@ from pathlib import Path
 
 import yaml
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
-from rdflib.namespace import DCAT, DCTERMS, RDF, VOID, XSD
+from rdflib.namespace import DCAT, DCTERMS, RDF, VOID, XSD, NamespaceManager
 
 ROOT = Path(__file__).resolve().parents[3]
 CONFIG = ROOT / "project.yml"
@@ -175,7 +175,8 @@ def dataset_graph(config):
 
 
 def bind_prefixes(graph, prefix_file):
-    """Binds the prefixes of a Turtle file to the graph."""
+    """Gives the graph exactly the prefixes of a Turtle file, dropping all others."""
+    graph.namespace_manager = NamespaceManager(Graph(bind_namespaces="none"), bind_namespaces="none")
     prefixes = Graph(bind_namespaces="none")
     prefixes.parse(prefix_file, format="turtle")
     for prefix, namespace in prefixes.namespaces():

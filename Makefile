@@ -46,11 +46,9 @@ LINDAS_GRAPH_STORE = $$($(VENV_PYTHON) $(CONFIG_SCRIPT) get lindas.graph-store)
 
 # Logs
 LOG_DIR          := $(BUILD_DIR)/log
-MERGE_LOG        := $(LOG_DIR)/01-merge.log
-INFER_LOG        := $(LOG_DIR)/02-infer.log
-QUERY_LOG        := $(LOG_DIR)/03-query.log
-SHACL_LOG        := $(LOG_DIR)/04-shacl.log
-QUARTO_LOG       := $(LOG_DIR)/05-quarto.log
+ROBOT_LOG        := $(LOG_DIR)/01-robot.log
+SHACL_LOG        := $(LOG_DIR)/02-shacl.log
+QUARTO_LOG       := $(LOG_DIR)/03-quarto.log
 
 # Colors for logging
 RED              := \033[0;31m
@@ -59,6 +57,9 @@ BOLD       := \033[1;37m
 NC               := \033[0m
 
 .PHONY: all help robot check test docs clean check-python venv install-dependencies setup build delete publish check-publication generate-shacl-docs generate-glossary-docs
+
+# A failed recipe must not leave a half-written target behind
+.DELETE_ON_ERROR:
 
 # Default target
 all: test docs ## Run the tests and build the documentation (default)
@@ -87,7 +88,7 @@ check-python:
 $(VENV_PYTHON):
 	@command -v $(PYTHON) >/dev/null 2>&1 || \
 		(printf "$(RED)ERROR: Python interpreter not found.$(NC)\n"; exit 1)
-	@test -d $(VENV) || $(PYTHON) -m venv $(VENV)
+	@$(PYTHON) -m venv $(VENV)
 	@printf "$(GREY)"; $(VENV_PYTHON) -m pip install --upgrade pip || { printf "$(NC)"; exit 1; }; printf "$(NC)"
 
 venv: $(VENV_PYTHON)
@@ -101,7 +102,7 @@ install-dependencies: $(VENV)/.requirements-installed.stamp
 
 # 4. Install robot
 $(VENV_BIN)/robot.jar: | $(VENV_PYTHON)
-	@printf "$(GREY)"; curl -sL https://github.com/ontodev/robot/releases/download/$(ROBOT_VERSION)/robot.jar -o $(VENV_BIN)/robot.jar || { printf "$(NC)"; exit 1; }; printf "$(NC)"
+	@printf "$(GREY)"; curl -sSL --fail https://github.com/ontodev/robot/releases/download/$(ROBOT_VERSION)/robot.jar -o $(VENV_BIN)/robot.jar || { printf "$(NC)"; exit 1; }; printf "$(NC)"
 
 robot: $(VENV_BIN)/robot.jar
 
@@ -123,7 +124,7 @@ $(METADATA): $(CONFIG) $(CONFIG_SCRIPT) $(PREFIXES) | $(RDF_DIR) $(VENV)/.requir
 	@$(VENV_PYTHON) $(CONFIG_SCRIPT) metadata -o $(METADATA) -p $(PREFIXES)
 
 # 3. Fetch, Query, and Transform source data sequentially
-$(FETCHED_DATA): $(PIPELINE_SCRIPTS) $(PREFIXES) src/python/utils/turtle_serializer.py | $(RDF_DIR) $(LOG_DIR) $(VENV)/.requirements-installed.stamp
+$(FETCHED_DATA): $(PIPELINE_SCRIPTS) | $(RDF_DIR) $(LOG_DIR) $(VENV)/.requirements-installed.stamp
 	@printf "$(BOLD)[*] Running data integration pipelines...$(NC)\n"
 	@printf "$(GREY)"; \
 	if [ -n "$(PIPELINE_SCRIPTS)" ]; then \
@@ -135,7 +136,6 @@ $(FETCHED_DATA): $(PIPELINE_SCRIPTS) $(PREFIXES) src/python/utils/turtle_seriali
 		echo "No pipeline scripts found. Creating empty data file."; \
 		touch $(FETCHED_DATA); \
 	fi; \
-	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(FETCHED_DATA) -p $(PREFIXES) -o $(FETCHED_DATA) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
 # 4. Check that all turtle files are syntactically valid
@@ -146,55 +146,43 @@ $(LOG_DIR)/syntax-check.stamp: $(DATA) $(ONTO) $(SHAPES) $(METADATA) $(PREFIXES)
 	printf "$(NC)"
 	@touch $@
 
-# 5. Merge ontology, shapes, static data, fetched data, and prefixes
-$(MERGED_DATA): $(ONTO) $(SHAPES) $(METADATA) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(LOG_DIR)/syntax-check.stamp src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
-	@printf "$(BOLD)[*] Merging ontology, shapes and data...$(NC)\n"
+# 5. Merge, reason and process the graph in a single ROBOT run, so that Java
+#    starts once and the graph is parsed once. ROBOT writes the result of each
+#    step to its own file for inspection:
+#      - merge: ontology, shapes, dataset description, static and fetched data
+#      - reason: inference with HermiT
+#      - query: the SPARQL updates of src/sparql/processing/
+#    The intermediate files are written as ROBOT leaves them. Only the final
+#    graph is formatted with the prefixes of the project, by the script that
+#    sets the modification date of the dataset. The date is part of the build,
+#    so that the graph that is tested is exactly the graph that is published.
+#    It is today's date if the content differs from the graph on LINDAS (or if
+#    LINDAS cannot be reached), otherwise the date found there.
+$(PROCESSED_DATA): $(ONTO) $(SHAPES) $(METADATA) $(DATA) $(FETCHED_DATA) $(PREFIXES) $(QUERIES) $(CONFIG) $(LOG_DIR)/syntax-check.stamp $(CONFIG_SCRIPT) src/python/utils/graph_metadata.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
+	@printf "$(BOLD)[*] Merging, reasoning (HermiT) and applying SPARQL updates...$(NC)\n"
 	@printf "$(GREY)"; \
 	$(ROBOT) merge \
-		--input $(ONTO) \
-		--input $(SHAPES) \
-		--input $(METADATA) \
-		$(foreach d,$(DATA),--input $(d)) \
-		--input $(FETCHED_DATA) \
-		--input $(PREFIXES) \
-		--output $(MERGED_DATA) > $(MERGE_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: ROBOT merge failed. See log below:$(NC)\n$(GREY)"; cat $(MERGE_LOG); printf "$(NC)\n"; exit 1; }; \
-	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(MERGED_DATA) -p $(PREFIXES) -o $(MERGED_DATA) || { printf "$(NC)"; exit 1; }; \
+			--input $(ONTO) \
+			--input $(SHAPES) \
+			--input $(METADATA) \
+			$(foreach d,$(DATA),--input $(d)) \
+			--input $(FETCHED_DATA) \
+			--input $(PREFIXES) \
+			--output $(MERGED_DATA) \
+		reason \
+			--reasoner HermiT \
+			--axiom-generators "SubClass ClassAssertion PropertyAssertion" \
+			--include-indirect true \
+			--output $(INFERRED_DATA) \
+		$(if $(QUERIES),query $(foreach q,$(QUERIES),--update $(q))) \
+		convert --output $(PROCESSED_DATA) > $(ROBOT_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: ROBOT failed. See log below:$(NC)\n$(GREY)"; cat $(ROBOT_LOG); printf "$(NC)\n"; exit 1; }; \
 	printf "$(NC)"
-
-# 6. Inference using HermiT
-$(INFERRED_DATA): $(MERGED_DATA) $(PREFIXES) src/python/utils/turtle_serializer.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
-	@printf "$(BOLD)[*] Running logical inference (HermiT)...$(NC)\n"
+	@printf "$(BOLD)[*] Setting the modification date and formatting the graph...$(NC)\n"
 	@printf "$(GREY)"; \
-	$(ROBOT) reason \
-		--input $(MERGED_DATA) \
-		--reasoner HermiT \
-		--axiom-generators "SubClass ClassAssertion PropertyAssertion" \
-		--include-indirect true \
-		--output $(INFERRED_DATA) > $(INFER_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: ROBOT reason failed. See log below:$(NC)\n$(GREY)"; cat $(INFER_LOG); printf "$(NC)\n"; exit 1; }; \
-	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(INFERRED_DATA) -p $(PREFIXES) -o $(INFERRED_DATA) || { printf "$(NC)"; exit 1; }; \
+	$(VENV_PYTHON) src/python/utils/graph_metadata.py --graph $(PROCESSED_DATA) --iri "$(LINDAS_GRAPH)" --endpoint "$(LINDAS_GRAPH_STORE)" --prefixes $(PREFIXES) || { printf "$(NC)"; exit 1; }; \
 	printf "$(NC)"
 
-# 7. Model-driven processing via SPARQL, then set the modification date of the
-#    dataset. The date is part of the build, so that the graph that is tested
-#    is exactly the graph that is published. It is today's date if the content
-#    differs from the graph on LINDAS (or if LINDAS cannot be reached),
-#    otherwise the date found there.
-$(PROCESSED_DATA): $(INFERRED_DATA) $(QUERIES) $(PREFIXES) $(CONFIG) src/python/utils/turtle_serializer.py src/python/utils/graph_metadata.py | $(LOG_DIR) $(VENV_BIN)/robot.jar $(VENV)/.requirements-installed.stamp
-	@printf "$(BOLD)[*] Applying SPARQL updates...$(NC)\n"
-	@printf "$(GREY)"; \
-	if [ -z "$(QUERIES)" ]; then \
-		cp $(INFERRED_DATA) $(PROCESSED_DATA); \
-	else \
-		$(ROBOT) query \
-			--input $(INFERRED_DATA) \
-			$(foreach q,$(QUERIES),--update $(q)) \
-			convert --output $(PROCESSED_DATA) > $(QUERY_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: ROBOT query failed. See log below:$(NC)\n$(GREY)"; cat $(QUERY_LOG); printf "$(NC)\n"; exit 1; }; \
-	fi; \
-	$(VENV_PYTHON) src/python/utils/graph_metadata.py --graph $(PROCESSED_DATA) --iri "$(LINDAS_GRAPH)" --endpoint "$(LINDAS_GRAPH_STORE)" || { rm -f $(PROCESSED_DATA); printf "$(NC)"; exit 1; }; \
-	$(VENV_PYTHON) src/python/utils/turtle_serializer.py -i $(PROCESSED_DATA) -p $(PREFIXES) -o $(PROCESSED_DATA) || { printf "$(NC)"; exit 1; }; \
-	printf "$(NC)"
-
-# 8. Trigger the whole graph build process
+# 6. Trigger the whole graph build process
 build: $(PROCESSED_DATA) ## Build the graph: integration, reasoning, SPARQL processing
 
 # ==============================================================================

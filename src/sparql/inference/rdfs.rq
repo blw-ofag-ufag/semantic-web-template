@@ -1,0 +1,31 @@
+# Warning: Please do not adjust this file in any other place than the upstream repo template
+#
+# RDFS inference as SPARQL updates. The build applies all files of this folder
+# to the merged graph, repeatedly, until no new triple is derived.
+#
+# The four rules below cover what an ontology usually states about the data:
+# sub-properties, domains, ranges and sub-classes. They do not replace an OWL
+# reasoner: restrictions, inverse or transitive properties and consistency
+# checks are not evaluated. Add a further rule file to this folder for what a
+# project needs beyond RDFS, for example
+#
+#     INSERT { ?o ?q ?s } WHERE { ?p owl:inverseOf ?q . ?s ?p ?o }
+
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# A statement with a property also holds for its super-properties.
+INSERT { ?s ?q ?o }
+WHERE  { ?p rdfs:subPropertyOf ?q . ?s ?p ?o . FILTER(?p != ?q) } ;
+
+# The subject of a statement is an instance of the domain of the property.
+INSERT { ?s rdf:type ?class }
+WHERE  { ?p rdfs:domain ?class . ?s ?p ?o } ;
+
+# The object of a statement is an instance of the range of the property.
+INSERT { ?o rdf:type ?class }
+WHERE  { ?p rdfs:range ?class . ?s ?p ?o . FILTER(!isLiteral(?o)) } ;
+
+# An instance of a class is an instance of its super-classes.
+INSERT { ?s rdf:type ?super }
+WHERE  { ?class rdfs:subClassOf ?super . ?s rdf:type ?class . FILTER(?class != ?super) }

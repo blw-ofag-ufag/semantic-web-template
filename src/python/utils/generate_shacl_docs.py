@@ -500,10 +500,7 @@ def class_statistics(data, target_class):
     return {"instances": len(counts), "avg": sum(counts) / len(counts), "min": min(counts), "max": max(counts)}
 
 
-LINDAS_YASGUI = "https://lindas.admin.ch/sparql/#"
-
-
-def yasgui_link(g, target_class, properties, graph_iri):
+def yasgui_link(g, target_class, properties, graph_iri, yasgui):
     """Link to LINDAS' Yasgui with a prepared query that lists the instances
     of the class with the properties of the property table. `properties` is a
     list of (path, required) pairs; required properties are matched directly,
@@ -541,10 +538,10 @@ def yasgui_link(g, target_class, properties, graph_iri):
             lines.append(f"  OPTIONAL {{ ?iri {path} ?{v} . }}")
     lines.append("}")
     lines.append("LIMIT 1000")
-    return LINDAS_YASGUI + "query=" + quote("\n".join(lines), safe="")
+    return yasgui + "#query=" + quote("\n".join(lines), safe="")
 
 
-def fact_sheet(g, data, shape, target_class, properties, graph_iri, trans):
+def fact_sheet(g, data, shape, target_class, properties, lindas, trans):
     """Key-value lines (Pandoc definition list) summarising a node shape."""
     if target_class is not None and target_class == shape:
         # a class that is its own shape ("shape class")
@@ -562,7 +559,7 @@ def fact_sheet(g, data, shape, target_class, properties, graph_iri, trans):
             facts.append((trans['facts_figures'], template.format(
                 instances=stats['instances'], min=stats['min'], max=stats['max'], avg=f"{stats['avg']:.1f}")))
             # comma-separated list of access points (more to come, e.g. i14y)
-            access = [trans['facts_open_yes'].format(link=yasgui_link(g, target_class, properties, graph_iri))]
+            access = [trans['facts_open_yes'].format(link=yasgui_link(g, target_class, properties, lindas.get("graph"), lindas.get("yasgui", "https://lindas.admin.ch/sparql/")))]
             facts.append((trans['facts_open_data'], ", ".join(access)))
         else:
             facts.append((trans['facts_open_data'], trans['facts_open_no']))
@@ -655,14 +652,14 @@ def main():
     parser.add_argument("-d", "--docs_dir", required=True, help="Docs directory containing language subdirectories")
     parser.add_argument("-p", "--prefixes", required=False, help="Prefix file (.ttl) to override QNames")
     parser.add_argument("-g", "--graph", required=False, help="Processed data graph (.ttl) for instance statistics")
-    parser.add_argument("-c", "--config", required=False, help="eCH metadata (.yml) with the named graph on LINDAS (ech.graph)")
+    parser.add_argument("-c", "--config", required=False, help="Project configuration (project.yml) with the named graph and the query editor on LINDAS")
     args = parser.parse_args()
 
-    graph_iri = None
+    lindas = {}
     if args.config and Path(args.config).is_file():
         import yaml
         with open(args.config, encoding="utf-8") as f:
-            graph_iri = (yaml.safe_load(f) or {}).get("ech", {}).get("graph")
+            lindas = (yaml.safe_load(f) or {}).get("lindas") or {}
 
     data = None
     if args.graph and Path(args.graph).is_file():
@@ -806,7 +803,7 @@ def main():
             properties = [(p['path'], p['minCount'] is not None and int(p['minCount']) > 0) for p in enriched_props if p['path'] is not None]
             md_lines.append(f"### {trans['section_overview']} {{#sec-{slug}-overview .unlisted}}")
             md_lines.append("")
-            md_lines.extend(fact_sheet(g, data, shape, target_class, properties, graph_iri, trans))
+            md_lines.extend(fact_sheet(g, data, shape, target_class, properties, lindas, trans))
             md_lines.append("")
 
             if enriched_props:

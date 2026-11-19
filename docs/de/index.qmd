@@ -27,7 +27,7 @@ Und etwas Text schreiben.
 
 Und noch mehr Text schreiben. Vielleicht sogar mit einem schönen Bild.
 
-![Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt. Hat eine Abbildung eine Beschriftung, erscheint sie im Abbildungsverzeichnis. Dort wird nur der erste Satz der Beschriftung angezeigt.](https://fastly.picsum.photos/id/653/536/354.jpg?hmac=3InR8I5KmwbdkPHehlM8BMPd_BDHG_RWZkxt_IkeQGY){#fig-example}
+![Fügen Sie immer etwas Text hinzu, um zu beschreiben, was das Bild zeigt. Hat eine Abbildung eine Beschriftung, erscheint sie im Abbildungsverzeichnis. Dort wird nur der erste Satz der Beschriftung angezeigt.](https://upload.wikimedia.org/wikipedia/commons/8/84/Mountan_Laurel_Ajax_the_Chinook_dog.jpg){#fig-example}
 
 Bei der Darstellung von Diagrammen sollte versucht werden, diese direkt in Mermaid JS zu erstellen; dies macht zukünftige Änderungen oder Übersetzungen sehr einfach.
 
@@ -95,7 +95,7 @@ Abbildungen lassen sich auch mit Python-Code erzeugen, wie @fig-python-example z
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator, MaxNLocator
 
-plt.style.use("../assets/ech.mplstyle")
+plt.style.use("../_extensions/ech/ech.mplstyle")
 tracks = {"Rock": 1297, "Latin": 579, "Metal": 374, "Jazz": 130}
 tracks = dict(sorted(tracks.items(), key=lambda item: item[1]))
 fig, ax = plt.subplots(figsize=(6, 2.5))
@@ -129,6 +129,70 @@ $$ {#eq-example}
 [^2]: Eine zweite Fussnote mit einem Link auf [ech.ch](https://www.ech.ch/).
 
 Der folgende Absatz ist bewusst Unsinn und dient nur dem Test der Zitierweise (im Fliesstext ohne Klammern mit `@key`, sonst in Klammern mit `[@key]`): Gemäss @eCH-0003:11.1.0 müssen alle Postadressen [@eCH-0010:8.1.0] in Turtle [@Turtle] serialisiert, als DCAT-Katalog [@DCAT; @eCH-0200:3.0.1] mit SHACL [@SHACL] geprüft und per SPARQL [@SPARQL] als Linked Open Data [@eCH-0205:1.0] über landwirtschaftliche Kulturen [@eCH-0265:1.0.0] in JSON-LD [@JSON-LD] und OWL [@OWL2] veröffentlicht werden, wie es das Semantic Web [@berners2023semantic] vorsieht.
+
+## UML-Diagramme {#sec-uml}
+
+UML-Diagramme werden als PlantUML-Code direkt im Dokument geschrieben und beim Rendern gezeichnet, wie @fig-model zeigt. Das Beispiel verwendet Vererbung, eine Schnittstelle, Komposition und Aggregation, Multiplizitäten, eine Aufzählung, ein Paket und eine Notiz.
+
+```{.plantuml #fig-model fig-cap="Vereinfachtes Datenmodell als UML-Klassendiagramm. Das Diagramm wird aus PlantUML-Code im Dokument erzeugt."}
+skinparam packageStyle rectangle
+hide empty members
+
+abstract class CreativeWork {
+  +name: string
+  +datePublished: date
+}
+class Album {
+  +numTracks: integer
+}
+class Track {
+  +duration: Duration
+  +contentSize: integer
+  +play(): void
+}
+class Artist <<Agent>> {
+  +name: string
+}
+class Genre
+enum MediaType {
+  MPEG
+  AAC
+  MPEG4
+}
+interface Purchasable {
+  +price(): Money
+}
+
+package Sales {
+  class Customer {
+    +name: string
+    -email: string
+  }
+  class Invoice {
+    +date: date
+    +total: Money
+  }
+  class InvoiceLine {
+    +quantity: integer
+  }
+}
+
+CreativeWork <|-- Album
+CreativeWork <|-- Track
+Purchasable <|.. Track
+Album "1" *-- "1..*" Track : contains
+Artist "1" o-- "0..*" Album : byArtist
+Track "0..*" --> "1" Genre : genre
+Track "0..*" --> "1" MediaType : encodingFormat
+Customer "1" -- "0..*" Invoice : places
+Invoice "1" *-- "1..*" InvoiceLine
+InvoiceLine "0..*" --> "1" Track : orderedItem
+
+note right of Purchasable
+  Everything that can be
+  sold implements **price()**.
+end note
+```
 
 # Hinweise zur Verwendung {#sec-usage-notes}
 

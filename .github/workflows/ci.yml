@@ -27,12 +27,6 @@ jobs:
           python-version: '3.10'
           cache: 'pip'
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
@@ -44,19 +38,27 @@ jobs:
       - name: Set up dependencies
         run: make setup
 
+      - name: Check sources
+        run: make check
+
+      # The build compares the graph with the one on LINDAS to set the
+      # modification date of the dataset, hence the credentials.
       - name: Build processed RDF graph
+        env:
+          LINDAS_USER: ${{ secrets.LINDAS_USER }}
+          LINDAS_PASSWORD: ${{ secrets.LINDAS_PASSWORD }}
         run: make build
 
+      # On main, `make publish` runs the tests itself before the upload.
       - name: Run tests
+        if: github.ref != 'refs/heads/main'
         run: make test
 
-      - name: Publish RDF graph to LINDAS
+      - name: Run tests and publish RDF graph to LINDAS
         if: github.ref == 'refs/heads/main'
         env:
-          USER: ${{ secrets.USER }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          GRAPH: ${{ secrets.GRAPH }}
-          ENDPOINT: ${{ secrets.ENDPOINT }}
+          LINDAS_USER: ${{ secrets.LINDAS_USER }}
+          LINDAS_PASSWORD: ${{ secrets.LINDAS_PASSWORD }}
         run: make publish
 
       - name: Build documentation page

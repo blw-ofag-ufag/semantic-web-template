@@ -22,6 +22,9 @@ def get_tracked_files():
             )
         return files
 
+# Every test of this file requests a URL; `make check` leaves them out.
+pytestmark = pytest.mark.network
+
 def get_urls():
     """Extract URLs from all tracked Markdown and BibTeX files, ignoring code blocks in Markdown."""
     url_regex = re.compile(r'\[[^\]]*\]\((https?://[^\)]+)\)')

@@ -1,4 +1,4 @@
--- Quarto shortcodes for the eCH metadata (docs/_ech.yml).
+-- Quarto shortcodes for the eCH metadata (project.yml).
 --
 --   {{< ech title >}}    the full title of the standard, "eCH-0000 – Name"
 --   {{< ech status >}}   the status of the document with its eCH definition,
@@ -16,7 +16,7 @@ return {
     local what = args[1] and pandoc.utils.stringify(args[1]) or ""
     local display = common.display(meta)
     if display == nil then
-      error("{{< ech >}}: the document has no `ech` metadata (see docs/_ech.yml)")
+      error("{{< ech >}}: the document has no `ech` metadata (see project.yml)")
     end
     if what == "title" then
       -- On the website, ech_metadata.lua has already prefixed the title.

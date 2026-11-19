@@ -1,4 +1,4 @@
--- Quarto filter: translates the eCH metadata codes (docs/_ech.yml) into the
+-- Quarto filter: translates the eCH metadata codes (project.yml) into the
 -- display values used by the Typst title page (typst-show.typ) and the HTML
 -- title block (title-metadata.html).
 --

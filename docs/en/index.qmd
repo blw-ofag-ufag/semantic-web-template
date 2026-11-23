@@ -194,6 +194,39 @@ note right of Purchasable
 end note
 ```
 
+## Tables from SPARQL queries {#sec-sparql-tables}
+
+A table can be created directly from a SPARQL query on the graph, as @tbl-sales shows. The headers, the alignment and the column widths are set in the header of the code block; numbers, dates and IRIs are displayed according to their datatype.
+
+```{.sparql}
+#| label: tbl-sales
+#| endpoint: ../../build/rdf/03-processed.ttl
+#| tbl-cap: "Tracks and sales per genre. The table is the result of a SPARQL query on the graph."
+#| header: "Genre|Name|Tracks|Revenue (USD)|First sale"
+#| align: llrrr
+#| widths: "15,25,20,20,20"
+#| digits: 2
+PREFIX schema: <http://schema.org/>
+PREFIX genre: <https://agriculture.ld.admin.ch/eCH-1234/2/genre/>
+SELECT ?genre ?name ?tracks ?revenue ?first
+WHERE {
+  ?genre schema:name ?name .
+  { SELECT ?genre (COUNT(?track) AS ?tracks)
+    WHERE { ?track schema:genre ?genre }
+    GROUP BY ?genre }
+  { SELECT ?genre (SUM(?price) AS ?revenue) (MIN(?date) AS ?first)
+    WHERE {
+      ?invoice schema:hasPart ?line ;
+               schema:dateCreated ?date .
+      ?line schema:orderedItem/schema:genre ?genre ;
+            schema:price/schema:value ?price .
+    }
+    GROUP BY ?genre }
+}
+ORDER BY DESC(?tracks)
+LIMIT 6
+```
+
 # Usage notes {#sec-usage-notes}
 
 ## Namespaces {#sec-namespaces}

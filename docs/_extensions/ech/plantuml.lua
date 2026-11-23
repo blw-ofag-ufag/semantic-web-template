@@ -50,7 +50,7 @@ local function render(source)
     local ok, result = pcall(pandoc.pipe, quarto_command(), { "run", script }, source)
     if not ok then
       local message = type(result) == "table" and result.output or tostring(result)
-      error("PlantUML diagram could not be rendered:\n" .. tostring(message) .. "\n\n" .. source)
+      assert(false, "PlantUML diagram could not be rendered:\n" .. tostring(message) .. "\n\n" .. source)
     end
     svg = result
     write_file(path, svg)

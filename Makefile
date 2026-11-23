@@ -193,7 +193,7 @@ $(QUARTO_METADATA): $(CONFIG) $(CONFIG_SCRIPT) $(DOCS_DIR)/_extensions/ech/ech_v
 docs: $(SHACL_REPORT) $(QUARTO_METADATA) generate-shacl-docs generate-glossary-docs | $(VENV)/.requirements-installed.stamp ## Generate the data model and glossary pages and render the documentation (website, PDF)
 	@printf "$(BOLD)[*] Rendering documentation with Quarto...$(NC)\n"
 	@printf "$(GREY)"; \
-	QUARTO_PYTHON=$(VENV_PYTHON) quarto render docs > $(QUARTO_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: Quarto rendering failed. See log below:$(NC)\n$(GREY)"; cat $(QUARTO_LOG); printf "$(NC)\n"; exit 1; }; \
+	QUARTO_PYTHON=$(abspath $(VENV_PYTHON)) quarto render docs > $(QUARTO_LOG) 2>&1 || { printf "$(NC)\n$(RED)ERROR: Quarto rendering failed. See log below:$(NC)\n$(GREY)"; cat $(QUARTO_LOG); printf "$(NC)\n"; exit 1; }; \
 	printf "$(NC)"
 
 # ==============================================================================
@@ -268,5 +268,5 @@ publish: check-publication test ## Test, then replace the graph on LINDAS with t
 
 clean: ## Remove all build artifacts, caches, the virtual environment and generated pages
 	@printf "$(BOLD)[*] Cleaning build artifacts...$(NC)\n"
-	@rm -rf $(BUILD_DIR) $(VENV) docs/*/codelists.md docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md $(QUARTO_METADATA) $(DOCS_DIR)/_extensions/ech/plantuml/cache
+	@rm -rf $(BUILD_DIR) $(VENV) docs/*/codelists.md docs/*/entities.md docs/*/glossary.md docs/*/namespaces.md $(QUARTO_METADATA) $(DOCS_DIR)/_extensions/ech/plantuml/cache $(DOCS_DIR)/_extensions/ech/sparql/cache
 	@find . -path ./.git -prune -o \( -name __pycache__ -o -name .pytest_cache -o -name .quarto -o -name '*_files' -o -name '*_cache' -o -name '*.quarto_ipynb' \) -prune -exec rm -rf {} +

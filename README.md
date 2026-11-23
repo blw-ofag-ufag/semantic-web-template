@@ -146,7 +146,7 @@ make delete    # only delete the graph on LINDAS
 
 | Tool | Use |
 | --- | --- |
-| [Oxigraph](https://pyoxigraph.readthedocs.io/) | Merges the graph and runs the inference rules and the SPARQL updates. |
+| [Oxigraph](https://pyoxigraph.readthedocs.io/) | Merges the graph and runs the inference rules and the SPARQL updates. It also runs the SPARQL queries that the documentation renders as tables. |
 | [RDFLib](https://rdflib.readthedocs.io/) | Parses, serialises and manipulates RDF in Python. |
 | [PySHACL](https://github.com/RDFLib/pySHACL) | Validates the graph against the SHACL shapes. |
 | [Pytest](https://docs.pytest.org/) | Runs the test suite. |

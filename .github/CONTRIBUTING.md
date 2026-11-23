@@ -88,6 +88,53 @@ With an identifier that starts with `fig-`, the diagram is a numbered figure tha
 
 The diagrams are drawn by the Quarto extension in `docs/_extensions/ech/` (`plantuml.lua`, `plantuml/render.ts`) without Java. The first render downloads the PlantUML engine (about 9 MB) into `docs/_extensions/ech/plantuml/vendor/` and checks it against a fixed checksum. Sprites and embedded images are not supported.
 
+## Tables from SPARQL queries
+
+A table can be the result of a SPARQL `SELECT` query. The query is run when the document is rendered, on the `endpoint` that the block names: an RDF file such as the built graph, or a SPARQL endpoint on the web.
+
+````markdown
+```{.sparql #tbl-genres endpoint="../../build/rdf/03-processed.ttl" tbl-cap="Tracks per genre." header="Genre|Tracks" align="lr"}
+PREFIX schema: <http://schema.org/>
+SELECT ?name (COUNT(?track) AS ?tracks)
+WHERE { ?track schema:genre/schema:name ?name }
+GROUP BY ?name ORDER BY DESC(?tracks) LIMIT 10
+```
+````
+
+A `sparql` block is rendered as a table if its identifier starts with `tbl-` or if it has the class `.table`; every other `sparql` block stays a listing of code. Only `endpoint` is required:
+
+| Attribute | Meaning | Default |
+| --- | --- | --- |
+| `endpoint` | What to query: an RDF file (`.ttl`, `.nt`; path relative to the document) or the URL of a SPARQL endpoint (`https://...`). | Required |
+| `#tbl-...` | Numbered table that is listed and can be referenced with `@tbl-...`. | |
+| `tbl-cap` | Caption. | |
+| `header` | Column headers, separated by `|`. | The variable names |
+| `align` | One letter per column: `l`, `r` or `c`. | Numbers right, others left |
+| `widths` | Relative column widths, separated by commas. | Automatic |
+| `digits` | Decimal places of decimal numbers. | As in the data |
+| `max-rows` | Upper limit of rows; more rows are an error, to catch a missing `LIMIT`. | 200 |
+| `echo` | `true` shows the query above the table. | |
+
+The attributes can also be written as lines beginning with `#|` at the top of the block, as in the code cells of Quarto; `label` stands for the identifier. For SPARQL these lines are comments. Where both forms set the same attribute, the `#|` line applies:
+
+````markdown
+```{.sparql}
+#| label: tbl-genres
+#| endpoint: ../../build/rdf/03-processed.ttl
+#| tbl-cap: "Tracks per genre."
+#| header: "Genre|Tracks"
+#| align: lr
+PREFIX schema: <http://schema.org/>
+SELECT ?name (COUNT(?track) AS ?tracks)
+WHERE { ?track schema:genre/schema:name ?name }
+GROUP BY ?name ORDER BY DESC(?tracks) LIMIT 10
+```
+````
+
+Values are shown according to their datatype and the language of the document: integers with a thousands separator, decimals with the decimal mark, dates and booleans in the usual notation, IRIs as links. A query is self-contained: it declares its prefixes itself, and an IRI of the result is abbreviated with them (`genre:1`) if the query declares a matching prefix. Write `{{lang}}` in the query for the language of the document, e.g. `FILTER(lang(?label) = "{{lang}}")`, and keep the query identical in all language versions; translate only the caption and the headers. Always sort the result (`ORDER BY`), so that the table does not change from one build to the next.
+
+A table from an endpoint on the web shows the data of the moment of rendering, and the render fails if the endpoint cannot be reached. Its result is kept for the current hour, so that the formats and languages of one render ask only once.
+
 ## Figures
 
 Data analyses and figures of the documentation are written in Python; the project does not use R. Code chunks in `docs/*/index.qmd` run with the packages of `src/python/requirements.txt`, which `make setup` installs into the virtual environment.

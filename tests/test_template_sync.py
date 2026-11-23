@@ -22,6 +22,7 @@ PATTERNS = [
     "docs/_extensions/ech/*.svg",
     "docs/_extensions/ech/*.csl",
     "docs/_extensions/ech/plantuml/*",
+    "docs/_extensions/ech/sparql/*",
     "LICENSE.md",
     ".gitattributes",
     "src/python/utils/*.py",

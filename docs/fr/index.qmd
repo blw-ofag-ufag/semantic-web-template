@@ -194,6 +194,39 @@ note right of Purchasable
 end note
 ```
 
+## Tableaux issus de requêtes SPARQL {#sec-sparql-tables}
+
+Un tableau peut être créé directement à partir d'une requête SPARQL sur le graphe, comme le montre @tbl-sales. Les en-têtes, l'alignement et la largeur des colonnes sont définis dans l'en-tête du bloc de code; les nombres, les dates et les IRI sont affichés selon leur type de données.
+
+```{.sparql}
+#| label: tbl-sales
+#| endpoint: ../../build/rdf/03-processed.ttl
+#| tbl-cap: "Titres et ventes par genre. Le tableau est le résultat d'une requête SPARQL sur le graphe."
+#| header: "Genre|Nom|Titres|Chiffre d'affaires (USD)|Première vente"
+#| align: llrrr
+#| widths: "15,25,20,20,20"
+#| digits: 2
+PREFIX schema: <http://schema.org/>
+PREFIX genre: <https://agriculture.ld.admin.ch/eCH-1234/2/genre/>
+SELECT ?genre ?name ?tracks ?revenue ?first
+WHERE {
+  ?genre schema:name ?name .
+  { SELECT ?genre (COUNT(?track) AS ?tracks)
+    WHERE { ?track schema:genre ?genre }
+    GROUP BY ?genre }
+  { SELECT ?genre (SUM(?price) AS ?revenue) (MIN(?date) AS ?first)
+    WHERE {
+      ?invoice schema:hasPart ?line ;
+               schema:dateCreated ?date .
+      ?line schema:orderedItem/schema:genre ?genre ;
+            schema:price/schema:value ?price .
+    }
+    GROUP BY ?genre }
+}
+ORDER BY DESC(?tracks)
+LIMIT 6
+```
+
 # Indications d'utilisation {#sec-usage-notes}
 
 ## Espaces de noms {#sec-namespaces}

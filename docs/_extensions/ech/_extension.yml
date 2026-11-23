@@ -7,12 +7,14 @@ contributes:
     - ech_shortcodes.lua
   formats:
     # Shared by all formats. Before Quarto's own filters run, plantuml.lua
-    # turns PlantUML code blocks into figures and ech_metadata.lua translates
+    # turns PlantUML code blocks into figures, sparql.lua turns SPARQL queries
+    # into tables and ech_metadata.lua translates
     # the eCH metadata (see project.yml); the other two filters rework
     # captions and citations afterwards.
     common:
       filters:
         - plantuml.lua
+        - sparql.lua
         - ech_metadata.lua
         - quarto
         - ech_captions.lua

@@ -21,6 +21,7 @@ PATTERNS = [
     "docs/assets/*.mplstyle",
     "docs/assets/*.svg",
     "docs/assets/*.csl",
+    "AGENTS.md",
     "LICENSE.md",
     ".gitattributes",
     "src/python/utils/*.py",

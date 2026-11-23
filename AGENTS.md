@@ -4,8 +4,8 @@ Template for eCH standards: an RDF data model and data, validated with SHACL,
 published on LINDAS and documented as a multilingual eCH document with Quarto.
 The template ships with demo content (the Chinook music database); a project
 created from it replaces the demo with its own model and data.
-This file serves the template repository and every project created from it;
-`git remote -v` shows which one you are in.
+This file is maintained in the template repository and serves the template and
+every project created from it; `git remote -v` shows which one you are in.
 
 ## Build and test
 
@@ -77,7 +77,7 @@ leading verb, and files in snake_case; `test_naming.py` only warns.
 
 | Owner | Files | Rule |
 | --- | --- | --- |
-| Template | `tests/`, `src/python/utils/`, `docs/assets/`, `.github/`, `src/rdf/shapes/{glossary,codelist}.shacl.ttl`, `LICENSE.md`, `.gitattributes` (exact list: `PATTERNS` in `tests/test_template_sync.py`) | In a project, ask first and propose the change for the template repository. |
+| Template | `AGENTS.md`, `tests/`, `src/python/utils/`, `docs/assets/`, `.github/`, `src/rdf/shapes/{glossary,codelist}.shacl.ttl`, `LICENSE.md`, `.gitattributes` (exact list: `PATTERNS` in `tests/test_template_sync.py`) | In a project, ask first and propose the change for the template repository. |
 | Generated | `build/`, `docs/*/{entities,namespaces,codelists,glossary}.md` | Never edit. Content: change the shapes, the graph or `src/rdf/data/glossary.skos.ttl`. Form: change the generator in `src/python/utils/generate_*_docs.py`. |
 | Project | everything else, e.g. `src/rdf/`, `src/python/pipeline/`, `src/sparql/`, `docs/`, `Makefile`, `README.md` | Edit as needed. |
 
@@ -91,6 +91,8 @@ Never:
 - Edit generated files (see the table above); change their source instead.
 - Delete or weaken a link, a query or a test to make a failing test pass.
   A dead link may be replaced by a working one.
+- Add a Python package or a tool: the template, the CI and every project depend on
+  `src/python/requirements.txt` and the installed tools.
 
 Ask first:
 
@@ -98,7 +100,6 @@ Ask first:
   `number` or `version` in `docs/_ech.yml`: published data depends on these IRIs.
   Replacing the demo content while following `CLEANUP.md` is the exception.
 - In a project created from this template: changing template files (see the table above).
-- Adding a Python package or a tool.
 
 ## Gotchas
 
@@ -138,4 +139,5 @@ A change is done when:
 - `.github/CONTRIBUTING.md`: Git workflow (issue, branch, draft pull request),
   naming conventions, figure style and eCH releases.
 
-If you learn something that the next agent would need, propose a line for this file.
+If you learn something that the next agent would need, propose a line for this file
+in the template repository; a project receives it with the next template update.

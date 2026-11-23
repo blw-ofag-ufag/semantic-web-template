@@ -6,7 +6,7 @@
 // of contents on a new page, a header with the eCH logo, the tagline and the
 // page count, and a two-line footer with the document identification.
 //
-// All eCH texts arrive translated from the Lua filter docs/assets/ech_metadata.lua
+// All eCH texts arrive translated from the Lua filter docs/_extensions/ech/ech_metadata.lua
 // via typst-show.typ, in the `ech` dictionary:
 //
 //   number, version, status          Inlines for the footer
@@ -77,7 +77,7 @@
         columns: (auto, 1fr, auto),
         column-gutter: 0.45cm,
         align: bottom,
-        image("../assets/ech.svg", height: 1.14cm),
+        image("/_extensions/ech/ech.svg", height: 1.14cm),
         meta("tagline", default: "E-Government Standards"),
         // the ribbon of unpublished documents covers this corner on the title page
         if unpublished and counter(page).get().first() == 1 { [] } else {

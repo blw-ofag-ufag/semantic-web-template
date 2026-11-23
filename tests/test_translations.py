@@ -3,11 +3,15 @@ from pathlib import Path
 import pytest
 from rdflib import Graph
 
+import project_config
+
 DOCS_DIR = Path("docs")
-ALLOWED_LANGS = {"de", "fr", "it", "en"}
+CONFIG = project_config.load()
+# The languages of the documentation (ech.languages in project.yml)
+ALLOWED_LANGS = set(project_config.languages(CONFIG))
 
 def get_lang_dirs():
-    """Finds specified 2-letter language directories in docs/ (de, fr, it, en)."""
+    """Finds the directories of the documentation languages in docs/."""
     if not DOCS_DIR.exists():
         return []
     return [
@@ -16,9 +20,9 @@ def get_lang_dirs():
     ]
 
 LANG_DIRS = get_lang_dirs()
-REF_LANG = "de"
+REF_LANG = CONFIG["ech"]["languages"]["original"]
 
-# Use 'de' as reference if it exists, otherwise pick the first available
+# Use the original language as reference if it exists, otherwise pick the first available
 if LANG_DIRS and REF_LANG not in [d.name for d in LANG_DIRS]:
     REF_LANG = LANG_DIRS[0].name
 

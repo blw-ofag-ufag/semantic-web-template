@@ -56,7 +56,7 @@ https://agriculture.ld.admin.ch/eCH-1234/3/eppoCode
 
 Aligning with standard Semantic Web conventions, we enforce the following casing rules for URI local names:
 
-- **Classes and individuals** (e.g., instances of `owl:Class` and instances of these): Use **PascalCase** (a.k.a. UpperCamelCase).
+- **Classes and important individuals** (e.g., instances of `owl:Class`): Use **PascalCase** (a.k.a. UpperCamelCase).
 - **Properties** (e.g., `owl:ObjectProperty`, `owl:DatatypeProperty`): Use **camelCase** (a.k.a. lowerCamelCase). Don't include starting verbs, i.e. `eppoCode` would be preferred over `hasEppoCode`.
 
 Ensure identifiers are meaningful to facilitate readability and improve [DX](https://en.wikipedia.org/wiki/Developer_experience).
@@ -72,11 +72,74 @@ person:2 a eCH-1234:Person .
 person:3 a eCH-1234:Person .
 ```
 
+## Diagrams
+
+UML diagrams are written as [PlantUML](https://plantuml.com/) code in the document and drawn when it is rendered. The website, the PDF and the Word file show the drawing; the Markdown version keeps the code, because it is meant to be read as text:
+
+````markdown
+```{.plantuml #fig-model fig-cap="The data model."}
+class Album
+class Track
+Album "1" *-- "1..*" Track : contains
+```
+````
+
+With an identifier that starts with `fig-`, the diagram is a numbered figure that is listed and can be referenced with `@fig-model`. `@startuml` and `@enduml` may be left out. Keep the code of a diagram identical in all language versions and translate only its caption.
+
+The diagrams are drawn by the Quarto extension in `docs/_extensions/ech/` (`plantuml.lua`, `plantuml/render.ts`) without Java. The first render downloads the PlantUML engine (about 9 MB) into `docs/_extensions/ech/plantuml/vendor/` and checks it against a fixed checksum. Sprites and embedded images are not supported.
+
+## Tables from SPARQL queries
+
+A table can be the result of a SPARQL `SELECT` query. The query is run when the document is rendered, on the `endpoint` that the block names: an RDF file such as the built graph, or a SPARQL endpoint on the web.
+
+````markdown
+```{.sparql #tbl-genres endpoint="../../build/rdf/03-processed.ttl" tbl-cap="Tracks per genre." header="Genre|Tracks" align="lr"}
+PREFIX schema: <http://schema.org/>
+SELECT ?name (COUNT(?track) AS ?tracks)
+WHERE { ?track schema:genre/schema:name ?name }
+GROUP BY ?name ORDER BY DESC(?tracks) LIMIT 10
+```
+````
+
+A `sparql` block is rendered as a table if its identifier starts with `tbl-` or if it has the class `.table`; every other `sparql` block stays a listing of code. Only `endpoint` is required:
+
+| Attribute | Meaning | Default |
+| --- | --- | --- |
+| `endpoint` | What to query: an RDF file (`.ttl`, `.nt`; path relative to the document) or the URL of a SPARQL endpoint (`https://...`). | Required |
+| `#tbl-...` | Numbered table that is listed and can be referenced with `@tbl-...`. | |
+| `tbl-cap` | Caption. | |
+| `header` | Column headers, separated by `|`. | The variable names |
+| `align` | One letter per column: `l`, `r` or `c`. | Numbers right, others left |
+| `widths` | Relative column widths, separated by commas. | Automatic |
+| `digits` | Decimal places of decimal numbers. | As in the data |
+| `max-rows` | Upper limit of rows; more rows are an error, to catch a missing `LIMIT`. | 200 |
+| `echo` | `true` shows the query above the table. | |
+
+The attributes can also be written as lines beginning with `#|` at the top of the block, as in the code cells of Quarto; `label` stands for the identifier. For SPARQL these lines are comments. Where both forms set the same attribute, the `#|` line applies:
+
+````markdown
+```{.sparql}
+#| label: tbl-genres
+#| endpoint: ../../build/rdf/03-processed.ttl
+#| tbl-cap: "Tracks per genre."
+#| header: "Genre|Tracks"
+#| align: lr
+PREFIX schema: <http://schema.org/>
+SELECT ?name (COUNT(?track) AS ?tracks)
+WHERE { ?track schema:genre/schema:name ?name }
+GROUP BY ?name ORDER BY DESC(?tracks) LIMIT 10
+```
+````
+
+Values are shown according to their datatype and the language of the document: integers with a thousands separator, decimals with the decimal mark, dates and booleans in the usual notation, IRIs as links. A query is self-contained: it declares its prefixes itself, and an IRI of the result is abbreviated with them (`genre:1`) if the query declares a matching prefix. Write `{{lang}}` in the query for the language of the document, e.g. `FILTER(lang(?label) = "{{lang}}")`, and keep the query identical in all language versions; translate only the caption and the headers. Always sort the result (`ORDER BY`), so that the table does not change from one build to the next.
+
+A table from an endpoint on the web shows the data of the moment of rendering, and the render fails if the endpoint cannot be reached. Its result is kept for the current hour, so that the formats and languages of one render ask only once.
+
 ## Figures
 
 Data analyses and figures of the documentation are written in Python; the project does not use R. Code chunks in `docs/*/index.qmd` run with the packages of `src/python/requirements.txt`, which `make setup` installs into the virtual environment.
 
-All figures share one plot style, `docs/assets/ech.mplstyle` (based on ggplot2's `theme_minimal()`): a white background, no axis lines or ticks, a light grey grid behind the data, grey tick labels and the eCH red `#D00D28` as the first colour. Load it at the beginning of every chunk that draws a figure, give the chunk a label and a caption, so that the figure is numbered and listed, and set the size of the figure in inches with `figsize` (the chunk options `fig-width` and `fig-height` have no effect on Python chunks):
+All figures share one plot style, `docs/_extensions/ech/ech.mplstyle` (based on ggplot2's `theme_minimal()`): a white background, no axis lines or ticks, a light grey grid behind the data, grey tick labels and the eCH red `#D00D28` as the first colour. Load it at the beginning of every chunk that draws a figure, give the chunk a label and a caption, so that the figure is numbered and listed, and set the size of the figure in inches with `figsize` (the chunk options `fig-width` and `fig-height` have no effect on Python chunks):
 
 ````markdown
 ```{python}
@@ -84,7 +147,7 @@ All figures share one plot style, `docs/assets/ech.mplstyle` (based on ggplot2's
 #| fig-cap: "Caption of the figure."
 import matplotlib.pyplot as plt
 
-plt.style.use("../assets/ech.mplstyle")
+plt.style.use("../_extensions/ech/ech.mplstyle")
 fig, ax = plt.subplots(figsize=(6, 2.5))
 ax.barh(["A", "B"], [1, 2], height=0.9)
 plt.show()

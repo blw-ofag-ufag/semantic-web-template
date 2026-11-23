@@ -1,5 +1,5 @@
 # Plot style of the documentation, used by the Python code chunks with
-#   plt.style.use("../assets/ech.mplstyle")
+#   plt.style.use("../_extensions/ech/ech.mplstyle")
 # Mirrors ggplot2's theme_minimal(): no axis lines or ticks, a light grey grid
 # behind the data, grey tick labels and the eCH red as the default colour.
 

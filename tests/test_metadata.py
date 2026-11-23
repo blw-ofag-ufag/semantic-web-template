@@ -1,55 +1,62 @@
-from pathlib import Path
-import re
+"""
+The description of the named graph as a dataset, which `make build` generates
+from project.yml (src/python/utils/project_config.py, build/rdf/metadata.ttl).
+"""
 import pytest
-from rdflib import Graph, URIRef
+from rdflib import URIRef
 from rdflib.namespace import DCTERMS, RDF
 
-METADATA = Path("src/rdf/metadata.ttl")
-ECH_CONFIG = Path("docs/_ech.yml")
+import project_config
+
 SCHEMA_NAME = URIRef("http://schema.org/name")
 SCHEMA_DESCRIPTION = URIRef("http://schema.org/description")
 SCHEMA_DATASET = URIRef("http://schema.org/Dataset")
-
-
-def doc_languages():
-    return sorted(d.name for d in Path("docs").iterdir() if d.is_dir() and d.name in {"de", "fr", "it", "en"})
-
-
-def configured_graph():
-    match = re.search(r"^\s*graph:\s*(\S+)", ECH_CONFIG.read_text(encoding="utf-8"), re.M)
-    return match.group(1) if match else None
+SCHEMA_STATUS = URIRef("http://schema.org/creativeWorkStatus")
+DCAT_LANDING_PAGE = URIRef("http://www.w3.org/ns/dcat#landingPage")
 
 
 @pytest.fixture(scope="module")
-def metadata():
-    if not METADATA.exists():
-        pytest.skip(f"{METADATA} not found")
-    g = Graph()
-    g.parse(METADATA, format="turtle")
-    return g
+def config():
+    if not project_config.CONFIG.exists():
+        pytest.skip(f"{project_config.CONFIG} not found")
+    return project_config.load()
 
 
-def test_metadata_describes_the_configured_graph(metadata):
-    """The dataset in src/rdf/metadata.ttl is the named graph of docs/_ech.yml."""
-    graph_iri = configured_graph()
-    assert graph_iri, "docs/_ech.yml has no ech.graph entry"
+@pytest.fixture(scope="module")
+def metadata(config):
+    return project_config.dataset_graph(config)
+
+
+@pytest.fixture(scope="module")
+def dataset(config):
+    return URIRef(config["lindas"]["graph"])
+
+
+def test_metadata_describes_the_configured_graph(metadata, dataset):
+    """The dataset is the named graph of project.yml (lindas.graph), and nothing else is described."""
     subjects = {s for s in metadata.subjects(RDF.type, SCHEMA_DATASET)}
-    assert subjects == {URIRef(graph_iri)}, (
-        f"src/rdf/metadata.ttl must describe exactly the named graph <{graph_iri}>, found {sorted(map(str, subjects))}"
-    )
+    assert subjects == {dataset}, f"the metadata must describe exactly <{dataset}>, found {sorted(map(str, subjects))}"
 
 
-def test_metadata_is_translated(metadata):
+def test_metadata_is_translated(metadata, dataset, config):
     """Title and description of the dataset exist in every documentation language."""
-    dataset = URIRef(configured_graph())
     for predicate in (SCHEMA_NAME, SCHEMA_DESCRIPTION):
         langs = {o.language for o in metadata.objects(dataset, predicate) if getattr(o, "language", None)}
-        missing = set(doc_languages()) - langs
+        missing = set(project_config.languages(config)) - langs
         assert not missing, f"{predicate} of the dataset lacks the languages {sorted(missing)}"
 
 
-def test_metadata_has_no_fixed_modification_date(metadata):
-    """The modification date is set by `make publish`, not maintained by hand."""
-    dataset = URIRef(configured_graph())
+def test_metadata_follows_the_configuration(metadata, dataset, config):
+    """Status, languages and landing page are derived from the other sections of project.yml."""
+    status = metadata.value(dataset, SCHEMA_STATUS)
+    expected = "Draft" if project_config.is_unpublished(config) else "Published"
+    assert str(status).endswith(f"/{expected}"), f"status '{config['ech']['status']}' must give {expected}, got <{status}>"
+    languages = {str(o) for o in metadata.objects(dataset, DCTERMS.language)}
+    assert languages == set(project_config.languages(config))
+    assert metadata.value(dataset, DCAT_LANDING_PAGE) == URIRef(project_config.homepage(config))
+
+
+def test_metadata_has_no_modification_date(metadata, dataset):
+    """The modification date is set at the end of `make build`, not generated from the configuration."""
     for predicate in (DCTERMS.modified, URIRef("http://schema.org/dateModified")):
-        assert (dataset, predicate, None) not in metadata, f"remove {predicate} from src/rdf/metadata.ttl"
+        assert (dataset, predicate, None) not in metadata, f"the generated metadata must not contain {predicate}"

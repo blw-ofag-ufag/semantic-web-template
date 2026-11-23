@@ -1,9 +1,31 @@
+import sys
 from pathlib import Path
 import pytest
+
+# The tests read the project configuration (project.yml) with the module that
+# the build uses as well: `import project_config`.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src" / "python" / "utils"))
 from rdflib import Graph
 
 # Tests that produce human-readable reports write them to this directory.
 TEST_LOG_DIR = Path("build/test")
+
+# Tests that use one of these fixtures need the graph built by `make build`.
+GRAPH_FIXTURES = {"final_graph", "shacl_report"}
+
+
+def pytest_configure(config):
+    config.addinivalue_line("markers", "network: the test needs network access (links, LINDAS, GitHub)")
+    config.addinivalue_line("markers", "graph: the test needs the built graph in build/rdf (set automatically)")
+
+
+def pytest_collection_modifyitems(items):
+    """Marks every test that depends on the built graph, so that `make check`
+    can leave these tests out (-m "not network and not graph")."""
+    for item in items:
+        if GRAPH_FIXTURES & set(getattr(item, "fixturenames", ())):
+            item.add_marker(pytest.mark.graph)
+
 
 def pytest_addoption(parser):
     parser.addoption(

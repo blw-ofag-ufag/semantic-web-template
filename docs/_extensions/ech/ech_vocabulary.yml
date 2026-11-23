@@ -1,7 +1,7 @@
 # Translations of the eCH title page: field labels, enumeration values and
 # fixed texts, per language. Values are parsed as Markdown.
 #
-# The codes used in docs/_ech.yml are the keys of `category`, `maturity`,
+# The codes used in project.yml are the keys of `category`, `maturity`,
 # `status`, `change` and `language`. Labels follow the eCH Word templates
 # (eCH-0003 V11.1.0) and the published French and English eCH standards.
 
@@ -67,6 +67,7 @@ de:
   page-infix: von
   organisation: Verein eCH
   summary: Zusammenfassung
+  announcement: Dieses Dokument ist noch nicht genehmigt und kann sich laufend ändern. Die gültigen Standards finden Sie auf [ech.ch](https://ech.ch/).
 
 fr:
   labels:
@@ -130,6 +131,7 @@ fr:
   page-infix: sur
   organisation: Association eCH
   summary: Résumé
+  announcement: Ce document n'est pas encore approuvé et peut changer à tout moment. Les normes en vigueur se trouvent sur [ech.ch](https://ech.ch/).
 
 en:
   labels:
@@ -193,3 +195,4 @@ en:
   page-infix: of
   organisation: eCH registered association
   summary: Summary
+  announcement: This document has not been approved yet and may change at any time. The standards in force are available on [ech.ch](https://ech.ch/).

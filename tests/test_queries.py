@@ -4,6 +4,11 @@ import urllib.parse
 from pathlib import Path
 import pytest
 
+import project_config
+
+# The queries run against LINDAS; `make check` leaves them out.
+pytestmark = pytest.mark.network
+
 def get_queries():
     """Fetches all SPARQL files inside the queries directory."""
     return list(Path("src/sparql/queries").rglob("*.rq"))
@@ -23,7 +28,7 @@ def test_example_queries(query_file):
     assert len(lines[0].strip()) > 2, f"Comment in {query_file.name} must contain a description"
     
     # Automatically check if it returns something from LINDAS
-    url = "https://agriculture.ld.admin.ch/query"
+    url = project_config.load()["lindas"]["sparql"]
     
     headers = {
         "Accept": "application/sparql-results+json, application/ld+json, application/n-triples, text/turtle",

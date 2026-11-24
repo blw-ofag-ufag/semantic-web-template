@@ -79,7 +79,7 @@ Replace the demo shapes with shapes for the custom classes. Provide all labels a
 After reasoning, the build applies all SPARQL updates in this folder to the graph. Delete the demo updates:
 
 ```bash
-rm src/sparql/processing/02_author_linking.rq src/sparql/processing/03_create_companies.rq
+rm src/sparql/processing/02_author_linking.rq src/sparql/processing/03_create_companies.rq src/sparql/processing/04_country_iris.rq
 ```
 
 > [!IMPORTANT]

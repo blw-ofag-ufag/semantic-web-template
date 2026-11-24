@@ -20,6 +20,10 @@ entities.md
 namespaces.md
 codelists.md
 glossary.md
+# Outputs that a failed `make docs` leaves next to the sources
+docs/*/index.html
+docs/*/index.md
+docs/*/index.docx
 
 # Small tests and notes
 /test.*
